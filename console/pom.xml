@@ -26,8 +26,8 @@
     <packaging>war</packaging>
 
     <properties>
-        <webappDirectory>${project.build.directory}/Kapua</webappDirectory>
-        <site.basedir>${project.parent.basedir}</site.basedir>
+        <webappDirectory>${project.build.directory}</webappDirectory>
+        <site.basedir>${project.build.directory}/${project.build.finalName}</site.basedir>
 
         <!-- Convenience property to set the GWT version -->
         <gwt.version>2.4.0</gwt.version>
@@ -271,7 +271,7 @@
     </dependencies>
 
     <build>
-        <finalName>console</finalName>
+        <finalName>Kapua</finalName>
 
         <plugins>
             <plugin>
@@ -295,7 +295,7 @@
 
                     <extraJvmArgs>-Xmx2048m -XX:+UseParallelGC</extraJvmArgs>
                     <webappDirectory>${project.build.directory}</webappDirectory>
-                    <hostedWebapp>${webappDirectory}</hostedWebapp>
+                    <hostedWebapp>${site.basedir}</hostedWebapp>
 
                     <i18nConstantsWithLookupBundle>org.eclipse.kapua.app.console.client.messages.ValidationMessages</i18nConstantsWithLookupBundle>
                     <i18nMessagesBundles>
@@ -346,7 +346,7 @@
                                     <artifactId>gxt-ui</artifactId>
                                     <version>${gxt.version}</version>
                                     <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/Kapua/</outputDirectory>
+                                    <outputDirectory>${site.basedir}</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -388,7 +388,7 @@
                             <target>
                                 <echo>Openlayers: copy resources to webapp output folder</echo>
                                 <copy
-                                        todir="${project.build.directory}/Kapua">
+                                        todir="${site.basedir}">
                                     <fileset
                                             dir="${project.build.directory}/tmp/openlayers-${openlayers.version}/META-INF/resources/webjars/">
                                         <exclude name="**/OpenLayers.*.js"/>
@@ -407,7 +407,7 @@
                             <target>
                                 <echo>Openlayers: customize openlayers 'ImgPath' variable</echo>
                                 <replaceregexp byline="true"
-                                               file="${project.build.directory}/Kapua/openlayers/${openlayers.version}/OpenLayers.js"
+                                               file="${site.basedir}/openlayers/${openlayers.version}/OpenLayers.js"
                                                match="ImgPath:&quot;&quot;"
                                                replace="ImgPath:&quot;openlayers/${openlayers.version}/img/&quot;"/>
                             </target>
@@ -481,7 +481,7 @@
                     <configuration>
                         <webResources>
                             <resource>
-                                <directory>${project.build.directory}/Kapua</directory>
+                                <directory>${site.basedir}</directory>
                             </resource>
                             <resource>
                                 <directory>${basedir}</directory>
