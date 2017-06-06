@@ -718,7 +718,7 @@ CREATE TABLE dvc_device_event (
   attributes				 TEXT,
   properties                 TEXT,
 
-  PRIMARY KEY (scope_id, id),
+  PRIMARY KEY (scope_id, id)
   
  -- FOREIGN KEY (device_id) REFERENCES dvc_device(id) ON DELETE CASCADE
   
