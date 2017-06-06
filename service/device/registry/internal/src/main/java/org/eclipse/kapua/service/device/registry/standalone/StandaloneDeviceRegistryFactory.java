@@ -35,16 +35,16 @@ import org.eclipse.kapua.service.authorization.permission.shiro.PermissionFactor
 import org.eclipse.kapua.service.authorization.shiro.AuthorizationServiceImpl;
 import org.eclipse.kapua.service.device.registry.DeviceRegistryService;
 import org.eclipse.kapua.service.device.registry.internal.DeviceRegistryServiceImpl;
-import org.eclipse.kapua.service.liquibase.KapuaLiquibaseClient;
+//import org.eclipse.kapua.service.liquibase.KapuaLiquibaseClient;
 import org.eclipse.kapua.test.MockedLocator;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 import java.util.concurrent.Callable;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
-import static org.eclipse.kapua.commons.jpa.JdbcConnectionUrlResolvers.resolveJdbcUrl;
+//import static org.eclipse.kapua.commons.jpa.JdbcConnectionUrlResolvers.resolveJdbcUrl;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_JDBC_CONNECTION_URL_RESOLVER;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_PASSWORD;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_SCHEMA;
@@ -66,7 +66,7 @@ public class StandaloneDeviceRegistryFactory {
         String dbUsername = config.getString(DB_USERNAME);
         String dbPassword = config.getString(DB_PASSWORD);
         String schema = firstNonNull(config.getString(DB_SCHEMA_ENV), config.getString(DB_SCHEMA));
-        new KapuaLiquibaseClient(resolveJdbcUrl(), dbUsername, dbPassword, Optional.of(schema)).update();
+//        new KapuaLiquibaseClient(resolveJdbcUrl(), dbUsername, dbPassword, Optional.of(schema)).update();
 
         locator.setMockedService(AuthorizationService.class, new AuthorizationServiceImpl());
         locator.setMockedFactory(PermissionFactory.class, new PermissionFactoryImpl());
