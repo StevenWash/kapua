@@ -32,6 +32,8 @@ public final class JdbcConnectionUrlResolvers {
             return new DefaultConfigurableJdbcConnectionUrlResolver().connectionUrl();
         } else if (connectionUrlResolverType.equals("H2")) {
             return new H2JdbcConnectionUrlResolver().connectionUrl();
+        } else if (connectionUrlResolverType.equals("mysql")||connectionUrlResolverType.equals("mariadb")) {
+            return new H2JdbcConnectionUrlResolver().connectionUrl();
         } else {
             throw new IllegalArgumentException("Unknown JDBC connection URL resolver type: " + connectionUrlResolverType);
         }
