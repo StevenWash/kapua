@@ -12,14 +12,14 @@
 package org.eclipse.kapua.broker.core;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
-import static org.eclipse.kapua.commons.jpa.JdbcConnectionUrlResolvers.resolveJdbcUrl;
+//import static org.eclipse.kapua.commons.jpa.JdbcConnectionUrlResolvers.resolveJdbcUrl;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_PASSWORD;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_SCHEMA;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_SCHEMA_ENV;
 import static org.eclipse.kapua.commons.setting.system.SystemSettingKey.DB_USERNAME;
 
 import java.net.URL;
-import java.util.Optional;
+//import java.util.Optional;
 
 import org.apache.activemq.broker.Broker;
 import org.apache.activemq.broker.BrokerPlugin;
@@ -30,7 +30,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.eclipse.kapua.broker.core.plugin.KapuaSecurityBrokerFilter;
 import org.eclipse.kapua.commons.setting.system.SystemSetting;
 import org.eclipse.kapua.commons.util.ResourceUtils;
-import org.eclipse.kapua.service.liquibase.KapuaLiquibaseClient;
+//import org.eclipse.kapua.service.liquibase.KapuaLiquibaseClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +61,7 @@ public class KapuaBrokerSecurityPlugin implements BrokerPlugin {
         String dbUsername = config.getString(DB_USERNAME);
         String dbPassword = config.getString(DB_PASSWORD);
         String schema = firstNonNull(config.getString(DB_SCHEMA_ENV), config.getString(DB_SCHEMA));
-        new KapuaLiquibaseClient(resolveJdbcUrl(), dbUsername, dbPassword, Optional.of(schema)).update();
+        //new KapuaLiquibaseClient(resolveJdbcUrl(), dbUsername, dbPassword, Optional.of(schema)).update();
 
         try {
             // initialize shiro context for broker plugin from shiro ini file

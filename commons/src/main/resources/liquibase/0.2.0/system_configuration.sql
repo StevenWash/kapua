@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS sys_configuration (
   optlock                    INT UNSIGNED,
   attributes				 TEXT,
   properties                 TEXT,
-  PRIMARY KEY  (id),
+  PRIMARY KEY  (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE INDEX IF NOT EXISTS idx_configurationScopeId ON sys_configuration (scope_id);
