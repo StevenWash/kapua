@@ -165,4 +165,15 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
      */
     public WeatherListResult getAreaByCity(KapuaId scopeId,String city)
     		throws KapuaException;
+    
+    
+    
+    public String getInformation(String ip)throws KapuaException;
+    
+    /**
+	 * 获取天气信息
+	 * @param area 传入地区
+	 * @return 天气的结构信息
+	 */
+	public String getWeather(String area,int day)throws KapuaException;
 }

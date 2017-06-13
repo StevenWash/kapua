@@ -202,7 +202,27 @@ public class WeatherAPI extends AbstractKapuaResource {
         }
         return returnNotNullEntity(weatherListResult);
     }
-
+    
+    
+    @GET
+    @Path("{scopeId}/{area}/{day}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @ApiOperation(value = "Gets an Weather", //
+            notes = "Gets the Weather specified by the weatherId path parameter", //
+            response = String.class)
+    public String getWeatherByArea(
+            @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
+            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("area") String area,//
+            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("day") Integer day) {
+        String  weather = null;
+        try {
+        	
+           weather=weatherService.getWeather(area, day);
+           
+        } catch (Throwable t) {
+            handleException(t);
+        }
+        return returnNotNullEntity(weather);
 
 
 }
