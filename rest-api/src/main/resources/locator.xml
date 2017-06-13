@@ -8,13 +8,16 @@
     which accompanies this distribution, and is available at
     http://www.eclipse.org/legal/epl-v10.html
    
-    Contributors:
+    Contributors:    
         Eurotech - initial API and implementation
  -->
 <locator-config>
     <provided>
         <api>org.eclipse.kapua.service.account.AccountFactory</api>
         <api>org.eclipse.kapua.service.account.AccountService</api>
+        
+        <api>org.eclipse.kapua.service.weather.WeatherFactory</api>
+        <api>org.eclipse.kapua.service.weather.WeatherService</api>
 
         <api>org.eclipse.kapua.service.authentication.AuthenticationService</api>
         <api>org.eclipse.kapua.service.authentication.CertificateService</api>

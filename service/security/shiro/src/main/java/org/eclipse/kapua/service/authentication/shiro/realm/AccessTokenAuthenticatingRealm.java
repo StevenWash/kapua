@@ -38,6 +38,7 @@ import org.eclipse.kapua.service.user.User;
 import org.eclipse.kapua.service.user.UserService;
 import org.eclipse.kapua.service.user.UserStatus;
 
+
 /**
  * {@link AccessTokenCredentials} based {@link AuthenticatingRealm} implementation.
  * 
@@ -88,12 +89,14 @@ public class AccessTokenAuthenticatingRealm extends AuthenticatingRealm {
         UserService userService;
         AccountService accountService;
         AccessTokenService accessTokenService;
+    
 
         try {
             locator = KapuaLocator.getInstance();
             userService = locator.getService(UserService.class);
             accountService = locator.getService(AccountService.class);
             accessTokenService = locator.getService(AccessTokenService.class);
+           
         } catch (KapuaRuntimeException kre) {
             throw new ShiroException("Error while getting services!", kre);
         }
@@ -156,6 +159,8 @@ public class AccessTokenAuthenticatingRealm extends AuthenticatingRealm {
         if (account == null) {
             throw new UnknownAccountException();
         }
+        
+      
 
         //
         // BuildAuthenticationInfo
