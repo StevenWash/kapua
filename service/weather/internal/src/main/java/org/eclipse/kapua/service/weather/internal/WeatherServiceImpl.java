@@ -264,6 +264,7 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
+    	  return result;
      }
      
      

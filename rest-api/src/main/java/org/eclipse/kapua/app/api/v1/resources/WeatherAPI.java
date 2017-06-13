@@ -42,6 +42,10 @@ import org.eclipse.kapua.service.weather.WeatherService;
 import org.eclipse.kapua.service.weather.WeatherListResult;
 import org.eclipse.kapua.service.weather.internal.WeatherListResultImpl;
 
+import org.eclipse.kapua.service.weather.internal.NormalResult;
+import org.eclipse.kapua.service.weather.BaseIpService;
+import org.eclipse.kapua.service.weather.internal.SinaIpService;
+import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 import java.util.List;
  
 
@@ -143,7 +147,7 @@ public class WeatherAPI extends AbstractKapuaResource {
      * @return The requested {@link Weather} object.
      * @since 1.0.0
      */
-    @GET
+/*    @GET
     @Path("{scopeId}/{province}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets the city", //
@@ -165,7 +169,7 @@ public class WeatherAPI extends AbstractKapuaResource {
         }
         return returnNotNullEntity(weatherListResult);
     }
-    
+    */
     
     
     
@@ -225,4 +229,48 @@ public class WeatherAPI extends AbstractKapuaResource {
         return returnNotNullEntity(weather);
 
 
+     }
+    
+    //getWeatherByIp
+    @GET
+    @Path("{ip}/{day}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @ApiOperation(value = "Gets an Weather", //
+            notes = "Gets the Weather specified by the weatherId path parameter", //
+            response = String.class)
+    public String getWeatherByIp(
+            @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
+            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("ip") String ip,//
+            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("day") Integer day) {
+		   NormalResult result = new NormalResult();
+		   BaseIpService ipService = new SinaIpService();
+		   String strResult=null;
+        try {
+        	if(ip!=null&&!ip.equals("")){
+        		String httpResult = ipService.getInformation(ip);
+				SinaIpInfo ipInfo = new SinaIpInfo();
+				ipInfo.doParser(httpResult);
+				
+				String city = ipInfo.getCity();
+				System.out.println("city>>>>>>"+city);
+				String content = weatherService.getWeather(city, day);
+				if(content!=null&&!content.equals("")){
+					result.setResult(content);
+				}else{
+					result.setErrcode(1003);
+				}
+        		
+        	}else{
+				result.setErrcode(1003);
+			}
+        	strResult=result.BuildResult();
+           
+        } catch (Throwable t) {
+            handleException(t);
+        }
+        return returnNotNullEntity(strResult);
+
+
+     }
+    
 }
