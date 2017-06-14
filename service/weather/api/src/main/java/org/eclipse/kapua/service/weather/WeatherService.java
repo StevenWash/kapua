@@ -168,10 +168,10 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
     
     
     
-    public String getInformation(String ip)throws KapuaException;
+   
     
     /**
-	 * 获取天气信息
+	 * 获取天气信息 xinlang
 	 * @param area 传入地区
 	 * @return 天气的结构信息
 	 */

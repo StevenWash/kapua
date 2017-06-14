@@ -188,7 +188,7 @@ public class WeatherAPI extends AbstractKapuaResource {
     
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @ApiOperation(value = "Gets an area", //
+    @ApiOperation(value = "Gets an area by city", //
             notes = "Gets the Weather.area specified by the scopeId,city path parameter", //
             response = WeatherListResult.class)
     public WeatherListResult findAreaByCity(
@@ -211,13 +211,13 @@ public class WeatherAPI extends AbstractKapuaResource {
     @GET
     @Path("{scopeId}/{area}/{day}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @ApiOperation(value = "Gets an Weather", //
-            notes = "Gets the Weather specified by the weatherId path parameter", //
+    @ApiOperation(value = "Gets an Weather by area and day", //
+            notes = "Gets the Weather specified by the area,day path parameter", //
             response = String.class)
     public String getWeatherByArea(
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("area") String area,//
-            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("day") Integer day) {
+            @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("area") String area,//
+            @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0")@DefaultValue("0") @PathParam("day") Integer day) {
         String  weather = null;
         try {
         	
@@ -235,13 +235,13 @@ public class WeatherAPI extends AbstractKapuaResource {
     @GET
     @Path("{ip}/{day}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @ApiOperation(value = "Gets an Weather", //
+    @ApiOperation(value = "Gets an Weather by ip  and day ", //
             notes = "Gets the Weather specified by the weatherId path parameter", //
             response = String.class)
     public String getWeatherByIp(
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("ip") String ip,//
-            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("day") Integer day) {
+            @ApiParam(value = "The ip of the requested Weather", required = true) @PathParam("ip") String ip,//
+            @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0") @DefaultValue("0") @PathParam("day") Integer day) {
 		   NormalResult result = new NormalResult();
 		   BaseIpService ipService = new SinaIpService();
 		   String strResult=null;
@@ -250,9 +250,7 @@ public class WeatherAPI extends AbstractKapuaResource {
         		String httpResult = ipService.getInformation(ip);
 				SinaIpInfo ipInfo = new SinaIpInfo();
 				ipInfo.doParser(httpResult);
-				
 				String city = ipInfo.getCity();
-				System.out.println("city>>>>>>"+city);
 				String content = weatherService.getWeather(city, day);
 				if(content!=null&&!content.equals("")){
 					result.setResult(content);

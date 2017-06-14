@@ -246,26 +246,7 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
     }
      
      
-     public String getInformation(String ip)throws KapuaException{
-    	 String result = "";
-    	 try {
- 			String url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip="+ip;
- 			
- 			System.out.println(url);
- 			String httpResult = HttpUtil.getHttpConnHtml(url);
- 			System.out.println(httpResult);
- 			
- 			BaseIpInfo ipInfo = new SinaIpInfo();
- 			
- 			ipInfo.doParser(httpResult);
- 			
- 			result = ipInfo.buildJsonMsg();
- 		} catch (Exception e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
-    	  return result;
-     }
+     
      
      
      public String getWeather(String area,int day)throws KapuaException{
