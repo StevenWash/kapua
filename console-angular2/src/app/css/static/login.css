@@ -1,0 +1,13 @@
+#loginPanel{
+  position: relative;
+  text-align: center;
+  margin-top: 18%;
+
+}
+#loginForm #username{
+  width: 340px;
+}
+#loginForm #password{
+  width: 340px;
+}
+
