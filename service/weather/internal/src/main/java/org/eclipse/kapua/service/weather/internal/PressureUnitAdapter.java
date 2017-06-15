@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.fedy2.weather.data.unit.PressureUnit;
+import org.eclipse.kapua.service.weather.PressureUnit;
 
 /**
  * Units of barometric pressure adapter, in for pounds per square inch or mb for millibars.

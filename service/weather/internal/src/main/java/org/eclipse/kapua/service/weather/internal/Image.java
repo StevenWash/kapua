@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

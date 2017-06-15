@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.eclipse.kapua.service.weather.internal;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;

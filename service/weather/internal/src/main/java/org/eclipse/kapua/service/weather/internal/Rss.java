@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import java.util.List;
 

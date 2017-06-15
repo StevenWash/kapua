@@ -1,10 +1,5 @@
-/**
- * 
- */
 package org.eclipse.kapua.service.weather.internal;
 
-
-import org.eclipse.kapua.service.weather.Rss;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

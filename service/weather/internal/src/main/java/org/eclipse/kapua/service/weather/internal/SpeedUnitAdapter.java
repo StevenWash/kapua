@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.eclipse.kapua.service.weather.internal;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -8,7 +5,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.fedy2.weather.data.unit.SpeedUnit;
+import org.eclipse.kapua.service.weather.SpeedUnit;
 
 /**
  * @author "Federico De Faveri defaveri@gmail.com"

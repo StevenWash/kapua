@@ -46,6 +46,8 @@ import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.BaseIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
+import org.eclipse.kapua.service.weather.internal.YahooWeatherService;
+import org.eclipse.kapua.service.weather.internal.Channel;
 import java.util.List;
  
 
@@ -267,6 +269,35 @@ public class WeatherAPI extends AbstractKapuaResource {
             handleException(t);
         }
         return returnNotNullEntity(strResult);
+
+
+     }
+    
+    
+    @GET
+    @Path("YaHooApi/{area}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and area", //
+            notes = "Gets the Weather specified by the area path parameter", //
+            response = String.class)
+    public String getWeathersByArea(
+            @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
+            @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("area") String area)
+            {
+    	YahooWeatherService service = null;
+        String  weathers = null;
+        try {
+        	service=new YahooWeatherService();
+        	Channel channel = service.getForecastForLocation(area).first(3).get(0);
+        	weathers= channel.toString();
+        	System.out.println("weather::"+weathers);
+        	
+           
+        } catch (Throwable t) {
+            handleException(t);
+        }
+        return weathers;
 
 
      }

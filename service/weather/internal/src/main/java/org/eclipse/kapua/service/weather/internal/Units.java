@@ -1,16 +1,13 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.eclipse.kapua.service.weather.internal.DegreeUnitAdapter;
-import org.eclipse.kapua.service.weather.internal.DistanceUnitAdapter;
-import org.eclipse.kapua.service.weather.internal.PressureUnitAdapter;
-import org.eclipse.kapua.service.weather.internal.SpeedUnitAdapter;
+import org.eclipse.kapua.service.weather.DegreeUnit;
+import org.eclipse.kapua.service.weather.DistanceUnit;
+import org.eclipse.kapua.service.weather.PressureUnit;
+import org.eclipse.kapua.service.weather.SpeedUnit;
 
 
 /**

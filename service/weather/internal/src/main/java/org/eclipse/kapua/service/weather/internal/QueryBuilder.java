@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.eclipse.kapua.service.weather.internal;
 
 import java.util.HashMap;

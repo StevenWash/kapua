@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import java.util.Date;
 
@@ -12,7 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
-import org.eclipse.kapua.service.weather.internal.RFC822DateAdapter;
+
+import org.eclipse.kapua.service.weather.Constants;
 
 /**
  * @author "Federico De Faveri defaveri@gmail.com"
@@ -215,33 +213,33 @@ public class Channel {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Channel [title=");
+		builder.append("title:");
 		builder.append(title);
-		builder.append(", link=");
+		builder.append(", link:");
 		builder.append(link);
-		builder.append(", language=");
+		builder.append(", language:");
 		builder.append(language);
-		builder.append(", description=");
+		builder.append(", description:");
 		builder.append(description);
-		builder.append(", lastBuildDate=");
+		builder.append(", lastBuildDate:");
 		builder.append(lastBuildDate);
-		builder.append(", ttl=");
+		builder.append(", ttl:");
 		builder.append(ttl);
-		builder.append(", location=");
+		builder.append(", location:");
 		builder.append(location);
-		builder.append(", units=");
+		builder.append(", units:");
 		builder.append(units);
-		builder.append(", wind=");
+		builder.append(", wind:");
 		builder.append(wind);
-		builder.append(", atmosphere=");
+		builder.append(", atmosphere:");
 		builder.append(atmosphere);
-		builder.append(", astronomy=");
+		builder.append(", astronomy:");
 		builder.append(astronomy);
-		builder.append(", image=");
+		builder.append(", image:");
 		builder.append(image);
-		builder.append(", item=");
+		builder.append(", item:");
 		builder.append(item);
-		builder.append("]");
+		//builder.append("]");
 		return builder.toString();
 	}
 }

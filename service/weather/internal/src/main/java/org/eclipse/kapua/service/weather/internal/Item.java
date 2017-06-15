@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import java.util.Date;
 import java.util.List;
@@ -10,8 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.eclipse.kapua.service.weather.Constants;
 
-import org.eclipse.kapua.service.weather.internal.RFC822DateAdapter;
+
+
 
 /**
  * @author "Federico De Faveri defaveri@gmail.com"

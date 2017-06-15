@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.github.fedy2.weather.data.unit;
+package org.eclipse.kapua.service.weather;
 
 /**
  * Units of barometric pressure.

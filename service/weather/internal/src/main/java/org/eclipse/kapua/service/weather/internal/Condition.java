@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import java.util.Date;
 
@@ -9,7 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.github.fedy2.weather.binding.adapter.RFC822DateAdapter;
+
 
 /**
  * Weather conditions.

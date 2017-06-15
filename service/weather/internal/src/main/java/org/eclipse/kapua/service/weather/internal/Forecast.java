@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.eclipse.kapua.service.weather;
+package org.eclipse.kapua.service.weather.internal;
 
 import java.util.Date;
 
@@ -9,9 +6,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.github.fedy2.weather.binding.adapter.DateAdapter;
-import com.github.fedy2.weather.binding.adapter.WeekDayAdapter;
-import com.github.fedy2.weather.data.unit.WeekDay;
+import org.eclipse.kapua.service.weather.WeekDay;
+
+
+
 
 /**
  * The weather forecast for a specific day.

@@ -1,13 +1,11 @@
-/**
- * 
- */
 package org.eclipse.kapua.service.weather.internal;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
+import org.eclipse.kapua.service.weather.DegreeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.eclipse.kapua.service.weather.DegreeUnit;
 
 
 /**
