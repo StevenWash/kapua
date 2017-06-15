@@ -1,7 +1,7 @@
 /**
  * Created by StevenWash on 2017/6/14.
  */
-import {Component} from "@angular/core";
+import {Component, Input, Output} from "@angular/core";
 import {UserListService} from "../service/user-list.service";
 import {UserInfo, UserResponse} from "../module/user-info.module";
 
@@ -12,7 +12,7 @@ import {UserInfo, UserResponse} from "../module/user-info.module";
 })
 export class MainViewComponent{
   private userResponse:UserResponse;
-  private userInfos:UserInfo[];
+  @Input() private userInfos:UserInfo[];
   private user:UserInfo;
   private loginUser:UserInfo;
 
@@ -33,8 +33,12 @@ export class MainViewComponent{
   }
 
   getUserByName(name:string){
-    console.log(name);
-
+    console.log("update:"+name);
+    this.userListService.getUserByName(name).subscribe((result) => {
+      console.log("result:"+result.items.item);
+      this.user=result.items.item;
+      //console.log(this.user.getUserName());
+    });
   }
 
 }

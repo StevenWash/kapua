@@ -26,6 +26,15 @@ var UserListService = (function () {
         headers.append('Authorization', "Bearer " + authToken);
         return this.http.get(this.userListUrl, { headers: headers }).map(function (res) { return res.json(); });
     };
+    UserListService.prototype.getUserByName = function (name) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var authToken = localStorage.getItem('tokenId');
+        headers.append('Authorization', "Bearer " + authToken);
+        this.userListUrl = 'https://dev.izhiju.cn/api/v1/_/users?name=' + name + "&offset=0&limit=50";
+        console.log("url:" + this.userListUrl);
+        return this.http.get(this.userListUrl, { headers: headers }).map(function (res) { return res.json(); });
+    };
     return UserListService;
 }());
 UserListService = __decorate([

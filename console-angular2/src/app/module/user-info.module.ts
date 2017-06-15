@@ -3,11 +3,15 @@
  */
 
 export class UserInfo{
-  private id:number;
-  private name:string;
+  private type:string;
+  private id:string;
+  private scopeId:string;
   private createdOn:string;
-  private createdBy:number;
-  private modifiedOn:number;
+  private createdBy:string;
+  private modifiedOn:string;
+  private modifiedBy:string;
+  private optlock:number;
+  private name:string;
   private status:string;
   private displayName:string;
   private email:string;
@@ -17,7 +21,7 @@ export class UserInfo{
   constructor(
    name:string,
    createdOn:string,
-   createdBy:number,
+   createdBy:string,
    status:string,
    displayName:string,
    email:string,
@@ -30,6 +34,10 @@ export class UserInfo{
     this.displayName=displayName;
     this.email=email;
     this.phoneNumber=phoneNumber;
+  }
+
+  getUserName(){
+     return this.displayName;
   }
 
 }

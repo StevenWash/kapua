@@ -703,10 +703,10 @@
 			                        <div class="col-xs-1">{{userInfo.displayName}}</div>
 			                        <div class="col-xs-2">{{userInfo.phoneNumber}}</div>
 			                        <div class="col-xs-2">{{userInfo.email}}</div>
-			                        <div class="col-xs-1">{{userInfo.createBy}}</div>
-			                        <div class="col-xs-2">{{userInfo.createOn}}</div>
+			                        <div class="col-xs-1">{{userInfo.createdBy}}</div>
+			                        <div class="col-xs-2">{{userInfo.createdOn}}</div>
                               <div class="col-xs-2">
-                                  <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
+                                  <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser" (click)="getUserByName(userInfo.name)">Update</button>
                                   <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                               </div>
 		                        </div>
@@ -826,29 +826,29 @@
 		                            </div>
 		                            <div class="modal-body">
 		                                <div class="container-fluid">
-		                                    <form class="form-horizontal">
+		                                    <form class="form-horizontal" *ngIf="user">
 		                                        <div class="form-group ">
 		                                            <label for="username" class="col-xs-4 control-label">* &nbsp;Username：</label>
-		                                            <div class="col-xs-8 ">
-		                                                <input type="" class="form-control input-sm duiqi" id="username"  disabled="disabled">
+		                                            <div class="col-xs-8">
+		                                                <input type="text" class="form-control input-sm duiqi" id="username" [(ngModel)]="user.name" name="name" disabled="disabled">
 		                                            </div>
 		                                        </div>
 		                                        <div class="form-group">
 		                                            <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
 		                                            <div class="col-xs-8 ">
-		                                                <input type="" class="form-control input-sm duiqi" id="displayName" placeholder="">
+		                                                <input [(ngModel)]="user.displayName" name="displayName" type="text" class="form-control input-sm duiqi" id="displayName" placeholder="">
 		                                            </div>
 		                                        </div>
 		                                        <div class="form-group">
 		                                            <label for="email" class="col-xs-4 control-label">Email：</label>
 		                                            <div class="col-xs-8">
-		                                                <input type="" class="form-control input-sm duiqi" id="email" placeholder="">
+		                                                <input [(ngModel)]="user.email" name="email" type="text" class="form-control input-sm duiqi" id="email" placeholder="">
 		                                            </div>
 		                                        </div>
 		                                        <div class="form-group">
 		                                            <label for="phone" class="col-xs-4 control-label">Phone：</label>
 		                                            <div class="col-xs-8">
-		                                                <input type="" class="form-control input-sm duiqi" id="phone" placeholder="">
+		                                                <input [(ngModel)]="user.phoneNumber" name="phoneNumber"  type="text" class="form-control input-sm duiqi" id="phone" placeholder="">
 		                                            </div>
 		                                        </div>
 		                                    </form>

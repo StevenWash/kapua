@@ -28,10 +28,20 @@ var MainViewComponent = (function () {
         });
     };
     MainViewComponent.prototype.getUserByName = function (name) {
-        console.log(name);
+        var _this = this;
+        console.log("update:" + name);
+        this.userListService.getUserByName(name).subscribe(function (result) {
+            console.log("result:" + result.items.item);
+            _this.user = result.items.item;
+            //console.log(this.user.getUserName());
+        });
     };
     return MainViewComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], MainViewComponent.prototype, "userInfos", void 0);
 MainViewComponent = __decorate([
     core_1.Component({
         selector: 'main-view',

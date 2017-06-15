@@ -12,6 +12,9 @@ var UserInfo = (function () {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+    UserInfo.prototype.getUserName = function () {
+        return this.displayName;
+    };
     return UserInfo;
 }());
 exports.UserInfo = UserInfo;
