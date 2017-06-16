@@ -118,3 +118,16 @@ console-v2/
 
 # Visual Studio Code project settings
 .vscode
+
+#typescript
+console-angular2/src/main.js
+console-angular2/src/main.js.map
+console-angular2/node_modules
+console-angular2/src/app/app.module.js.map
+console-angular2/src/app/app.module.js
+console-angular2/src/app/component/*.js
+console-angular2/src/app/component/*.map
+console-angular2/src/app/module/*.js
+console-angular2/src/app/module/*.map
+console-angular2/src/app/service/*.js
+console-angular2/src/app/service/*.map
