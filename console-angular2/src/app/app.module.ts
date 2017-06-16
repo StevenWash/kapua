@@ -11,6 +11,9 @@ import { AppRoutingModule } from './module/app-routing.module';
 import { LoginComponent } from './component/login.component';
 import { MainViewComponent} from './component/main-view.component'
 import { UserListService } from "./service/user-list.service"
+import { RoleService } from "./service/role.service";
+import {DeviceConnectionService} from "./service/device-connection.service";
+import {GroupService} from "./service/group.service";
 
 
 
@@ -29,7 +32,10 @@ import { UserListService } from "./service/user-list.service"
   ],
   providers: [
     LoginService,
-    UserListService
+    UserListService,
+    RoleService,
+    DeviceConnectionService,
+    GroupService
   ],
   bootstrap: [
     AppComponent
