@@ -99,7 +99,7 @@ public class Units {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Units [temperature=");
+		builder.append("temperature=");
 		builder.append(temperature);
 		builder.append(", distance=");
 		builder.append(distance);
@@ -107,7 +107,7 @@ public class Units {
 		builder.append(pressure);
 		builder.append(", speed=");
 		builder.append(speed);
-		builder.append("]");
+		
 		return builder.toString();
 	}
 }

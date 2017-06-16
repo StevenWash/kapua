@@ -86,11 +86,19 @@
 			    <artifactId>json-lib</artifactId>  
 			    <version>2.4</version>  
 			    <classifier>jdk15</classifier>  
-			</dependency>
-			<dependency>
+		</dependency>
+		
+		<dependency>
 			    <groupId>dom4j</groupId>
 			    <artifactId>dom4j</artifactId>
 			    <version>1.6.1</version>
-            </dependency>
+         </dependency>
+         
+         <dependency>
+            <groupId>com.maxmind.geoip</groupId>
+            <artifactId>geoip-api</artifactId>
+            <version>1.2.14</version>
+         </dependency>
+         
     </dependencies>
 </project>

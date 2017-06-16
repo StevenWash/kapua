@@ -101,7 +101,7 @@ public class Atmosphere {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Atmosphere [humidity=");
+		builder.append("humidity=");
 		builder.append(humidity);
 		builder.append(", visibility=");
 		builder.append(visibility);
@@ -109,7 +109,7 @@ public class Atmosphere {
 		builder.append(pressure);
 		builder.append(", rising=");
 		builder.append(rising);
-		builder.append("]");
+		
 		return builder.toString();
 	}
 }

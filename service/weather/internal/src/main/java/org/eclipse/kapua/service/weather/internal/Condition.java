@@ -94,7 +94,7 @@ public class Condition {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Condition [text=");
+		builder.append("text=");
 		builder.append(text);
 		builder.append(", code=");
 		builder.append(code);
@@ -102,7 +102,7 @@ public class Condition {
 		builder.append(temp);
 		builder.append(", date=");
 		builder.append(date);
-		builder.append("]");
+		
 		return builder.toString();
 	}
 }

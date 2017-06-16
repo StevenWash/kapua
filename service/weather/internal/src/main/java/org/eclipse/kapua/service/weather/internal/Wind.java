@@ -80,13 +80,13 @@ public class Wind {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Wind [chill=");
+		builder.append("chill=");
 		builder.append(chill);
 		builder.append(", direction=");
 		builder.append(direction);
 		builder.append(", speed=");
 		builder.append(speed);
-		builder.append("]");
+		
 		return builder.toString();
 	}
 }

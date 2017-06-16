@@ -70,13 +70,13 @@ public class Location {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Location [city=");
+		builder.append("city=");
 		builder.append(city);
 		builder.append(", region=");
 		builder.append(region);
 		builder.append(", country=");
 		builder.append(country);
-		builder.append("]");
+		//builder.append("]");
 		return builder.toString();
 	}
 }

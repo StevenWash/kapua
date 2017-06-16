@@ -41,15 +41,20 @@ import org.eclipse.kapua.service.weather.WeatherFactory;
 import org.eclipse.kapua.service.weather.WeatherService;
 import org.eclipse.kapua.service.weather.WeatherListResult;
 import org.eclipse.kapua.service.weather.internal.WeatherListResultImpl;
-
+import org.eclipse.kapua.service.weather.internal.GeoIPv4;
 import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.BaseIpService;
+import org.eclipse.kapua.service.weather.internal.Forecast;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 import org.eclipse.kapua.service.weather.internal.YahooWeatherService;
 import org.eclipse.kapua.service.weather.internal.Channel;
+
 import java.util.List;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
  
+
 
 
 
@@ -298,6 +303,45 @@ public class WeatherAPI extends AbstractKapuaResource {
             handleException(t);
         }
         return weathers;
+
+
+     }
+    
+    
+    @GET
+    @Path("{scopeId}/YaHooApi/{ip}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and scopeId", //
+            notes = "Gets the Weather specified by the ipAddress path parameter", //
+            response = String.class)
+    public String getWeathersByIpAddress(
+            @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
+            @ApiParam(value = "The ipAddress of the requested Weather", required = true) @PathParam("ip") String ip)
+            {
+    	StringBuilder builder =new StringBuilder(); 
+    	YahooWeatherService service = null;
+        String  areaWeather = null;
+        String weather=null;
+        try {
+        	String area=GeoIPv4.getLocation(InetAddress.getByName(ip)).getCity();
+        	
+        	System.out.println(area);
+        	service=new YahooWeatherService();
+        	Channel channel = service.getForecastForLocation(area).first(3).get(0);
+        	areaWeather= channel.toString();
+        	builder.append(areaWeather);
+        	List<Forecast> list=channel.getItem().getForecasts();
+    		for(Forecast fo:list){
+    			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
+    		}
+        	
+        	weather=builder.toString();
+           
+        } catch (Throwable t) {
+            handleException(t);
+        }
+        return weather;
 
 
      }

@@ -131,7 +131,7 @@ public class Forecast {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Forecast [day=");
+		builder.append("day=");
 		builder.append(day);
 		builder.append(", date=");
 		builder.append(date);
@@ -143,7 +143,7 @@ public class Forecast {
 		builder.append(text);
 		builder.append(", code=");
 		builder.append(code);
-		builder.append("]");
+		
 		return builder.toString();
 	}
 }

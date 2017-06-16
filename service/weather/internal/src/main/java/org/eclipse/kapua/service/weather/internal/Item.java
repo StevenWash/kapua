@@ -155,25 +155,34 @@ public class Item {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Item [title=");
+		builder.append("title:");
 		builder.append(title);
-		builder.append(", link=");
+		builder.append("\n");
+		/*builder.append(", link=");
 		builder.append(link);
+		builder.append("\n");
 		builder.append(", description=");
 		builder.append(description);
-		builder.append(", guid=");
+		builder.append("\n");*/
+		builder.append("guid:");
 		builder.append(guid);
-		builder.append(", pubDate=");
+		builder.append("\n");
+		builder.append("pubDate:");
 		builder.append(pubDate);
-		builder.append(", geoLat=");
+		builder.append("\n");
+		builder.append("geoLat:");
 		builder.append(geoLat);
-		builder.append(", geoLong=");
+		builder.append("\n");
+		builder.append("geoLong:");
 		builder.append(geoLong);
-		builder.append(", condition=");
+		builder.append("\n");
+		builder.append("condition:");
 		builder.append(condition);
-		builder.append(", forecasts=");
-		builder.append(forecasts);
-		builder.append("]");
+	//	builder.append("\n");
+		/*builder.append(", forecasts=");
+		builder.append(forecasts);*/
+		
+		
 		return builder.toString();
 	}
 }
