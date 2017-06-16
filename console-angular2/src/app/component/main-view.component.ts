@@ -24,7 +24,7 @@ export class MainViewComponent{
   }
 
   /**
-   * 得到用户的所有信息
+   * 得到所有用户的所有信息
    */
   getUserList(){
       this.userListService.getUserList().subscribe((result) => {
@@ -32,6 +32,10 @@ export class MainViewComponent{
     });
   }
 
+  /**
+   * 通过用户名获取用户信息
+   * @param name
+   */
   getUserByName(name:string){
     console.log("update:"+name);
     this.userListService.getUserByName(name).subscribe((result) => {

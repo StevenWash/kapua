@@ -36,10 +36,6 @@ export class UserInfo{
     this.phoneNumber=phoneNumber;
   }
 
-  getUserName(){
-     return this.displayName;
-  }
-
 }
 
 export class UserResponse{
