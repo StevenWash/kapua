@@ -11,6 +11,7 @@ import {DeviceConnection} from "../module/device-connect.module";
 import {DeviceInfo} from "../module/device.module";
 import {GroupService} from "../service/group.service";
 import {GroupInfo} from "../module/group-info.module";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -22,11 +23,13 @@ export class MainViewComponent{
   //接收返回信息的实体类
   private userInfos:UserInfo[];
   private user:UserInfo;
-  private loginUser:UserInfo;
   private roleInfos:RoleInfo[];
   private deviceConnections:DeviceConnection[];
   private deviceInfos:DeviceInfo[];
   private groupInfos:GroupInfo[];
+
+  private displayName:string;
+  private email:string;
 
   /**
    * 构造函数，在构造器里面进行依赖注入
@@ -41,12 +44,15 @@ export class MainViewComponent{
     private groupService:GroupService
   ){
     this.getUserList();
+    this.getLoginUser();
     this.getRoleList();
     this.getDeviceConnection();
     this.getDevices();
     this.getGroupList();
   }
 
+
+  //-------------------User Action ------------------//
   /**
    * 得到所有用户的所有信息
    */
@@ -60,15 +66,40 @@ export class MainViewComponent{
    * 通过用户名获取用户信息
    * @param name
    */
-  getUserByName(name:string){
-    console.log("update:"+name);
-    this.userListService.getUserByName(name).subscribe((result) => {
-      console.log("result:"+result.items.item);
-      this.user=result.items.item;
-      //console.log(this.user.getUserName());
+  getLoginUser(){
+    this.userListService.getLoginUser().subscribe((result) => {
+      this.displayName=result.displayName;
+      this.email=result.email;
     });
   }
 
+  /**
+   * 在用户管理界面点击update之后将当前用户的信息显示在update的提示框中
+   * @param userInfo
+   */
+  getUserInfo(userInfo:UserInfo){
+    this.user=userInfo;
+    console.log(userInfo)
+  }
+
+  updateUser(userForm: NgForm){
+   // console.log("userForm:"+userForm.value);
+    //this.user=userForm.value;
+    //console.log("user:"+this.user.getName()+ "  phone:"+this.user.getPhone());
+    //console.log("userId:"+this.user.getId())
+    console.log(this.user);
+    console.log(this.user.id);
+    console.log(this.user.name);
+    this.userListService.updateUserById(this.user.id,this.user).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+
+
+
+
+  //-------------------Role Action ------------------//
   /**
    * 得到所有的角色信息
    */

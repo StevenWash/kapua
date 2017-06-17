@@ -7,7 +7,6 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class UserListService{
-  private users:UserInfo;
   private userListUrl='https://dev.izhiju.cn/api/v1/_/users';
 
   constructor(
@@ -28,7 +27,36 @@ export class UserListService{
     return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
   }
 
-  getUserByName(name:string) {
+  /**
+   * 通过userId得到用户信息
+   * @param userId
+   * @returns {Observable<R>}
+   */
+  getLoginUser() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let userId = localStorage.getItem('userId');
+
+    this.userListUrl='https://dev.izhiju.cn/api/v1/_/users/'+userId;
+
+    return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
+  }
+
+
+  /**
+   * 更具用户的userId来更新用户数据
+   * @param userId
+   * @param user
+   * @returns {Observable<R>}
+   */
+  updateUserById(userId:string,user:UserInfo){
+    console.log(user.name);
+    console.log("userId:"+userId);
+    console.log(user.optlock);
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -36,11 +64,8 @@ export class UserListService{
     let authToken = localStorage.getItem('tokenId');
     headers.append('Authorization', `Bearer ${authToken}`);
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/_/users?name='+name+"&offset=0&limit=50";
+    this.userListUrl='https://dev.izhiju.cn/api/v1/_/users/'+userId;
 
-    console.log("url:"+this.userListUrl);
-
-    return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
+    return this.http.put(this.userListUrl,JSON.stringify(user),{ headers: headers }).map(res => res.json());
   }
-
 }

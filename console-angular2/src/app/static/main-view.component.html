@@ -31,9 +31,9 @@
                     <p id="logoP"><img id="logo" alt="智居科技" src="app/images/logo.png"><span>智居科技</span></p>
                 </div>
                 <div id="personInfor">
-                    <p id="userName">华鑫</p>
+                    <p id="userName">{{displayName}}</p>
                     <p>
-                    	<span>123456789@qq.com</span>
+                    	<span>{{email}}</span>
                     </p>
                     <p>
                         <a>退出登录</a>
@@ -327,7 +327,7 @@
                                   <div class="col-xs-1">{{userInfo.createdBy}}</div>
                                   <div class="col-xs-2">{{userInfo.createdOn}}</div>
                                   <div class="col-xs-2">
-                                      <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser" (click)="getUserByName(userInfo.name)">Update</button>
+                                      <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateUser" (click)="getUserInfo(userInfo)">Update</button>
                                       <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                                   </div>
                                 </div>
@@ -438,7 +438,7 @@
                         <!-- /.modal -->
 
                         <!--弹出修改用户窗口-->
-                        <div class="modal fade" id="reviseUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal fade" id="updateUser" role="dialog" aria-labelledby="gridSystemModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -447,38 +447,40 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
-                                            <form class="form-horizontal" *ngIf="user">
+                                            <form class="form-horizontal" *ngIf="user" #userForm="ngForm" (ngSubmit)="updateUser(userForm)">
                                                 <div class="form-group ">
                                                     <label for="username" class="col-xs-4 control-label">* &nbsp;Username：</label>
                                                     <div class="col-xs-8">
-                                                        <input type="text" class="form-control input-sm duiqi" id="username" disabled="disabled">
+                                                        <input type="text"  [(ngModel)]="user.name" name="username" class="form-control input-sm duiqi" id="username" disabled="disabled">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="text" class="form-control input-sm duiqi" id="displayName" placeholder="">
+                                                        <input type="text" [(ngModel)]="user.displayName" name="displayName" class="form-control input-sm duiqi" id="displayName" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="email" class="col-xs-4 control-label">Email：</label>
                                                     <div class="col-xs-8">
-                                                        <input  type="text" class="form-control input-sm duiqi" id="email" placeholder="">
+                                                        <input  type="text" [(ngModel)]="user.email" name="email" class="form-control input-sm duiqi" id="email" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phone" class="col-xs-4 control-label">Phone：</label>
                                                     <div class="col-xs-8">
-                                                        <input type="text" class="form-control input-sm duiqi" id="phone" placeholder="">
+                                                        <input type="text" [(ngModel)]="user.phoneNumber" name="phoneNumber" class="form-control input-sm duiqi" id="phone" placeholder="">
                                                     </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                                                  <button type="submit" class="btn btn-xs btn-green" >Save</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                                        <button type="button" class="btn btn-xs btn-green">Save</button>
-                                    </div>
+
                                 </div>
                                 <!-- /.modal-content -->
                             </div>
@@ -919,8 +921,8 @@
 
                   </div>
 
-                  <!--MqttClient管理模块-->
-                  <div role="tabpanel" class="tab-pane" id="mqttclient">
+                    <!--MqttClient管理模块-->
+                    <div role="tabpanel" class="tab-pane" id="mqttclient">
                     <div class="form-group">
                       <div id="topTab">
                         <label class="control-label">Host：</label>
@@ -1112,6 +1114,7 @@
 
                     </div>
                   </div>
+
                     <!-- 权限管理模块 -->
                     <div role="tabpanel" class="tab-pane" id="char">
                     <div class="check-div">
@@ -1311,8 +1314,6 @@
                     <!-- /.modal -->
 
                   </div>
-
-
 
                    <!--规则管理模块-->
                     <div role="tabpanel" class="tab-pane" id="regu" style="padding-top: 50px;">

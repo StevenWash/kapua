@@ -34,9 +34,7 @@ export class LoginService {
         ) .map(res => res.json()).map((res) => {
         if (res) {
           localStorage.setItem('tokenId', res.tokenId);
-          localStorage.setItem('userId', res.userId);
-
-          console.log(res.tokenId+'  '+ res.userId);
+          localStorage.setItem('userId',res.userId);
           this.loggedIn = true;
         }
         return "success";
