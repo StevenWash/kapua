@@ -16,7 +16,7 @@ import org.eclipse.kapua.service.weather.Weather;
 import org.eclipse.kapua.service.weather.WeatherListResult;
 
 /**
- * Account list result implementation.
+ * Weather list result implementation.
  *
  * @since 1.0
  */

@@ -22,7 +22,7 @@ import org.eclipse.kapua.service.weather.WeatherQuery;
 
 
 /**
- * Account service factory implementation.
+ * Weather service factory implementation.
  *
  * @since 1.0
  */

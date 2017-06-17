@@ -27,7 +27,7 @@ public interface Weather extends KapuaEntity {
     }
 
     /**
-     * Get the weather's organization
+     * Get the weather's province
      * 
      * @return
      */
@@ -36,40 +36,56 @@ public interface Weather extends KapuaEntity {
     public String getProvince();
 
     /**
-     * Set the parent account path.
+     * Set the weather's province
      * 
-     * @param parentAccountPath
+     * @param province
      */
     public void setProvince(String province);
     
-    
+    /**
+     * Get the weather's city
+     * 
+     * @return
+     */
     @XmlElement(name = "city")
     public String getCity();
 
     /**
-     * Set the parent account path.
+     * Set the weather's city
      * 
-     * @param parentAccountPath
+     * @param city
      */
     public void setCity(String city);
     
+    
+    /**
+     * Get the weather's area
+     * 
+     * @return
+     */
     @XmlElement(name = "area")
     public String getArea();
 
     /**
-     * Set the parent account path.
+     * Set the weather's area
      * 
-     * @param parentAccountPath
+     * @param area
      */
     public void setArea(String area);
     
+    
+    /**
+     * Get the weather's city_code
+     * 
+     * @return
+     */
     @XmlElement(name = "city_code")
     public String getCity_code();
 
     /**
-     * Set the parent account path.
+     * Set the weather's city_code.
      * 
-     * @param parentAccountPath
+     * @param city_code
      */
     public void setCity_code(String city_code);
 }

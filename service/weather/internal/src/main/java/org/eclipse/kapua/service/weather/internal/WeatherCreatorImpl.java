@@ -18,7 +18,7 @@ import org.eclipse.kapua.service.weather.WeatherCreator;
 import org.eclipse.kapua.commons.model.AbstractKapuaEntityCreator;
 
 /**
- * Account creator service implementation.
+ * Weather creator service implementation.
  * 
  * @since 1.0
  * 

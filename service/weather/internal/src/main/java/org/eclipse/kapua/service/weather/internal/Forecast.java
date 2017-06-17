@@ -131,18 +131,18 @@ public class Forecast {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("day=");
+		builder.append("day:");
 		builder.append(day);
-		builder.append(", date=");
+		builder.append(", date:");
 		builder.append(date);
-		builder.append(", low=");
+		builder.append(", low:");
 		builder.append(low);
-		builder.append(", high=");
+		builder.append(", high:");
 		builder.append(high);
-		builder.append(", text=");
+		builder.append(", text:");
 		builder.append(text);
-		builder.append(", code=");
-		builder.append(code);
+		/*builder.append(", code=");
+		builder.append(code);*/
 		
 		return builder.toString();
 	}

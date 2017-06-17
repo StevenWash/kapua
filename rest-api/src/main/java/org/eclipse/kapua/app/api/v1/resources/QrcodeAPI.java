@@ -29,8 +29,8 @@ import io.swagger.annotations.ApiParam;
 @Path("/qrcode")  
 public class QrcodeAPI {
 	
-	@ApiOperation(value = "Queries the Accounts", //
-	            notes = "Queries the Accounts with the given AccountQuery parameter returning all matching Accounts", //
+	@ApiOperation(value = "packageUrl", //
+	            notes = "Queries the packageUrl with the given pName parameter returning all ", //
 	            response = String.class, //
 	            responseContainer = "String") //
 	@GET
@@ -48,8 +48,8 @@ public class QrcodeAPI {
 	}
 	 
 	 
-	@ApiOperation(value = "Queries the Accounts", 
-	            notes = "Queries the Accounts with the given AccountQuery parameter returning all matching Accounts",
+/*	@ApiOperation(value = "create the qrcode", 
+	            notes = "create the Qrcode with content,width parameter returning ",
 	            response = InputStream.class, 
 	            responseContainer = "InputStream")
 	@GET
@@ -57,9 +57,12 @@ public class QrcodeAPI {
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces("image/png")
 	public InputStream  getQRCode(
-	        @ApiParam(value = "The ScopeId in which to create the Account", required = true) @PathParam("content") String content, 
-            @ApiParam(value = "Provides the information for the new Account to be created", required = true) @PathParam("width") int width) throws IOException {  
-		byte[] b = null;
+	        @ApiParam(value = "The content in which to create the QRcode", required = true) @PathParam("content") String content, 
+            @ApiParam(value = "The width in which to create the QRcode", required = true) @PathParam("width") int width)  { 
+		System.out.println("getQRCode-----start");
+		System.out.println("getQRCode-----content"+content); //throws IOException
+		System.out.println("getQRCode-----width"+width);
+		byte[] by = null;
 		String PNG="image/png;charset=GB2312";
 		String qrcode=content;
 		if(content=="DONGLEAPP")
@@ -75,30 +78,29 @@ public class QrcodeAPI {
 			qrcode="http://192.168.49.1:8080";
 		}
 		try {
+			System.out.println("qrcode: "+qrcode);
 			String _content =  URLDecoder.decode(qrcode, "utf-8");
-			b = EncodeHelper.getQRCode(_content, width);
+			by = EncodeHelper.getQRCode(_content, width);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
 		}
-		return new ByteArrayInputStream(b);
-	} 
+		return new ByteArrayInputStream(by);
+	} */
 	 
 	 
 
 	@ApiOperation(value = "Queries the QrcodeAPI", 
-            notes = "Queries the QrcodeAPI with the given AccountQuery parameter returning all matching QrcodeAPI", 
+            notes = "Queries the QrcodeAPI with the given content,width  parameter returning all matching QrcodeAPI", 
             response = InputStream.class, 
             responseContainer = "InputStream")
 	@GET
 	@Path(value = "/getpic")  
 	@Produces("image/png")
 	public InputStream  getCodePic(
-			@ApiParam(value = "The ScopeId in which to create the QrcodeAPI", required = true) @QueryParam("content") String content,
+			@ApiParam(value = "The content in which to create the QrcodeAPI", required = true) @QueryParam("content") String content,
 		
-			@ApiParam(value = "Provides the information for the new QrcodeAPI to be created", required = true) @QueryParam("width") int width) throws IOException {  
+			@ApiParam(value = "Provides the widths for the new QrcodeAPI to be created", required = true) @QueryParam("width") int width) throws IOException {  
 		byte[] b = null;
 		String PNG="image/png;charset=GB2312";
 		String qrcode=content;		

@@ -154,10 +154,10 @@ public class WeatherAPI extends AbstractKapuaResource {
      * @return The requested {@link Weather} object.
      * @since 1.0.0
      */
-/*    @GET
-    @Path("{scopeId}/{province}")
+    @GET
+    @Path("getCitys/{scopeId}/{province}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @ApiOperation(value = "Gets the city", //
+    @ApiOperation(value = "Gets the city by province", //
             notes = "Gets the city specified by the scopeId , province path parameter", //
             response = WeatherListResult.class)
     public WeatherListResult findCityByProvince(
@@ -176,7 +176,7 @@ public class WeatherAPI extends AbstractKapuaResource {
         }
         return returnNotNullEntity(weatherListResult);
     }
-    */
+    
     
     
     
@@ -290,15 +290,21 @@ public class WeatherAPI extends AbstractKapuaResource {
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("area") String area)
             {
+    	StringBuilder builder =new StringBuilder();
     	YahooWeatherService service = null;
         String  weathers = null;
         try {
         	service=new YahooWeatherService();
         	Channel channel = service.getForecastForLocation(area).first(3).get(0);
-        	weathers= channel.toString();
-        	System.out.println("weather::"+weathers);
+        	builder.append(channel);
+        /*	List<Forecast> list=channel.getItem().getForecasts();
+    		for(Forecast fo:list){
+    			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
+    		}*/
+        	builder.append(channel.getItem().getForecasts().get(0));
+        	weathers=builder.toString();
         	
-           
+          
         } catch (Throwable t) {
             handleException(t);
         }
@@ -312,7 +318,7 @@ public class WeatherAPI extends AbstractKapuaResource {
     @Path("{scopeId}/YaHooApi/{ip}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and scopeId", //
+    @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and ipAddress,scopeId", //
             notes = "Gets the Weather specified by the ipAddress path parameter", //
             response = String.class)
     public String getWeathersByIpAddress(
@@ -321,20 +327,22 @@ public class WeatherAPI extends AbstractKapuaResource {
             {
     	StringBuilder builder =new StringBuilder(); 
     	YahooWeatherService service = null;
-        String  areaWeather = null;
+        
         String weather=null;
         try {
         	String area=GeoIPv4.getLocation(InetAddress.getByName(ip)).getCity();
         	
-        	System.out.println(area);
+        	
         	service=new YahooWeatherService();
         	Channel channel = service.getForecastForLocation(area).first(3).get(0);
-        	areaWeather= channel.toString();
-        	builder.append(areaWeather);
-        	List<Forecast> list=channel.getItem().getForecasts();
+        	
+        	builder.append(channel);
+        	/*List<Forecast> list=channel.getItem().getForecasts();
     		for(Forecast fo:list){
     			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
-    		}
+    		}*/
+        	builder.append(channel.getItem().getForecasts().get(0));
+        	
         	
         	weather=builder.toString();
            

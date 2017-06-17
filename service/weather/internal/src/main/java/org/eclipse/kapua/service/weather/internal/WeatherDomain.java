@@ -22,8 +22,8 @@ import org.eclipse.kapua.service.authorization.permission.Permission;
 import com.google.common.collect.Lists;
 
 /**
- * Account permission domain.<br>
- * Account to describe the account domain in the {@link Permission}
+ * Weather permission domain.<br>
+ * Weather to describe the weather domain in the {@link Permission}
  * 
  * @since 1.0
  *

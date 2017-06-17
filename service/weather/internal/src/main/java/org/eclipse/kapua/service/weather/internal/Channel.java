@@ -213,10 +213,10 @@ public class Channel {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("title:");
+	/*	builder.append("title:");
 		builder.append(title);
-		/*builder.append(", link:");
-		builder.append(link);*/
+		builder.append(", link:");
+		builder.append(link);
 		builder.append("language:");
 		builder.append(language);
 		builder.append("description:");
@@ -227,11 +227,11 @@ public class Channel {
 		builder.append("\n");
 		builder.append("ttl:");
 		builder.append(ttl);
-		builder.append("\n");
+		builder.append("\n");*/
 		builder.append("location:");
 		builder.append(location);
 		builder.append("\n");
-		builder.append("units:");
+	/*	builder.append("units:");
 		builder.append(units);
 		builder.append("\n");
 		builder.append("wind:");
@@ -243,12 +243,12 @@ public class Channel {
 		builder.append("astronomy:");
 		builder.append(astronomy);
 		builder.append("\n");
-		/*builder.append(", image:");
+		builder.append(", image:");
 		builder.append(image);
 		builder.append("\n");
-		builder.append(", item:");*/
+		builder.append(", item:");
 		builder.append(item);
-		//builder.append("]");
+		builder.append("]");*/
 		return builder.toString();
 	}
 }

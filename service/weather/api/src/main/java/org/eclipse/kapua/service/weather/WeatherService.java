@@ -20,9 +20,9 @@ import org.eclipse.kapua.service.KapuaUpdatableEntityService;
 import org.eclipse.kapua.service.config.KapuaConfigurableService;
 
 /**
- * AccountService exposes APIs to manage Account objects.<br>
- * It includes APIs to create, update, find, list and delete Accounts.<br>
- * Instances of the AccountService can be acquired through the ServiceLocator object.
+ * WeatherService exposes APIs to manage Weather objects.<br>
+ * It includes APIs to create, update, find, list and delete Weathers.<br>
+ * Instances of the WeatherService can be acquired through the ServiceLocator object.
  * 
  * @since 1.0
  * 
@@ -101,7 +101,7 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
      * 
      * @param query
      *            The {@link WeatherQuery} used to filter results.
-     * @return The count of the {@link Weather} elements matching the provided query.
+     * @return The weather of the {@link Weather} elements matching the provided query.
      * @throws KapuaException
      * @since 1.0.0
      */

@@ -102,7 +102,7 @@ public class Condition {
 		builder.append(temp);
 		builder.append(", date=");
 		builder.append(date);
-		
+		builder.append("\n");
 		return builder.toString();
 	}
 }

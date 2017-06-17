@@ -163,10 +163,10 @@ public class Item {
 		builder.append("\n");
 		builder.append(", description=");
 		builder.append(description);
-		builder.append("\n");*/
+		builder.append("\n");
 		builder.append("guid:");
 		builder.append(guid);
-		builder.append("\n");
+		builder.append("\n");*/
 		builder.append("pubDate:");
 		builder.append(pubDate);
 		builder.append("\n");

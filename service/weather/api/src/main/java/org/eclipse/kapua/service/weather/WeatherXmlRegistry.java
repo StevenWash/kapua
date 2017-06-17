@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 import org.eclipse.kapua.locator.KapuaLocator;
 
 /**
- * Account xml factory class
+ * Weather xml factory class
  * 
  * @since 1.0
  *

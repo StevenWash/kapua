@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.eclipse.kapua.model.KapuaEntityCreator;
 import org.eclipse.kapua.service.KapuaService;
 /**
- * AccountCreator encapsulates all the information needed to create a new Account in the system.<br>
- * The data provided will be used to seed the new Account and its related information such as the associated organization and users.
+ * WeatherCreator encapsulates all the information needed to create a new Weather in the system.<br>
+ * The data provided will be used to seed the new Weather and its related information such as the associated organization and users.
  * 
  * @since 1.0
  *
@@ -31,38 +31,38 @@ import org.eclipse.kapua.service.KapuaService;
 public interface WeatherCreator extends KapuaEntityCreator<Weather> {
 
     /**
-     * Sets the {@link Domain} name.
+     * Sets the {@link Weather} province.
      * 
      * @param name
-     *            The {@link Domain} name.
+     *            The {@link Weather} province.
      * 
      * @since 1.0.0
      */
     public void setProvince(String province);
 
     /**
-     * Gets the {@link Domain} name.
+     * Gets the {@link Weather} province.
      * 
-     * @return The {@link Domain} name.
+     * @return The {@link Weather} province.
      * @since 1.0.0
      */
     @XmlElement(name = "province")
     public String getProvince();
 
     /**
-     * Sets the {@link KapuaService} name that uses the {@link Domain}.
+     * Sets the {@link Weather} area.
      * 
-     * @param serviceName
-     *            The {@link KapuaService} name that uses the {@link Domain}.
+     * @param name
+     *            The {@link Weather} area.
      * 
      * @since 1.0.0
      */
     public void setArea(String area);
 
     /**
-     * Gets the {@link KapuaService} name that uses the {@link Domain}.
+     * Gets the {@link Weather} area.
      * 
-     * @return The {@link KapuaService} name that uses the {@link Domain}.
+     * @return The {@link Weather} area.
      * @since 1.0.0
      */
     @XmlElement(name = "area")
@@ -70,19 +70,19 @@ public interface WeatherCreator extends KapuaEntityCreator<Weather> {
     
     
     /**
-     * Sets the {@link KapuaService} name that uses the {@link Domain}.
+     * Sets the {@link Weather} city.
      * 
-     * @param serviceName
-     *            The {@link KapuaService} name that uses the {@link Domain}.
+     * @param name
+     *            The {@link Weather} city.
      * 
      * @since 1.0.0
      */
     public void setCity(String city);
 
     /**
-     * Gets the {@link KapuaService} name that uses the {@link Domain}.
+     * Gets the {@link Weather} city.
      * 
-     * @return The {@link KapuaService} name that uses the {@link Domain}.
+     * @return The {@link Weather} city.
      * @since 1.0.0
      */
     @XmlElement(name = "city")
@@ -90,19 +90,19 @@ public interface WeatherCreator extends KapuaEntityCreator<Weather> {
     
     
     /**
-     * Sets the {@link KapuaService} name that uses the {@link Domain}.
+     * Sets the {@link Weather} city_code.
      * 
-     * @param serviceName
-     *            The {@link KapuaService} name that uses the {@link Domain}.
+     * @param name
+     *            The {@link Weather} city_code.
      * 
      * @since 1.0.0
      */
     public void setCity_code(String city_code);
 
     /**
-     * Gets the {@link KapuaService} name that uses the {@link Domain}.
+     * Gets the {@link Weather} city_code.
      * 
-     * @return The {@link KapuaService} name that uses the {@link Domain}.
+     * @return The {@link Weather} city_code.
      * @since 1.0.0
      */
     @XmlElement(name = "city_code")

@@ -23,10 +23,12 @@ import org.eclipse.kapua.model.id.KapuaId;
 public interface WeatherFactory extends KapuaEntityFactory<Weather, WeatherCreator, WeatherQuery, WeatherListResult> {
 
     /**
-     * Creates a new {@link AccountCreator} for the specified name
+     * Creates a new {@link WeatherCreator} for the specified name
      * 
-     * @param scopeId
-     * @param name
+     * @param province
+     * @param city
+     * @param area
+     * @param city_code
      * @return
      */
     public WeatherCreator newCreator(String province,String city,String area,String city_code);

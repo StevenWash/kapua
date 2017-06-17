@@ -20,7 +20,7 @@ import org.eclipse.kapua.commons.jpa.EntityManagerFactory;
 import org.eclipse.kapua.KapuaException;
 
 /**
- * Entity manager factory for the account module.
+ * Entity manager factory for the weather module.
  * 
  * @since 1.0
  *
@@ -34,7 +34,7 @@ public class WeatherEntityManagerFactory extends AbstractEntityManagerFactory{
     private static WeatherEntityManagerFactory instance = new WeatherEntityManagerFactory();
 
     /**
-     * Constructs a new entity manager factory and configure it to use the account persistence unit.
+     * Constructs a new entity manager factory and configure it to use the weather persistence unit.
      */
     private WeatherEntityManagerFactory() {
         super(PERSISTENCE_UNIT_NAME,
