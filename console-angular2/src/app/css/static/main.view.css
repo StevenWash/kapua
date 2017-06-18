@@ -13,3 +13,6 @@
   text-align: center;
   line-height: 10px;
 }
+#rightContent #user .col-xs-1 {
+  text-overflow:ellipsis;
+}

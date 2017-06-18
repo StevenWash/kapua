@@ -82,14 +82,7 @@ export class MainViewComponent{
     console.log(userInfo)
   }
 
-  updateUser(userForm: NgForm){
-   // console.log("userForm:"+userForm.value);
-    //this.user=userForm.value;
-    //console.log("user:"+this.user.getName()+ "  phone:"+this.user.getPhone());
-    //console.log("userId:"+this.user.getId())
-    console.log(this.user);
-    console.log(this.user.id);
-    console.log(this.user.name);
+  updateUser(){
     this.userListService.updateUserById(this.user.id,this.user).subscribe((result) => {
       console.log(result);
     });

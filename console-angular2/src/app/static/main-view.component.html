@@ -128,13 +128,15 @@
                     <!-- 设备管理模块 -->
                     <div role="tabpanel" class="tab-pane" id="device">
                       <div class="check-div form-inline">
-                        <div class="col-xs-6">
-                          <label>ClientId:&nbsp;&nbsp;</label><input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
-                          <label>Connect Status:&nbsp;&nbsp;</label><input type="text" id="connectStatus" class="form-control input-sm" placeholder="input...">
+                        <div class="col-xs-8">
+                          <label>ClientId:&nbsp;&nbsp;</label>
+                          <input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
+                          <label>Connect Status:&nbsp;&nbsp;</label>
+                          <input type="text" id="connectStatus" class="form-control input-sm" placeholder="input...">
                           <button class="btn btn-white btn-xs ">&nbsp;Search </button>
                           <button class="btn btn-white btn-xs ">Reset </button>
                         </div>
-                        <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
+                        <div class="col-lg-3 col-lg-offset-1 col-xs-4" style=" padding-right: 40px;text-align: right;">
                           <label for="paixu">Order By:&nbsp;</label>
                           <select class=" form-control">
                             <option>Connect Status</option>
@@ -148,12 +150,12 @@
                       <div class="data-div">
                         <div class="row tableHeader">
                           <div class="col-xs-1 ">Status</div>
-                          <div class="col-xs-1 ">Client Id</div>
-                          <div class="col-xs-1">Display Name</div>
+                          <div class="col-xs-1 ">ClientId</div>
+                          <div class="col-xs-1">DisplayName</div>
                           <div class="col-xs-2">GroupId</div>
                           <div class="col-xs-2">CredentialModel</div>
-                          <div class="col-xs-2">Serial Number</div>
-                          <div class="col-xs-1">IOT-F-Version</div>
+                          <div class="col-xs-2">SerialNumber</div>
+                          <div class="col-xs-1">IOT-Version</div>
 
                           <div class="col-xs-1"></div>
                           <div class="col-xs-1"></div>
@@ -208,13 +210,13 @@
                     <!-- 连接管理模块 -->
                     <div role="tabpanel" class="tab-pane" id="connection">
                     <div class="check-div form-inline">
-                      <div class="col-xs-6">
+                      <div class="col-xs-8">
                         <label>ClientId:&nbsp;&nbsp;</label><input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
                         <label>Connect Status:&nbsp;&nbsp;</label><input type="text" id="connectStatus" class="form-control input-sm" placeholder="input...">
                         <button class="btn btn-white btn-xs ">&nbsp;Search </button>
                         <button class="btn btn-white btn-xs ">Reset </button>
                       </div>
-                      <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
+                      <div class="col-lg-3 col-lg-offset-1 col-xs-4" style=" padding-right: 40px;text-align: right;">
                         <label for="paixu">Order By:&nbsp;</label>
                         <select class=" form-control">
                           <option>Connect Status</option>
@@ -307,25 +309,25 @@
 
                         <div class="data-div">
                             <div class="row tableHeader">
-                              <div class="col-xs-1 ">Status</div>
-                                <div class="col-xs-1 ">Name</div>
+                                <div class="col-xs-1">Status</div>
+                                <div class="col-xs-1">Name</div>
                                 <div class="col-xs-1">DisplayName</div>
                                 <div class="col-xs-2">Phone Number </div>
                                 <div class="col-xs-2">Email</div>
                                 <div class="col-xs-1">CreatedBy</div>
-                                <div class="col-xs-2">CreateOn </div>
+                                <div class="col-xs-2.5">CreateOn </div>
                                 <div class="col-xs-1"></div>
                                 <div class="col-xs-1"></div>
                             </div>
                             <div *ngFor="let userInfo of userInfos" class="tablebody">
                                 <div class="row">
-                                  <div class="col-xs-1 ">{{userInfo.status}}</div>
-                                  <div class="col-xs-1 ">{{userInfo.name}}</div>
+                                  <div class="col-xs-1">{{userInfo.status}}</div>
+                                  <div class="col-xs-1">{{userInfo.name}}</div>
                                   <div class="col-xs-1">{{userInfo.displayName}}</div>
                                   <div class="col-xs-2">{{userInfo.phoneNumber}}</div>
                                   <div class="col-xs-2">{{userInfo.email}}</div>
                                   <div class="col-xs-1">{{userInfo.createdBy}}</div>
-                                  <div class="col-xs-2">{{userInfo.createdOn}}</div>
+                                  <div class="col-xs-2.5">{{userInfo.createdOn}}</div>
                                   <div class="col-xs-2">
                                       <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateUser" (click)="getUserInfo(userInfo)">Update</button>
                                       <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
@@ -475,7 +477,7 @@
 
                                                 <div class="modal-footer">
                                                   <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                                                  <button type="submit" class="btn btn-xs btn-green" >Save</button>
+                                                  <button type="submit" class="btn btn-xs btn-green" (click)="updateUser()" data-dismiss="modal">Save</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -736,7 +738,7 @@
                           <div class="col-xs-2">{{groupInfo.modifiedOn}}</div>
                           <div class="col-xs-2">{{groupInfo.modifiedBy}}</div>
                           <div class="col-xs-2">
-                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser" (click)="getUserByName(userInfo.name)">Update</button>
+                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                           </div>
                         </div>

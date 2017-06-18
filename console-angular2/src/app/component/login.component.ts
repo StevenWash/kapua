@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
   styleUrls: ['app/css/static/login.css']
 })
 export class LoginComponent{
-  private creditial=new Creditial('kapua-sys','kapua-password');
+  private creditial=new Creditial('huaxin','HX-19950624@com');
 
   constructor(
     private loginService:LoginService,

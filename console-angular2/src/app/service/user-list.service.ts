@@ -6,7 +6,7 @@ import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class UserListService{
+export class UserListService {
   private userListUrl='https://dev.izhiju.cn/api/v1/_/users';
 
   constructor(
