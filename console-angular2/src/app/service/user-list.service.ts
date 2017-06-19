@@ -68,4 +68,29 @@ export class UserListService {
 
     return this.http.put(this.userListUrl,JSON.stringify(user),{ headers: headers }).map(res => res.json());
   }
+
+  addUser(user:UserInfo){
+    console.log("user-service..");
+
+
+
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    this.getLoginUser().subscribe((result) => {
+      console.log(result);
+      user.scopeId=result.scopeId;
+      user.userType=result.userType;
+    });
+
+    console.log(user);
+    this.userListUrl='https://dev.izhiju.cn/api/v1/_/users';
+
+    return this.http.post(this.userListUrl,JSON.stringify(user),{ headers: headers }).map(res => res.json());
+
+  }
 }

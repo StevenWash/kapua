@@ -14,6 +14,7 @@ import { UserListService } from "./service/user-list.service"
 import { RoleService } from "./service/role.service";
 import {DeviceConnectionService} from "./service/device-connection.service";
 import {GroupService} from "./service/group.service";
+import {MobileValidator} from "./validators/adduser.validator";
 
 
 
@@ -35,7 +36,8 @@ import {GroupService} from "./service/group.service";
     UserListService,
     RoleService,
     DeviceConnectionService,
-    GroupService
+    GroupService,
+    MobileValidator
   ],
   bootstrap: [
     AppComponent

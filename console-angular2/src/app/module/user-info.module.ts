@@ -17,7 +17,6 @@ export class UserInfo{
    email:string;
    phoneNumber:string;
    userType:string;
-   externalId:string;
 }
 
 export class UserResponse{

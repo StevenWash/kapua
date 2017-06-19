@@ -1,9 +1,9 @@
 /**
  * Created by StevenWash on 2017/6/14.
  */
-import {Component, Input, Output} from "@angular/core";
+import {Component} from "@angular/core";
 import {UserListService} from "../service/user-list.service";
-import {UserInfo, UserResponse} from "../module/user-info.module";
+import {UserInfo } from "../module/user-info.module";
 import {RoleService} from "../service/role.service";
 import {RoleInfo} from "../module/role-info.module";
 import {DeviceConnectionService} from "../service/device-connection.service";
@@ -28,8 +28,13 @@ export class MainViewComponent{
   private deviceInfos:DeviceInfo[];
   private groupInfos:GroupInfo[];
 
+  private aUser:UserInfo=new UserInfo();
+  errorMsg:string;
+  nameErrorMsg:string;
+
   private displayName:string;
   private email:string;
+  private optlock:number;
 
   /**
    * 构造函数，在构造器里面进行依赖注入
@@ -78,14 +83,61 @@ export class MainViewComponent{
    * @param userInfo
    */
   getUserInfo(userInfo:UserInfo){
+    console.log(userInfo);
     this.user=userInfo;
-    console.log(userInfo)
   }
 
+  /**
+   * 更新用户的信息
+   */
   updateUser(){
+    console.log("optlock1:"+this.user.optlock);
+    if(this.optlock==this.user.optlock+1){
+      this.user.optlock+=1;
+    }
     this.userListService.updateUserById(this.user.id,this.user).subscribe((result) => {
+      this.user=result;
+      this.optlock=this.user.optlock;
+      console.log("optlock2:"+this.user.optlock)
       console.log(result);
     });
+  }
+
+  /**
+   * 添加用户信息
+   */
+  addUser(){
+
+    console.log(this.aUser);
+
+   /* console.log(theForm.value);
+    //this.adduser=theForm.value;
+    console.log(this.aUser.name);
+    console.log(this.aUser.phoneNumber);
+    console.log(this.aUser.email);
+    console.log(this.aUser.id);
+    console.log(this.aUser.optlock);
+    console.log(this.aUser.status);
+    console.log(this.aUser.type);
+    console.log(this.aUser.createdBy);
+
+    if (theForm.invalid) {
+      this.errorMsg = 'validation errors!';
+      if (theForm.controls['name'].errors) {
+        this.nameErrorMsg = 'name error:' + JSON.stringify(theForm.controls['name'].errors);
+      } else {
+        this.nameErrorMsg = null;
+      }
+    } else {
+      this.errorMsg = null;
+      this.nameErrorMsg = null;
+    }*/
+
+    this.userListService.addUser(this.aUser).subscribe((result) => {
+      console.log(result);
+    });
+
+
   }
 
 

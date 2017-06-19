@@ -309,33 +309,31 @@
 
                         <div class="data-div">
                             <div class="row tableHeader">
-                                <div class="col-xs-1">Status</div>
-                                <div class="col-xs-1">Name</div>
-                                <div class="col-xs-1">DisplayName</div>
-                                <div class="col-xs-2">Phone Number </div>
-                                <div class="col-xs-2">Email</div>
-                                <div class="col-xs-1">CreatedBy</div>
-                                <div class="col-xs-2.5">CreateOn </div>
+                                <div class="col-xs-1 col-lg-1">Status</div>
+                                <div class="col-xs-1 col-lg-1">Name</div>
+                                <div class="col-xs-1 col-lg-1">DisplayName</div>
+                                <div class="col-xs-1 col-lg-2">Phone Number </div>
+                                <div class="col-xs-2 col-lg-2">Email</div>
+                                <div class="col-xs-1 col-lg-1">CreatedBy</div>
+                                <div class="col-xs-3 col-lg-2">CreateOn </div>
                                 <div class="col-xs-1"></div>
                                 <div class="col-xs-1"></div>
                             </div>
                             <div *ngFor="let userInfo of userInfos" class="tablebody">
                                 <div class="row">
-                                  <div class="col-xs-1">{{userInfo.status}}</div>
-                                  <div class="col-xs-1">{{userInfo.name}}</div>
-                                  <div class="col-xs-1">{{userInfo.displayName}}</div>
-                                  <div class="col-xs-2">{{userInfo.phoneNumber}}</div>
-                                  <div class="col-xs-2">{{userInfo.email}}</div>
-                                  <div class="col-xs-1">{{userInfo.createdBy}}</div>
-                                  <div class="col-xs-2.5">{{userInfo.createdOn}}</div>
+                                  <div class="col-xs-1 col-lg-1">{{userInfo.status}}</div>
+                                  <div class="col-xs-1 col-lg-1">{{userInfo.name}}</div>
+                                  <div class="col-xs-1 col-lg-1">{{userInfo.displayName}}</div>
+                                  <div class="col-xs-1 col-lg-2">{{userInfo.phoneNumber}}</div>
+                                  <div class="col-xs-2 col-lg-2">{{userInfo.email}}</div>
+                                  <div class="col-xs-1 col-lg-1">{{userInfo.createdBy}}</div>
+                                  <div class="col-xs-3 col-lg-2">{{userInfo.createdOn}}</div>
                                   <div class="col-xs-2">
                                       <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateUser" (click)="getUserInfo(userInfo)">Update</button>
                                       <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                                   </div>
                                 </div>
-
                             </div>
-
                         </div>
                         <!--页码块-->
                         <footer class="footer">
@@ -374,54 +372,61 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal" #userForm="ngForm" novalidate *ngIf="aUser">
                                                 <div class="form-group ">
                                                     <label for="username" class="col-xs-4 control-label">Username：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="" class="form-control input-sm duiqi" id="username" >
+                                                        <input type="text"  name="name" [(ngModel)]="aUser.name" #name="ngModel"
+                                                               required minlength="2" maxlength="15"
+                                                               class="form-control input-sm duiqi" id="add_username" >
+                                                      <span *ngIf="name.pristine" class="label label-primary">未修改</span>
+                                                      <span *ngIf="name.dirty" class="label label-warning">已修改</span>
+                                                      <span *ngIf="name.valid" class="label label-success">有效</span>
+                                                      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                                        <p *ngIf="name.errors?.minlength">姓名最小长度为3</p>
+                                                        <p *ngIf="name.errors?.required">必须输入姓名</p>
+                                                      </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password" class="col-xs-4 control-label">Password：</label>
                                                     <div class="col-xs-8">
-                                                        <input type="" class="form-control input-sm duiqi" id="password" placeholder="">
+                                                        <input type="text"  name="password" [(ngModel)]="aUser.password"  class="form-control input-sm duiqi" id="add_password" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="rePassword" class="col-xs-4 control-label">Re-Password：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="" class="form-control input-sm duiqi" id="rePassword" placeholder="">
+                                                        <input type="text"    class="form-control input-sm duiqi" id="add_rePassword" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
                                                     <div class="col-xs-8">
-                                                        <input type="" class="form-control input-sm duiqi" id="displayName" placeholder="">
+                                                        <input type="text"  name="displayName" [(ngModel)]="aUser.displayName"  class="form-control input-sm duiqi" id="add_displayName" placeholder="">
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="role" class="col-xs-4 control-label">Role：</label>
-                                                    <div class="col-xs-8">
-                                                        <select class=" form-control select-duiqi" id="role">
-                                                          <!--
-                                                                  作者：huaxin19950624@163.com
-                                                                  时间：2017-06-15
-                                                                  描述：从已经有的角色信息中获取病显示在这儿
-                                                                -->
-                                                                <option>admin</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+
                                                 <div class="form-group">
                                                     <label for="email" class="col-xs-4 control-label">Email：</label>
                                                     <div class="col-xs-8">
-                                                         <input type="" class="form-control input-sm duiqi" id="email" placeholder="">
+                                                         <input type="text"  name="email" [(ngModel)]="aUser.email"  class="form-control input-sm duiqi"  id="add_email" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phone" class="col-xs-4 control-label">Phone：</label>
                                                     <div class="col-xs-8">
-                                                         <input type="" class="form-control input-sm duiqi" id="phone" placeholder="">
+                                                         <input type="text" name="mobile" [(ngModel)]="aUser.phoneNumber" required minlength="11"
+                                                                maxlength="11" validateMobile class="form-control input-sm duiqi"
+                                                                id="add_ phone" placeholder="">
+                                                          <span *ngIf="userForm.controls.mobile?.pristine" class="label label-primary">未修改</span>
+                                                          <span *ngIf="userForm.controls.mobile?.dirty" class="label label-warning">已修改</span>
+                                                          <span *ngIf="userForm.controls.mobile?.valid" class="label label-success">有效</span>
+                                                          <div [hidden]="userForm.controls.mobile?.valid || userForm.controls.mobile?.pristine" class="alert alert-danger">
+                                                            <p *ngIf="userForm.controls.mobile?.errors?.minlength">电话长度必须为11</p>
+                                                            <p *ngIf="userForm.controls.mobile?.errors?.required">必须输入电话</p>
+                                                            <p *ngIf="userForm.controls.mobile?.errors?.validateMobile">电话号码格式不正确</p>
+                                                          </div>
                                                     </div>
                                                 </div>
 
@@ -430,7 +435,11 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                                        <button type="button" class="btn btn-xs btn-green">Save</button>
+                                        <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="addUser()">Save</button>
+                                        <div class="col-sm-10">
+                                          <p class="error-msg">{{errorMsg}}</p>
+                                          <p class="error-msg">{{nameErrorMsg}}</p>
+                                      </div>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
