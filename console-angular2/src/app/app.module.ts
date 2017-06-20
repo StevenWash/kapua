@@ -15,6 +15,7 @@ import { RoleService } from "./service/role.service";
 import {DeviceConnectionService} from "./service/device-connection.service";
 import {GroupService} from "./service/group.service";
 import {MobileValidator} from "./validators/adduser.validator";
+import {EqualValidator} from "./validators/equal-validator.directive";
 
 
 
@@ -29,15 +30,16 @@ import {MobileValidator} from "./validators/adduser.validator";
   declarations: [
     AppComponent ,
     LoginComponent ,
-    MainViewComponent
+    MainViewComponent,
+    MobileValidator,
+    EqualValidator
   ],
   providers: [
     LoginService,
     UserListService,
     RoleService,
     DeviceConnectionService,
-    GroupService,
-    MobileValidator
+    GroupService
   ],
   bootstrap: [
     AppComponent

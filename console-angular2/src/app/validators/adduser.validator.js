@@ -27,9 +27,7 @@ MobileValidator = __decorate([
         selector: '[validateMobile][ngModel]',
         providers: [
             { provide: forms_1.NG_VALIDATORS,
-                useValue: [
-                    validateMobile
-                ],
+                useValue: validateMobile,
                 multi: true
             }
         ]

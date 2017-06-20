@@ -17,9 +17,7 @@ export function validateMobile(c: FormControl) {
   selector: '[validateMobile][ngModel]',
   providers: [
     { provide: NG_VALIDATORS,
-      useValue: [
-        validateMobile
-      ],
+      useValue: validateMobile,
       multi: true
     }
   ]

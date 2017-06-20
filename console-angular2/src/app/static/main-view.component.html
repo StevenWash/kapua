@@ -36,7 +36,7 @@
                     	<span>{{email}}</span>
                     </p>
                     <p>
-                        <a>退出登录</a>
+                        <button (click)="logout()">退出登录</button>
                     </p>
                 </div>
                 <div class="meun-title"><h6>Account</h6></div>
@@ -307,7 +307,7 @@
                             </div>
                         </div>
 
-                        <div class="data-div">
+                        <div class="data-div" >
                             <div class="row tableHeader">
                                 <div class="col-xs-1 col-lg-1">Status</div>
                                 <div class="col-xs-1 col-lg-1">Name</div>
@@ -320,7 +320,7 @@
                                 <div class="col-xs-1"></div>
                             </div>
                             <div *ngFor="let userInfo of userInfos" class="tablebody">
-                                <div class="row">
+                                <div class="row" href="#userCollapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="userCollapse">
                                   <div class="col-xs-1 col-lg-1">{{userInfo.status}}</div>
                                   <div class="col-xs-1 col-lg-1">{{userInfo.name}}</div>
                                   <div class="col-xs-1 col-lg-1">{{userInfo.displayName}}</div>
@@ -330,9 +330,26 @@
                                   <div class="col-xs-3 col-lg-2">{{userInfo.createdOn}}</div>
                                   <div class="col-xs-2">
                                       <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateUser" (click)="getUserInfo(userInfo)">Update</button>
-                                      <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                      <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser" (click)="getUserId(userInfo)">Delete</button>
                                   </div>
                                 </div>
+                              <div id="userCollapse" class="collapse">
+                                <div class="row">
+                                  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 levl2 ">
+                                    2
+                                  </div>
+                                  <div id="topBD" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 levl2">
+                                    <span  id="topB" class="glyphicon glyphicon-triangle-bottom"></span> <span>账号管理</span>
+                                  </div>
+                                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    /rlist/
+                                  </div>
+                                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeSource">修改</button>
+                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <!--页码块-->
@@ -377,11 +394,12 @@
                                                     <label for="username" class="col-xs-4 control-label">Username：</label>
                                                     <div class="col-xs-8 ">
                                                         <input type="text"  name="name" [(ngModel)]="aUser.name" #name="ngModel"
-                                                               required minlength="2" maxlength="15"
-                                                               class="form-control input-sm duiqi" id="add_username" >
-                                                      <span *ngIf="name.pristine" class="label label-primary">未修改</span>
-                                                      <span *ngIf="name.dirty" class="label label-warning">已修改</span>
-                                                      <span *ngIf="name.valid" class="label label-success">有效</span>
+                                                               required minlength="2" maxlength="15" class="form-control input-sm duiqi " id="add_username" >
+                                                        <span *ngIf="name.pristine" class="label label-primary ">未修改</span>
+                                                        <span *ngIf="name.dirty" class="label label-warning ">已修改</span>
+                                                        <span *ngIf="name.valid" class="label label-success ">有效</span>
+                                                    </div>
+                                                    <div  class="col-xs-10">
                                                       <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
                                                         <p *ngIf="name.errors?.minlength">姓名最小长度为3</p>
                                                         <p *ngIf="name.errors?.required">必须输入姓名</p>
@@ -391,42 +409,84 @@
                                                 <div class="form-group">
                                                     <label for="password" class="col-xs-4 control-label">Password：</label>
                                                     <div class="col-xs-8">
-                                                        <input type="text"  name="password" [(ngModel)]="aUser.password"  class="form-control input-sm duiqi" id="add_password" placeholder="">
+                                                        <input type="password" name="password" [(ngModel)]="aCredential.password" #password="ngModel"
+                                                               required  minlength="6" maxlength="16" class="form-control input-sm duiqi " id="add_password"
+                                                               placeholder="" validateEqual="repassword" reverse="true">
+                                                        <span *ngIf="password.pristine" class="label label-primary ">未修改</span>
+                                                        <span *ngIf="password.dirty" class="label label-warning ">已修改</span>
+                                                        <span *ngIf="password.valid" class="label label-success ">有效</span>
+                                                    </div>
+                                                    <div  class="col-xs-10">
+                                                      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                                                        <p *ngIf="password.errors?.minlength">minlength is 6</p>
+                                                        <p *ngIf="password.errors?.maxlength">maxlength is 16</p>
+                                                        <p *ngIf="password.errors?.required">password required</p>
+                                                        <p *ngIf="userForm.controls.mobile?.errors?.validatePassword">密码格式不对</p>
+                                                      </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="rePassword" class="col-xs-4 control-label">Re-Password：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="text"    class="form-control input-sm duiqi" id="add_rePassword" placeholder="">
+                                                        <input type="password" name="repassword" [(ngModel)]="aCredential.repassword"
+                                                               class="form-control input-sm duiqi " #repassword="ngModel" required
+                                                               validateEqual="password" minlength="6" maxlength="16" id="add_rePassword"  placeholder="">
+                                                        <span *ngIf="repassword.pristine" class="label label-primary ">未修改</span>
+                                                        <span *ngIf="repassword.dirty" class="label label-warning ">已修改</span>
+                                                        <span *ngIf="repassword.valid" class="label label-success ">有效</span>
+                                                    </div>
+                                                    <div  class="col-xs-10">
+                                                      <div [hidden]="repassword.valid || repassword.pristine" class="alert alert-danger">
+                                                        <p >两次密码不一致</p>
+                                                      </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
                                                     <div class="col-xs-8">
-                                                        <input type="text"  name="displayName" [(ngModel)]="aUser.displayName"  class="form-control input-sm duiqi" id="add_displayName" placeholder="">
+                                                        <input type="text"  name="displayName" [(ngModel)]="aUser.displayName" #displayName="ngModel" required
+                                                               minlength="2" maxlength="15" class="form-control input-sm duiqi " id="add_displayName" placeholder="">
+                                                      <span *ngIf="displayName.pristine" class="label label-primary ">未修改</span>
+                                                      <span *ngIf="displayName.dirty" class="label label-warning ">已修改</span>
+                                                      <span *ngIf="displayName.valid" class="label label-success ">有效</span>
+                                                    </div>
+                                                    <div  class="col-xs-10">
+                                                      <div [hidden]="displayName.valid || displayName.pristine" class="alert alert-danger">
+                                                        <p *ngIf="displayName.errors?.minlength">姓名最小长度为2</p>
+                                                        <p *ngIf="displayName.errors?.required">必须输入姓名</p>
+                                                      </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="email" class="col-xs-4 control-label">Email：</label>
                                                     <div class="col-xs-8">
-                                                         <input type="text"  name="email" [(ngModel)]="aUser.email"  class="form-control input-sm duiqi"  id="add_email" placeholder="">
+                                                         <input type="email"  name="email" [(ngModel)]="aUser.email" required
+                                                                 #email="ngModel"
+                                                                class="form-control input-sm duiqi"  id="add_email" placeholder="">
+                                                    </div>
+                                                    <div  class="col-xs-10">
+                                                      <div [hidden]="email.valid || email.pristine " class="alert alert-danger">
+                                                        Email is required and format should be <i>john@doe.com</i>.
+                                                      </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phone" class="col-xs-4 control-label">Phone：</label>
                                                     <div class="col-xs-8">
-                                                         <input type="text" name="mobile" [(ngModel)]="aUser.phoneNumber" required minlength="11"
-                                                                maxlength="11" validateMobile class="form-control input-sm duiqi"
+                                                         <input type="text" name="mobile" [(ngModel)]="aUser.phoneNumber" #mobile="ngModel"
+                                                                required minlength="11" maxlength="11" validateMobile class="form-control input-sm duiqi"
                                                                 id="add_ phone" placeholder="">
                                                           <span *ngIf="userForm.controls.mobile?.pristine" class="label label-primary">未修改</span>
                                                           <span *ngIf="userForm.controls.mobile?.dirty" class="label label-warning">已修改</span>
                                                           <span *ngIf="userForm.controls.mobile?.valid" class="label label-success">有效</span>
-                                                          <div [hidden]="userForm.controls.mobile?.valid || userForm.controls.mobile?.pristine" class="alert alert-danger">
-                                                            <p *ngIf="userForm.controls.mobile?.errors?.minlength">电话长度必须为11</p>
-                                                            <p *ngIf="userForm.controls.mobile?.errors?.required">必须输入电话</p>
-                                                            <p *ngIf="userForm.controls.mobile?.errors?.validateMobile">电话号码格式不正确</p>
-                                                          </div>
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                      <div [hidden]="userForm.controls.mobile?.valid || userForm.controls.mobile?.pristine" class="alert alert-danger">
+                                                        <p *ngIf="userForm.controls.mobile?.errors?.minlength">电话长度必须为11</p>
+                                                        <p *ngIf="userForm.controls.mobile?.errors?.required">必须输入电话</p>
+                                                        <p *ngIf="userForm.controls.mobile?.errors?.validateMobile">电话号码格式不正确</p>
+                                                      </div>
                                                     </div>
                                                 </div>
 
@@ -514,7 +574,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn  btn-xs btn-danger">确 定</button>
+                                        <button type="button" class="btn  btn-xs btn-danger" (click)="deleteUser()" data-dismiss="modal">确 定</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->

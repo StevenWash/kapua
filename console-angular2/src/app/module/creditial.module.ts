@@ -2,10 +2,18 @@
  * Created by StevenWash on 2017/6/14.
  */
 export class Creditial{
+
+   username:string;
+   password:string;
+   repassword:string;
+   credentialType:string;
+   credentialPlainKey:string;
+   scopeId:string;
+   userId:string;
+
   constructor(
-    private username:string,
-    private password:string
   ){}
+
 
   getUsername():string{
       return this.username;

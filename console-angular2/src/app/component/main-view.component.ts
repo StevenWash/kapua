@@ -11,7 +11,9 @@ import {DeviceConnection} from "../module/device-connect.module";
 import {DeviceInfo} from "../module/device.module";
 import {GroupService} from "../service/group.service";
 import {GroupInfo} from "../module/group-info.module";
-import {NgForm} from "@angular/forms";
+import {Creditial} from "../module/creditial.module";
+import {Router} from "@angular/router";
+import {LoginService} from "../service/login.service";
 
 
 @Component({
@@ -29,12 +31,13 @@ export class MainViewComponent{
   private groupInfos:GroupInfo[];
 
   private aUser:UserInfo=new UserInfo();
-  errorMsg:string;
-  nameErrorMsg:string;
+  private aCredential=new Creditial();
 
   private displayName:string;
   private email:string;
   private optlock:number;
+
+  private delUserId:string;
 
   /**
    * 构造函数，在构造器里面进行依赖注入
@@ -46,8 +49,17 @@ export class MainViewComponent{
     private userListService:UserListService,
     private roleService:RoleService,
     private deviceConnectionService:DeviceConnectionService,
-    private groupService:GroupService
+    private groupService:GroupService,
+    private router: Router,
+    private loginService:LoginService
   ){
+    console.log("home..");
+   // console.log(localStorage.getItem('userId').length);
+   // console.log(localStorage.getItem('userId'))
+    if(localStorage.getItem('userId')==null||localStorage.getItem('userId').length==0){
+      console.log("home2..");
+      this.router.navigate(['/login']);
+    }
     this.getUserList();
     this.getLoginUser();
     this.getRoleList();
@@ -58,6 +70,15 @@ export class MainViewComponent{
 
 
   //-------------------User Action ------------------//
+  /**
+   * 用户进行登出操作
+   */
+  logout(){
+    console.log("logout....");
+    this.loginService.logout();
+    this.router.navigate(['/login']);
+  }
+
   /**
    * 得到所有用户的所有信息
    */
@@ -107,37 +128,32 @@ export class MainViewComponent{
    * 添加用户信息
    */
   addUser(){
-
     console.log(this.aUser);
-
-   /* console.log(theForm.value);
-    //this.adduser=theForm.value;
-    console.log(this.aUser.name);
-    console.log(this.aUser.phoneNumber);
-    console.log(this.aUser.email);
-    console.log(this.aUser.id);
-    console.log(this.aUser.optlock);
-    console.log(this.aUser.status);
-    console.log(this.aUser.type);
-    console.log(this.aUser.createdBy);
-
-    if (theForm.invalid) {
-      this.errorMsg = 'validation errors!';
-      if (theForm.controls['name'].errors) {
-        this.nameErrorMsg = 'name error:' + JSON.stringify(theForm.controls['name'].errors);
-      } else {
-        this.nameErrorMsg = null;
-      }
-    } else {
-      this.errorMsg = null;
-      this.nameErrorMsg = null;
-    }*/
 
     this.userListService.addUser(this.aUser).subscribe((result) => {
       console.log(result);
     });
 
+    this.userListService.addCredentials(this.aUser).subscribe((result) => {
+      console.log(result);
+    });
 
+  }
+
+  getUserId(userInfo:UserInfo){
+    console.log(userInfo);
+    this.delUserId=userInfo.id;
+    console.log(this.delUserId);
+  }
+
+  deleteUser(){
+    console.log(this.delUserId);
+    this.userListService.deleteUser(this.delUserId).subscribe((result) => {
+      if(result){
+        this.router.navigate(['/home']);
+      }else
+        this.router.navigate(['/login']);
+    });
   }
 
 

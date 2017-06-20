@@ -14,12 +14,15 @@ import {Router} from "@angular/router";
   styleUrls: ['app/css/static/login.css']
 })
 export class LoginComponent{
-  private creditial=new Creditial('huaxin','HX-19950624@com');
+  private creditial=new Creditial();
 
   constructor(
     private loginService:LoginService,
     private router: Router
-  ){}
+  ){
+    this.creditial.setUsername('huaxin');
+    this.creditial.setPassword('HX-19950624@com');
+  }
 
   /**
    * 实现登录操作（进行授权验证）
