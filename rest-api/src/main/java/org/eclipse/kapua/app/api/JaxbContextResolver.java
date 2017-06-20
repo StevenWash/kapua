@@ -141,10 +141,7 @@ import org.eclipse.kapua.service.user.UserQuery;
 import org.eclipse.kapua.service.user.UserXmlRegistry;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.kapua.service.weather.Weather;
-import org.eclipse.kapua.service.weather.WeatherCreator;
-import org.eclipse.kapua.service.weather.WeatherListResult;
-import org.eclipse.kapua.service.weather.WeatherQuery;
-import org.eclipse.kapua.service.weather.WeatherXmlRegistry;
+
 
 
 
@@ -341,10 +338,7 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     
                  // Weather
                     Weather.class,
-                    WeatherCreator.class,
-                    WeatherListResult.class,
-                    WeatherQuery.class,
-                    WeatherXmlRegistry.class,
+                   
 
             }, null);
         } catch (Exception e) {

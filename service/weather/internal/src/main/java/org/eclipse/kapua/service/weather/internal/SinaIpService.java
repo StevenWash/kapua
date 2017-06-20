@@ -12,9 +12,9 @@ public class SinaIpService implements BaseIpService {
 		try {
 			String url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip="+ip;
 			
-			System.out.println(url);
+			
 			String httpResult = HttpUtil.getHttpConnHtml(url);
-			System.out.println(httpResult);
+			
 			
 			BaseIpInfo ipInfo = new SinaIpInfo();
 			

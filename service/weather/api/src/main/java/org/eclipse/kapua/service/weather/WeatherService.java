@@ -11,11 +11,14 @@
  *******************************************************************************/
 package org.eclipse.kapua.service.weather;
 
+import java.util.List;
+
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.model.query.KapuaQuery;
 import org.eclipse.kapua.service.KapuaEntityService;
 import org.eclipse.kapua.service.KapuaNamedEntityService;
+import org.eclipse.kapua.service.KapuaService;
 import org.eclipse.kapua.service.KapuaUpdatableEntityService;
 import org.eclipse.kapua.service.config.KapuaConfigurableService;
 
@@ -27,32 +30,21 @@ import org.eclipse.kapua.service.config.KapuaConfigurableService;
  * @since 1.0
  * 
  */
-public interface WeatherService extends KapuaEntityService<Weather, WeatherCreator>{
+public interface WeatherService extends KapuaService{
         
 
 	
-	/**
-     * Creates a new {@link Weather} based on the parameters provided in the {@link WeatherCreator}.<br>
-     * {@link Weather} must have a unique name.
-     * 
-     * @param weatherCreator
-     *            The creator object from which to create the {@link Weather}.
-     * @return The created {@link Weather}
-     * @throws KapuaException
-     * @since 1.0.0
-     */
-    public Weather create(WeatherCreator weatherCreator)
-            throws KapuaException;
+	
     
-    /**
+ /*   *//**
      * Finds the Weather by weather identifiers
      * 
      * @param id
      * @return
      * @throws KapuaException
-     */
+     *//*
     public Weather find(KapuaId scopeId, KapuaId weatherId)
-            throws KapuaException;
+            throws KapuaException;*/
     
     
 
@@ -65,60 +57,15 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
      * @throws KapuaException
      * @since 1.0.0
      */
-    public WeatherListResult query(KapuaQuery<Weather> query)
+   /* public WeatherListResult query(KapuaQuery<Weather> query)
             throws KapuaException;
+*/
+   
+    
 
-    /**
-     * Returns a List of direct child account of the provided account identifier
-     * 
-     * @param accountId
-     *            the Id of the parent Account
-     * @return List of direct child account of an account
-     * @throws KapuaException
-     */
+  
     
-    
-    
- 
-   /* public WeatherListResult findChildsRecursively(KapuaId weatherId)
-            throws KapuaException;
-    */
-    /**
-     * Delete the {@link Domain} by scope id and {@link Domain} id.
-     * 
-     * @param scopeId
-     *            The scope id in which to delete.
-     * @param roleId
-     *            The {@link Domain} id to delete.
-     * @throws KapuaException
-     * @since 1.0.0
-    public void delete(KapuaId scopeId, KapuaId roleId)
-            throws KapuaException;
-    
-    
-    /**
-     * Returns the count of the {@link Weather} elements matching the provided query.
-     * 
-     * @param query
-     *            The {@link WeatherQuery} used to filter results.
-     * @return The weather of the {@link Weather} elements matching the provided query.
-     * @throws KapuaException
-     * @since 1.0.0
-     */
-    public long count(KapuaQuery<Weather> query)
-            throws KapuaException;
-    
-    
-    /* * Delete the {@link Weather} by scopeid and {@link Weather} id.
-     * 
-     * @param scopeId
-     *            The scopeid in which to delete.
-     * @param roleId
-     *            The {@link Weather} id to delete.
-     * @throws KapuaException
-     * @since 1.0.0*/
-    public void delete(KapuaId scopeId, KapuaId roleId)
-            throws KapuaException;
+  
     
     
     /**
@@ -130,7 +77,7 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
      * @throws KapuaException
      * @since 1.0.0
      */
-    public WeatherListResult getProvince(KapuaId scopeId)
+    public List<String> getProvince(KapuaId scopeId)
     		throws KapuaException;
     
     
@@ -146,7 +93,7 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
      * @throws KapuaException
      * @since 1.0.0
      */
-    public WeatherListResult getCityByProvince(KapuaId scopeId,String province)
+    public List<String> getCityByProvince(KapuaId scopeId,String province)
     		throws KapuaException;
     
     
@@ -163,7 +110,7 @@ public interface WeatherService extends KapuaEntityService<Weather, WeatherCreat
      * @throws KapuaException
      * @since 1.0.0
      */
-    public WeatherListResult getAreaByCity(KapuaId scopeId,String city)
+    public List<String> getAreaByCity(KapuaId scopeId,String city)
     		throws KapuaException;
     
     

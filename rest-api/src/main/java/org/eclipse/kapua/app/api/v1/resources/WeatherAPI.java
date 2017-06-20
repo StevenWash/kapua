@@ -1,67 +1,31 @@
-/*******************************************************************************
- * Copyright (c) 2011, 2017 Eurotech and/or its affiliates and others
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Eurotech - initial API and implementation
- *******************************************************************************/
 package org.eclipse.kapua.app.api.v1.resources;
 
+
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import org.eclipse.kapua.app.api.v1.resources.model.CountResult;
-import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
-import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
-import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
-
-
-
-import org.eclipse.kapua.service.authorization.access.AccessInfo;
-import org.eclipse.kapua.service.authorization.access.AccessInfoListResult;
-import org.eclipse.kapua.service.user.User;
 import org.eclipse.kapua.service.weather.Weather;
-import org.eclipse.kapua.service.weather.WeatherFactory;
 import org.eclipse.kapua.service.weather.WeatherService;
-import org.eclipse.kapua.service.weather.WeatherListResult;
-import org.eclipse.kapua.service.weather.internal.WeatherListResultImpl;
 import org.eclipse.kapua.service.weather.internal.GeoIPv4;
 import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.BaseIpService;
-import org.eclipse.kapua.service.weather.internal.Forecast;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
+import org.eclipse.kapua.service.weather.internal.WeatherPresentation;
 import org.eclipse.kapua.service.weather.internal.YahooWeatherService;
 import org.eclipse.kapua.service.weather.internal.Channel;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
- 
-
-
-
-
-
-
-import com.google.common.base.Strings;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -72,42 +36,6 @@ public class WeatherAPI extends AbstractKapuaResource {
 
 	private final KapuaLocator locator = KapuaLocator.getInstance();
     private final WeatherService weatherService = locator.getService(WeatherService.class);
-    private final WeatherFactory weatherFactory = locator.getFactory(WeatherFactory.class);
-    
-    /**
-     * Gets the {@link AccessInfo} specified by the "accessInfoId" path parameter.
-     *
-     * @param scopeId
-     *            The {@link ScopeId} of the requested {@link AccessInfo}.
-     * @param accessInfoId
-     *            The id of the requested {@link AccessInfo}.
-     * @return The requested {@link AccessInfo} object.
-     * @since 1.0.0
-     */
-/*    @GET
-    @Path("{weatherId}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @ApiOperation(value = "Gets an Weather", //
-            notes = "Gets the Weather specified by the weatherId path parameter", //
-            response = Weather.class)
-    public Weather find(
-            @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId, //
-            @ApiParam(value = "The id of the requested Weather", required = true) @PathParam("weatherId") EntityId weatherId) {
-        Weather weather = null;
-        try {
-        	
-           weather=weatherService.find(scopeId, weatherId);
-           
-        } catch (Throwable t) {
-            handleException(t);
-        }
-        return returnNotNullEntity(weather);
-        
-        
-        
-        
-    }*/
-    
     
     
     /**
@@ -124,21 +52,22 @@ public class WeatherAPI extends AbstractKapuaResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets province", //
             notes = "Gets the Weather.priovince specified by the scopeId path parameter", //
-            response = WeatherListResult.class)
-    public WeatherListResult findProvince(
+            response = List.class)
+    public List<String> findProvince(
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId) //
             {
+    	System.out.println("weatherService:::::::::::<<<<<<<<<<<<<");
+    	System.out.println("weatherService:::::::::::"+weatherService);
+    	List<String> provinceLists=new ArrayList<String>();
     	
-    	
-    	WeatherListResult weatherListResult = new WeatherListResultImpl();
         try {
         	
-           weatherListResult=weatherService.getProvince(scopeId);
+        	provinceLists=weatherService.getProvince(scopeId);
         	
-         } catch (Throwable t) {
-            handleException(t);
+         } catch (Exception e) {
+        	 e.printStackTrace();
         }
-        return returnNotNullEntity(weatherListResult);
+        return provinceLists;
     }
     
     
@@ -159,22 +88,22 @@ public class WeatherAPI extends AbstractKapuaResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets the city by province", //
             notes = "Gets the city specified by the scopeId , province path parameter", //
-            response = WeatherListResult.class)
-    public WeatherListResult findCityByProvince(
+            response = List.class)
+    public List<String> findCityByProvince(
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The province of the requested weather.", required = true) @PathParam("province") String province)//
             {
     	
+    	List<String> cityLists=new ArrayList<String>();
     	
-    	WeatherListResult weatherListResult = new WeatherListResultImpl();
         try {
         	
-           weatherListResult=weatherService.getCityByProvince(scopeId,province);
+        	cityLists=weatherService.getCityByProvince(scopeId,province);
         	
          } catch (Throwable t) {
             handleException(t);
         }
-        return returnNotNullEntity(weatherListResult);
+        return cityLists;
     }
     
     
@@ -197,38 +126,40 @@ public class WeatherAPI extends AbstractKapuaResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an area by city", //
             notes = "Gets the Weather.area specified by the scopeId,city path parameter", //
-            response = WeatherListResult.class)
-    public WeatherListResult findAreaByCity(
+            response = List.class)
+    public List<String> findAreaByCity(
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The city of the requested weather.", required = true) @QueryParam("city") String city)//
             {
     	
-              WeatherListResult weatherListResult = new WeatherListResultImpl();
+    	List<String> areaLists=new ArrayList<String>();
         try {
         	
-           weatherListResult=weatherService.getAreaByCity(scopeId,city);
+        	areaLists=weatherService.getAreaByCity(scopeId,city);
+           
         	
          } catch (Throwable t) {
             handleException(t);
         }
-        return returnNotNullEntity(weatherListResult);
+        return areaLists;
     }
     
-    
+    //**Sina
     @GET
-    @Path("{scopeId}/{area}/{day}")
+    @Path("{scopeId}/{city}/{day}")    
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an Weather by area and day", //
             notes = "Gets the Weather specified by the area,day path parameter", //
             response = String.class)
     public String getWeatherByArea(
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("area") String area,//
+            @ApiParam(value = "The city of the requested Weather", required = true) @PathParam("city") String city,//
             @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0")@DefaultValue("0") @PathParam("day") Integer day) {
         String  weather = null;
         try {
         	
-           weather=weatherService.getWeather(area, day);
+           weather=weatherService.getWeather(city, day);
+           
            
         } catch (Throwable t) {
             handleException(t);
@@ -238,7 +169,7 @@ public class WeatherAPI extends AbstractKapuaResource {
 
      }
     
-    //getWeatherByIp
+    //getWeatherByIp  **Sina
     @GET
     @Path("{ip}/{day}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -290,19 +221,19 @@ public class WeatherAPI extends AbstractKapuaResource {
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("area") String area)
             {
-    	StringBuilder builder =new StringBuilder();
+    	StringBuffer buffer =new StringBuffer();
     	YahooWeatherService service = null;
         String  weathers = null;
         try {
         	service=new YahooWeatherService();
         	Channel channel = service.getForecastForLocation(area).first(3).get(0);
-        	builder.append(channel);
+        	buffer.append(channel);
         /*	List<Forecast> list=channel.getItem().getForecasts();
     		for(Forecast fo:list){
     			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
     		}*/
-        	builder.append(channel.getItem().getForecasts().get(0));
-        	weathers=builder.toString();
+        	buffer.append(channel.getItem().getForecasts().get(0));
+        	weathers=buffer.toString();
         	
           
         } catch (Throwable t) {
@@ -325,7 +256,7 @@ public class WeatherAPI extends AbstractKapuaResource {
             @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The ipAddress of the requested Weather", required = true) @PathParam("ip") String ip)
             {
-    	StringBuilder builder =new StringBuilder(); 
+    	StringBuffer buffer =new StringBuffer(); 
     	YahooWeatherService service = null;
         
         String weather=null;
@@ -336,15 +267,15 @@ public class WeatherAPI extends AbstractKapuaResource {
         	service=new YahooWeatherService();
         	Channel channel = service.getForecastForLocation(area).first(3).get(0);
         	
-        	builder.append(channel);
+        	buffer.append(channel);
         	/*List<Forecast> list=channel.getItem().getForecasts();
     		for(Forecast fo:list){
     			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
     		}*/
-        	builder.append(channel.getItem().getForecasts().get(0));
+        	buffer.append(channel.getItem().getForecasts().get(0));
         	
         	
-        	weather=builder.toString();
+        	weather=buffer.toString();
            
         } catch (Throwable t) {
             handleException(t);
@@ -353,5 +284,54 @@ public class WeatherAPI extends AbstractKapuaResource {
 
 
      }
+    
+    
+    @GET
+    @Path("{scopeId}/weathers/{weatherApiName}/{ipAddress}/{day}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.TEXT_PLAIN })
+    @ApiOperation(value = "Gets an Weather by day, ipAddress,weatherApiName", //
+            notes = "Gets the Weather specified by the day,scopeId,weatherApiName,ipAddress path parameter", //
+            response = String.class)
+    public String getWeatherByApi(
+            @ApiParam(value = "The ScopeId of the requested Weather.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
+            @ApiParam(value = "The weatherApiName of the requested Weather", required = true) @PathParam("weatherApiName") String  weatherApiName,
+            @ApiParam(value = "The ipAddress of the requested Weather", required = true) @PathParam("ipAddress") String ipAddress,
+            @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0") @DefaultValue("0") @PathParam("day") Integer day){
+        String weatherInfo=null;
+        
+        try {
+        	 if(weatherApiName.equals("sina")){
+        		 String content= this.getWeatherByIp(scopeId, ipAddress, day);
+        		 
+        		  WeatherPresentation weatherPresentation=new WeatherPresentation();
+        	      
+        	      
+        	 
+        		 
+        		  JSONObject myjObject = new JSONObject(content);
+        		 
+        		  weatherPresentation.setDate(myjObject.getString("savedate_zhishu"));
+     	         weatherPresentation.setLocation(myjObject.getString("city"));
+     	         weatherPresentation.setHigh(myjObject.getString("temperature1")); 
+     	         weatherPresentation.setLow(myjObject.getString("temperature2"));
+     	         weatherPresentation.setText(myjObject.getString("yd_s"));
+        	      
+        	  
+        		    weatherInfo=weatherPresentation.toString();
+        	 }else if(weatherApiName.equals("yahoo")){
+        		 weatherInfo=this.getWeathersByIpAddress(scopeId, ipAddress);
+        	 }else{
+        		 weatherInfo=null;
+        	 }
+         
+          
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        
+        return weatherInfo;
+        
+   }
     
 }

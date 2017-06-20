@@ -20,7 +20,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 
+import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.app.common.util.EncodeHelper;
+import org.eclipse.kapua.locator.KapuaLocator;
+import org.eclipse.kapua.model.id.KapuaId;
+import org.eclipse.kapua.service.authorization.AuthorizationService;
+import org.eclipse.kapua.service.authorization.domain.Domain;
+import org.eclipse.kapua.service.authorization.permission.Actions;
+import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
+import org.eclipse.kapua.service.weather.internal.IpDomain;
+import org.eclipse.kapua.service.weather.internal.QrcodeDomain;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,23 +39,26 @@ import io.swagger.annotations.ApiParam;
 @Path("/qrcode")  
 public class QrcodeAPI {
 	
-	@ApiOperation(value = "packageUrl", //
+	
+	 private static final Domain QECODE_DOMAIN = new QrcodeDomain();
+	
+/*	@ApiOperation(value = "packageUrl", //
 	            notes = "Queries the packageUrl with the given pName parameter returning all ", //
 	            response = String.class, //
 	            responseContainer = "String") //
 	@GET
-	public String getPackageUrl/*(@QueryParam("package") String pName)*/
+	public String getPackageUrl(@QueryParam("package") String pName)
 	(@ApiParam(value = "The ScopeId in which to create the Account", required = true) @QueryParam("package") String pName
     ){
 	
-		System.out.println("pName::: "+pName);
+	
 		       String url="";
 		        if(pName=="")
 		        {
 		        	
 		        }
 		        return url;
-	}
+	}*/
 	 
 	 
 /*	@ApiOperation(value = "create the qrcode", 
@@ -95,24 +108,28 @@ public class QrcodeAPI {
             response = InputStream.class, 
             responseContainer = "InputStream")
 	@GET
-	@Path(value = "/getpic")  
-	@Produces("image/png")
+	@Path(value = "/getpic")
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces("image/jpg")
 	public InputStream  getCodePic(
 			@ApiParam(value = "The content in which to create the QrcodeAPI", required = true) @QueryParam("content") String content,
 		
-			@ApiParam(value = "Provides the widths for the new QrcodeAPI to be created", required = true) @QueryParam("width") int width) throws IOException {  
+			@ApiParam(value = "Provides the widths for the new QrcodeAPI to be created", required = true) @QueryParam("width") int width) throws Exception {
+		
+  	 KapuaLocator locator = KapuaLocator.getInstance();
+     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+    
+	authorizationService.checkPermission(permissionFactory.newPermission(QECODE_DOMAIN, Actions.write,  KapuaId.ANY));
+	
+     
 		byte[] b = null;
 		String PNG="image/png;charset=GB2312";
 		String qrcode=content;		
-		try {
-			String _content =  URLDecoder.decode(qrcode, "utf-8");
-			b = EncodeHelper.getQRCode(_content, width);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			
-		}
+		
+		String _content =  URLDecoder.decode(qrcode, "utf-8");
+		b = EncodeHelper.getQRCode(_content, width);
+		
 		return new ByteArrayInputStream(b);
 	} 
 }

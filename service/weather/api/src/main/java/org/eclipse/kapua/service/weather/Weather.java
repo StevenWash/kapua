@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.kapua.model.KapuaEntity;
+import org.eclipse.kapua.model.id.KapuaId;
 
 /**
  * User account entity.
@@ -16,9 +17,9 @@ import org.eclipse.kapua.model.KapuaEntity;
  */
 @XmlRootElement(name = "weather")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(propOrder = {"city_code",
+@XmlType(propOrder = {"id","city_code",
         "province","city","area" })
-public interface Weather extends KapuaEntity {
+public interface Weather{
 
     public static final String TYPE = "weather";
 
@@ -26,6 +27,16 @@ public interface Weather extends KapuaEntity {
         return TYPE;
     }
 
+    
+    @XmlElement(name = "id")
+    public KapuaId getId();
+
+    /**
+     * Set the weather's province
+     * 
+     * @param province
+     */
+    public void setId(KapuaId id);
     /**
      * Get the weather's province
      * 

@@ -16,7 +16,7 @@
         <api>org.eclipse.kapua.service.account.AccountFactory</api>
         <api>org.eclipse.kapua.service.account.AccountService</api>
         
-        <api>org.eclipse.kapua.service.weather.WeatherFactory</api>
+      
         <api>org.eclipse.kapua.service.weather.WeatherService</api>
 
         <api>org.eclipse.kapua.service.authentication.AuthenticationService</api>

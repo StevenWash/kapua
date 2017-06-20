@@ -24,6 +24,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.app.api.v1.resources.model.CountResult;
 import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
@@ -32,21 +33,21 @@ import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
 
 
-
-
-
+import org.eclipse.kapua.model.id.KapuaId;
+import org.eclipse.kapua.service.authorization.AuthorizationService;
+import org.eclipse.kapua.service.authorization.domain.Domain;
+import org.eclipse.kapua.service.authorization.permission.Actions;
+import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.BaseIpService;
+import org.eclipse.kapua.service.weather.internal.IpDomain;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
-import java.util.List;
- 
 
 
 
 
 
-import com.google.common.base.Strings;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,6 +57,7 @@ import io.swagger.annotations.ApiParam;
 @Path("/ipApi") 
 public class IpApi{
 
+	 private static final Domain IP_DOMAIN = new IpDomain();
 	
     /**
      * Gets the {@link AccessInfo} specified by the "accessInfoId" path parameter.
@@ -65,10 +67,11 @@ public class IpApi{
      * @param accessInfoId
      *            The id of the requested {@link AccessInfo}.
      * @return The requested {@link AccessInfo} object.
+     * @throws KapuaException 
      * @since 1.0.0
      */
 
-    
+	
     //getAreaByIp
     @GET
     @Path("/{ip}")
@@ -78,8 +81,18 @@ public class IpApi{
             notes = "Gets the Area specified by the ip  parameter", //
             response = String.class)
     public String getAreaByIp(
-             @ApiParam(value = "The ip of the requested Area", required = true) @PathParam("ip") String ip)
+             @ApiParam(value = "The ip of the requested Area", required = true) @PathParam("ip") String ip) throws KapuaException 
             {
+    	 KapuaLocator locator = KapuaLocator.getInstance();
+         AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+         PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+        
+		 authorizationService.checkPermission(permissionFactory.newPermission(IP_DOMAIN, Actions.read,  KapuaId.ANY));
+
+		
+
+         
+    	
 		   NormalResult result = new NormalResult();
 		   BaseIpService ipService = new SinaIpService();
 		   String city=null;

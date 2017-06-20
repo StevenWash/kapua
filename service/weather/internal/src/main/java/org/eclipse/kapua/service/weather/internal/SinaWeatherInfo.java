@@ -1,7 +1,9 @@
 package org.eclipse.kapua.service.weather.internal;
 
 import java.util.Map;
+
 import org.eclipse.kapua.service.weather.BaseWeatherInfo;
+
 import net.sf.json.JSONObject;
 
 public class SinaWeatherInfo extends BaseWeatherInfo{
@@ -123,6 +125,11 @@ public class SinaWeatherInfo extends BaseWeatherInfo{
 		this.setSavedate_weather(savedate_weather);
 		this.setSavedate_life(savedate_life);
 		this.setSavedate_zhishu(savedate_zhishu);
+		
+		
+	
+		
+		
 	}
 	
 	

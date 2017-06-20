@@ -26,9 +26,6 @@ import org.eclipse.kapua.model.config.metatype.KapuaTocd;
 import org.eclipse.kapua.model.config.metatype.KapuaToption;
 import org.eclipse.kapua.model.config.metatype.MetatypeXmlRegistry;
 import org.eclipse.kapua.service.weather.Weather;
-import org.eclipse.kapua.service.weather.WeatherListResult;
-import org.eclipse.kapua.service.weather.WeatherXmlRegistry;
-
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +43,7 @@ public class WeathersJAXBContextProvider implements JAXBContextProvider {
         if (context == null) {
             Class<?>[] classes = new Class<?>[] {
             		Weather.class,
-            		WeatherListResult.class,
-            		WeatherXmlRegistry.class,
-                    KapuaTmetadata.class,
+            		KapuaTmetadata.class,
                     KapuaTocd.class,
                     KapuaTad.class,
                     KapuaTicon.class,
