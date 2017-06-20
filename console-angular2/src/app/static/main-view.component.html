@@ -333,25 +333,143 @@
                                       <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser" (click)="getUserId(userInfo)">Delete</button>
                                   </div>
                                 </div>
-                              <div id="userCollapse" class="collapse">
-                                <div class="row">
-                                  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 levl2 ">
-                                    2
-                                  </div>
-                                  <div id="topBD" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 levl2">
-                                    <span  id="topB" class="glyphicon glyphicon-triangle-bottom"></span> <span>账号管理</span>
-                                  </div>
-                                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                                    /rlist/
-                                  </div>
-                                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeSource">修改</button>
-                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
+                              <div id="userCollapse" class="collapse in">
+                                <div class="panel panel-default">
+                                  <div class="panel-body">
+                                    <div>
+                                      <!-- Nav tabs -->
+                                      <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                        <li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li>
+                                        <li role="presentation"><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Permissions</a></li>
+                                        <li role="presentation"><a href="#credentials" aria-controls="credentials" role="tab" data-toggle="tab">Credentials</a></li>
+                                      </ul>
+
+                                      <!-- Tab panes -->
+                                      <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="description">
+                                          <div class="data-div">
+                                            <div class="row tableHeader">
+                                              <div class="col-xs-5 ">Name</div>
+                                              <div class="col-xs-5 ">Value</div>
+                                            </div>
+                                            <div class="tablebody">
+                                              <div class="row">
+                                                <div class="col-xs-5 ">On</div>
+                                                <div class="col-xs-5 ">Kapua-sys</div>
+                                              </div>
+
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="roles">
+                                          <ul class="nav nav-pills">
+                                            <li role="presentation" class="active"><a href="#">Add</a></li>
+                                            <li role="presentation"><a href="#">Refresh</a></li>
+                                          </ul>
+                                          <div class="data-div">
+                                            <div class="row tableHeader">
+                                              <div class="col-xs-2 ">Name</div>
+                                              <div class="col-xs-4 ">CreateBy</div>
+                                              <div class="col-xs-4 ">CreateOn</div>
+                                              <div class="col-xs-1"></div>
+                                            </div>
+                                            <div class="tablebody">
+                                              <div class="row">
+                                                <div class="col-xs-2 ">Name</div>
+                                                <div class="col-xs-4 ">CreateBy</div>
+                                                <div class="col-xs-4 ">CreateOn</div>
+                                                <div class="col-xs-1">
+                                                  <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                                </div>
+                                              </div>
+
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="permissions">
+                                          <ul class="nav nav-pills">
+                                            <li role="presentation" class="active"><a href="#">Add</a></li>
+                                            <li role="presentation"><a href="#">Refresh</a></li>
+                                          </ul>
+                                          <div class="data-div">
+                                            <div class="row tableHeader">
+                                              <div class="col-xs-2 ">Domain</div>
+                                              <div class="col-xs-1 ">Action</div>
+                                              <div class="col-xs-1">TargetScopeId</div>
+                                              <div class="col-xs-2">GroupId </div>
+                                              <div class="col-xs-2">Forwardable</div>
+                                              <div class="col-xs-1">AddBy</div>
+                                              <div class="col-xs-2">AddOn </div>
+                                              <div class="col-xs-1"></div>
+                                            </div>
+                                            <div class="tablebody">
+
+                                              <div class="row">
+                                                <div class="col-xs-2 ">On</div>
+                                                <div class="col-xs-1 ">Kapua-sys</div>
+                                                <div class="col-xs-1">Kapua-sys</div>
+                                                <div class="col-xs-2">18186533315</div>
+                                                <div class="col-xs-2">132456@qq.com</div>
+                                                <div class="col-xs-1">admin</div>
+                                                <div class="col-xs-2">2017-6-14 17:12</div>
+                                                <div class="col-xs-1">
+                                                  <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                          </div>
+
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="credentials">
+                                          <ul class="nav nav-pills">
+                                            <li role="presentation" class="active"><a href="#">Add</a></li>
+                                            <li role="presentation"><a href="#">Refresh</a></li>
+                                          </ul>
+
+                                          <div class="data-div">
+                                            <div class="row tableHeader">
+                                              <div class="col-xs-1 ">Status</div>
+                                              <div class="col-xs-2 ">Username</div>
+                                              <div class="col-xs-2">CredentialType</div>
+                                              <div class="col-xs-2">ExpirationDate </div>
+                                              <div class="col-xs-2">CreateOn</div>
+                                              <div class="col-xs-1">CreateBy</div>
+                                              <div class="col-xs-1"></div>
+                                              <div class="col-xs-1"></div>
+                                            </div>
+                                            <div class="tablebody">
+
+                                              <div class="row">
+                                                <div class="col-xs-1 ">On</div>
+                                                <div class="col-xs-2 ">Kapua-sys</div>
+                                                <div class="col-xs-2">Kapua-sys</div>
+                                                <div class="col-xs-2">18186533315</div>
+                                                <div class="col-xs-2">132456@qq.com</div>
+                                                <div class="col-xs-1">admin</div>
+                                                <div class="col-xs-2">
+                                                  <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
+                                                  <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </div>
                                   </div>
                                 </div>
+
+
+                              </div>
                               </div>
                             </div>
-                        </div>
+                        
                         <!--页码块-->
                         <footer class="footer">
                             <ul class="pagination">
