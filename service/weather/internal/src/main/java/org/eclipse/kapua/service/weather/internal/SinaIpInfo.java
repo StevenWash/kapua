@@ -1,6 +1,7 @@
 package org.eclipse.kapua.service.weather.internal;
 
 import net.sf.json.JSONObject;
+
 import org.eclipse.kapua.service.weather.BaseIpInfo;
 
 public class SinaIpInfo extends BaseIpInfo{
@@ -14,8 +15,14 @@ public class SinaIpInfo extends BaseIpInfo{
 	private String type;
 	private String desc;
 	
+	
+	
+
+	
+
 	@Override
 	public void doParser(String content) {
+		
 		JSONObject jsonObject = JSONObject.fromObject(content);
 		this.start = jsonObject.getString("start");
 		this.end = jsonObject.getString("end");
@@ -26,6 +33,7 @@ public class SinaIpInfo extends BaseIpInfo{
 		this.isp = jsonObject.getString("isp");
 		this.type = jsonObject.getString("type");
 		this.desc = jsonObject.getString("desc");
+		
 	}
 
 	@Override
@@ -106,6 +114,15 @@ public class SinaIpInfo extends BaseIpInfo{
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+
+
+
+
+	
+	
+
+
+	
 
 
 }

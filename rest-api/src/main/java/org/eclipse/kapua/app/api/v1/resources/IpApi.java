@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.kapua.app.api.v1.resources;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -21,6 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -48,7 +50,6 @@ import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 
 
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -71,7 +72,7 @@ public class IpApi{
      * @since 1.0.0
      */
 
-	
+	@Context HttpServletRequest request;
     //getAreaByIp
     @GET
     @Path("/{ip}")
@@ -111,6 +112,54 @@ public class IpApi{
            return city;
 
 
+     }
+    
+    
+    @GET
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @ApiOperation(value = "Gets an area by IP", //
+            notes = "Gets the Area specified by the ip  parameter", //
+            response = String.class)
+    public String getArea()
+    		throws KapuaException {
+           System.out.println("sdfsdf");
+         String ip=null;
+    	 KapuaLocator locator = KapuaLocator.getInstance();
+         AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+         PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+        
+		 authorizationService.checkPermission(permissionFactory.newPermission(IP_DOMAIN, Actions.read,  KapuaId.ANY));
+		 
+		
+		  try {
+			ip = request.getHeader("x-forwarded-for");  
+			  if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+			      ip = request.getHeader("Proxy-Client-IP");  
+			  }  
+			  if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+			      ip = request.getHeader("WL-Proxy-Client-IP");  
+			  }  
+			  if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+			      ip = request.getHeader("HTTP_CLIENT_IP");  
+			  }  
+			  if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+			      ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+			  }  
+			  if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+			      ip = request.getRemoteAddr();  
+			  }
+			 
+			  System.out.println(ip+"<<<<<<<<<<<<<<<<");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         
+    	
+		   
+
+		  return ip;
      }
     
 }

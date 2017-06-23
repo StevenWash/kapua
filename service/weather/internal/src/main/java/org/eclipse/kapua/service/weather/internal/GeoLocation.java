@@ -71,6 +71,7 @@ public class GeoLocation {
     }
 
     public static GeoLocation map(Location loc){
+    	
         return new GeoLocation(loc.countryCode, loc.countryName, loc.postalCode, loc.city, loc.region,
                 loc.area_code, loc.dma_code, loc.metro_code, loc.latitude, loc.longitude);
     }

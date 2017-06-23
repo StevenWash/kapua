@@ -10,6 +10,8 @@ public class WeatherPresentation {
 	
 	private String low;
 	
+	private String status;
+	
 	private String text;
 	
 
@@ -57,6 +59,17 @@ public class WeatherPresentation {
 		this.text = text;
 	}
 	
+	
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -68,6 +81,8 @@ public class WeatherPresentation {
 		builder.append(high);
 		builder.append(", low:");
 		builder.append(low);
+		builder.append(", status:");
+		builder.append(status);
 		builder.append(", text:");
 		builder.append(text);
 		

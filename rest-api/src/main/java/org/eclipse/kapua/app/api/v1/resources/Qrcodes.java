@@ -35,9 +35,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api("QrcodeAPI")
-@Path("/qrcode")  
-public class QrcodeAPI {
+@Api("Qrcodes")
+@Path("/qrcodes")  
+public class Qrcodes {
 	
 	
 	 private static final Domain QECODE_DOMAIN = new QrcodeDomain();

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
 
+import org.eclipse.kapua.service.weather.util.ErrorMessageException;
+
 public class GeoIPv4 {
 
     private static LookupService lookUp;
@@ -35,7 +37,15 @@ public class GeoIPv4 {
         return GeoLocation.map(lookUp.getLocation(ipAddress));
     }
 
-    public static GeoLocation getLocation(InetAddress ipAddress){
-        return GeoLocation.map(lookUp.getLocation(ipAddress));
+    public static GeoLocation getLocation(InetAddress ipAddress)throws Exception{
+    	
+        try {
+			return GeoLocation.map(lookUp.getLocation(ipAddress));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+			throw new ErrorMessageException();
+			
+		}
     }
 }

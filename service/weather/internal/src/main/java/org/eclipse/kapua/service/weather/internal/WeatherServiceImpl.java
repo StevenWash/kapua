@@ -9,6 +9,7 @@ import org.eclipse.kapua.locator.KapuaProvider;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.weather.Weather;
+import org.eclipse.kapua.service.weather.WeatherListResult;
 import org.eclipse.kapua.service.weather.WeatherService;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
@@ -46,8 +47,8 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
 
   
  
-     public List<String> getProvince(KapuaId scopeId)throws KapuaException{
-    	   ArgumentValidator.notNull(scopeId, "scopeId");
+     public List<String> getProvince()throws KapuaException{
+    	 
          
     	   
     	   // Check Access
@@ -57,27 +58,26 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
            authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
     	
     	   return entityManagerSession.onResult(em -> {
-    		
-    	   List<String> provinceLists=new ArrayList<String>();
+    		  
+    		   List<String> provinceLists=new ArrayList<String>();
         	Query  q;
             try {
 				q = em.createNamedQuery("Weather.queryProvince",Weather.class);
-				System.out.println("<<<<<<<<<<<<<<"+q.getResultList());
+				
 				provinceLists=q.getResultList();
+	           
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
-            
            
-            return provinceLists;
+             return provinceLists;
         });
     }
      
      
-     public List<String> getCityByProvince(KapuaId scopeId,String province)throws KapuaException{
-  	   ArgumentValidator.notNull(scopeId, "scopeId");
+     public List<String> getCityByProvince(String province)throws KapuaException{
+  	 
   	   ArgumentValidator.notNull(province, "province");
        
   	 
@@ -88,22 +88,23 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
          authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
   	
   	   return entityManagerSession.onResult(em -> {
+  		 List<String> cityList=new ArrayList<String>();
   		 
-  		 List<String> cityLists= new ArrayList<String>();
       	  Query  q;
           q = em.createNamedQuery("Weather.queryCityByProvince",Weather.class);
           q.setParameter(1,province);
-          
-          cityLists=q.getResultList();
-          return cityLists;
+         
+          cityList=q.getResultList();
+         
+          return cityList;
       });
   }
      
      
      
      
-     public List<String> getAreaByCity(KapuaId scopeId,String city)throws KapuaException{
-    	   ArgumentValidator.notNull(scopeId, "scopeId");
+     public List<String> getAreaByCity(String city)throws KapuaException{
+    	   
     	   ArgumentValidator.notNull(city, "city");
          
     	  
@@ -114,15 +115,16 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
            authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
     	
     	   return entityManagerSession.onResult(em -> {
-    	   List<String>  areaLists=new ArrayList<String>();
+    		   List<String> areaList=new ArrayList<String>();
         
         	Query  q;
             q = em.createNamedQuery("Weather.queryAreaByCity",Weather.class);
             q.setParameter(1,city);
             
-            areaLists=q.getResultList();
+         
+            areaList=q.getResultList();
             
-            return areaLists;
+            return areaList;
         });
     }
      
@@ -169,20 +171,7 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
 
 
 
- /*    @Override
-     public Weather find(KapuaId scopeId, KapuaId weatherId)
-             throws KapuaException {
-         ArgumentValidator.notNull(weatherId, "weatherId");
 
-         //
-         // Check Access
-         KapuaLocator locator = KapuaLocator.getInstance();
-         AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
-         PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
-         authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
-
-         return entityManagerSession.onResult(em -> WeatherDAO.find(em, weatherId));
-     }*/
 
 
 

@@ -33,20 +33,7 @@ import org.eclipse.kapua.service.config.KapuaConfigurableService;
 public interface WeatherService extends KapuaService{
         
 
-	
-	
-    
- /*   *//**
-     * Finds the Weather by weather identifiers
-     * 
-     * @param id
-     * @return
-     * @throws KapuaException
-     *//*
-    public Weather find(KapuaId scopeId, KapuaId weatherId)
-            throws KapuaException;*/
-    
-    
+
 
     /**
      * Returns the {@link WeatherListResult} with elements matching the provided query.
@@ -57,7 +44,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-   /* public WeatherListResult query(KapuaQuery<Weather> query)
+   /* public WeatherListResultImpl query(KapuaQuery<Weather> query)
             throws KapuaException;
 */
    
@@ -77,7 +64,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-    public List<String> getProvince(KapuaId scopeId)
+    public List<String> getProvince()
     		throws KapuaException;
     
     
@@ -93,7 +80,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-    public List<String> getCityByProvince(KapuaId scopeId,String province)
+    public List<String> getCityByProvince(String province)
     		throws KapuaException;
     
     
@@ -110,7 +97,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-    public List<String> getAreaByCity(KapuaId scopeId,String city)
+    public List<String> getAreaByCity(String city)
     		throws KapuaException;
     
     
