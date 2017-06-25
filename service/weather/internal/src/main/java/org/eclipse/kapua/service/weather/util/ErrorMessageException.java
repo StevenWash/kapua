@@ -1,6 +1,6 @@
 package org.eclipse.kapua.service.weather.util;
 
-
+import net.sf.json.JSONObject;
 
 public class ErrorMessageException extends Exception {
 
@@ -14,7 +14,7 @@ public class ErrorMessageException extends Exception {
 	public ErrorMessageException(){
 		ErrorResultList res=new ErrorResultList();
 		res.setErrorMessage("city is null");
-		net.sf.json.JSONObject jsonRes = net.sf.json.JSONObject.fromObject(res);
+		JSONObject jsonRes =JSONObject.fromObject(res);
 		
 		errorMessage=jsonRes.toString();;
 	}

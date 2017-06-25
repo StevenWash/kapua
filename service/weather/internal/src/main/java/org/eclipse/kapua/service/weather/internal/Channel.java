@@ -228,7 +228,7 @@ public class Channel {
 		builder.append("ttl:");
 		builder.append(ttl);
 		builder.append("\n");*/
-		builder.append("location:");
+		//builder.append("location:");
 		builder.append(location);
 		builder.append("\n");
 	/*	builder.append("units:");

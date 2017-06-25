@@ -16,13 +16,13 @@ public class SinaIpService implements BaseIpService {
 				
 					String httpResult = HttpUtil.getHttpConnHtml(url);
 					
-					System.out.println("httpResult::::>::"+httpResult);
+					
 					BaseIpInfo ipInfo = new SinaIpInfo();
 					
 					ipInfo.doParser(httpResult);
 					
 					result = ipInfo.buildJsonMsg();
-					System.out.println("Resutl::"+result);
+				
 					
 	        } catch (Exception e) {
 			

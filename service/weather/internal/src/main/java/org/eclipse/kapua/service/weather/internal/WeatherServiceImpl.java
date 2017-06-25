@@ -16,6 +16,7 @@ import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 
 import javax.persistence.Query;
+import net.sf.json.JSONObject;
 
 import org.eclipse.kapua.service.weather.BaseWeatherInfo;
 
@@ -47,7 +48,7 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
 
   
  
-     public List<String> getProvince()throws KapuaException{
+     public String getProvince()throws KapuaException{
     	 
          
     	   
@@ -56,27 +57,29 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
            AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
            PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
            authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
-    	
+           
+         
     	   return entityManagerSession.onResult(em -> {
-    		  
-    		   List<String> provinceLists=new ArrayList<String>();
+    		   String result=null;
+    		   WeatherListResultImpl   listResult=new WeatherListResultImpl();
+    		 //  List<String> provinceLists=new ArrayList<String>();
         	Query  q;
             try {
 				q = em.createNamedQuery("Weather.queryProvince",Weather.class);
-				
-				provinceLists=q.getResultList();
-	           
+				listResult.addItems(q.getResultList());
+			    JSONObject	jsonObject = JSONObject.fromObject(listResult);
+				result=jsonObject.toString();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
            
-             return provinceLists;
+             return result;
         });
     }
      
      
-     public List<String> getCityByProvince(String province)throws KapuaException{
+     public String getCityByProvince(String province)throws KapuaException{
   	 
   	   ArgumentValidator.notNull(province, "province");
        
@@ -88,22 +91,24 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
          authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
   	
   	   return entityManagerSession.onResult(em -> {
-  		 List<String> cityList=new ArrayList<String>();
+  		  String result=null;
+		  WeatherListResultImpl   listResult=new WeatherListResultImpl();
   		 
       	  Query  q;
           q = em.createNamedQuery("Weather.queryCityByProvince",Weather.class);
           q.setParameter(1,province);
+          listResult.addItems(q.getResultList());
+          JSONObject jsonObject = JSONObject.fromObject(listResult);
+		  result=jsonObject.toString();
          
-          cityList=q.getResultList();
-         
-          return cityList;
+          return result;
       });
   }
      
      
      
      
-     public List<String> getAreaByCity(String city)throws KapuaException{
+     public String getAreaByCity(String city)throws KapuaException{
     	   
     	   ArgumentValidator.notNull(city, "city");
          
@@ -115,16 +120,17 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
            authorizationService.checkPermission(permissionFactory.newPermission(WEATHER_DOMAIN, Actions.read, KapuaId.ANY));
     	
     	   return entityManagerSession.onResult(em -> {
-    		   List<String> areaList=new ArrayList<String>();
+    		String result=null;
+    	    WeatherListResultImpl   listResult=new WeatherListResultImpl();
         
         	Query  q;
             q = em.createNamedQuery("Weather.queryAreaByCity",Weather.class);
             q.setParameter(1,city);
+            listResult.addItems(q.getResultList());
+            JSONObject jsonObject = JSONObject.fromObject(listResult);
+  		    result=jsonObject.toString();
             
-         
-            areaList=q.getResultList();
-            
-            return areaList;
+            return result;
         });
     }
      

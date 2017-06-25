@@ -51,19 +51,14 @@ public class Citys   extends AbstractKapuaResource  {
            )
     public String findProvince() {
            
-          List<String> lists=new ArrayList<String>();
+         
     	  String provinceLists=null;
     	
         try {
         	
-        	 lists=weatherService.getProvince();
+        	provinceLists=weatherService.getProvince();
         	
-        	 JSONArray jsonArray = JSONArray.fromObject(lists);
-        	
-        	 provinceLists= jsonArray.toString();
-        	
-        	
-             } catch (Exception e) {
+            } catch (Exception e) {
         	  e.printStackTrace();
            }
         return provinceLists;
@@ -89,18 +84,13 @@ public class Citys   extends AbstractKapuaResource  {
           
             @ApiParam(value = "The province of the requested weather.", required = true) @PathParam("province") String province)//
             {
-    	
-    	  List<String> lists=new ArrayList<String>();
-    	  String  cityLists=null;
+    	     String  cityLists=null;
     	
         try {
         	
-        	lists=weatherService.getCityByProvince(province);
+        	cityLists=weatherService.getCityByProvince(province);
         	
-        	JSONArray jsonArray = JSONArray.fromObject(lists);
-        	cityLists=jsonArray.toString();
-        	
-         } catch (Throwable t) {
+            } catch (Throwable t) {
             handleException(t);
         }
         return cityLists;
@@ -127,14 +117,11 @@ public class Citys   extends AbstractKapuaResource  {
             @ApiParam(value = "The city of the requested weather.", required = true) @QueryParam("city") String city)//
             {
     	
-    	  List<String>  lists=new ArrayList<String>();
-    	  
-    	  String areaLists=null;
+    	    String areaLists=null;
         try {
         	
-        	lists=weatherService.getAreaByCity(city);
-        	JSONArray jsonArray = JSONArray.fromObject(lists);
-        	areaLists=jsonArray.toString();
+        	areaLists=weatherService.getAreaByCity(city);
+        
         	
          } catch (Throwable t) {
             handleException(t);
