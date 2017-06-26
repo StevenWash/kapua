@@ -2,7 +2,7 @@
  * Created by StevenWash on 2017/6/14.
  */
 import {Component} from "@angular/core";
-import {UserListService} from "../service/user-list.service";
+import {UserListService} from "../service/user.service";
 import {UserInfo } from "../module/user-info.module";
 import {RoleService} from "../service/role.service";
 import {RoleInfo} from "../module/role-info.module";
@@ -38,6 +38,9 @@ export class MainViewComponent{
   private optlock:number;
 
   private delUserId:string;
+
+  //点击的用户信息
+  private cliUser:UserInfo;
 
   /**
    * 构造函数，在构造器里面进行依赖注入
@@ -140,12 +143,19 @@ export class MainViewComponent{
 
   }
 
+  /**
+   * 点击删除之后将当前点击的用户的id传入
+   * @param userInfo
+   */
   getUserId(userInfo:UserInfo){
     console.log(userInfo);
     this.delUserId=userInfo.id;
     console.log(this.delUserId);
   }
 
+  /**
+   * 删除用户信息
+   */
   deleteUser(){
     console.log(this.delUserId);
     this.userListService.deleteUser(this.delUserId).subscribe((result) => {
@@ -156,6 +166,16 @@ export class MainViewComponent{
     });
   }
 
+  clickUser(userInfo:UserInfo){
+    this.cliUser=userInfo;
+    console.log(this.cliUser);
+    this.userListService.get(this.user.id,this.user).subscribe((result) => {
+      this.user=result;
+      this.optlock=this.user.optlock;
+      console.log("optlock2:"+this.user.optlock)
+      console.log(result);
+    });
+  }
 
 
 

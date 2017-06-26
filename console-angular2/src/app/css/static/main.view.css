@@ -1,3 +1,6 @@
+.leftMeun{
+  overflow-y: auto;
+}
 .logoInfo{
   margin-top: 50px;
   margin-left: auto;
@@ -15,6 +18,11 @@
 }
 #rightContent #user .col-xs-1 {
   text-overflow:ellipsis;
+}
+.user-info{
+  overflow-y: auto;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 
 

@@ -140,4 +140,21 @@ export class UserListService {
     this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users/'+userId;
     return this.http.delete(this.userListUrl,{ headers: headers });
   }
+
+  /**
+   * 通过用户的id获取当前用户的所有的角色信息
+   * @param userId
+   * @returns {Observable<Response>}
+   */
+  getRolesByUserId(userId:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    this.userListUrl='https://dev.izhiju.cn/api/v1/roles/'+userId;
+    return this.http.get(this.userListUrl,{ headers: headers });
+
+  }
 }
