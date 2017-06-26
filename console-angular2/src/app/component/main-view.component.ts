@@ -169,10 +169,7 @@ export class MainViewComponent{
   clickUser(userInfo:UserInfo){
     this.cliUser=userInfo;
     console.log(this.cliUser);
-    this.userListService.get(this.user.id,this.user).subscribe((result) => {
-      this.user=result;
-      this.optlock=this.user.optlock;
-      console.log("optlock2:"+this.user.optlock)
+    this.userListService.getRolesByUserId(userInfo.id).subscribe((result) => {
       console.log(result);
     });
   }
