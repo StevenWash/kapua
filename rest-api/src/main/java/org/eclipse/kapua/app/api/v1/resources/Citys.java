@@ -7,18 +7,21 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import net.sf.json.JSONArray;
 
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
+import org.eclipse.kapua.app.common.util.IpHelper;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.authorization.AuthorizationService;
@@ -32,6 +35,7 @@ import org.eclipse.kapua.service.weather.internal.IpDomain;
 import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
+import org.eclipse.kapua.service.weather.util.ErrorMessageException;
 
 @Api("Citys")
 @Path("/citys") 
@@ -40,10 +44,11 @@ public class Citys   extends AbstractKapuaResource  {
 	private final KapuaLocator locator = KapuaLocator.getInstance();
     private final WeatherService weatherService = locator.getService(WeatherService.class);
     private static final Domain IP_DOMAIN = new IpDomain();
+    @Context HttpServletRequest request;
     
     
     @GET
-    @Path("getAllProvince")
+    @Path("allProvince")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets province", //
             notes = "get all  province",
@@ -75,7 +80,7 @@ public class Citys   extends AbstractKapuaResource  {
      * @since 1.0.0
      */
     @GET
-    @Path("getCitys/{province}")
+    @Path("citys/{province}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets the city by province", //
             notes = "Gets the city specified by the province path parameter", //
@@ -107,7 +112,7 @@ public class Citys   extends AbstractKapuaResource  {
      * @since 1.0.0
      */
     @GET
-    @Path("getArea")
+    @Path("area")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an area by city", //
             notes = "Gets the Weather.area specified by the city path parameter", //
@@ -144,42 +149,50 @@ public class Citys   extends AbstractKapuaResource  {
 	
     //getAreaByIp
     @GET
-    @Path("getCityByIpAddress/{ipAddress}")
+    @Path("cityByIpAddress/ipAddress")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @ApiOperation(value = "Gets an area by IP", //
-            notes = "Gets the Area specified by the ip  parameter", //
+    @ApiOperation(value = "Gets an city by ipAddress", //
+            notes = "Gets the city specified by the ip  parameter", //
             response = String.class)
-    public String getAreaByIp(
-             @ApiParam(value = "The ipAddress of the requested Area", required = true) @PathParam("ipAddress") String ip) throws KapuaException 
+    public String getCityByIp(
+             @ApiParam(value = "The ipAddress of the requested Area") @QueryParam("ipAddress") String ip) throws KapuaException 
             {
-    	System.out.println("getAreaByIp<<<<<<<<<<<<<<<");
+    	
     	 KapuaLocator locator = KapuaLocator.getInstance();
          AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
          PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
         
 		 authorizationService.checkPermission(permissionFactory.newPermission(IP_DOMAIN, Actions.read,  KapuaId.ANY));
     	 
-		 NormalResult result = new NormalResult();
-		   BaseIpService ipService = new SinaIpService();
-		   String city=null;
-		   try {
-           if(ip!=null&&!ip.equals("")){
-        		String httpResult = ipService.getInformation(ip);
-				SinaIpInfo ipInfo = new SinaIpInfo();
+		 BaseIpService ipService = new SinaIpService();
+		 String strResult=null;
+		
+		 try {
+			//boolean flag=IpHelper.isIpv4(ip);
+			if(ip==null||ip.equals("")||IpHelper.isIpv4(ip)==false){//自动获取Ip
+				 ip = request.getRemoteHost();
+				 String httpResult = ipService.getInformation(ip);
+				 SinaIpInfo ipInfo = new SinaIpInfo();
+				 ipInfo.doParser(httpResult);
+				 strResult = ipInfo.getCity();
+			}else{
+				String httpResult = ipService.getInformation(ip);
+        		SinaIpInfo ipInfo = new SinaIpInfo();
 				ipInfo.doParser(httpResult);
-				city = ipInfo.getCity();
-				
-			   }
-         
-		   }catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				strResult= ipInfo.getCity();
 			}
-          
-           return city;
+			
+		}catch(ErrorMessageException mes){
+			strResult=mes.warnMess();
+        	System.out.println("city is null");
+        	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-
+         return strResult;
      }
 
 }

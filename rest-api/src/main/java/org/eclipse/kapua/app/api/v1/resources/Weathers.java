@@ -93,25 +93,12 @@ public class Weathers extends AbstractKapuaResource {
 		   BaseIpService ipService = new SinaIpService();
 		   String strResult=null;
        try {
-        	boolean flag=IpHelper.isIpv4(ip); 
-        	if(ip==null||ip.equals("")||flag==false){//自动获取Ip
-        		    ip = request.getHeader("x-forwarded-for");  
-        	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-        	            ip = request.getHeader("Proxy-Client-IP");  
-        	        }  
-        	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-        	            ip = request.getHeader("WL-Proxy-Client-IP");  
-        	        }  
-        	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-        	            ip = request.getHeader("HTTP_CLIENT_IP");  
-        	        }  
-        	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-        	            ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
-        	        }  
-        	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-        	            ip = request.getRemoteAddr();  
-        	        } 
-        	       
+    	   
+   
+        //	boolean flag=IpHelper.isIpv4(ip); 
+        	if(ip==null||ip.equals("")||IpHelper.isIpv4(ip)==false){//自动获取Ip
+        		      
+        	         ip = request.getRemoteHost();  
         	         String httpResult = ipService.getInformation(ip);
 					 SinaIpInfo ipInfo = new SinaIpInfo();
 					 ipInfo.doParser(httpResult);
@@ -133,18 +120,10 @@ public class Weathers extends AbstractKapuaResource {
 				ipInfo.doParser(httpResult);
 				String city = ipInfo.getCity();
 			
-				//if(city==null||city.equals("")){
-					/*ResultList res=new ResultList();
-					res.setErrorMessage("city is null");
-					net.sf.json.JSONObject jsonRes = net.sf.json.JSONObject.fromObject(res);
-					strResult=jsonRes.toString();*/
-				//	throw new MessageException();
-				
-			//	}else{
 				    String content = weatherService.getWeather(city, day);
 						if(content!=null&&!content.equals("")){
 							result.setResult(content);
-				//		}
+				
 					strResult=result.BuildResult();
         	    }
         	
@@ -189,11 +168,11 @@ public class Weathers extends AbstractKapuaResource {
     			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
     		}*/
         //	buffer.append(channel.getItem().getForecasts().get(0));
-        	JSONObject  myJson = JSONObject.fromObject(channel.toString());
-        	JSONObject  myJson1 = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
+        	JSONObject  channelJson = JSONObject.fromObject(channel.toString());
+        	JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
         	JSONObject jsonThree = new JSONObject(); 
-        	jsonThree.putAll(myJson);
-        	jsonThree.putAll(myJson1);
+        	jsonThree.putAll(channelJson);
+        	jsonThree.putAll(forecastJson);
         	weathers=jsonThree.toString();
         	
           
@@ -221,20 +200,21 @@ public class Weathers extends AbstractKapuaResource {
     	YahooWeatherService service = null;
         String weather=null;
         try {
-        	boolean flag=IpHelper.isIpv4(ip);
-        	if(ip==null||ip.equals("")||flag==false){
+        	//boolean flag=IpHelper.isIpv4(ip);
+        	if(ip==null||ip.equals("")||IpHelper.isIpv4(ip)==false){
         		ip=request.getRemoteHost();//自动获取Ip地址
+        		System.out.println("ip::"+ip);
         		String city=GeoIPv4.getLocation(InetAddress.getByName(ip)).getCity();
         		
             	service=new YahooWeatherService();
             	Channel channel = service.getForecastForLocation(city).first(3).get(0);
             	/*buffer.append(channel);
             	buffer.append(channel.getItem().getForecasts().get(0));*/
-            	JSONObject  myJson = JSONObject.fromObject(channel.toString());
-	        	JSONObject  myJson1 = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
+            	JSONObject  channelJson = JSONObject.fromObject(channel.toString());
+	        	JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
 	        	JSONObject jsonThree = new JSONObject(); 
-	        	jsonThree.putAll(myJson);
-	        	jsonThree.putAll(myJson1);
+	        	jsonThree.putAll(channelJson);
+	        	jsonThree.putAll(forecastJson);
             	
             	weather=jsonThree.toString();
         	}else{
@@ -243,11 +223,11 @@ public class Weathers extends AbstractKapuaResource {
 	        	service=new YahooWeatherService();
 	        	Channel channel = service.getForecastForLocation(city).first(3).get(0);
 	        	
-	        	JSONObject  myJson = JSONObject.fromObject(channel.toString());
-	        	JSONObject  myJson1 = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
+	        	JSONObject  channelJson = JSONObject.fromObject(channel.toString());
+	        	JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
 	        	JSONObject jsonThree = new JSONObject(); 
-	        	jsonThree.putAll(myJson);
-	        	jsonThree.putAll(myJson1);
+	        	jsonThree.putAll(channelJson);
+	        	jsonThree.putAll(forecastJson);
 	        //	buffer.append(channel.getItem().getForecasts().get(0));
 	        //	System.out.println("buffer.toString:"+buffer.toString());
 	        	
@@ -275,14 +255,7 @@ public class Weathers extends AbstractKapuaResource {
         	
        } catch (Exception e) {
         
-      
-        	   /* ResultList res=new ResultList();
-				res.setErrorMessage("city is null");
-				net.sf.json.JSONObject jsonRes = net.sf.json.JSONObject.fromObject(res);
-				weather=jsonRes.toString();*/
-				
-			
-            e.printStackTrace();
+          e.printStackTrace();
         }
         return weather;
 
@@ -291,7 +264,7 @@ public class Weathers extends AbstractKapuaResource {
     
     
     @GET
-    @Path("weathers/{weatherApiName}/{ipAddress}/{day}")
+    @Path("ipAddress/{weatherApiName}/{day}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @ApiOperation(value = "Gets an Weather by day, ipAddress,weatherApiName", //
@@ -299,8 +272,8 @@ public class Weathers extends AbstractKapuaResource {
             response = String.class)
     public String getWeatherByApi(
            
-            @ApiParam(value = "The weatherApiName of the requested Weather", required = true) @PathParam("weatherApiName") String  weatherApiName,
-            @ApiParam(value = "The ipAddress of the requested Weather", required = true) @PathParam("ipAddress") String ipAddress,
+            @ApiParam(value = "The weatherApiName(sina or yahoo) of the requested Weather", required = true) @PathParam("weatherApiName") String  weatherApiName,
+            @ApiParam(value = "The ipAddress of the requested Weather") @QueryParam("ipAddress") String ipAddress,
             @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0") @DefaultValue("0") @PathParam("day") Integer day)throws Exception{
         String weatherInfo=null;
         

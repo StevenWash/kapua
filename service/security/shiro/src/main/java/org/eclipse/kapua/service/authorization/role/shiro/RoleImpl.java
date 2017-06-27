@@ -16,6 +16,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
 import org.eclipse.kapua.model.id.KapuaId;
@@ -26,7 +28,13 @@ import org.eclipse.kapua.service.authorization.role.Role;
  *
  * @since 1.0
  */
+//select role.* from Role role where role.id in(select accessRole.roleId   from AccessRole accessRole  where accessRole.accessInfoId=(select accessInfo.id from AccessInfo  accessInfo where accessInfo.userId=1130679835206840295))
 @Entity(name = "Role")
+@NamedQueries({
+	@NamedQuery(name = "Role.query", query = "select accessInfo.* from AccessInfo  accessInfo where accessInfo.userId=1130679835206840295") 
+	
+		
+})
 @Table(name = "athz_role")
 public class RoleImpl extends AbstractKapuaUpdatableEntity implements Role {
 
