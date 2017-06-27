@@ -25,7 +25,6 @@ export class MainViewComponent{
   //接收返回信息的实体类
   private userInfos:UserInfo[];
   private user:UserInfo;
-  private roleInfos:RoleInfo[];
   private deviceConnections:DeviceConnection[];
   private deviceInfos:DeviceInfo[];
   private groupInfos:GroupInfo[];
@@ -41,6 +40,18 @@ export class MainViewComponent{
 
   //点击的用户信息
   private cliUser:UserInfo;
+
+  //--------role相关的变量信息--------//
+  private roleInfos:RoleInfo[];
+
+  //用户进行为当前用户添加角色时选择的角色
+  private userrole:RoleInfo;
+  private role:RoleInfo;
+
+  private aRole:RoleInfo=new RoleInfo();
+  private delRoleId:string;
+
+
 
   /**
    * 构造函数，在构造器里面进行依赖注入
@@ -166,13 +177,14 @@ export class MainViewComponent{
     });
   }
 
+  /**
+   * 用户信息被点击之后触发的函数
+   * @param userInfo
+   */
   clickUser(userInfo:UserInfo){
     this.cliUser=userInfo;
     console.log(this.cliUser);
-    this.userListService.get(this.user.id,this.user).subscribe((result) => {
-      this.user=result;
-      this.optlock=this.user.optlock;
-      console.log("optlock2:"+this.user.optlock)
+    this.userListService.getRolesByUserId(userInfo.id).subscribe((result) => {
       console.log(result);
     });
   }
@@ -191,6 +203,73 @@ export class MainViewComponent{
     });
   }
 
+  /**
+   * 得到当前的role信息
+   * @param roleInfo
+   */
+  getRoleInfo(roleInfo:RoleInfo){
+    console.log(roleInfo);
+    this.role=roleInfo;
+  }
+
+  /**
+   * 更新角色信息
+   */
+  updateRole(){
+    console.log("optlock1:"+this.role.optlock);
+    if(this.optlock==this.role.optlock+1){
+      this.role.optlock+=1;
+    }
+    this.roleService.updateROleById(this.role.id,this.role).subscribe((result) => {
+      this.role=result;
+      this.optlock=this.role.optlock;
+      console.log("optlock2:"+this.role.optlock);
+      console.log(result);
+    });
+  }
+
+  /**
+   * 添加角色信息
+   */
+  addRole(){
+    console.log(this.aRole);
+    this.roleService.addRole(this.aRole).subscribe((result) => {
+      console.log(result);
+    });
+
+  }
+
+  /**
+   * 通过当前点击的角色的信息来获取该角色的id
+   * @param roleInfo
+   */
+  getRoleId(roleInfo:RoleInfo){
+    console.log(roleInfo);
+    this.delRoleId=roleInfo.id;
+    console.log(this.delRoleId);
+  }
+
+  /**
+   * 通过点击角色的id信息来删除角色信息
+   */
+  deleteRole(){
+    console.log(this.delRoleId);
+    this.roleService.deleteRoleByRoleId(this.delRoleId).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  setRole(){
+    this.userrole=this.role;
+  }
+
+  submitRole(){
+    console.log(this.userrole);
+  }
+
+
+
+  //--------------------Device Action---------------------------//
   /**
    * 得到所有的设备连接信息
    */
@@ -220,5 +299,7 @@ export class MainViewComponent{
       this.groupInfos=result.items.item;
     });
   }
+
+
 
 }

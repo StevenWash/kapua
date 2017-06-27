@@ -282,7 +282,6 @@
                   </div>
 
                     <!--用户管理模块-->
-
                     <div role="tabpanel" class="tab-pane" id="user">
                       <div class="check-div form-inline">
                         <div class="col-xs-3">
@@ -374,7 +373,7 @@
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
                                   <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-                                  <li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li>
+                                  <li role="presentation"><a href="#userroles" aria-controls="userroles" role="tab" data-toggle="tab">Roles</a></li>
                                   <li role="presentation"><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Permissions</a></li>
                                   <li role="presentation"><a href="#credentials" aria-controls="credentials" role="tab" data-toggle="tab">Credentials</a></li>
                                 </ul>
@@ -387,42 +386,42 @@
                                         <div class="col-xs-5 ">Name</div>
                                         <div class="col-xs-5 ">Value</div>
                                       </div>
-                                      <div class="tablebody">
+                                      <div class="tablebody" *ngIf="cliUser">
                                         <div class="row">
                                           <div class="col-xs-5 ">Create By</div>
-                                          <div class="col-xs-5 ">D7D7Ucwzb-c</div>
+                                          <div class="col-xs-5 ">{{cliUser.createdBy}}</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-xs-5 ">Create On</div>
-                                          <div class="col-xs-5 ">Thu Jun 22 13:59:26 CST 2017</div>
+                                          <div class="col-xs-5 ">{{cliUser.createdOn}}</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-xs-5 ">Status</div>
-                                          <div class="col-xs-5 ">ENABLED</div>
+                                          <div class="col-xs-5 ">{{cliUser.status}}</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-xs-5 ">UserName</div>
-                                          <div class="col-xs-5 ">Zhangsan</div>
+                                          <div class="col-xs-5 ">{{cliUser.name}}</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-xs-5 ">DisplayName</div>
-                                          <div class="col-xs-5 ">ZS</div>
+                                          <div class="col-xs-5 ">{{cliUser.displayName}}</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-xs-5 ">Phone Number</div>
-                                          <div class="col-xs-5 ">18186544444</div>
+                                          <div class="col-xs-5 ">{{cliUser.phoneNumber}}</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-xs-5 ">Email</div>
-                                          <div class="col-xs-5 ">132465@789.com</div>
+                                          <div class="col-xs-5 ">{{cliUser.email}}</div>
                                         </div>
                                       </div>
 
                                     </div>
                                   </div>
-                                  <div role="tabpanel" class="tab-pane" id="roles">
+                                  <div role="tabpanel" class="tab-pane" id="userroles">
                                     <ul class="nav nav-pills">
-                                      <li role="presentation" class="active"><a href="#">Add</a></li>
+                                      <li role="presentation" class="active"><a href="#addUserRole" data-toggle="modal">Add</a></li>
                                       <li role="presentation"><a href="#">Refresh</a></li>
                                     </ul>
                                     <div class="data-div">
@@ -524,6 +523,33 @@
 
                         </div>
                       </div>
+
+                      <!--弹出添加用户角色窗口-->
+                      <div class="modal fade" id="addUserRole" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Add User</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <select  class="form-control" [(ngModel)]="role"  (ngModelChange)="role=$event;setRole()">
+                                  <option value="">请选择...</option>
+                                  <option  *ngFor="let item of roleInfos" >{{item.name}} </option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="submitRole()">Submit</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
 
                       <!--弹出添加用户窗口-->
                       <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel">
@@ -770,8 +796,8 @@
                                   <div class="col-xs-3">{{roleInfo.createdBy}}</div>
                                   <div class="col-xs-3">{{roleInfo.createdOn}}</div>
                                     <div class="col-xs-2">
-                                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateRole">Update</button>
-                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteRole">Delete</button>
+                                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateRole" (click)="getRoleInfo(roleInfo)">Update</button>
+                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteRole" (click)="getRoleId(roleInfo)">Delete</button>
                                     </div>
                                 </div>
 
@@ -815,11 +841,11 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal"  *ngIf="aRole">
                                                 <div class="form-group ">
                                                     <label for="sName" class="col-xs-3 control-label">Role Name：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="sName" placeholder="">
+                                                        <input type="text"  name="roleName" [(ngModel)]="aRole.name" #name="ngModel" class="form-control input-sm duiqi" id="roleName" placeholder="">
                                                     </div>
                                                 </div>
                                             </form>
@@ -827,7 +853,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                                        <button type="button" class="btn btn-xs btn-green">Save</button>
+                                        <button type="button" class="btn btn-xs btn-green" (click)="addRole()" data-dismiss="modal">Save</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -846,29 +872,12 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
-                                            <form class="form-horizontal">
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">Role Id:</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="roleId" placeholder="">
-                                                    </div>
-                                                </div>
+                                            <form class="form-horizontal"  *ngIf="role">
+
                                                 <div class="form-group">
                                                     <label for="sLink" class="col-xs-3 control-label">Role Name：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="" class="form-control input-sm duiqi" id="roleName" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="sOrd" class="col-xs-3 control-label">Create By：</label>
-                                                    <div class="col-xs-8">
-                                                        <input type="" class="form-control input-sm duiqi" id="roleCreateBy" placeholder="" disabled="disabled">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="sOrd" class="col-xs-3 control-label">Create On：</label>
-                                                    <div class="col-xs-8">
-                                                        <input type="" class="form-control input-sm duiqi" id="roleCreateOn" placeholder="" disabled="disabled">
+                                                        <input type="text" [(ngModel)]="role.name" name="roleName" class="form-control input-sm duiqi" id="roleName" placeholder="">
                                                     </div>
                                                 </div>
 
@@ -877,7 +886,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                                        <button type="button" class="btn btn-xs btn-green">Save</button>
+                                        <button type="button" class="btn btn-xs btn-green" data-dismiss="modal" (click)="updateRole()" >Save</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -886,8 +895,8 @@
                         </div>
                         <!-- /.modal -->
 
-                        <!--弹出删除用户警告窗口-->
-                        <div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <!--弹出删除角色警告窗口-->
+                        <div class="modal fade" id="deleteRole" role="dialog" aria-labelledby="gridSystemModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -896,12 +905,12 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
-                                            确定要删除该用户？删除后不可恢复！
+                                            确定要删除该角色？删除后不可恢复！
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn  btn-xs btn-danger">确 定</button>
+                                        <button type="button" class="btn  btn-xs btn-danger" (click)="deleteRole()" data-dismiss="modal">确 定</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
