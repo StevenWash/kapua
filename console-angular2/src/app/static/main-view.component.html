@@ -63,16 +63,16 @@
                 <div class="meun-item" href="#mqttclient" aria-controls="mqttclient" role="tab" data-toggle="tab">
                 	<i class="fa fa-tablet"></i>&nbsp;&nbsp;&nbsp;MqttClient
                 </div>
-                <div class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab">
+                <div class="meun-item" href="#grant" aria-controls="grant" role="tab" data-toggle="tab">
                 	<i class="fa fa-address-card"></i>&nbsp;&nbsp;&nbsp;Grant
                 </div>
-                <div class="meun-item" href="#welcome" aria-controls="welcome" role="tab" data-toggle="tab">
+                <div class="meun-item" href="#setting" aria-controls="setting" role="tab" data-toggle="tab">
                 	<i class="fa fa-cog"></i>&nbsp;&nbsp;&nbsp;Settings
                 </div>
 
 
                 <div class="meun-title"><h6>Cloud</h6></div>
-                <div class="meun-item" href="#scho" aria-controls="scho" role="tab" data-toggle="tab">
+                <div class="meun-item" href="#account" aria-controls="account" role="tab" data-toggle="tab">
                 	<i class="fa fa-calculator"></i>&nbsp;&nbsp;&nbsp;Child Accounts</div>
                 <div class="meun-item" href="#stud" aria-controls="stud" role="tab" data-toggle="tab">
                 	<i class="fa fa-user-o"></i>&nbsp;&nbsp;&nbsp;People Info
@@ -127,7 +127,10 @@
                     <!-- 设备管理模块 -->
                     <div role="tabpanel" class="tab-pane" id="device">
                       <div class="check-div form-inline">
-                        <div class="col-xs-8">
+                        <div class="col-xs-2">
+                          <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addDevice">Add Device</button>
+                        </div>
+                        <div class="col-xs-6">
                           <label>ClientId:&nbsp;&nbsp;</label>
                           <input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
                           <label>Connect Status:&nbsp;&nbsp;</label>
@@ -204,6 +207,165 @@
                           </li>
                         </ul>
                       </footer>
+
+                      <!--弹出添加设备窗口-->
+                      <div class="modal fade" id="addDevice" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Add Device</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <form class="form-horizontal" *ngIf="aDevice">
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Client ID：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text"  name="clientId" [(ngModel)]="aDevice.clientId" #clientId="ngModel"
+                                             class="form-control input-sm duiqi " id="clientId" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="password" class="col-xs-4 control-label">Display Name：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text" name="displayName" [(ngModel)]="aDevice.displayName" #displayName="ngModel"
+                                            class="form-control input-sm duiqi " id="displayName" placeholder="" >
+                                    </div>
+
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="rePassword" class="col-xs-4 control-label">Group：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="group" [(ngModel)]="aDevice.group"
+                                             class="form-control input-sm duiqi " #group="ngModel" id="group">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="displayName" class="col-xs-4 control-label">Custom attribute #1：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text"  name="attri1" [(ngModel)]="aDevice.customAttribute1" #attri1="ngModel"
+                                             class="form-control input-sm duiqi " id="attri1" placeholder="">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="displayName" class="col-xs-4 control-label">Custom attribute #2：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text"  name="attri2" [(ngModel)]="aDevice.customAttribute2" #attri2="ngModel"
+                                             class="form-control input-sm duiqi " id="attri2" placeholder="">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="displayName" class="col-xs-4 control-label">Custom attribute #3：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text"  name="attri3" [(ngModel)]="aDevice.customAttribute3" #attri3="ngModel"
+                                             class="form-control input-sm duiqi " id="attri3" placeholder="">
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="displayName" class="col-xs-4 control-label">Custom attribute #4：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text"  name="attri4" [(ngModel)]="aDevice.customAttribute1" #attri4="ngModel"
+                                             class="form-control input-sm duiqi " id="attri4" placeholder="">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="displayName" class="col-xs-4 control-label">Custom attribute #5：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text"  name="attri5" [(ngModel)]="aDevice.customAttribute5" #attri5="ngModel"
+                                             class="form-control input-sm duiqi " id="attri5" placeholder="">
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="addDevice()">Save</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!--弹出修改设备窗口-->
+                      <div class="modal fade" id="updateDevice" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Update User</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <form class="form-horizontal" *ngIf="user" #userForm="ngForm" (ngSubmit)="updateUser(userForm)">
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">* &nbsp;Username：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text"  [(ngModel)]="user.name" name="username" class="form-control input-sm duiqi" id="username" disabled="disabled">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" [(ngModel)]="user.displayName" name="displayName" class="form-control input-sm duiqi" id="displayName" placeholder="">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="email" class="col-xs-4 control-label">Email：</label>
+                                    <div class="col-xs-8">
+                                      <input  type="text" [(ngModel)]="user.email" name="email" class="form-control input-sm duiqi" id="email" placeholder="">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="phone" class="col-xs-4 control-label">Phone：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text" [(ngModel)]="user.phoneNumber" name="phoneNumber" class="form-control input-sm duiqi" id="phone" placeholder="">
+                                    </div>
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                                    <button type="submit" class="btn btn-xs btn-green" (click)="updateUser()" data-dismiss="modal">Save</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!--弹出删除设备警告窗口-->
+                      <div class="modal fade" id="deleteDevice" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                确定要删除该用户？删除后不可恢复！
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                              <button type="button" class="btn  btn-xs btn-danger" (click)="deleteUser()" data-dismiss="modal">确 定</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
                     </div>
 
                     <!-- 连接管理模块 -->
@@ -422,7 +584,7 @@
                                     <label for="password" class="col-xs-4 control-label">Password：</label>
                                     <div class="col-xs-8">
                                       <input type="password" name="password" [(ngModel)]="aCredential.password" #password="ngModel"
-                                             required  minlength="6" maxlength="16" class="form-control input-sm duiqi " id="add_password"
+                                             required  minlength="6" maxlength="16" class="form-control input-sm duiqi " id="password"
                                              placeholder="" validateEqual="repassword" reverse="true">
                                       <span *ngIf="password.pristine" class="label label-primary ">未修改</span>
                                       <span *ngIf="password.dirty" class="label label-warning ">已修改</span>
@@ -442,7 +604,7 @@
                                     <div class="col-xs-8 ">
                                       <input type="password" name="repassword" [(ngModel)]="aCredential.repassword"
                                              class="form-control input-sm duiqi " #repassword="ngModel" required
-                                             validateEqual="password" minlength="6" maxlength="16" id="add_rePassword"  placeholder="">
+                                             validateEqual="password" minlength="6" maxlength="16" id="rePassword"  placeholder="">
                                       <span *ngIf="repassword.pristine" class="label label-primary ">未修改</span>
                                       <span *ngIf="repassword.dirty" class="label label-warning ">已修改</span>
                                       <span *ngIf="repassword.valid" class="label label-success ">有效</span>
@@ -850,7 +1012,8 @@
                                                 <div class="form-group ">
                                                     <label for="sName" class="col-xs-3 control-label">Role Name：</label>
                                                     <div class="col-xs-8 ">
-                                                        <input type="text"  name="roleName" [(ngModel)]="aRole.name" #name="ngModel" class="form-control input-sm duiqi" id="roleName" placeholder="">
+                                                        <input type="text"  name="roleName" [(ngModel)]="aRole.name" #name="ngModel"
+                                                               class="form-control input-sm duiqi" id="roleName" placeholder="">
                                                     </div>
                                                 </div>
                                             </form>
@@ -928,230 +1091,167 @@
 
                     <!--组管理模块-->
                     <div role="tabpanel" class="tab-pane" id="group">
-                    <div class="check-div form-inline">
-                      <div class="col-xs-3">
-                        <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">Add User</button>
-                      </div>
-                      <div class="col-xs-4">
-                        <input type="text" class="form-control input-sm" placeholder="input...">
-                        <button class="btn btn-white btn-xs ">Search </button>
-                        <button class="btn btn-white btn-xs ">Reset </button>
-                      </div>
-                      <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
-                        <label for="paixu">Order By:&nbsp;</label>
-                        <select id="paixu" class="form-control">
-                          <option>Status</option>
-                          <option>Name</option>
-                          <option>DisplayName</option>
-                          <option>Phone Number</option>
-                          <option>Email</option>
-                          <option>CreatedBy</option>
-                          <option>CreateOn</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="data-div">
-                      <div class="row tableHeader">
-                        <div class="col-xs-2 ">Group Name</div>
-                        <div class="col-xs-2 ">Created On</div>
-                        <div class="col-xs-2 ">Created By</div>
-                        <div class="col-xs-2">Modified On</div>
-                        <div class="col-xs-2">Modifief By</div>
-                        <div class="col-xs-1"></div>
-                        <div class="col-xs-1"></div>
-                      </div>
-                      <div *ngFor="let groupInfo of groupInfos" class="tablebody">
-                        <div class="row">
-                          <div class="col-xs-2 ">{{groupInfo.name}}</div>
-                          <div class="col-xs-2 ">{{groupInfo.createdOn}}</div>
-                          <div class="col-xs-2 ">{{groupInfo.createdBy}}</div>
-                          <div class="col-xs-2">{{groupInfo.modifiedOn}}</div>
-                          <div class="col-xs-2">{{groupInfo.modifiedBy}}</div>
-                          <div class="col-xs-2">
-                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
-                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
-                          </div>
+                      <div class="check-div form-inline">
+                        <div class="col-xs-3">
+                          <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addGroup">Add Group</button>
                         </div>
-
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control input-sm" placeholder="input...">
+                          <button class="btn btn-white btn-xs ">Search </button>
+                          <button class="btn btn-white btn-xs ">Reset </button>
+                        </div>
+                        <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
+                          <label for="paixu">Order By:&nbsp;</label>
+                          <select id="paixu" class="form-control">
+                            <option>Status</option>
+                            <option>Name</option>
+                            <option>DisplayName</option>
+                            <option>Phone Number</option>
+                            <option>Email</option>
+                            <option>CreatedBy</option>
+                            <option>CreateOn</option>
+                          </select>
+                        </div>
                       </div>
-
-                    </div>
-                    <!--页码块-->
-                    <footer class="footer">
-                      <ul class="pagination">
-                        <li>
-                          <select>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                          </select> 页
-                        </li>
-                        <li class="gray">共20页</li>
-                        <li>
-                          <i class="glyphicon glyphicon-menu-left"></i>
-                        </li>
-                        <li>
-                          <i class="glyphicon glyphicon-menu-right"></i>
-                        </li>
-                      </ul>
-                    </footer>
-
-                    <!--弹出添加用户窗口-->
-                    <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="gridSystemModalLabel">Add User</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="container-fluid">
-                              <form class="form-horizontal">
-                                <div class="form-group ">
-                                  <label for="username" class="col-xs-4 control-label">Username：</label>
-                                  <div class="col-xs-8 ">
-                                    <input type="" class="form-control input-sm duiqi" id="username" >
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="password" class="col-xs-4 control-label">Password：</label>
-                                  <div class="col-xs-8">
-                                    <input type="" class="form-control input-sm duiqi" id="password" placeholder="">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="rePassword" class="col-xs-4 control-label">Re-Password：</label>
-                                  <div class="col-xs-8 ">
-                                    <input type="" class="form-control input-sm duiqi" id="rePassword" placeholder="">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
-                                  <div class="col-xs-8">
-                                    <input type="" class="form-control input-sm duiqi" id="displayName" placeholder="">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="role" class="col-xs-4 control-label">Role：</label>
-                                  <div class="col-xs-8">
-                                    <select class=" form-control select-duiqi" id="role">
-                                      <!--
-                                              作者：huaxin19950624@163.com
-                                              时间：2017-06-15
-                                              描述：从已经有的角色信息中获取病显示在这儿
-                                            -->
-                                      <option>admin</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="email" class="col-xs-4 control-label">Email：</label>
-                                  <div class="col-xs-8">
-                                    <input type="" class="form-control input-sm duiqi" id="email" placeholder="">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="phone" class="col-xs-4 control-label">Phone：</label>
-                                  <div class="col-xs-8">
-                                    <input type="" class="form-control input-sm duiqi" id="phone" placeholder="">
-                                  </div>
-                                </div>
-
-                              </form>
+                      <div class="data-div">
+                        <div class="row tableHeader">
+                          <div class="col-xs-2 ">Group Name</div>
+                          <div class="col-xs-2 ">Created On</div>
+                          <div class="col-xs-2 ">Created By</div>
+                          <div class="col-xs-2">Modified On</div>
+                          <div class="col-xs-2">Modifief By</div>
+                          <div class="col-xs-1"></div>
+                          <div class="col-xs-1"></div>
+                        </div>
+                        <div *ngFor="let groupInfo of groupInfos" class="tablebody">
+                          <div class="row">
+                            <div class="col-xs-2 ">{{groupInfo.name}}</div>
+                            <div class="col-xs-2 ">{{groupInfo.createdOn}}</div>
+                            <div class="col-xs-2 ">{{groupInfo.createdBy}}</div>
+                            <div class="col-xs-2">{{groupInfo.modifiedOn}}</div>
+                            <div class="col-xs-2">{{groupInfo.modifiedBy}}</div>
+                            <div class="col-xs-2">
+                              <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateGroup"  (click)="getGroupInfo(groupInfo)">Update</button>
+                              <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteGroup" (click)="getGroupId(groupInfo)">Delete</button>
                             </div>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                            <button type="button" class="btn btn-xs btn-green">Save</button>
-                          </div>
-                        </div>
-                        <!-- /.modal-content -->
-                      </div>
-                      <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
 
-                    <!--弹出修改用户窗口-->
-                    <div class="modal fade" id="reviseUser" role="dialog" aria-labelledby="gridSystemModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="gridSystemModalLabel">Update User</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="container-fluid">
-                              <form class="form-horizontal" *ngIf="user">
-                                <div class="form-group ">
-                                  <label for="username" class="col-xs-4 control-label">* &nbsp;Username：</label>
-                                  <div class="col-xs-8">
-                                    <input type="text" class="form-control input-sm duiqi" id="username" disabled="disabled">
+                        </div>
+
+                      </div>
+                      <!--页码块-->
+                      <footer class="footer">
+                        <ul class="pagination">
+                          <li>
+                            <select>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                            </select> 页
+                          </li>
+                          <li class="gray">共20页</li>
+                          <li>
+                            <i class="glyphicon glyphicon-menu-left"></i>
+                          </li>
+                          <li>
+                            <i class="glyphicon glyphicon-menu-right"></i>
+                          </li>
+                        </ul>
+                      </footer>
+
+                      <!--弹出添加分组的窗口-->
+                      <div class="modal fade" id="addGroup" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Add Group</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <form class="form-horizontal"  *ngIf="aGroup">
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Group Name：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="groupName" [(ngModel)]="aGroup.name" #name="ngModel" class="form-control input-sm duiqi" id="groupName" >
+                                    </div>
                                   </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
-                                  <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi" id="displayName" placeholder="">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="email" class="col-xs-4 control-label">Email：</label>
-                                  <div class="col-xs-8">
-                                    <input  type="text" class="form-control input-sm duiqi" id="email" placeholder="">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="phone" class="col-xs-4 control-label">Phone：</label>
-                                  <div class="col-xs-8">
-                                    <input type="text" class="form-control input-sm duiqi" id="phone" placeholder="">
-                                  </div>
-                                </div>
-                              </form>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-xs btn-green" data-dismiss="modal" (click)="addGroup()">Save</button>
                             </div>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                            <button type="button" class="btn btn-xs btn-green">Save</button>
-                          </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-content -->
+                        <!-- /.modal-dialog -->
                       </div>
-                      <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
+                      <!-- /.modal -->
 
-                    <!--弹出删除用户警告窗口-->
-                    <div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="container-fluid">
-                              确定要删除该用户？删除后不可恢复！
+                      <!--弹出修改小组的窗口-->
+                      <div class="modal fade" id="updateGroup" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Update User</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <form class="form-horizontal" *ngIf="group">
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Group Name：</label>
+                                    <div class="col-xs-8">
+                                      <input type="text" [(ngModel)]="group.name" name="groupName" class="form-control input-sm duiqi" id="groupName">
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-xs btn-green" data-dismiss="modal" (click)="updateGroup()">Save</button>
                             </div>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                            <button type="button" class="btn  btn-xs btn-danger">确 定</button>
-                          </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-content -->
+                        <!-- /.modal-dialog -->
                       </div>
-                      <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
+                      <!-- /.modal -->
 
-                  </div>
+                      <!--弹出删除小组警告窗口-->
+                      <div class="modal fade" id="deleteGroup" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                确定要删除该分组吗？删除后不可恢复！
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                              <button type="button" class="btn  btn-xs btn-danger" (click)="deleteGroup()" data-dismiss="modal">确 定</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+                    </div>
 
                     <!--MqttClient管理模块-->
                     <div role="tabpanel" class="tab-pane" id="mqttclient">
@@ -1348,7 +1448,7 @@
                   </div>
 
                     <!-- 权限管理模块 -->
-                    <div role="tabpanel" class="tab-pane" id="char">
+                    <div role="tabpanel" class="tab-pane" id="grant">
                     <div class="check-div">
                       <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addChar">添加权限</button>
                     </div>
@@ -1547,8 +1647,8 @@
 
                   </div>
 
-                   <!--规则管理模块-->
-                    <div role="tabpanel" class="tab-pane" id="regu" style="padding-top: 50px;">
+                    <!--设置管理模块-->
+                    <div role="tabpanel" class="tab-pane" id="setting" style="padding-top: 50px;">
                         <div class="data-div">
                             <div class="tablebody col-lg-10 col-lg-offset-1">
                                 <div class="row">
@@ -1644,182 +1744,316 @@
                         </div>
                     </div>
 
-                    <!--时间段管理模块-->
-                    <div role="tabpanel" class="tab-pane" id="time">
-                        <div class="check-div form-inline">
-                            <span href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab" style="cursor: pointer;"><span class="glyphicon glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;返回上一页</span>
-
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-yellow btn-xs " data-toggle="modal" data-target="#addTime">添加时间段 </button>
+                    <!--账户管理模块-->
+                    <div role="tabpanel" class="tab-pane" id="account">
+                      <div class="check-div form-inline">
+                        <div class="col-xs-3">
+                          <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addAccount">Add Account</button>
+                        </div>
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control input-sm" placeholder="input...">
+                          <button class="btn btn-white btn-xs ">Search </button>
+                          <button class="btn btn-white btn-xs ">Reset </button>
+                        </div>
+                        <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
+                          <label for="paixu">Order By:&nbsp;</label>
+                          <select id="paixu" class="form-control">
+                            <option>Status</option>
+                            <option>Name</option>
+                            <option>DisplayName</option>
+                            <option>Phone Number</option>
+                            <option>Email</option>
+                            <option>CreatedBy</option>
+                            <option>CreateOn</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="data-div">
+                        <div class="row tableHeader">
+                          <div class="col-xs-2 ">Account Name</div>
+                          <div class="col-xs-2 ">Organization Name</div>
+                          <div class="col-xs-3 ">Organization Email</div>
+                          <div class="col-xs-3 ">Modified On</div>
+                          <div class="col-xs-1"></div>
+                          <div class="col-xs-1"></div>
+                        </div>
+                        <div *ngFor="let accountInfo of accountInfos" class="tablebody">
+                          <div class="row">
+                            <div class="col-xs-2 ">{{accountInfo.name}}</div>
+                            <div class="col-xs-2 ">{{accountInfo.organization.name}}</div>
+                            <div class="col-xs-3 ">{{accountInfo.organization.email}}</div>
+                            <div class="col-xs-3">{{accountInfo.modifiedOn}}</div>
+                            <div class="col-xs-2">
+                              <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateAccount" (click)="getAccountInfo(accountInfo)">Update</button>
+                              <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteAccount" (click)="getAccountId(accountInfo)">Delete</button>
+                            </div>
+                          </div>
 
                         </div>
-                        <div class="data-div">
-                            <div class="row tableHeader">
-                                <div class="col-xs-3 ">
-                                    编码
-                                </div>
-                                <div class="col-xs-3">
-                                    开始
-                                </div>
-                                <div class="col-xs-3">
-                                    结束
-                                </div>
 
-                                <div class="col-xs-3">
-                                    操作
-                                </div>
+                      </div>
+                      <!--页码块-->
+                      <footer class="footer">
+                        <ul class="pagination">
+                          <li>
+                            <select>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                            </select> 页
+                          </li>
+                          <li class="gray">共20页</li>
+                          <li>
+                            <i class="glyphicon glyphicon-menu-left"></i>
+                          </li>
+                          <li>
+                            <i class="glyphicon glyphicon-menu-right"></i>
+                          </li>
+                        </ul>
+                      </footer>
+
+                      <!--弹出添加账号的窗口-->
+                      <div class="modal fade" id="addAccount" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Add Account</h4>
                             </div>
-                            <div class="tablebody">
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <form class="form-horizontal"  *ngIf="aAccount">
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">*&nbsp;Account Name：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="accountName" [(ngModel)]="aAccount.name" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="accountName" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">*&nbsp;Organization Name：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="orgnizationName" [(ngModel)]="aAccount.organizationName" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="orgnizationName" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Email：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="email" [(ngModel)]="aAccount.organizationEmail" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="email" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Reference Person：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="personName" [(ngModel)]="aAccount.organizationPersonName" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="personName" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Phone Number：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="phoneNumber" [(ngModel)]="aAccount.organizationPhoneNumber" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="phoneNumber" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Address1：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="address1" [(ngModel)]="aAccount.organizationAddressLine1" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="address1" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Address2：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="address2" [(ngModel)]="aAccount.organizationAddressLine2" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="address2" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Zip/Post Code：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="zipPostCode" [(ngModel)]="aAccount.organizationZipPostCode" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="zipPostCode" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">City：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="city" [(ngModel)]="aAccount.organizationCity" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="city" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">State/Province：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="stateProvinceCountry" [(ngModel)]="aAccount.organizationStateProvinceCountry" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="stateProvinceCountry" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <label for="username" class="col-xs-4 control-label">Country：</label>
+                                    <div class="col-xs-8 ">
+                                      <input type="text" name="country" [(ngModel)]="aAccount.organizationCountry" #name="ngModel"
+                                             class="form-control input-sm duiqi" id="country" >
+                                    </div>
+                                  </div>
 
-                                <div class="row">
-                                    <div class="col-xs-3 ">
-                                        6426398978
-                                    </div>
-                                    <div class="col-xs-3">
-                                        10:10
-                                    </div>
-                                    <div class="col-xs-3">
-                                        19:30
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeTime">修改</button>
-                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteTime">删除</button>
-                                    </div>
-                                </div>
-
+                                </form>
+                              </div>
                             </div>
-
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-xs btn-green" data-dismiss="modal" (click)="addAccount()">Save</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <!--页码块-->
-                        <footer class="footer">
-                            <ul class="pagination">
-                                <li>
-                                    <select>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                    页
-                                </li>
-                                <li class="gray">
-                                    共20页
-                                </li>
-                                <li>
-                                    <i class="glyphicon glyphicon-menu-left">
-                                    </i>
-                                </li>
-                                <li>
-                                    <i class="glyphicon glyphicon-menu-right">
-                                    </i>
-                                </li>
-                            </ul>
-                        </footer>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
 
-                        <!--弹出增加时间段窗口-->
-                        <div class="modal fade" id="addTime" role="dialog" aria-labelledby="gridSystemModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">时间段设置</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <form class="form-horizontal">
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">开始时间：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm" id="sName" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">结束时间：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm" id="sName" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn btn-xs btn-green">保 存</button>
-                                    </div>
-                                </div>
-                                <!-- /.modal-content -->
+                      <!--弹出修改小组的窗口-->
+                      <div class="modal fade" id="updateAccount" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">Update Account</h4>
                             </div>
-                            <!-- /.modal-dialog -->
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                <form class="form-horizontal" *ngIf="account">
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">*&nbsp;Parent Account：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="accountName" [(ngModel)]="account.name" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="accountName" disabled="disabled">
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">*&nbsp;Account Name：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="accountName" [(ngModel)]="account.name" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="accountName" disabled="disabled">
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">*&nbsp;Organization Name：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="orgnizationName" [(ngModel)]="account.organization.name" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="orgnizationName" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Email：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="email" [(ngModel)]="account.organization.email" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="email" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Reference Person：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="personName" [(ngModel)]="account.organization.personName" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="personName" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Phone Number：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="phoneNumber" [(ngModel)]="account.organization.phoneNumber" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="phoneNumber" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Address1：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="address1" [(ngModel)]="account.organization.addressLine1" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="address1" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Address2：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="address2" [(ngModel)]="account.organization.addressLine2" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="address2" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Zip/Post Code：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="zipPostCode" [(ngModel)]="account.organization.zipPostCode" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="zipPostCode" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">City：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="city" [(ngModel)]="account.organization.city" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="city" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">State/Province：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="stateProvinceCountry" [(ngModel)]="account.organization.stateProvinceCountry" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="stateProvinceCountry" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group ">
+                                      <label for="username" class="col-xs-4 control-label">Country：</label>
+                                      <div class="col-xs-8 ">
+                                        <input type="text" name="country" [(ngModel)]="account.organization.country" #name="ngModel"
+                                               class="form-control input-sm duiqi" id="country" >
+                                      </div>
+                                    </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-xs btn-green" data-dismiss="modal" (click)="updateAccount()">Save</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal -->
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
 
-                        <!--修改增加时间段窗口-->
-                        <div class="modal fade" id="changeTime" role="dialog" aria-labelledby="gridSystemModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">修改时间段</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <form class="form-horizontal">
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">开始时间：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="sName" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">结束时间：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="sName" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn btn-green btn-xs">保 存</button>
-                                    </div>
-                                </div>
-                                <!-- /.modal-content -->
+                      <!--弹出删除小组警告窗口-->
+                      <div class="modal fade" id="deleteAccount" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
                             </div>
-                            <!-- /.modal-dialog -->
-                        </div>
-                        <!-- /.modal -->
-                        <!--弹出删除时间段警告窗口-->
-                        <div class="modal fade" id="deleteTime" role="dialog" aria-labelledby="gridSystemModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            确定要删除该时间段？
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn btn-danger btn-xs">保 存</button>
-                                    </div>
-                                </div>
-                                <!-- /.modal-content -->
+                            <div class="modal-body">
+                              <div class="container-fluid">
+                                确定要删除该账号吗？删除后不可恢复！
+                              </div>
                             </div>
-                            <!-- /.modal-dialog -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                              <button type="button" class="btn  btn-xs btn-danger" (click)="deleteAccount()" data-dismiss="modal">确 定</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal -->
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
 
                     </div>
 

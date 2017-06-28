@@ -3,13 +3,13 @@
  */
 
 export class GroupInfo {
-  private type:string;
-  private id:string;
-  private scopeId:string;
-  private createdOn:string;
-  private createdBy:string;
-  private modifiedOn:string;
-  private modifiedBy:string;
-  private optlock:number;
-  private name:string;
+   type:string;
+   id:string;
+   scopeId:string;
+   createdOn:string;
+   createdBy:string;
+   modifiedOn:string;
+   modifiedBy:string;
+   optlock:number;
+   name:string;
 }

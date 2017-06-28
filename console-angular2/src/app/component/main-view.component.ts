@@ -14,6 +14,8 @@ import {GroupInfo} from "../module/group-info.module";
 import {Creditial} from "../module/creditial.module";
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
+import {AccountService} from "../service/account.service";
+import {AccountInfo} from "../module/account-info.module";
 
 
 @Component({
@@ -22,35 +24,42 @@ import {LoginService} from "../service/login.service";
   styleUrls:['app/css/static/main.view.css']
 })
 export class MainViewComponent{
-  //接收返回信息的实体类
+  //--------user相关的变量信息--------//
   private userInfos:UserInfo[];
   private user:UserInfo;
-  private deviceConnections:DeviceConnection[];
-  private deviceInfos:DeviceInfo[];
-  private groupInfos:GroupInfo[];
-
   private aUser:UserInfo=new UserInfo();
   private aCredential=new Creditial();
-
   private displayName:string;
   private email:string;
   private optlock:number;
-
   private delUserId:string;
-
-  //点击的用户信息
-  private cliUser:UserInfo;
+  private cliUser:UserInfo;//点击的用户信息
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
-
-  //用户进行为当前用户添加角色时选择的角色
-  private userrole:RoleInfo;
+  private userrole:RoleInfo;//用户进行为当前用户添加角色时选择的角色
   private role:RoleInfo;
-
   private aRole:RoleInfo=new RoleInfo();
   private delRoleId:string;
 
+  //--------group相关的变量信息--------//
+  private groupInfos:GroupInfo[];
+  private aGroup:GroupInfo=new GroupInfo();
+  private group:GroupInfo;
+  private delGroupId:string;
+
+
+  //--------device相关的变量信息--------//
+  private deviceConnections:DeviceConnection[];
+  private deviceInfos:DeviceInfo[];
+  private aDevice:DeviceInfo=new DeviceInfo();
+
+
+  //--------account相关的变量信息--------//
+  private accountInfos:AccountInfo[];
+  private aAccount:AccountInfo=new AccountInfo();
+  private account:AccountInfo;
+  private delAccountId:string;
 
 
   /**
@@ -65,7 +74,8 @@ export class MainViewComponent{
     private deviceConnectionService:DeviceConnectionService,
     private groupService:GroupService,
     private router: Router,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private accountService:AccountService
   ){
     console.log("home..");
    // console.log(localStorage.getItem('userId').length);
@@ -80,6 +90,7 @@ export class MainViewComponent{
     this.getDeviceConnection();
     this.getDevices();
     this.getGroupList();
+    this.getAccountList();
   }
 
 
@@ -98,6 +109,7 @@ export class MainViewComponent{
    */
   getUserList(){
       this.userListService.getUserList().subscribe((result) => {
+        console.log(result);
         this.userInfos=result.items.item;
     });
   }
@@ -290,6 +302,8 @@ export class MainViewComponent{
     });
   }
 
+
+  //--------------------Group Action---------------------------//
   /**
    * 得到所有的组信息
    */
@@ -300,6 +314,124 @@ export class MainViewComponent{
     });
   }
 
+  /**
+   * 添加组信息
+   */
+  addGroup(){
+    console.log(this.aGroup);
+    this.groupService.addGroup(this.aGroup).subscribe((result) => {
+      console.log(result);
+    });
+  }
 
+  /**
+   * 得到用户当前点击的组的信息
+   * @param groupInfo
+   */
+  getGroupInfo(groupInfo:GroupInfo){
+    console.log(groupInfo);
+    this.group=groupInfo;
+  }
+
+  /**
+   * 更新的用户当前的点击小组
+   */
+  updateGroup(){
+    console.log("optlock1:"+this.group.optlock);
+    if(this.optlock==this.group.optlock+1){
+      this.group.optlock+=1;
+    }
+    this.groupService.updateGroupById(this.group.id,this.group).subscribe((result) => {
+      this.group=result;
+      this.optlock=this.group.optlock;
+      console.log("optlock2:"+this.group.optlock);
+      console.log(result);
+    });
+  }
+
+  /**
+   * 获取点击删除的小组的id
+   * @param groupInfo
+   */
+  getGroupId(groupInfo:GroupInfo){
+    console.log(groupInfo);
+    this.delGroupId=groupInfo.id;
+    console.log(this.delGroupId);
+  }
+
+  /**
+   * 通过之前获取的用户点击的小组的id来删除小组的信息
+   */
+  deleteGroup() {
+    console.log(this.delGroupId);
+    this.groupService.deleteGroupByGroupId(this.delGroupId).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  //--------------------Account Action---------------------------//
+  /**
+   * 获取当前scopeId下的所有的账号信息
+   */
+  getAccountList(){
+    this.accountService.getAccountList().subscribe((result) => {
+      console.log(result);
+      this.accountInfos=result.items.item;
+    });
+  }
+
+  /**
+   * 添加一个账号信息
+   */
+  addAccount(){
+    console.log(this.aAccount);
+
+    this.accountService.addAccount(this.aAccount).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  /**
+   * 得到当前用户点击的账户的信息
+   * @param accountInfo
+   */
+  getAccountInfo(accountInfo:AccountInfo){
+    console.log(accountInfo);
+    this.account=accountInfo;
+  }
+
+  /**
+   * 更新当前用户选择的账号信息
+   */
+  updateAccount(){
+    console.log("optlock1:"+this.account.optlock);
+    if(this.optlock==this.account.optlock+1){
+      this.account.optlock+=1;
+    }
+    this.accountService.updateAccountById(this.account.id,this.account).subscribe((result) => {
+      this.account=result;
+      this.optlock=this.account.optlock;
+      console.log("optlock2:"+this.account.optlock);
+      console.log(result);
+    });
+  }
+
+  /**
+   * 得到被删除的账号信息的id
+   * @param accountInfo
+   */
+  getAccountId(accountInfo:AccountInfo){
+    this.delAccountId=accountInfo.id;
+  }
+
+  /**
+   * 根据之前得到的删除账号的id来进行删除操作
+   */
+  deleteAccount(){
+    console.log(this.delAccountId);
+    this.accountService.deleteAccountByAccountId(this.delAccountId).subscribe((result) => {
+      console.log(result);
+    });
+  }
 
 }

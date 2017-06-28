@@ -349,3 +349,7 @@ select {
 .right {
 	float: right;
 }
+
+.modal-dialog{
+  width: 40%;
+}
