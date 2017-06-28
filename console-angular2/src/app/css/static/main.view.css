@@ -19,7 +19,7 @@
 #rightContent #user .col-xs-1 {
   text-overflow:ellipsis;
 }
-.user-info{
+#wrap #user .user-info{
   overflow-y: auto;
   margin-top: 30px;
   margin-bottom: 0px;

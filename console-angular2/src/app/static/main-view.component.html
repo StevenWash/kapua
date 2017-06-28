@@ -364,166 +364,6 @@
                         </ul>
                       </footer>
 
-                      <!-- 下部点击用户之后的详细信息 -->
-                      <div role="tabpanel" class="tab-pane user-info">
-                        <div id="userInfo" >
-                          <div class="panel panel-default">
-                            <div class="panel-body">
-                              <div>
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" role="tablist">
-                                  <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-                                  <li role="presentation"><a href="#userroles" aria-controls="userroles" role="tab" data-toggle="tab">Roles</a></li>
-                                  <li role="presentation"><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Permissions</a></li>
-                                  <li role="presentation"><a href="#credentials" aria-controls="credentials" role="tab" data-toggle="tab">Credentials</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div role="tabpanel" class="tab-pane active" id="description">
-                                    <div class="data-div">
-                                      <div class="row tableHeader">
-                                        <div class="col-xs-5 ">Name</div>
-                                        <div class="col-xs-5 ">Value</div>
-                                      </div>
-                                      <div class="tablebody" *ngIf="cliUser">
-                                        <div class="row">
-                                          <div class="col-xs-5 ">Create By</div>
-                                          <div class="col-xs-5 ">{{cliUser.createdBy}}</div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-xs-5 ">Create On</div>
-                                          <div class="col-xs-5 ">{{cliUser.createdOn}}</div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-xs-5 ">Status</div>
-                                          <div class="col-xs-5 ">{{cliUser.status}}</div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-xs-5 ">UserName</div>
-                                          <div class="col-xs-5 ">{{cliUser.name}}</div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-xs-5 ">DisplayName</div>
-                                          <div class="col-xs-5 ">{{cliUser.displayName}}</div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-xs-5 ">Phone Number</div>
-                                          <div class="col-xs-5 ">{{cliUser.phoneNumber}}</div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-xs-5 ">Email</div>
-                                          <div class="col-xs-5 ">{{cliUser.email}}</div>
-                                        </div>
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                  <div role="tabpanel" class="tab-pane" id="userroles">
-                                    <ul class="nav nav-pills">
-                                      <li role="presentation" class="active"><a href="#addUserRole" data-toggle="modal">Add</a></li>
-                                      <li role="presentation"><a href="#">Refresh</a></li>
-                                    </ul>
-                                    <div class="data-div">
-                                      <div class="row tableHeader">
-                                        <div class="col-xs-2 ">Name</div>
-                                        <div class="col-xs-4 ">CreateBy</div>
-                                        <div class="col-xs-4 ">CreateOn</div>
-                                        <div class="col-xs-1"></div>
-                                      </div>
-                                      <div class="tablebody">
-                                        <div class="row">
-                                          <div class="col-xs-2 ">Name</div>
-                                          <div class="col-xs-4 ">CreateBy</div>
-                                          <div class="col-xs-4 ">CreateOn</div>
-                                          <div class="col-xs-1">
-                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
-                                          </div>
-                                        </div>
-
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                  <div role="tabpanel" class="tab-pane" id="permissions">
-                                    <ul class="nav nav-pills">
-                                      <li role="presentation" class="active"><a href="#">Add</a></li>
-                                      <li role="presentation"><a href="#">Refresh</a></li>
-                                    </ul>
-                                    <div class="data-div">
-                                      <div class="row tableHeader">
-                                        <div class="col-xs-2 ">Domain</div>
-                                        <div class="col-xs-1 ">Action</div>
-                                        <div class="col-xs-1">TargetScopeId</div>
-                                        <div class="col-xs-2">GroupId </div>
-                                        <div class="col-xs-2">Forwardable</div>
-                                        <div class="col-xs-1">AddBy</div>
-                                        <div class="col-xs-2">AddOn </div>
-                                        <div class="col-xs-1"></div>
-                                      </div>
-                                      <div class="tablebody">
-
-                                        <div class="row">
-                                          <div class="col-xs-2 ">On</div>
-                                          <div class="col-xs-1 ">Kapua-sys</div>
-                                          <div class="col-xs-1">Kapua-sys</div>
-                                          <div class="col-xs-2">18186533315</div>
-                                          <div class="col-xs-2">132456@qq.com</div>
-                                          <div class="col-xs-1">admin</div>
-                                          <div class="col-xs-2">2017-6-14 17:12</div>
-                                          <div class="col-xs-1">
-                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                    </div>
-
-                                  </div>
-                                  <div role="tabpanel" class="tab-pane" id="credentials">
-                                    <ul class="nav nav-pills">
-                                      <li role="presentation" class="active"><a href="#">Add</a></li>
-                                      <li role="presentation"><a href="#">Refresh</a></li>
-                                    </ul>
-
-                                    <div class="data-div">
-                                      <div class="row tableHeader">
-                                        <div class="col-xs-1 ">Status</div>
-                                        <div class="col-xs-2 ">Username</div>
-                                        <div class="col-xs-2">CredentialType</div>
-                                        <div class="col-xs-2">ExpirationDate </div>
-                                        <div class="col-xs-2">CreateOn</div>
-                                        <div class="col-xs-1">CreateBy</div>
-                                        <div class="col-xs-1"></div>
-                                        <div class="col-xs-1"></div>
-                                      </div>
-                                      <div class="tablebody">
-
-                                        <div class="row">
-                                          <div class="col-xs-1 ">On</div>
-                                          <div class="col-xs-2 ">Kapua-sys</div>
-                                          <div class="col-xs-2">Kapua-sys</div>
-                                          <div class="col-xs-2">18186533315</div>
-                                          <div class="col-xs-2">132456@qq.com</div>
-                                          <div class="col-xs-1">admin</div>
-                                          <div class="col-xs-2">
-                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
-                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                </div>
-
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-
                       <!--弹出添加用户角色窗口-->
                       <div class="modal fade" id="addUserRole" role="dialog" aria-labelledby="gridSystemModalLabel">
                         <div class="modal-dialog" role="document">
@@ -755,8 +595,173 @@
                       </div>
                       <!-- /.modal -->
 
-                    </div>
+                      <div class="panel panel-default user-info">
+                        <div class="panel-body">
+                          <!-- 下部点击用户之后的详细信息 -->
+                          <div role="tabpanel" class="tab-pane user-info">
+                            <div id="userInfo" >
+                              <div class="panel panel-default">
+                                <div class="panel-body">
+                                  <div>
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                      <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                      <li role="presentation"><a href="#userroles" aria-controls="userroles" role="tab" data-toggle="tab">Roles</a></li>
+                                      <li role="presentation"><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Permissions</a></li>
+                                      <li role="presentation"><a href="#credentials" aria-controls="credentials" role="tab" data-toggle="tab">Credentials</a></li>
+                                    </ul>
 
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                      <div role="tabpanel" class="tab-pane active" id="description">
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-5 ">Name</div>
+                                            <div class="col-xs-5 ">Value</div>
+                                          </div>
+                                          <div class="tablebody" *ngIf="cliUser">
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Create By</div>
+                                              <div class="col-xs-5 ">{{cliUser.createdBy}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Create On</div>
+                                              <div class="col-xs-5 ">{{cliUser.createdOn}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Status</div>
+                                              <div class="col-xs-5 ">{{cliUser.status}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">UserName</div>
+                                              <div class="col-xs-5 ">{{cliUser.name}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">DisplayName</div>
+                                              <div class="col-xs-5 ">{{cliUser.displayName}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Phone Number</div>
+                                              <div class="col-xs-5 ">{{cliUser.phoneNumber}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Email</div>
+                                              <div class="col-xs-5 ">{{cliUser.email}}</div>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <div role="tabpanel" class="tab-pane" id="userroles">
+                                        <ul class="nav nav-pills">
+                                          <li role="presentation" class="active"><a href="#addUserRole" data-toggle="modal">Add</a></li>
+                                          <li role="presentation"><a href="#">Refresh</a></li>
+                                        </ul>
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-2 ">Name</div>
+                                            <div class="col-xs-4 ">CreateBy</div>
+                                            <div class="col-xs-4 ">CreateOn</div>
+                                            <div class="col-xs-1"></div>
+                                          </div>
+                                          <div class="tablebody">
+                                            <div class="row">
+                                              <div class="col-xs-2 ">Name</div>
+                                              <div class="col-xs-4 ">CreateBy</div>
+                                              <div class="col-xs-4 ">CreateOn</div>
+                                              <div class="col-xs-1">
+                                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                              </div>
+                                            </div>
+
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <div role="tabpanel" class="tab-pane" id="permissions">
+                                        <ul class="nav nav-pills">
+                                          <li role="presentation" class="active"><a href="#">Add</a></li>
+                                          <li role="presentation"><a href="#">Refresh</a></li>
+                                        </ul>
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-2 ">Domain</div>
+                                            <div class="col-xs-1 ">Action</div>
+                                            <div class="col-xs-1">TargetScopeId</div>
+                                            <div class="col-xs-2">GroupId </div>
+                                            <div class="col-xs-2">Forwardable</div>
+                                            <div class="col-xs-1">AddBy</div>
+                                            <div class="col-xs-2">AddOn </div>
+                                            <div class="col-xs-1"></div>
+                                          </div>
+                                          <div class="tablebody">
+
+                                            <div class="row">
+                                              <div class="col-xs-2 ">On</div>
+                                              <div class="col-xs-1 ">Kapua-sys</div>
+                                              <div class="col-xs-1">Kapua-sys</div>
+                                              <div class="col-xs-2">18186533315</div>
+                                              <div class="col-xs-2">132456@qq.com</div>
+                                              <div class="col-xs-1">admin</div>
+                                              <div class="col-xs-2">2017-6-14 17:12</div>
+                                              <div class="col-xs-1">
+                                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+                                      <div role="tabpanel" class="tab-pane" id="credentials">
+                                        <ul class="nav nav-pills">
+                                          <li role="presentation" class="active"><a href="#">Add</a></li>
+                                          <li role="presentation"><a href="#">Refresh</a></li>
+                                        </ul>
+
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-1 ">Status</div>
+                                            <div class="col-xs-2 ">Username</div>
+                                            <div class="col-xs-2">CredentialType</div>
+                                            <div class="col-xs-2">ExpirationDate </div>
+                                            <div class="col-xs-2">CreateOn</div>
+                                            <div class="col-xs-1">CreateBy</div>
+                                            <div class="col-xs-1"></div>
+                                            <div class="col-xs-1"></div>
+                                          </div>
+                                          <div class="tablebody">
+
+                                            <div class="row">
+                                              <div class="col-xs-1 ">On</div>
+                                              <div class="col-xs-2 ">Kapua-sys</div>
+                                              <div class="col-xs-2">Kapua-sys</div>
+                                              <div class="col-xs-2">18186533315</div>
+                                              <div class="col-xs-2">132456@qq.com</div>
+                                              <div class="col-xs-1">admin</div>
+                                              <div class="col-xs-2">
+                                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
+                                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+                    </div>
 
                     <!--角色管理模块-->
                     <div role="tabpanel" class="tab-pane" id="roles">
