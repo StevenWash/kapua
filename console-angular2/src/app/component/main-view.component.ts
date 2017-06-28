@@ -53,6 +53,9 @@ export class MainViewComponent{
   private deviceConnections:DeviceConnection[];
   private deviceInfos:DeviceInfo[];
   private aDevice:DeviceInfo=new DeviceInfo();
+  private devicegroup:GroupInfo;
+  private delDeviceId:string;
+  private device:DeviceInfo;
 
 
   //--------account相关的变量信息--------//
@@ -271,6 +274,7 @@ export class MainViewComponent{
     });
   }
 
+
   setRole(){
     this.userrole=this.role;
   }
@@ -299,6 +303,63 @@ export class MainViewComponent{
     this.deviceConnectionService.getDeviceList().subscribe((result) => {
       console.log(result);
       this.deviceInfos=result.items.item;
+    });
+  }
+
+  /**
+   * 添加设备信息
+   */
+  addDevice(){
+    this.aDevice.deviceCredentialsMode="LOOSE";//设置默认值
+    console.log(this.aDevice);
+    this.deviceConnectionService.addDevice(this.aDevice).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  /**
+   * 得到当前用户点击的设备信息的id
+   * @param deviceInfo
+   */
+  getDeviceId(deviceInfo:DeviceInfo){
+    console.log(deviceInfo);
+    this.delDeviceId=deviceInfo.id;
+    console.log(this.delDeviceId);
+  }
+
+  /**
+   * 通过用户选择的设备的id删除该设备信息
+   */
+  deleteDevice(){
+    console.log(this.delDeviceId);
+    this.deviceConnectionService.deleteDeviceByDeviceId(this.delDeviceId).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  /**
+   * 得到当前用户点击的设备信息
+   * @param deviceInfo
+   */
+  getDeviceInfo(deviceInfo:DeviceInfo){
+    console.log(deviceInfo);
+    this.device=deviceInfo;
+  }
+
+  /**
+   * 根据的设备的id来更新设备的相关信息
+   */
+  updateDevice(){
+    console.log("optlock1:"+this.device.optlock);
+    if(this.optlock==this.device.optlock+1){
+      this.device.optlock+=1;
+    }
+    console.log(this.device);
+    this.deviceConnectionService.updateDeviceById(this.device.id,this.device).subscribe((result) => {
+      this.device=result;
+      this.optlock=this.device.optlock;
+      console.log("optlock2:"+this.device.optlock);
+      console.log(result);
     });
   }
 
@@ -368,6 +429,16 @@ export class MainViewComponent{
       console.log(result);
     });
   }
+
+  /**
+   * 为添加设备中的设备分组进行设置用户选择的组别
+   */
+  setGroup(){
+    this.devicegroup=this.group;
+    console.log(this.devicegroup);
+  }
+
+
 
   //--------------------Account Action---------------------------//
   /**

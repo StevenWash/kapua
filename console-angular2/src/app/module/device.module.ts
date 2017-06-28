@@ -3,32 +3,32 @@
  */
 
 export class DeviceInfo{
-  private type:string;
-  private id:string;
-  private scopeId:string;
-  private createdOn:string;
-  private createdBy:string;
-  private modifiedOn:string;
-  private modifiedBy:string;
-  private optlock:number;
-  private groupId:string;
-  private clientId:string;
-  private status:string;
-  private displayName:string;
-  private deviceCredentialsMode:string;
-  private acceptEncoding: string;
-  private applicationIdentifiers: string;
-  private biosVersion: string;
-  private connection: ConnectionModel;
-  private connectionId: string;
-  private firmwareVersion: string;
-  private jvmVersion: string;
-  private lastEvent: LastEventModel;
-  private lastEventId: string;
-  private modelId: string;
-  private osVersion: string;
-  private osgiFrameworkVersion: string;
-  private serialNumber: string;
+   type:string;
+   id:string;
+   scopeId:string;
+   createdOn:string;
+   createdBy:string;
+   modifiedOn:string;
+   modifiedBy:string;
+   optlock:number;
+   groupId:string;
+   clientId:string;
+   status:string;
+   displayName:string;
+   deviceCredentialsMode:string;
+   acceptEncoding: string;
+   applicationIdentifiers: string;
+   biosVersion: string;
+   connection: ConnectionModel;
+   connectionId: string;
+   firmwareVersion: string;
+   jvmVersion: string;
+   lastEvent: LastEventModel;
+   lastEventId: string;
+   modelId: string;
+   osVersion: string;
+   osgiFrameworkVersion: string;
+   serialNumber: string;
 }
 
 export class LastEventModel {
