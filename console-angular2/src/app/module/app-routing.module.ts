@@ -10,6 +10,11 @@ const routes: Routes = [
   {path: '', redirectTo : '/login', pathMatch : 'full'},
   {path: 'login',component: LoginComponent },
   {path: 'home' ,component: MainViewComponent },
+  {path: 'home/device',component: MainViewComponent},
+  {path: 'home/role',component: MainViewComponent},
+  {path: 'home/user',component: MainViewComponent},
+  {path: 'home/group',component: MainViewComponent},
+  {path: 'home/account',component: MainViewComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

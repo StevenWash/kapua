@@ -47,15 +47,21 @@ export class MainViewComponent{
   private aGroup:GroupInfo=new GroupInfo();
   private group:GroupInfo;
   private delGroupId:string;
+  private cliGroup:GroupInfo;
 
 
   //--------device相关的变量信息--------//
-  private deviceConnections:DeviceConnection[];
   private deviceInfos:DeviceInfo[];
   private aDevice:DeviceInfo=new DeviceInfo();
   private devicegroup:GroupInfo;
   private delDeviceId:string;
   private device:DeviceInfo;
+  private cliDevice:DeviceInfo=new DeviceInfo();
+
+
+  //--------device connection相关的变量信息--------//
+  private cliConnection:DeviceConnection;
+  private deviceConnections:DeviceConnection[];
 
 
   //--------account相关的变量信息--------//
@@ -150,6 +156,8 @@ export class MainViewComponent{
       this.optlock=this.user.optlock;
       console.log("optlock2:"+this.user.optlock)
       console.log(result);
+      this.getUserList();
+      this.router.navigate(['/home/user']);
     });
   }
 
@@ -161,6 +169,8 @@ export class MainViewComponent{
 
     this.userListService.addUser(this.aUser).subscribe((result) => {
       console.log(result);
+      this.getUserList();
+      this.router.navigate(['/home/user']);
     });
 
     this.userListService.addCredentials(this.aUser).subscribe((result) => {
@@ -185,10 +195,9 @@ export class MainViewComponent{
   deleteUser(){
     console.log(this.delUserId);
     this.userListService.deleteUser(this.delUserId).subscribe((result) => {
-      if(result){
-        this.router.navigate(['/home']);
-      }else
-        this.router.navigate(['/login']);
+      console.log(result);
+      this.getUserList();
+      this.router.navigate(['/home/user']);
     });
   }
 
@@ -238,8 +247,9 @@ export class MainViewComponent{
     this.roleService.updateROleById(this.role.id,this.role).subscribe((result) => {
       this.role=result;
       this.optlock=this.role.optlock;
-      console.log("optlock2:"+this.role.optlock);
       console.log(result);
+      this.getRoleList();
+      this.router.navigate(['/home/role']);
     });
   }
 
@@ -250,6 +260,8 @@ export class MainViewComponent{
     console.log(this.aRole);
     this.roleService.addRole(this.aRole).subscribe((result) => {
       console.log(result);
+      this.getRoleList();
+      this.router.navigate(['/home/role']);
     });
 
   }
@@ -271,6 +283,8 @@ export class MainViewComponent{
     console.log(this.delRoleId);
     this.roleService.deleteRoleByRoleId(this.delRoleId).subscribe((result) => {
       console.log(result);
+      this.getRoleList();
+      this.router.navigate(['/home/role']);
     });
   }
 
@@ -285,7 +299,7 @@ export class MainViewComponent{
 
 
 
-  //--------------------Device Action---------------------------//
+  //--------------------DeviceConnection Action---------------------------//
   /**
    * 得到所有的设备连接信息
    */
@@ -297,11 +311,22 @@ export class MainViewComponent{
   }
 
   /**
+   * 获取用户点击的设备连接信息
+   * @param deviceConnection
+   */
+  clickConnection(deviceConnection:DeviceConnection){
+    this.cliConnection=deviceConnection;
+    console.log(this.cliConnection);
+
+  }
+
+  //--------------------Device Action---------------------------//
+
+  /**
    * 得到所有的设备信息
    */
   getDevices(){
     this.deviceConnectionService.getDeviceList().subscribe((result) => {
-      console.log(result);
       this.deviceInfos=result.items.item;
     });
   }
@@ -314,6 +339,9 @@ export class MainViewComponent{
     console.log(this.aDevice);
     this.deviceConnectionService.addDevice(this.aDevice).subscribe((result) => {
       console.log(result);
+      this.deviceInfos=null;
+      this.getDevices();
+      this.router.navigate(['/home/device']);
     });
   }
 
@@ -334,6 +362,8 @@ export class MainViewComponent{
     console.log(this.delDeviceId);
     this.deviceConnectionService.deleteDeviceByDeviceId(this.delDeviceId).subscribe((result) => {
       console.log(result);
+      this.getDevices();
+      this.router.navigate(['/home/device']);
     });
   }
 
@@ -360,8 +390,23 @@ export class MainViewComponent{
       this.optlock=this.device.optlock;
       console.log("optlock2:"+this.device.optlock);
       console.log(result);
+      this.getDevices();
+      this.router.navigate(['/home/device']);
     });
   }
+
+  /**
+   * 获得点击的设备信息
+   * @param deviceInfo
+   */
+  clickDevice(deviceInfo:DeviceInfo){
+    this.cliDevice=deviceInfo;
+    console.log(this.cliDevice);
+  }
+
+
+
+
 
 
   //--------------------Group Action---------------------------//
@@ -382,6 +427,8 @@ export class MainViewComponent{
     console.log(this.aGroup);
     this.groupService.addGroup(this.aGroup).subscribe((result) => {
       console.log(result);
+      this.getGroupList();
+      this.router.navigate(['/home/group']);
     });
   }
 
@@ -407,6 +454,8 @@ export class MainViewComponent{
       this.optlock=this.group.optlock;
       console.log("optlock2:"+this.group.optlock);
       console.log(result);
+      this.getGroupList();
+      this.router.navigate(['/home/group']);
     });
   }
 
@@ -427,6 +476,8 @@ export class MainViewComponent{
     console.log(this.delGroupId);
     this.groupService.deleteGroupByGroupId(this.delGroupId).subscribe((result) => {
       console.log(result);
+      this.getGroupList();
+      this.router.navigate(['/home/group']);
     });
   }
 
@@ -438,6 +489,15 @@ export class MainViewComponent{
     console.log(this.devicegroup);
   }
 
+
+  /**
+   * 获得用户点击的小组的信息
+   * @param groupInfo
+   */
+  clickGroup(groupInfo:GroupInfo){
+    this.cliGroup=groupInfo;
+    console.log(this.cliGroup);
+  }
 
 
   //--------------------Account Action---------------------------//
@@ -456,9 +516,10 @@ export class MainViewComponent{
    */
   addAccount(){
     console.log(this.aAccount);
-
     this.accountService.addAccount(this.aAccount).subscribe((result) => {
       console.log(result);
+      this.getAccountList();
+      this.router.navigate(['/home/account']);
     });
   }
 
@@ -484,6 +545,8 @@ export class MainViewComponent{
       this.optlock=this.account.optlock;
       console.log("optlock2:"+this.account.optlock);
       console.log(result);
+      this.getAccountList();
+      this.router.navigate(['/home/account']);
     });
   }
 
@@ -502,6 +565,8 @@ export class MainViewComponent{
     console.log(this.delAccountId);
     this.accountService.deleteAccountByAccountId(this.delAccountId).subscribe((result) => {
       console.log(result);
+      this.getAccountList();
+      this.router.navigate(['/home/account']);
     });
   }
 

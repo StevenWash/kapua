@@ -19,16 +19,19 @@ export class DeviceInfo{
    acceptEncoding: string;
    applicationIdentifiers: string;
    biosVersion: string;
-   connection: ConnectionModel;
+   connection: ConnectionModel=new ConnectionModel();
    connectionId: string;
    firmwareVersion: string;
    jvmVersion: string;
-   lastEvent: LastEventModel;
+   lastEvent: LastEventModel=new LastEventModel();
    lastEventId: string;
    modelId: string;
    osVersion: string;
    osgiFrameworkVersion: string;
    serialNumber: string;
+   imei:string;
+   imsi:string;
+   iccid:string;
 }
 
 export class LastEventModel {
@@ -37,7 +40,7 @@ export class LastEventModel {
   private deviceId: any;
   private eventMessage: string;
   private id: string;
-  private position: PositionModel;
+  private position: PositionModel=new PositionModel();
   private receivedOn: string;
   private resource: string;
   private responseCode: string;

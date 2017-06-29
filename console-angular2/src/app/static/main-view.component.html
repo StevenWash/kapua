@@ -164,7 +164,7 @@
                         </div>
                         <div *ngFor="let deviceInfo of deviceInfos" class="tablebody">
 
-                          <div class="row">
+                          <div class="row" (click)="clickDevice(deviceInfo)">
                             <div class="col-xs-1 ">{{deviceInfo.status}}</div>
                             <div class="col-xs-1 ">{{deviceInfo.clientId}}</div>
                             <div class="col-xs-1">{{deviceInfo.displayName}}</div>
@@ -416,82 +416,348 @@
                       </div>
                       <!-- /.modal -->
 
+                      <!--在设备连接界面点击连接信息之后在下面显示用户的详细信息-->
+                      <div class="panel panel-default info">
+                        <div class="panel-body">
+                          <!-- 下部点击连接信息之后的详细信息 -->
+                          <div role="tabpanel" class="tab-pane info">
+                            <div id="deviceInfo" >
+                              <div class="panel panel-default">
+                                <div class="panel-body">
+                                  <div>
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                      <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                      <li role="presentation" ><a href="#event" aria-controls="event" role="tab" data-toggle="tab">Event</a></li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+
+                                      <div role="tabpanel" class="tab-pane active" id="description">
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-5 ">Name</div>
+                                            <div class="col-xs-5 ">Value</div>
+                                          </div>
+                                          <div class="tablebody" *ngIf="cliDevice">
+                                            <label class="row" *ngIf="cliDevice.customAttribute1||
+                                                                      cliDevice.customAttribute2||
+                                                                      cliDevice.customAttribute3||
+                                                                      cliDevice.customAttribute4||
+                                                                      cliDevice.customAttribute5">
+                                              <h5>Attributes Informations</h5>
+                                            </label>
+                                            <div class="row" *ngIf="cliDevice.customAttribute1">
+                                              <div class="col-xs-5 ">Custom Attribute 1</div>
+                                              <div class="col-xs-5 ">{{cliDevice.customAttribute1}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.customAttribute2">
+                                              <div class="col-xs-5 ">Custom Attribute 2</div>
+                                              <div class="col-xs-5 ">{{cliDevice.customAttribute2}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.customAttribute3">
+                                              <div class="col-xs-5 ">Custom Attribute 3</div>
+                                              <div class="col-xs-5 ">{{cliDevice.customAttribute3}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.customAttribute4">
+                                              <div class="col-xs-5 ">Custom Attribute 4</div>
+                                              <div class="col-xs-5 ">{{cliDevice.customAttribute4}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.customAttribute5">
+                                              <div class="col-xs-5 ">Custom Attribute 5</div>
+                                              <div class="col-xs-5 ">{{cliDevice.customAttribute5}}</div>
+                                            </div>
+
+                                            <label class="row" ><h5>Cloud Connection Informations</h5></label>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Status</div>
+                                              <div class="col-xs-5 ">{{cliDevice.status}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.connection">
+                                              <div class="col-xs-5 ">Connection Status</div>
+                                              <div class="col-xs-5 ">{{cliDevice.connection.status}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Client ID</div>
+                                              <div class="col-xs-5 ">{{cliDevice.clientId}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Display Name</div>
+                                              <div class="col-xs-5 ">{{cliDevice.displayName}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Group ID</div>
+                                              <div class="col-xs-5 ">{{cliDevice.groupId}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.lastEvent">
+                                              <div class="col-xs-5 ">Last Event Type</div>
+                                              <div class="col-xs-5 ">{{cliDevice.lastEvent.id}}</div>
+                                            </div>
+                                            <div class="row"  *ngIf="cliDevice.lastEvent">
+                                              <div class="col-xs-5 ">Last Event On</div>
+                                              <div class="col-xs-5 ">{{cliDevice.lastEvent.receivedOn}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.applicationIdentifiers">
+                                              <div class="col-xs-5 ">Active Cloud Applications</div>
+                                              <div class="col-xs-5 ">{{cliDevice.applicationIdentifiers}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.acceptEncoding">
+                                              <div class="col-xs-5 ">Accepted Payload Encoding</div>
+                                              <div class="col-xs-5 ">{{cliDevice.acceptEncoding}}</div>
+                                            </div>
+
+
+                                            <label class="row"><h5>Device Credentials Security</h5></label>
+                                            <div class="row"  *ngIf="cliDevice.deviceCredentialsMode">
+                                              <div class="col-xs-5 ">Credentials Tight Strategy</div>
+                                              <div class="col-xs-5 ">{{cliDevice.deviceCredentialsMode}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Allow Credentials Change</div>
+                                              <div class="col-xs-5 " *ngIf="cliDevice.deviceCredentialsMode">TRUE</div>
+                                              <div class="col-xs-5 " *ngIf="!cliDevice.deviceCredentialsMode">FALSE</div>
+                                            </div>
+
+                                            <label class="row" *ngIf="cliDevice.lastEvent||cliDevice.lastEvent"><h5>GPS Informations</h5></label>
+                                            <div class="row"  *ngIf="cliDevice.lastEvent">
+                                              <div class="col-xs-5 ">Latitude</div>
+                                              <div class="col-xs-5 ">{{cliDevice.lastEvent.position.latitude}}</div>
+                                            </div>
+                                            <div class="row"  *ngIf="cliDevice.lastEvent">
+                                              <div class="col-xs-5 ">Longitude</div>
+                                              <div class="col-xs-5 ">{{cliDevice.lastEvent.position.longitude}}</div>
+                                            </div>
+
+                                            <label class="row" *ngIf="cliDevice.modelName||cliDevice.modelId||cliDevice.serialNumber"><h5>Hardware Informations</h5></label>
+                                            <div class="row"  *ngIf="cliDevice.modelName">
+                                              <div class="col-xs-5 ">Model Name</div>
+                                              <div class="col-xs-5 ">{{cliDevice.modelName}}</div>
+                                            </div>
+                                            <div class="row"  *ngIf="cliDevice.modelId">
+                                              <div class="col-xs-5 ">Model ID</div>
+                                              <div class="col-xs-5 ">{{cliDevice.modelId}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.serialNumber">
+                                              <div class="col-xs-5 ">Serial Number</div>
+                                              <div class="col-xs-5 ">{{cliDevice.serialNumber}}</div>
+                                            </div>
+
+                                            <label class="row" *ngIf="cliDevice.jvmVersion"><h5>Java Informations</h5></label>
+                                            <div class="row" *ngIf="cliDevice.jvmVersion">
+                                              <div class="col-xs-5 ">Java Virtual Machine Version</div>
+                                              <div class="col-xs-5 ">{{cliDevice.jvmVersion}}</div>
+                                            </div>
+
+                                            <label class="row" *ngIf="cliDevice.imei||cliDevice.imsi||cliDevice.iccid"><h5>Modem Informations</h5></label>
+                                            <div class="row" *ngIf="cliDevice.imei">
+                                              <div class="col-xs-5 ">IMEI</div>
+                                              <div class="col-xs-5 ">{{cliDevice.imei}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.imsi">
+                                              <div class="col-xs-5 ">IMSI</div>
+                                              <div class="col-xs-5 ">{{cliDevice.imsi}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.iccid">
+                                              <div class="col-xs-5 ">ICCID</div>
+                                              <div class="col-xs-5 ">{{cliDevice.iccid}}</div>
+                                            </div>
+
+                                            <label class="row"  *ngIf="cliDevice.connection||cliDevice.firmwareVersion||cliDevice.biosVersion||cliDevice.osVersion"><h5>Network Informations</h5></label>
+                                            <div class="row"  *ngIf="cliDevice.connection">
+                                              <div class="col-xs-5 ">IP Address</div>
+                                              <div class="col-xs-5 ">{{cliDevice.connection.clientIp}}</div>
+                                            </div>
+
+                                            <label class="row"  *ngIf="cliDevice.firmwareVersion||cliDevice.biosVersion||cliDevice.osVersion"><h5>Software Informations</h5></label>
+                                            <div class="row" *ngIf="cliDevice.firmwareVersion">
+                                              <div class="col-xs-5 ">Firmware Version</div>
+                                              <div class="col-xs-5 ">{{cliDevice.firmwareVersion}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.biosVersion">
+                                              <div class="col-xs-5 ">BIOS Version</div>
+                                              <div class="col-xs-5 ">{{cliDevice.biosVersion}}</div>
+                                            </div>
+                                            <div class="row" *ngIf="cliDevice.osVersion">
+                                              <div class="col-xs-5 ">Operating System Version</div>
+                                              <div class="col-xs-5 ">{{cliDevice.osVersion}}</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div role="tabpanel" class="tab-pane active" id="event">
+                                        event
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end 设备详情-->
+
                     </div>
 
                     <!-- 连接管理模块 -->
                     <div role="tabpanel" class="tab-pane" id="connection">
-                    <div class="check-div form-inline">
-                      <div class="col-xs-8">
-                        <label>ClientId:&nbsp;&nbsp;</label><input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
-                        <label>Connect Status:&nbsp;&nbsp;</label><input type="text" id="connectStatus" class="form-control input-sm" placeholder="input...">
-                        <button class="btn btn-white btn-xs ">&nbsp;Search </button>
-                        <button class="btn btn-white btn-xs ">Reset </button>
-                      </div>
-                      <div class="col-lg-3 col-lg-offset-1 col-xs-4" style=" padding-right: 40px;text-align: right;">
-                        <label for="paixu">Order By:&nbsp;</label>
-                        <select class=" form-control">
-                          <option>Connect Status</option>
-                          <option>Client Id</option>
-                          <option>User Id</option>
-                          <option>Protocol</option>
-                          <option>Modified On</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="data-div">
-                      <div class="row tableHeader">
-                        <div class="col-xs-2 ">Connect Status</div>
-                        <div class="col-xs-2 ">Client Id</div>
-                        <div class="col-xs-1">User Id</div>
-                        <div class="col-xs-2">Protocol</div>
-                        <div class="col-xs-3">Modified On</div>
-                        <div class="col-xs-1"></div>
-                        <div class="col-xs-1"></div>
-                      </div>
-                      <div *ngFor="let deviceConnection of deviceConnections" class="tablebody">
 
-                        <div class="row">
-                          <div class="col-xs-2 ">{{deviceConnection.status}}</div>
-                          <div class="col-xs-2 ">{{deviceConnection.clientId}}</div>
-                          <div class="col-xs-1">{{deviceConnection.userId}}</div>
-                          <div class="col-xs-2">{{deviceConnection.protocol}}</div>
-                          <div class="col-xs-3">{{deviceConnection.modifiedOn}}</div>
-                          <div class="col-xs-2">
-                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#refreshConnect">Refresh</button>
-                            <i class="fa fa-spinner fa-pulse"></i>
+                      <div class="check-div form-inline">
+                        <div class="col-xs-8">
+                          <label>ClientId:&nbsp;&nbsp;</label><input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
+                          <label>Connect Status:&nbsp;&nbsp;</label><input type="text" id="connectStatus" class="form-control input-sm" placeholder="input...">
+                          <button class="btn btn-white btn-xs ">&nbsp;Search </button>
+                          <button class="btn btn-white btn-xs ">Reset </button>
+                        </div>
+                        <div class="col-lg-3 col-lg-offset-1 col-xs-4" style=" padding-right: 40px;text-align: right;">
+                          <label for="paixu">Order By:&nbsp;</label>
+                          <select class=" form-control">
+                            <option>Connect Status</option>
+                            <option>Client Id</option>
+                            <option>User Id</option>
+                            <option>Protocol</option>
+                            <option>Modified On</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="data-div">
+                        <div class="row tableHeader">
+                          <div class="col-xs-2 ">Connect Status</div>
+                          <div class="col-xs-2 ">Client Id</div>
+                          <div class="col-xs-1">User Id</div>
+                          <div class="col-xs-2">Protocol</div>
+                          <div class="col-xs-3">Modified On</div>
+                          <div class="col-xs-1"></div>
+                          <div class="col-xs-1"></div>
+                        </div>
+                        <div *ngFor="let deviceConnection of deviceConnections" class="tablebody">
+
+                          <div class="row" (click)="clickConnection(deviceConnection)">
+                            <div class="col-xs-2 ">{{deviceConnection.status}}</div>
+                            <div class="col-xs-2 ">{{deviceConnection.clientId}}</div>
+                            <div class="col-xs-1">{{deviceConnection.userId}}</div>
+                            <div class="col-xs-2">{{deviceConnection.protocol}}</div>
+                            <div class="col-xs-3">{{deviceConnection.modifiedOn}}</div>
+                            <div class="col-xs-2">
+                              <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#refreshConnect">Refresh</button>
+                              <i class="fa fa-spinner fa-pulse"></i>
+                            </div>
                           </div>
+
                         </div>
 
                       </div>
+                      <!--页码块-->
+                      <div class="footer">
+                        <ul class="pagination">
+                          <li>
+                            <select>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                            </select> 页
+                          </li>
+                          <li class="gray">共20页</li>
+                          <li>
+                            <i class="glyphicon glyphicon-menu-left"></i>
+                          </li>
+                          <li>
+                            <i class="glyphicon glyphicon-menu-right"></i>
+                          </li>
+                        </ul>
+                      </div>
 
+                      <!--在设备连接界面点击连接信息之后在下面显示用户的详细信息-->
+                      <div class="panel panel-default info">
+                        <div class="panel-body">
+                          <!-- 下部点击连接信息之后的详细信息 -->
+                          <div role="tabpanel" class="tab-pane info">
+                            <div id="connectionInfo" >
+                              <div class="panel panel-default">
+                                <div class="panel-body">
+                                  <div>
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                      <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                      <div role="tabpanel" class="tab-pane active" id="description">
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-5 ">Name</div>
+                                            <div class="col-xs-5 ">Value</div>
+                                          </div>
+                                          <div class="tablebody" *ngIf="cliConnection">
+                                            <label class="row"><h5>Connection Informations</h5></label>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Client Id</div>
+                                              <div class="col-xs-5 ">{{cliConnection.clientId}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">User Id</div>
+                                              <div class="col-xs-5 ">{{cliConnection.userId}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Client IP</div>
+                                              <div class="col-xs-5 ">{{cliConnection.clientIp}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Server IP</div>
+                                              <div class="col-xs-5 ">{{cliConnection.serverIP}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Protocol</div>
+                                              <div class="col-xs-5 ">{{cliConnection.protocol}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Connection Status</div>
+                                              <div class="col-xs-5 ">{{cliConnection.status}}</div>
+                                            </div>
+                                            <label class="row"><h5>Entity Informations</h5></label>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Connection Id</div>
+                                              <div class="col-xs-5 ">{{cliConnection.id}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Modified On</div>
+                                              <div class="col-xs-5 ">{{cliConnection.modifiedOn}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Modified By</div>
+                                              <div class="col-xs-5 ">{{cliConnection.modifiedBy}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Created On</div>
+                                              <div class="col-xs-5 ">{{cliConnection.createdOn}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Created By</div>
+                                              <div class="col-xs-5 ">{{cliConnection.createdBy}}</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end 设备详情-->
                     </div>
-                    <!--页码块-->
-                    <footer class="footer">
-                      <ul class="pagination">
-                        <li>
-                          <select>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                          </select> 页
-                        </li>
-                        <li class="gray">共20页</li>
-                        <li>
-                          <i class="glyphicon glyphicon-menu-left"></i>
-                        </li>
-                        <li>
-                          <i class="glyphicon glyphicon-menu-right"></i>
-                        </li>
-                      </ul>
-                    </footer>
-                  </div>
 
                     <!--用户管理模块-->
                     <div role="tabpanel" class="tab-pane" id="user">
@@ -544,8 +810,6 @@
                               <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser" (click)="getUserId(userInfo)">Delete</button>
                             </div>
                           </div>
-
-
                         </div>
                       </div>
 
@@ -803,7 +1067,8 @@
                       </div>
                       <!-- /.modal -->
 
-                      <div class="panel panel-default user-info">
+                      <!--在用户界面点击用户信息之后再下面显示用户的详细信-->
+                      <div class="panel panel-default info">
                         <div class="panel-body">
                           <!-- 下部点击用户之后的详细信息 -->
                           <div role="tabpanel" class="tab-pane user-info">
@@ -1170,7 +1435,7 @@
                           <div class="col-xs-1"></div>
                         </div>
                         <div *ngFor="let groupInfo of groupInfos" class="tablebody">
-                          <div class="row">
+                          <div class="row" (click)="clickGroup(groupInfo)">
                             <div class="col-xs-2 ">{{groupInfo.name}}</div>
                             <div class="col-xs-2 ">{{groupInfo.createdOn}}</div>
                             <div class="col-xs-2 ">{{groupInfo.createdBy}}</div>
@@ -1297,6 +1562,64 @@
                         <!-- /.modal-dialog -->
                       </div>
                       <!-- /.modal -->
+
+                      <!--小组详情信息-->
+                      <div class="panel panel-default info">
+                        <div class="panel-body">
+                          <!-- 下部点击连接信息之后的详细信息 -->
+                          <div role="tabpanel" class="tab-pane info">
+                            <div id="groupInfo" >
+                              <div class="panel panel-default">
+                                <div class="panel-body">
+                                  <div>
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                      <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                      <div role="tabpanel" class="tab-pane active" id="description">
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-5 ">Name</div>
+                                            <div class="col-xs-5 ">Value</div>
+                                          </div>
+                                          <div class="tablebody" *ngIf="cliGroup">
+                                            <label class="row"><h5>Entity </h5></label>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Modified On</div>
+                                              <div class="col-xs-5 ">{{cliGroup.modifiedOn}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Modified By</div>
+                                              <div class="col-xs-5 ">{{cliGroup.modifiedBy}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Created On</div>
+                                              <div class="col-xs-5 ">{{cliGroup.createdOn}}</div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Created By</div>
+                                              <div class="col-xs-5 ">{{cliGroup.createdBy}}</div>
+                                            </div>
+                                            <label class="row"><h5>Group</h5></label>
+                                            <div class="row">
+                                              <div class="col-xs-5 ">Group Name</div>
+                                              <div class="col-xs-5 ">{{cliGroup.name}}</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end 小组详情-->
                     </div>
 
                     <!--MqttClient管理模块-->
