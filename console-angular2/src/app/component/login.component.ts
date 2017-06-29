@@ -3,7 +3,7 @@
  */
 import {Component} from '@angular/core';
 
-import {Creditial} from '../module/creditial.module';
+import {Credential} from '../module/creditial.module';
 import {LoginService} from '../service/login.service';
 import {Router} from "@angular/router";
 
@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
   styleUrls: ['app/css/static/login.css']
 })
 export class LoginComponent{
-  private creditial=new Creditial();
+  private creditial=new Credential();
 
   constructor(
     private loginService:LoginService,

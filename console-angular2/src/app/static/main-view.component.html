@@ -432,7 +432,7 @@
                                     </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-
+                                      <!-- description tab-->
                                       <div role="tabpanel" class="tab-pane active" id="description">
                                         <div class="data-div">
                                           <div class="row tableHeader">
@@ -584,10 +584,77 @@
                                           </div>
                                         </div>
                                       </div>
+                                      <!--/end description tab-->
 
+                                      <!-- event tab-->
                                       <div role="tabpanel" class="tab-pane active" id="event">
-                                        event
+
+                                        <div class="check-div form-inline">
+                                          <div class="col-xs-2">
+                                            <button class="btn btn-yellow btn-xs" id="refresh">Refresh</button>
+                                          </div>
+                                          <div class="col-xs-6 col-xs-offset-3" style=" padding-right: 40px;text-align: right;margin-right: 10px">
+                                            <label for="dateRange">Date Range:&nbsp;</label>
+                                            <select id="dateRange" class="form-control">
+                                              <option>Last hour</option>
+                                              <option>Last 12 hours</option>
+                                              <option>Last 24 hours</option>
+                                              <option>Last 7 days</option>
+                                              <option>Last 30 days</option>
+                                              <option>Custom Date  Range</option>
+                                            </select>
+                                          </div>
+                                        </div>
+
+                                        <div class="data-div">
+                                          <div class="row tableHeader">
+                                            <div class="col-xs-3 ">Event Received On</div>
+                                            <div class="col-xs-1 ">Event Type</div>
+                                            <div class="col-xs-1">Action Type</div>
+                                            <div class="col-xs-1">Response Code</div>
+                                            <div class="col-xs-4">Event Message</div>
+                                          </div>
+                                          <div *ngFor="let eventInfo of eventInfos" class="tablebody">
+                                            <div class="row" (click)="clickDevice(deviceInfo)">
+                                              <div class="col-xs-3">{{eventInfo.status}}</div>
+                                              <div class="col-xs-1">{{eventInfo.clientId}}</div>
+                                              <div class="col-xs-1">{{eventInfo.displayName}}</div>
+                                              <div class="col-xs-1">{{eventInfo.groupId}}</div>
+                                              <div class="col-xs-4">{{eventInfo.deviceCredentialsMode}}</div>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                        <!--页码块-->
+                                        <footer class="footer">
+                                          <ul class="pagination">
+                                            <li>
+                                              <select>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                              </select> 页
+                                            </li>
+                                            <li class="gray">共20页</li>
+                                            <li>
+                                              <i class="glyphicon glyphicon-menu-left"></i>
+                                            </li>
+                                            <li>
+                                              <i class="glyphicon glyphicon-menu-right"></i>
+                                            </li>
+                                          </ul>
+                                        </footer>
+
+
                                       </div>
+                                      <!--/end event tab-->
 
                                     </div>
                                   </div>
@@ -877,7 +944,7 @@
                             </div>
                             <div class="modal-body">
                               <div class="container-fluid">
-                                <form class="form-horizontal" #userForm="ngForm" novalidate *ngIf="aUser">
+                                <form class="form-horizontal" #userForm="ngForm" novalidate *ngIf="aUser&&aCredential">
                                   <div class="form-group ">
                                     <label for="username" class="col-xs-4 control-label">Username：</label>
                                     <div class="col-xs-8 ">

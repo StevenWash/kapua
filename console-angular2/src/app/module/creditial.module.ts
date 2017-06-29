@@ -1,13 +1,13 @@
 /**
  * Created by StevenWash on 2017/6/14.
  */
-export class Creditial{
+export class Credential{
 
    username:string;
    password:string;
    repassword:string;
    credentialType:string;
-   credentialPlainKey:string;
+   credentialKey:string;
    scopeId:string;
    userId:string;
 

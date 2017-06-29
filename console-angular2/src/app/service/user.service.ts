@@ -4,6 +4,7 @@
 import {UserInfo} from "../module/user-info.module";
 import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
+import {Credential} from "../module/creditial.module";
 
 @Injectable()
 export class UserListService {
@@ -102,9 +103,9 @@ export class UserListService {
 
   /**
    * 添加密码信息
-   * @param user
+   * @param credential
    */
-  addCredentials(user:UserInfo){
+  addCredentials(credential:Credential){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -112,12 +113,12 @@ export class UserListService {
     headers.append('Authorization', `Bearer ${authToken}`);
 
     let scopeId = localStorage.getItem('scopeId');
-    user.scopeId=scopeId;
+    credential.scopeId=scopeId;
 
-    console.log(user.scopeId);
+    console.log(credential.scopeId);
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+user.scopeId+'/credentials';
-    return this.http.post(this.userListUrl,JSON.stringify(user),{ headers: headers }).map(res => res.json());
+    this.userListUrl='https://dev.izhiju.cn/api/v1/'+credential.scopeId+'/credentials';
+    return this.http.post(this.userListUrl,JSON.stringify(credential),{ headers: headers }).map(res => res.json());
 
   }
 

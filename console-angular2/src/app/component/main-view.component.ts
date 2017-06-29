@@ -11,7 +11,7 @@ import {DeviceConnection} from "../module/device-connect.module";
 import {DeviceInfo} from "../module/device.module";
 import {GroupService} from "../service/group.service";
 import {GroupInfo} from "../module/group-info.module";
-import {Creditial} from "../module/creditial.module";
+import {Credential} from "../module/creditial.module";
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
 import {AccountService} from "../service/account.service";
@@ -28,7 +28,7 @@ export class MainViewComponent{
   private userInfos:UserInfo[];
   private user:UserInfo;
   private aUser:UserInfo=new UserInfo();
-  private aCredential=new Creditial();
+  private aCredential=new Credential();
   private displayName:string;
   private email:string;
   private optlock:number;
@@ -169,14 +169,19 @@ export class MainViewComponent{
 
     this.userListService.addUser(this.aUser).subscribe((result) => {
       console.log(result);
+
+      this.aCredential.userId=result.id;
+      this.aCredential.credentialType="PASSWORD";
+      this.aCredential.credentialKey=this.aCredential.password;
+
+      console.log(this.aCredential);
+      this.userListService.addCredentials(this.aCredential).subscribe((result) => {
+        console.log(result);
+      });
+
       this.getUserList();
       this.router.navigate(['/home/user']);
     });
-
-    this.userListService.addCredentials(this.aUser).subscribe((result) => {
-      console.log(result);
-    });
-
   }
 
   /**

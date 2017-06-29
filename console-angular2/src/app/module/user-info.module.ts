@@ -19,6 +19,7 @@ export class UserInfo{
    userType:string;
 }
 
+
 export class UserResponse{
    type: string;
    limitExceeded: boolean;
