@@ -196,7 +196,7 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
     }
 
 	
-	public String queryUser(KapuaId scopeId)
+	public String queryRole(KapuaId scopeId)
 			throws KapuaException{
 		// TODO Auto-generated method stub
 
@@ -213,27 +213,30 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 	        AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
 	        PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
 	        
-	       
-		
-			
-					authorizationService.checkPermission(permissionFactory.newPermission(ROLE_DOMAIN, Actions.read, scopeId));
+	       authorizationService.checkPermission(permissionFactory.newPermission(ROLE_DOMAIN, Actions.read, scopeId));
 			
 			
-			
-		
-				
-			return entityManagerSession.onResult(em -> {
+		   return entityManagerSession.onResult(em -> {
 				 System.out.println("<<<<<<<<<<<<<<<");
 			
 					RoleListResultImpl   resultList=new RoleListResultImpl();
-					System.out.println("1111111111111111");
-				    Query q = null;
+					System.out.println("1111111111111111  1130679835206840295");
+					BigInteger id=new BigInteger("1130679835206840295");
+				    Query q;
 				    System.out.println("222222222222222");
-				  q = em.createNamedQuery("Role.query", Role.class);
-				 System.out.println("q::"+q);
-				   // q.setParameter(1,accessInfoUserId);
+				   q = em.createNamedQuery("Role.getRole", Role.class);
+				   System.out.println("q:::"+q);
+				//   q.setParameter(1,id);
+				  
+				   System.out.println(">>>>>>>>>>>");
+				   @SuppressWarnings("unchecked")
+				List<Role> roleList=q.getResultList();
+				   System.out.println("rolelist-size:"+roleList.size());
+				  
+				  
 					String result=null;
-					resultList.addItems(q.getResultList());
+					System.out.println("size:"+q.getResultList().size());
+					resultList.addItems(roleList);
 				    JSONObject	jsonObject = JSONObject.fromObject(resultList);
 				    System.out.println("q.getResultList():"+jsonObject.toString());
 				   result=jsonObject.toString();

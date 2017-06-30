@@ -27,11 +27,11 @@ import org.eclipse.kapua.service.authorization.role.Role;
  * {@link Role} implementation.
  *
  * @since 1.0
- */
-//select role.* from Role role where role.id in(select accessRole.roleId   from AccessRole accessRole  where accessRole.accessInfoId=(select accessInfo.id from AccessInfo  accessInfo where accessInfo.userId=1130679835206840295))
+ */  //select r from Role r where r.id in (select aRol.roleId from AccessRole aRol where aRol.accessInfoId=(select acc.id from AccessInfo acc  where acc.userId=1130679835206840295))
+
 @Entity(name = "Role")
 @NamedQueries({
-	@NamedQuery(name = "Role.query", query = "select accessInfo.* from AccessInfo  accessInfo where accessInfo.userId=1130679835206840295") 
+	@NamedQuery(name = "Role.getRole", query = "select r from Role r where r.id in (select aRol.roleId from AccessRole aRol where aRol.accessInfoId=(select acc.id from AccessInfo acc  where acc.userId=1130679835206840295))") 
 	
 		
 })

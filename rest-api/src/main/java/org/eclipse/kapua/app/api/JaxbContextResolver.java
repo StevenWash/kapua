@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.kapua.app.api;
 
+
+
 import java.security.acl.Permission;
 
 import javax.ws.rs.Produces;
@@ -141,6 +143,7 @@ import org.eclipse.kapua.service.user.UserQuery;
 import org.eclipse.kapua.service.user.UserXmlRegistry;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.kapua.service.weather.Weather;
+import org.eclipse.kapua.service.apkInfo.ApkInfo;
 
 
 
@@ -338,7 +341,9 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     
                  // Weather
                     Weather.class,
-                   
+                    
+                 // ApiInfo   
+                    ApkInfo.class,
 
             }, null);
         } catch (Exception e) {

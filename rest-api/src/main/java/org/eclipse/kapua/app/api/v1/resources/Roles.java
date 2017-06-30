@@ -251,7 +251,7 @@ public class Roles extends AbstractKapuaResource {
     
     
 
-    @ApiOperation(value = "Gets the Role list by scopeId,accessInfo.userId",
+ /*   @ApiOperation(value = "Gets the Role list by scopeId,accessInfo.userId",
             notes = "Returns the list of all the roles associated to the current selected scope.",
             response = String.class
             )
@@ -266,12 +266,12 @@ public class Roles extends AbstractKapuaResource {
     			String result = null;
         try {
            
-        	result=roleService.queryUser(scopeId);
+        	result=roleService.queryRole(scopeId);
             
        } catch (Throwable t) {
             handleException(t);
         }
            return result;
-    } 
+    } */
 
 }

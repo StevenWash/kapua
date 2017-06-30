@@ -107,7 +107,7 @@ public interface RoleService extends KapuaEntityService<Role, RoleCreator>,
     
     
     //,KapuaId accessInfoUserId
-    public String queryUser(KapuaId scopeId)
+    public String queryRole(KapuaId scopeId)
         throws KapuaException;
 
 }
