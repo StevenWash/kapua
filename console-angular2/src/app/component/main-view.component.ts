@@ -5,7 +5,7 @@ import {Component} from "@angular/core";
 import {UserListService} from "../service/user.service";
 import {UserInfo } from "../module/user-info.module";
 import {RoleService} from "../service/role.service";
-import {RoleInfo} from "../module/role-info.module";
+import {RoleInfo, RolePermissionInfo} from "../module/role-info.module";
 import {DeviceConnectionService} from "../service/device-connection.service";
 import {DeviceConnection} from "../module/device-connect.module";
 import {DeviceInfo} from "../module/device.module";
@@ -41,6 +41,9 @@ export class MainViewComponent{
   private role:RoleInfo;
   private aRole:RoleInfo=new RoleInfo();
   private delRoleId:string;
+  private cliRole:RoleInfo;
+
+  private rolePermission:RolePermissionInfo[];
 
   //--------group相关的变量信息--------//
   private groupInfos:GroupInfo[];
@@ -69,6 +72,7 @@ export class MainViewComponent{
   private aAccount:AccountInfo=new AccountInfo();
   private account:AccountInfo;
   private delAccountId:string;
+  private cliAccount:AccountInfo=new AccountInfo();
 
 
   /**
@@ -301,6 +305,28 @@ export class MainViewComponent{
   submitRole(){
     console.log(this.userrole);
   }
+
+  /**
+   * 获取用户点击的角色的信息
+   * @param roleInfo
+   */
+  clickRole(roleInfo:RoleInfo){
+    this.cliRole=roleInfo;
+    console.log(this.cliRole);
+
+    //获取当前角色的所有权限信息
+    this.roleService.getRolePermissionByRole(this.cliRole.id).subscribe((result) => {
+      console.log(result);
+      this.rolePermission=result.items.item;
+      console.log(this.rolePermission);
+    });
+
+    //获取当前所有的domain信息
+
+
+  }
+
+
 
 
 
@@ -575,4 +601,11 @@ export class MainViewComponent{
     });
   }
 
+  /**
+   * 获取当前用户点击的账号信息
+   * @param accountInfo
+   */
+  clickAccount(accountInfo:AccountInfo){
+    this.cliAccount=accountInfo;
+  }
 }

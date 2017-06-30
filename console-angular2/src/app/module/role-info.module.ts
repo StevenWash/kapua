@@ -15,3 +15,13 @@ export class RoleInfo{
    name:string;
    permissions:Permission=new Permission();
 }
+
+export class RolePermissionInfo{
+   type:string;
+   id:string;
+   roleId:string;
+   createdOn:string;
+   createdBy:string;
+   scopeId:string;
+   permission:Permission=new Permission();
+}

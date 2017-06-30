@@ -98,8 +98,24 @@ export class RoleService{
     return this.http.delete(this.roleUrl,{ headers: headers });
   }
 
-  /*getPermissionsByRole(roleID: string){
-    return this.http.get("/api/roles/" + roleID + "/permission" );
-  }*/
+  /**
+   * 通过roleId来获取当前角色下的所有权限信息
+   * @param roleId
+   * @returns {Observable<R>}
+   */
+  getRolePermissionByRole(roleId:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = localStorage.getItem('scopeId');
+
+    this.roleUrl="https://dev.izhiju.cn/api/v1/"+scopeId+"/roles/"+roleId+"/permissions?offset=0&limit=50";
+
+    return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
+  }
+
 
 }

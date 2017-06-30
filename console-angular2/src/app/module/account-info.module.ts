@@ -12,7 +12,7 @@ export class AccountInfo{
   modifiedOn:string;
   modifiedBy:string;
   optlock:number;
-  organization:Organization;
+  organization:Organization=new Organization();
   parentAccountPath:string;
 
   organizationName: string;
