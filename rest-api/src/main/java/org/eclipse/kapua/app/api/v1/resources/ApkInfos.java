@@ -38,7 +38,7 @@ public class ApkInfos extends AbstractKapuaResource {
     @Context HttpServletResponse response;
     
     
-    @ApiOperation(value = "Get an apkInfo",  //
+/*    @ApiOperation(value = "Get an apkInfo",  //
             notes = "Returns the ApiInfo specified by the \"apiInfoId\" path parameter.",  //
             response = ApkInfo.class)
     @GET
@@ -57,11 +57,11 @@ public class ApkInfos extends AbstractKapuaResource {
             handleException(t);
         }
         return returnNotNullEntity(apkInfo);
-    }
+    }*/
     
     
     
-    @ApiOperation(value = "Get an apkUrl",  //
+/*    @ApiOperation(value = "Get an apkUrl",  //
             notes = "Returns the url by the \"apiInfoId\" path parameter.",  //
             response = String.class)
     @GET
@@ -94,7 +94,7 @@ public class ApkInfos extends AbstractKapuaResource {
 	        
 	        
 	        
-    }
+    }*/
     
     
     
@@ -114,33 +114,24 @@ public class ApkInfos extends AbstractKapuaResource {
             @ApiParam(value = "The version of the requested ApiInfo")@QueryParam("version") String version
             ) {
     	
-    	System.out.println("-------------------");
     	ApkInfo apkinfo = null;
-    //	List<ApiInfo>  apkinfoList=null;
+   
 		if(version==null) version="";
         try {
         	
         	apkinfo = apiInfoService.findByPackagename(scopeId, pName);
-        	System.out.println("apkInfo:"+apkinfo);
-        	System.out.println("apkinfo.getVersion---------:"+apkinfo.getVersion());
-        	System.out.println("version------------"+version);
-        	System.out.println("compareToversion::"+apkinfo.getVersion().compareTo(version));
-        	//System.out.println("apkinfo.getVersion().compareToversion:"+apkinfo.getVersion().compareTo(version));
+        	
+        	
         	if(apkinfo==null || apkinfo.getVersion().compareTo(version)<=0){
         	   
-        		 System.out.println("--------------------------------");
-        		 
-        		 System.out.println("pName:"+pName);
-        		 System.out.println("version:"+version);
         		apkinfo=apiInfoService.findByDistinct(scopeId,pName, version);
-        		
         	}
 			
         } catch (Exception e) {
         	apkinfo=null;
         	System.out.println("apkinfo is null");
         }
-        return returnNotNullEntity(apkinfo);
+        return apkinfo;
     }
     
     
@@ -186,7 +177,7 @@ public class ApkInfos extends AbstractKapuaResource {
     
     
     
-   @ApiOperation(value = "Get an ApiInfo",  //
+/*   @ApiOperation(value = "Get an ApiInfo",  //
             notes = "Returns the ApiInfo specified by the \"packageName\" path parameter.",  //
             response = ApkInfo.class)
     @GET
@@ -203,5 +194,5 @@ public class ApkInfos extends AbstractKapuaResource {
             handleException(t);
         }
         return returnNotNullEntity(apiInfo);
-    }
+    }*/
 }

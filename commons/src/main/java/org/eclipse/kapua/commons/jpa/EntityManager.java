@@ -204,6 +204,7 @@ public class EntityManager {
      */
     public <E> Query createNativeQuery(String querySelectUuidShort) {
         return javaxPersitenceEntityManager.createNativeQuery(querySelectUuidShort);
+        
     }
     
     

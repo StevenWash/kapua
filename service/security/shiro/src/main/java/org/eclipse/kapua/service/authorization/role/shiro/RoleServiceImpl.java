@@ -12,11 +12,15 @@
 package org.eclipse.kapua.service.authorization.role.shiro;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import javax.json.JsonArray;
 import javax.persistence.TypedQuery;
 
 import org.eclipse.kapua.KapuaEntityNotFoundException;
@@ -44,7 +48,13 @@ import org.eclipse.kapua.service.authorization.role.RoleQuery;
 import org.eclipse.kapua.service.authorization.role.RoleService;
 import org.eclipse.kapua.service.authorization.shiro.AuthorizationEntityManagerFactory;
 
+
+import org.eclipse.persistence.internal.jpa.QueryImpl;
+
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+
+import java.util.HashMap;
 
 /**
  * Role service implementation.
@@ -196,15 +206,14 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
     }
 
 	
-	public String queryRole(KapuaId scopeId)
-			throws KapuaException{
-		// TODO Auto-generated method stub
+	
+	
 
-		 
-			
-				ArgumentValidator.notNull(scopeId, "scopeId");
-			
-		
+	@SuppressWarnings("unchecked")
+	public String queryRoles(KapuaId scopeId)
+			throws KapuaException{
+		// TODO Auto-generated method stubs
+			ArgumentValidator.notNull(scopeId, "scopeId");
 			
 	  //   ArgumentValidator.notNull(accessInfoUserId, "accessInfoUserId");
 	       
@@ -217,40 +226,55 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 			
 			
 		   return entityManagerSession.onResult(em -> {
-				 System.out.println("<<<<<<<<<<<<<<<");
-			
-					RoleListResultImpl   resultList=new RoleListResultImpl();
-					System.out.println("1111111111111111  1130679835206840295");
-					BigInteger id=new BigInteger("1130679835206840295");
-				    Query q;
-				    System.out.println("222222222222222");
-				   q = em.createNamedQuery("Role.getRole", Role.class);
-				   System.out.println("q:::"+q);
-				//   q.setParameter(1,id);
-				  
-				   System.out.println(">>>>>>>>>>>");
-				   @SuppressWarnings("unchecked")
-				List<Role> roleList=q.getResultList();
-				   System.out.println("rolelist-size:"+roleList.size());
-				  
-				  
-					String result=null;
-					System.out.println("size:"+q.getResultList().size());
-					resultList.addItems(roleList);
-				    JSONObject	jsonObject = JSONObject.fromObject(resultList);
-				    System.out.println("q.getResultList():"+jsonObject.toString());
-				   result=jsonObject.toString();
-			 	return result;
+				 
+				 String result=null;
+				
+				
+				BigInteger userId=new BigInteger("1130679835206840295");
+				  Query query;
+				  query=em.createNativeQuery("select r.* from athz_role r where r.id in (select aRol.role_id from athz_access_role aRol where aRol.access_info_id=(select acc.id from athz_access_info acc  where acc.user_id=1130679835206840295))");
+				 
+				
+				List roleArrayList=query.getResultList();
+				
+				
+				JSONArray jarray=JSONArray.fromObject(roleArrayList);
+				
+				result=jarray.toString();
+				
+				/*Map<String,Object> map = null;
+				JSONObject	jsonObject =null;
+				String roleResult=null;
+				StringBuffer buffer=new StringBuffer();
+				for(int i=0;i<roleArrayList.size();i++){
+					Object[] obj = (Object[]) roleArrayList.get(i);
+					
+					
+					map=new HashMap<String,Object>();
+					
+					map.put("scopeId", obj[0]);
+					map.put("id", obj[1]);
+					map.put("created_on", obj[2].toString());
+					map.put("created_by", obj[3]);
+					map.put("modified_on", obj[4].toString());
+					map.put("modified_by", obj[5]);
+					map.put("name", obj[6]);
+					map.put("optlock", obj[7]);
+					map.put("attributes", obj[8]);
+					map.put("properties", obj[9]);
+					System.out.println("maps:      "+map);
+					jsonObject = JSONObject.fromObject(map);
+					 result=jsonObject.toString();
+					 System.out.println("results               ="+result);
+					 buffer.append(result+"\n");
+				}*/
+				
+				return result;
 
 				});
 		
 			
-			
-				
-		
-			
 	}
-
   
 
 }

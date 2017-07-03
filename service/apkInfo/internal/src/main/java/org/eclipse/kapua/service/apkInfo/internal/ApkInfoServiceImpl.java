@@ -15,6 +15,7 @@ import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import net.sf.json.JSONObject;
 
@@ -41,12 +42,7 @@ public class ApkInfoServiceImpl extends AbstractKapuaService implements ApkInfoS
     }
 
   
- 
-   
-
-
-
-	@Override
+ 	@Override
 	public ApkInfo findById(KapuaId apkInfoId,KapuaId scopeId) throws KapuaException {
 		// TODO Auto-generated method stub
 		 ArgumentValidator.notNull(apkInfoId, "apkInfoId");
@@ -73,12 +69,12 @@ public class ApkInfoServiceImpl extends AbstractKapuaService implements ApkInfoS
 		 ArgumentValidator.notNull(packagename, "packagename");
 		//checkAccess
 		 KapuaLocator locator = KapuaLocator.getInstance();
-	        AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
-	        PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
-	        authorizationService.checkPermission(permissionFactory.newPermission(APKINFO_DOMAIN, Actions.read, scopeId));
+	     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+	     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+	     authorizationService.checkPermission(permissionFactory.newPermission(APKINFO_DOMAIN, Actions.read, scopeId));
 		 
 	        return entityManagerSession.onResult(em -> {
-	    	    Query  q;
+	        	TypedQuery<ApkInfo>  q;
 	            q = em.createNamedQuery("ApkInfo.queryByPackagename",ApkInfo.class);
 	            q.setParameter(1,packagename);
 	            ApkInfo  apkInfo=(ApkInfo) q.getResultList().get(0);
@@ -99,21 +95,21 @@ public class ApkInfoServiceImpl extends AbstractKapuaService implements ApkInfoS
 			String forversion) throws KapuaException {
 		// TODO Auto-generated method stub
 		ArgumentValidator.notNull(scopeId, "scopeId");
-		 ArgumentValidator.notNull(packagename, "packagename");
-		 ArgumentValidator.notNull(forversion, "forversion");
+		ArgumentValidator.notNull(packagename, "packagename");
+		ArgumentValidator.notNull(forversion, "forversion");
 		 
 		//checkAccess
 		 KapuaLocator locator = KapuaLocator.getInstance();
-	        AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
-	        PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
-	        authorizationService.checkPermission(permissionFactory.newPermission(APKINFO_DOMAIN, Actions.read, scopeId));
+	     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+	     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+	     authorizationService.checkPermission(permissionFactory.newPermission(APKINFO_DOMAIN, Actions.read, scopeId));
 	        
-	        
-	        
-	        return entityManagerSession.onResult(em -> {
-	    	    Query  q;
+	       return entityManagerSession.onResult(em -> {
+	        	TypedQuery<ApkInfo>  q;
+	    	    
 	            q = em.createNamedQuery("ApkInfo.queryByDistinct",ApkInfo.class);
-	            q.setParameter(1,packagename);
+	          
+	            q.setParameter(1,packagename+".patch");
 	            q.setParameter(2,forversion);
 	            ApkInfo  apkInfo=(ApkInfo) q.getResultList().get(0);
 	  		 
@@ -124,11 +120,6 @@ public class ApkInfoServiceImpl extends AbstractKapuaService implements ApkInfoS
      
      
   
-
-
-
-
-
 
 
 
