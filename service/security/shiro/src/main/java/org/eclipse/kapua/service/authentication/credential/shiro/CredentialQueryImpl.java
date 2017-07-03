@@ -39,5 +39,4 @@ public class CredentialQueryImpl extends AbstractKapuaQuery<Credential> implemen
     public CredentialQueryImpl(KapuaId scopeId) {
         this();
         setScopeId(scopeId);
-    }
-}
+    }}

@@ -31,7 +31,6 @@ import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.service.authentication.credential.Credential;
-import org.eclipse.kapua.service.authentication.credential.CredentialCreator;
 import org.eclipse.kapua.service.authentication.credential.CredentialFactory;
 import org.eclipse.kapua.service.authentication.credential.CredentialListResult;
 import org.eclipse.kapua.service.authentication.credential.CredentialPredicates;
@@ -43,6 +42,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Api("Credentials")
 @Path("{scopeId}/credentials")
 public class Credentials extends AbstractKapuaResource {
@@ -50,6 +52,8 @@ public class Credentials extends AbstractKapuaResource {
     private final KapuaLocator locator = KapuaLocator.getInstance();
     private final CredentialService credentialService = locator.getService(CredentialService.class);
     private final CredentialFactory credentialFactory = locator.getFactory(CredentialFactory.class);
+    
+    private static final Logger logger = LoggerFactory.getLogger(Credentials.class);
 
     /**
      * Gets the {@link Credential} list in the scope.
@@ -72,6 +76,8 @@ public class Credentials extends AbstractKapuaResource {
             @ApiParam(value = "The result set offset.", defaultValue = "0") @QueryParam("offset") @DefaultValue("0") int offset,
             @ApiParam(value = "The result set limit.", defaultValue = "50", required = true) @QueryParam("limit") @DefaultValue("50") int limit) {
         CredentialListResult credentialListResult = credentialFactory.newListResult();
+
+
         try {
             CredentialQuery query = credentialFactory.newQuery(scopeId);
 
@@ -111,6 +117,12 @@ public class Credentials extends AbstractKapuaResource {
             @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The CredentialQuery to use to filter results.", required = true) CredentialQuery query) {
         CredentialListResult credentialListResult = null;
+        System.out.println(">>>>>>>>>ScopeId:"+scopeId);
+        System.out.println(">>>>>>>>>getPredicate:"+query.getPredicate());
+        System.out.println(">>>>>>>>>getFetchAttributes:"+query.getFetchAttributes());
+        System.out.println(">>>>>>>>>getLimit:"+query.getLimit());
+        System.out.println(">>>>>>>>>getSortCriteria:"+query.getSortCriteria());
+        System.out.println(">>>>>>>>>getOffset:"+query.getOffset());
         try {
             query.setScopeId(scopeId);
             credentialListResult = credentialService.query(query);
@@ -162,14 +174,18 @@ public class Credentials extends AbstractKapuaResource {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Credential create(
             @ApiParam(value = "The ScopeId in which to create the Credential", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "Provides the information for the new Credential to be created", required = true) CredentialCreator credentialCreator) {
+            @ApiParam(value = "The username in which to create the Credential", required = true, defaultValue ="huaxin" ) @PathParam("username") String username) {
+        System.out.println("username:"+username);
         Credential credential = null;
+        /*
+        @ApiParam(value = "Provides the information for the new Credential to be created", required = true) CredentialCreator credentialCreator)
+        System.out.println("娴嬭瘯2锛�"+credentialCreator.getUserId()+"  "+credentialCreator.getScopeId());
         try {
             credentialCreator.setScopeId(scopeId);
             credential = credentialService.create(credentialCreator);
         } catch (Throwable t) {
             handleException(t);
-        }
+        }*/
         return returnNotNullEntity(credential);
     }
 
@@ -188,6 +204,7 @@ public class Credentials extends AbstractKapuaResource {
             @ApiParam(value = "The ScopeId of the requested Credential.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The id of the requested Credential", required = true) @PathParam("credentialId") EntityId credentialId) {
         Credential credential = null;
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+scopeId);
         try {
             credential = credentialService.find(scopeId, credentialId);
         } catch (Throwable t) {

@@ -99,6 +99,7 @@ public abstract class AbstractKapuaQuery<E extends KapuaEntity> implements Kapua
 
     @Override
     public void setPredicate(KapuaPredicate queryPredicate) {
+        System.out.println(">>>>>>>>queryPredicate:"+queryPredicate);
         this.predicate = queryPredicate;
     }
 

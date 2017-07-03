@@ -365,6 +365,8 @@ public class ServiceDAO {
 
             kapuaPredicates = scopedAndPredicate;
         }
+        
+        System.out.println("ServiceDAO>>>>>>>>>:kapuaPredicates:"+kapuaPredicates);
 
         // Manage kapua query predicates to build the where clause.
         Map<ParameterExpression, Object> binds = new HashMap<>();

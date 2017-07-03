@@ -279,12 +279,14 @@ public class GwtKapuaModelConverter {
         CredentialQuery credentialQuery = credentialFactory.newQuery(convert(gwtCredentialQuery.getScopeId()));
         AndPredicate andPredicate = new AndPredicate();
         if (gwtCredentialQuery.getUserId() != null && !gwtCredentialQuery.getUserId().trim().isEmpty()) {
+            System.out.println(">>>>>>>>userId:"+gwtCredentialQuery.getUserId());
             andPredicate.and(new AttributePredicate<KapuaId>(CredentialPredicates.USER_ID, convert(gwtCredentialQuery.getUserId())));
         }
         if (gwtCredentialQuery.getUsername() != null && !gwtCredentialQuery.getUsername().trim().isEmpty()) {
             // TODO set username predicate
         }
         if (gwtCredentialQuery.getType() != null && gwtCredentialQuery.getType() != GwtCredentialType.ALL) {
+            System.out.println(">>>>>>>>userType:"+gwtCredentialQuery.getType());
             andPredicate.and(new AttributePredicate<CredentialType>(CredentialPredicates.CREDENTIAL_TYPE, GwtKapuaModelConverter.convert(gwtCredentialQuery.getType()), Operator.EQUAL));
         }
         credentialQuery.setPredicate(andPredicate);
