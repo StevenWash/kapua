@@ -25,7 +25,7 @@ export class LoginService {
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
+    console.log("username:"+username+"  password:"+password)
     return this.http
         .post(
           'https://dev.izhiju.cn/api/v1/authentication/user',

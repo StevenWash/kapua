@@ -42,9 +42,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Api("Credentials")
 @Path("{scopeId}/credentials")
 public class Credentials extends AbstractKapuaResource {
@@ -53,8 +50,6 @@ public class Credentials extends AbstractKapuaResource {
     private final CredentialService credentialService = locator.getService(CredentialService.class);
     private final CredentialFactory credentialFactory = locator.getFactory(CredentialFactory.class);
     
-    private static final Logger logger = LoggerFactory.getLogger(Credentials.class);
-
     /**
      * Gets the {@link Credential} list in the scope.
      *

@@ -19,7 +19,7 @@ export class UserListService {
    * 得到当前所有的用户信息
    * @returns {Observable<R>}
    */
-  getUserList(){
+  getUserList(selectUsername:string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -28,7 +28,14 @@ export class UserListService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users';
+    console.log(selectUsername);
+
+    if(selectUsername!=null){
+      this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users?name='+selectUsername+'&offset=0&limit=50';
+    }else
+      this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users';
+
+    console.log(this.userListUrl);
 
     return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
   }

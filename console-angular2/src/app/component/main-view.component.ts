@@ -34,6 +34,7 @@ export class MainViewComponent{
   private optlock:number;
   private delUserId:string;
   private cliUser:UserInfo;//点击的用户信息
+  private inputUsername:string;
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
@@ -121,7 +122,7 @@ export class MainViewComponent{
    * 得到所有用户的所有信息
    */
   getUserList(){
-      this.userListService.getUserList().subscribe((result) => {
+      this.userListService.getUserList(this.inputUsername).subscribe((result) => {
         console.log(result);
         this.userInfos=result.items.item;
     });
@@ -221,7 +222,6 @@ export class MainViewComponent{
       console.log(result);
     });
   }
-
 
 
 
