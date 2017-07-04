@@ -27,6 +27,7 @@ import javax.ws.rs.core.Response;
 import org.eclipse.kapua.app.api.v1.resources.model.CountResult;
 import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
+import org.eclipse.kapua.commons.model.id.KapuaEid;
 import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
@@ -256,17 +257,18 @@ public class Roles extends AbstractKapuaResource {
             response = String.class
             )
     @GET
-    @Path("query/{scopeId}/accessInfoUserId")
+    @Path("query/{scopeId}/{accessInfoUserId}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public String getQuery(
-            @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId)
-        //    @ApiParam(value = "The accessInfoUserId  to search") @PathParam("accessInfoUserId") EntityId accessInfoUserId)
+    public String getQueryByAccessInfoUserId(
+            @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
+            @ApiParam(value = "The accessInfoUserId  to search", required = true) @PathParam("accessInfoUserId") String  accessInfoUserId)
              {
     	String roleListResult = null;
         try {
-           
-        	roleListResult=roleService.queryRoles(scopeId);
+            
+        	roleListResult=roleService.queryRoles(scopeId,accessInfoUserId);
+        	
             
        } catch (Throwable t) {
             handleException(t);

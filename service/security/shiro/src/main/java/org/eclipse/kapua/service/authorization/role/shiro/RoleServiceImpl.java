@@ -28,6 +28,7 @@ import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.KapuaIllegalArgumentException;
 import org.eclipse.kapua.KapuaIllegalNullArgumentException;
 import org.eclipse.kapua.commons.configuration.AbstractKapuaConfigurableResourceLimitedService;
+import org.eclipse.kapua.commons.model.id.KapuaEid;
 import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.locator.KapuaProvider;
@@ -209,71 +210,74 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 	
 	
 
-	@SuppressWarnings("unchecked")
-	public String queryRoles(KapuaId scopeId)
-			throws KapuaException{
-		// TODO Auto-generated method stubs
-			ArgumentValidator.notNull(scopeId, "scopeId");
-			
-	  //   ArgumentValidator.notNull(accessInfoUserId, "accessInfoUserId");
-	       
-	     // Check Access
-	        KapuaLocator locator = KapuaLocator.getInstance();
-	        AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
-	        PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
-	        
-	       authorizationService.checkPermission(permissionFactory.newPermission(ROLE_DOMAIN, Actions.read, scopeId));
-			
-			
-		   return entityManagerSession.onResult(em -> {
-				 
-				 String result=null;
-				
-				
-				BigInteger userId=new BigInteger("1130679835206840295");
-				  Query query;
-				  query=em.createNativeQuery("select r.* from athz_role r where r.id in (select aRol.role_id from athz_access_role aRol where aRol.access_info_id=(select acc.id from athz_access_info acc  where acc.user_id=1130679835206840295))");
-				 
-				
-				List roleArrayList=query.getResultList();
-				
-				
-				JSONArray jarray=JSONArray.fromObject(roleArrayList);
-				
-				result=jarray.toString();
-				
-				/*Map<String,Object> map = null;
-				JSONObject	jsonObject =null;
-				String roleResult=null;
-				StringBuffer buffer=new StringBuffer();
-				for(int i=0;i<roleArrayList.size();i++){
-					Object[] obj = (Object[]) roleArrayList.get(i);
-					
-					
-					map=new HashMap<String,Object>();
-					
-					map.put("scopeId", obj[0]);
-					map.put("id", obj[1]);
-					map.put("created_on", obj[2].toString());
-					map.put("created_by", obj[3]);
-					map.put("modified_on", obj[4].toString());
-					map.put("modified_by", obj[5]);
-					map.put("name", obj[6]);
-					map.put("optlock", obj[7]);
-					map.put("attributes", obj[8]);
-					map.put("properties", obj[9]);
-					System.out.println("maps:      "+map);
-					jsonObject = JSONObject.fromObject(map);
-					 result=jsonObject.toString();
-					 System.out.println("results               ="+result);
-					 buffer.append(result+"\n");
-				}*/
-				
-				return result;
 
-				});
+
+	
+	@Override
+	public  String queryRoles(KapuaId scopeId,
+			String accessInfoUserId) throws KapuaException {
 		
-			
+				
+				 
+					ArgumentValidator.notNull(scopeId, "scopeId");
+					
+			        ArgumentValidator.notNull(accessInfoUserId, "accessInfoUserId");
+			       
+			     // Check Access
+			        KapuaLocator locator = KapuaLocator.getInstance();
+			        AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+			        PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+			        
+			       authorizationService.checkPermission(permissionFactory.newPermission(ROLE_DOMAIN, Actions.read, scopeId));
+					
+					
+				   return entityManagerSession.onResult(em -> {
+						 
+						 String result=null;
+						
+						
+						BigInteger id=new BigInteger("1130679835206840295");
+						  Query query;
+						  query=em.createNativeQuery("select r.* from athz_role r where r.id in (select aRol.role_id from athz_access_role aRol where aRol.access_info_id=(select acc.id from athz_access_info acc  where acc.user_id=?1))");
+						  
+						  query.setParameter(1, new BigInteger(accessInfoUserId));
+						  List roleArrayList=query.getResultList();
+						
+						
+						JSONArray jarray=JSONArray.fromObject(roleArrayList);
+						
+						result=jarray.toString();
+						
+						/*Map<String,Object> map = null;
+						JSONObject	jsonObject =null;
+						String roleResult=null;
+						StringBuffer buffer=new StringBuffer();
+						for(int i=0;i<roleArrayList.size();i++){
+							Object[] obj = (Object[]) roleArrayList.get(i);
+							
+							
+							map=new HashMap<String,Object>();
+							
+							map.put("scopeId", obj[0]);
+							map.put("id", obj[1]);
+							map.put("created_on", obj[2].toString());
+							map.put("created_by", obj[3]);
+							map.put("modified_on", obj[4].toString());
+							map.put("modified_by", obj[5]);
+							map.put("name", obj[6]);
+							map.put("optlock", obj[7]);
+							map.put("attributes", obj[8]);
+							map.put("properties", obj[9]);
+							System.out.println("maps:      "+map);
+							jsonObject = JSONObject.fromObject(map);
+							 result=jsonObject.toString();
+							 System.out.println("results               ="+result);
+							 buffer.append(result+"\n");
+						}*/
+						
+						return result;
+
+						});
 	}
   
 

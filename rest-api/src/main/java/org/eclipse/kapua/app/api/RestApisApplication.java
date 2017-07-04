@@ -36,6 +36,8 @@ public class RestApisApplication extends ResourceConfig {
                 "org.eclipse.kapua.service.weather.internal",
                 "org.eclipse.kapua.service.apkInfo",
                 "org.eclipse.kapua.service.apkInfo.internal",
+                "org.eclipse.kapua.service.appInfo",
+                "org.eclipse.kapua.service.appInfo.internal",
                 "net.bestidear.api"
                 );
 

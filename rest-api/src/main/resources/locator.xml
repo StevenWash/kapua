@@ -19,6 +19,7 @@
       
         <api>org.eclipse.kapua.service.weather.WeatherService</api>
         <api>org.eclipse.kapua.service.apkInfo.ApkInfoService</api>
+        <api>org.eclipse.kapua.service.appInfo.AppInfoService</api>
 
         <api>org.eclipse.kapua.service.authentication.AuthenticationService</api>
         <api>org.eclipse.kapua.service.authentication.CertificateService</api>
