@@ -4,6 +4,7 @@
 import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {RoleInfo} from "../module/role-info.module";
+import {HostInfo} from "../module/host.info.modeule";
 
 @Injectable()
 export class RoleService{
@@ -17,7 +18,7 @@ export class RoleService{
    * 获取当前scopeId下的所有的角色信息
    * @returns {Observable<R>}
    */
-  getRoles(){
+  getRoles(inputRoleName:string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -26,7 +27,10 @@ export class RoleService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.roleUrl="https://dev.izhiju.cn/api/v1/"+scopeId+"/roles";
+    if(inputRoleName!=null){
+      this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles?name='+inputRoleName+'&offset=0&limit=50';
+    }else
+      this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles?offset=0&limit=50';
 
     return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
 
@@ -51,7 +55,7 @@ export class RoleService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.roleUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/roles/'+roleId;
+    this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/'+roleId;
 
     return this.http.put(this.roleUrl,JSON.stringify(role),{ headers: headers }).map(res => res.json());
   }
@@ -73,7 +77,7 @@ export class RoleService{
     let scopeId = localStorage.getItem('scopeId');
     role.scopeId=scopeId;
 
-    this.roleUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/roles';
+    this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles';
 
     return this.http.post(this.roleUrl,JSON.stringify(role),{ headers: headers }).map(res => res.json());
 
@@ -93,7 +97,7 @@ export class RoleService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.roleUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/roles/'+roleId;
+    this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/'+roleId;
 
     return this.http.delete(this.roleUrl,{ headers: headers });
   }
@@ -112,7 +116,7 @@ export class RoleService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.roleUrl="https://dev.izhiju.cn/api/v1/"+scopeId+"/roles/"+roleId+"/permissions?offset=0&limit=50";
+    this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+"/roles/"+roleId+"/permissions?offset=0&limit=50";
 
     return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
   }

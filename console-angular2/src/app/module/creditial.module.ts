@@ -10,6 +10,15 @@ export class Credential{
    credentialKey:string;
    scopeId:string;
    userId:string;
+   type:string;
+   id:string;
+   createdOn:string;
+   createdBy:string;
+   modifiedOn:string;
+   modifiedBy:string;
+   status:string;
+  expirationDate:string;
+
 
   constructor(
   ){}

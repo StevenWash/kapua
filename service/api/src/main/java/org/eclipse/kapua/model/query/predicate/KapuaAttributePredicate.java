@@ -70,7 +70,7 @@ public interface KapuaAttributePredicate<T> extends KapuaPredicate {
          */
         LESS_THAN_OR_EQUAL;
     }
-
+ 
     /**
      * Get the attribute name
      * 

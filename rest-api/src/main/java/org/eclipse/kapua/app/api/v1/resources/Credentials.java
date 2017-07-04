@@ -31,6 +31,7 @@ import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.service.authentication.credential.Credential;
+import org.eclipse.kapua.service.authentication.credential.CredentialCreator;
 import org.eclipse.kapua.service.authentication.credential.CredentialFactory;
 import org.eclipse.kapua.service.authentication.credential.CredentialListResult;
 import org.eclipse.kapua.service.authentication.credential.CredentialPredicates;
@@ -91,6 +92,8 @@ public class Credentials extends AbstractKapuaResource {
         }
         return credentialListResult;
     }
+    
+    
 
     /**
      * Queries the results with the given {@link CredentialQuery} parameter.
@@ -169,18 +172,15 @@ public class Credentials extends AbstractKapuaResource {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Credential create(
             @ApiParam(value = "The ScopeId in which to create the Credential", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "The username in which to create the Credential", required = true, defaultValue ="huaxin" ) @PathParam("username") String username) {
-        System.out.println("username:"+username);
+            @ApiParam(value = "Provides the information for the new Credential to be created", required = true) CredentialCreator credentialCreator) {
         Credential credential = null;
-        /*
-        @ApiParam(value = "Provides the information for the new Credential to be created", required = true) CredentialCreator credentialCreator)
-        System.out.println("娴嬭瘯2锛�"+credentialCreator.getUserId()+"  "+credentialCreator.getScopeId());
+        System.out.println("credential>>>create>>:"+credentialCreator.getUserId()+"  "+credentialCreator.getScopeId());
         try {
             credentialCreator.setScopeId(scopeId);
             credential = credentialService.create(credentialCreator);
         } catch (Throwable t) {
             handleException(t);
-        }*/
+        }
         return returnNotNullEntity(credential);
     }
 
@@ -254,5 +254,4 @@ public class Credentials extends AbstractKapuaResource {
         }
         return Response.ok().build();
     }
-
 }

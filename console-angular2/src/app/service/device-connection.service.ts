@@ -4,6 +4,7 @@
 import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {DeviceInfo} from "../module/device.module";
+import {HostInfo} from "../module/host.info.modeule";
 
 @Injectable()
 export class DeviceConnectionService {
@@ -22,7 +23,9 @@ export class DeviceConnectionService {
     let authToken = localStorage.getItem('tokenId');
     headers.append('Authorization', `Bearer ${authToken}`);
 
-    this.deviceConnectionUrl="https://dev.izhiju.cn/api/v1/_/deviceconnections?offset=0&limit=50";
+    let scopeId = localStorage.getItem('scopeId');
+
+    this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/deviceconnections?offset=0&limit=50';
 
     return this.http.get(this.deviceConnectionUrl,{ headers: headers }).map(res => res.json());
 
@@ -39,7 +42,9 @@ export class DeviceConnectionService {
     let authToken = localStorage.getItem('tokenId');
     headers.append('Authorization', `Bearer ${authToken}`);
 
-    this.deviceConnectionUrl="https://dev.izhiju.cn/api/v1/_/devices?offset=0&limit=50";
+    let scopeId = localStorage.getItem('scopeId');
+
+    this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices?offset=0&limit=50';
 
     return this.http.get(this.deviceConnectionUrl,{ headers: headers }).map(res => res.json());
 
@@ -60,7 +65,7 @@ export class DeviceConnectionService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.deviceUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/devices';
+    this.deviceUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices';
 
     return this.http.post(this.deviceUrl,JSON.stringify(deviceInfo),{ headers: headers }).map(res => res.json());
   }
@@ -81,7 +86,7 @@ export class DeviceConnectionService {
     console.log(headers);
     console.log(deviceId);
 
-    this.deviceUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/devices/'+deviceId;
+    this.deviceUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices/'+deviceId;
     return this.http.delete(this.deviceUrl,{ headers: headers });
   }
 
@@ -104,7 +109,7 @@ export class DeviceConnectionService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.deviceUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/devices/'+deviceId;
+    this.deviceUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices/'+deviceId;
 
     return this.http.put(this.deviceUrl,JSON.stringify(device),{ headers: headers }).map(res => res.json());
   }

@@ -1,6 +1,7 @@
 import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {GroupInfo} from "../module/group-info.module";
+import {HostInfo} from "../module/host.info.modeule";
 /**
  * Created by StevenWash on 2017/6/16.
  */
@@ -17,7 +18,7 @@ export class GroupService {
    * 获取当前所有的组别信息
    * @returns {Observable<R>}
    */
-  getGroupList(){
+  getGroupList(inputGroupname:string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -26,7 +27,12 @@ export class GroupService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.groupUrl="https://dev.izhiju.cn/api/v1/"+scopeId+"/groups?offset=0&limit=50";
+    if(inputGroupname!=null){
+      this.groupUrl=HostInfo.ip+'/api/v1/'+scopeId+'/groups?name='+inputGroupname+'&offset=0&limit=50';
+    }else
+      this.groupUrl=HostInfo.ip+'/api/v1/'+scopeId+'/groups?offset=0&limit=50';
+
+
 
     return this.http.get(this.groupUrl,{ headers: headers }).map(res => res.json());
   }
@@ -45,7 +51,7 @@ export class GroupService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.groupUrl="https://dev.izhiju.cn/api/v1/"+scopeId+"/groups";
+    this.groupUrl=HostInfo.ip+'/api/v1/'+scopeId+"/groups";
 
     return this.http.post(this.groupUrl,JSON.stringify(group),{ headers: headers }).map(res => res.json());
   }
@@ -69,7 +75,7 @@ export class GroupService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.groupUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/groups/'+groupId;
+    this.groupUrl=HostInfo.ip+'/api/v1/'+scopeId+'/groups/'+groupId;
 
     return this.http.put(this.groupUrl,JSON.stringify(group),{ headers: headers }).map(res => res.json());
   }
@@ -88,7 +94,7 @@ export class GroupService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.groupUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/groups/'+groupId;
+    this.groupUrl=HostInfo.ip+'/api/v1/'+scopeId+'/groups/'+groupId;
 
     return this.http.delete(this.groupUrl,{ headers: headers });
   }

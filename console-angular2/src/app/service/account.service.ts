@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http,Headers} from "@angular/http";
 import {AccountInfo} from "../module/account-info.module";
+import {HostInfo} from "../module/host.info.modeule";
 /**
  * Created by StevenWash on 2017/6/28.
  */
@@ -26,7 +27,7 @@ export class AccountService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.accountUrl="https://dev.izhiju.cn/api/v1/"+scopeId+"/accounts?offset=0&limit=50";
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+"/accounts?offset=0&limit=50";
 
     return this.http.get(this.accountUrl,{ headers: headers }).map(res => res.json());
   }
@@ -47,7 +48,7 @@ export class AccountService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.accountUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/accounts';
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accounts';
 
     return this.http.post(this.accountUrl,JSON.stringify(account),{ headers: headers }).map(res => res.json());
   }
@@ -71,7 +72,7 @@ export class AccountService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.accountUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/accounts/'+accountId;
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accounts/'+accountId;
 
     return this.http.put(this.accountUrl,JSON.stringify(account),{ headers: headers }).map(res => res.json());
   }
@@ -90,7 +91,7 @@ export class AccountService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.accountUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/accounts/'+accountId;
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accounts/'+accountId;
     return this.http.delete(this.accountUrl,{ headers: headers });
   }
 }

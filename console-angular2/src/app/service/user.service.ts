@@ -5,6 +5,7 @@ import {UserInfo} from "../module/user-info.module";
 import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Credential} from "../module/creditial.module";
+import {HostInfo} from "../module/host.info.modeule";
 
 @Injectable()
 export class UserListService {
@@ -31,9 +32,9 @@ export class UserListService {
     console.log(selectUsername);
 
     if(selectUsername!=null){
-      this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users?name='+selectUsername+'&offset=0&limit=50';
+      this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users?name='+selectUsername+'&offset=0&limit=50';
     }else
-      this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users';
+      this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users';
 
     console.log(this.userListUrl);
 
@@ -55,7 +56,7 @@ export class UserListService {
     let userId = localStorage.getItem('userId');
     let scopeId = localStorage.getItem('scopeId');
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users/'+userId;
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users/'+userId;
 
     return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
   }
@@ -80,7 +81,7 @@ export class UserListService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users/'+userId;
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users/'+userId;
 
     return this.http.put(this.userListUrl,JSON.stringify(user),{ headers: headers }).map(res => res.json());
   }
@@ -102,7 +103,7 @@ export class UserListService {
     let userType = localStorage.getItem('userType');
     user.scopeId=scopeId;
     user.userType=userType;
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users';
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users';
 
     return this.http.post(this.userListUrl,JSON.stringify(user),{ headers: headers }).map(res => res.json());
 
@@ -124,7 +125,7 @@ export class UserListService {
 
     console.log(credential.scopeId);
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+credential.scopeId+'/credentials';
+    this.userListUrl=HostInfo.ip+'/api/v1/'+credential.scopeId+'/credentials';
     return this.http.post(this.userListUrl,JSON.stringify(credential),{ headers: headers }).map(res => res.json());
 
   }
@@ -145,7 +146,7 @@ export class UserListService {
     console.log(headers);
     console.log(userId);
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/'+scopeId+'/users/'+userId;
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users/'+userId;
     return this.http.delete(this.userListUrl,{ headers: headers });
   }
 
@@ -161,8 +162,29 @@ export class UserListService {
     let authToken = localStorage.getItem('tokenId');
     headers.append('Authorization', `Bearer ${authToken}`);
 
-    this.userListUrl='https://dev.izhiju.cn/api/v1/roles/'+userId;
+    let scopeId = localStorage.getItem('scopeId');
+
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/'+userId;
     return this.http.get(this.userListUrl,{ headers: headers });
+
+  }
+
+  /**
+   * 通过userId获取该userId下的所有的密码信息
+   * @param userId
+   * @returns {Observable<Response>}
+   */
+  getCredentialsByUserId(userId:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = localStorage.getItem('scopeId');
+
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/credentials?userId='+userId+'&offset=0&limit=50';
+    return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
 
   }
 }

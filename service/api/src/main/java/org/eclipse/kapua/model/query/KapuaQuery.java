@@ -38,8 +38,8 @@ public interface KapuaQuery<E extends KapuaEntity> {
      * 
      * @return The fetch attribute names list.
      */
-    @XmlElementWrapper(name = "fetchAttributeName")
-    @XmlElement(name = "fetchAttributeName")
+    @XmlElementWrapper(name = "fetchAttributes")
+    @XmlElement(name = "fetchAttribute")
     public List<String> getFetchAttributes();
 
     /**

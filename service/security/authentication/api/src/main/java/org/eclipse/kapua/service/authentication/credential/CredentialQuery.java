@@ -28,5 +28,8 @@ import org.eclipse.kapua.model.query.KapuaQuery;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(factoryClass = CredentialXmlRegistry.class, factoryMethod = "newQuery")
 public interface CredentialQuery extends KapuaQuery<Credential> {
+   
+    
+    
 
 }

@@ -355,7 +355,7 @@
                               <div class="form-group">
                                 <label for="attri4" class="col-xs-4 control-label">Custom attribute #4：</label>
                                 <div class="col-xs-8">
-                                  <input type="text"  name="attri4" [(ngModel)]="device.customAttribute1" #attri4="ngModel"
+                                  <input type="text"  name="attri4" [(ngModel)]="device.customAttribute4" #attri4="ngModel"
                                          class="form-control input-sm duiqi " id="attri4" placeholder="">
                                 </div>
                               </div>
@@ -825,7 +825,7 @@
                       <label>username:</label>
                       <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputUsername"  >
                       <button class="btn btn-white btn-xs " (click)="getUserList()">Search </button>
-                      <button class="btn btn-white btn-xs ">Reset </button>
+                      <button class="btn btn-white btn-xs " (click)="resetUserInput()">Reset </button>
                     </div>
                     <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
                       <label for="paixu">Order By:&nbsp;</label>
@@ -1260,17 +1260,17 @@
                                         <div class="col-xs-1"></div>
                                         <div class="col-xs-1"></div>
                                       </div>
-                                      <div class="tablebody">
-
-                                        <div class="row">
-                                          <div class="col-xs-1 ">On</div>
-                                          <div class="col-xs-2 ">Kapua-sys</div>
-                                          <div class="col-xs-2">Kapua-sys</div>
-                                          <div class="col-xs-2">18186533315</div>
-                                          <div class="col-xs-2">132456@qq.com</div>
-                                          <div class="col-xs-1">admin</div>
+                                      <div class="tablebody"  *ngFor="let userCredentialInfo of cliUserCredentials">
+                                        <div class="row" >
+                                          <div class="col-xs-1 " *ngIf="userCredentialInfo.status" >{{userCredentialInfo.status}}</div>
+                                          <div class="col-xs-1 " *ngIf="!userCredentialInfo.status" >ENABLE</div>
+                                          <div class="col-xs-2 ">{{cliUser.name}}</div>
+                                          <div class="col-xs-2">{{userCredentialInfo.credentialType}}</div>
+                                          <div class="col-xs-2">{{userCredentialInfo.expirationDate}}</div>
+                                          <div class="col-xs-2">{{userCredentialInfo.createdOn}}</div>
+                                          <div class="col-xs-1">{{userCredentialInfo.createdBy}}</div>
                                           <div class="col-xs-2">
-                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">Update</button>
+                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUserCredential" (click)="getUserCredentialInfo(userCredentialInfo)">Update</button>
                                             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                                           </div>
                                         </div>
@@ -1300,9 +1300,9 @@
                             <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addRole">Add Role</button>
                         </div>
                         <div class="col-xs-4">
-                            <input type="text" class="form-control input-sm" placeholder="input...">
-                            <button class="btn btn-white btn-xs ">Search </button>
-                            <button class="btn btn-white btn-xs ">Reset </button>
+                            <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputRolename">
+                            <button class="btn btn-white btn-xs " (click)="getRoleList()">Search </button>
+                            <button class="btn btn-white btn-xs " (click)="resetRoleInput()">Reset </button>
                         </div>
                         <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
                             <label for="paixu">Order By:&nbsp;</label>
@@ -1672,9 +1672,9 @@
                       <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addGroup">Add Group</button>
                     </div>
                     <div class="col-xs-4">
-                      <input type="text" class="form-control input-sm" placeholder="input...">
-                      <button class="btn btn-white btn-xs ">Search </button>
-                      <button class="btn btn-white btn-xs ">Reset </button>
+                      <input type="text" class="form-control input-sm" placeholder="input..."  [(ngModel)]="inputGroupname">
+                      <button class="btn btn-white btn-xs " (click)="getGroupList()">Search </button>
+                      <button class="btn btn-white btn-xs " (click)="resetGroupInput()">Reset </button>
                     </div>
                     <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
                       <label for="paixu">Order By:&nbsp;</label>

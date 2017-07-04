@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Http ,Headers}       from '@angular/http';
 
 import 'rxjs/add/operator/map';
+import {HostInfo} from "../module/host.info.modeule";
 
 @Injectable()
 export class LoginService {
@@ -28,7 +29,7 @@ export class LoginService {
     console.log("username:"+username+"  password:"+password)
     return this.http
         .post(
-          'https://dev.izhiju.cn/api/v1/authentication/user',
+          HostInfo.ip+'/api/v1/'+'authentication/user',
           JSON.stringify({ username, password }),
           { headers }
         ) .map(res => res.json()).map((res) => {

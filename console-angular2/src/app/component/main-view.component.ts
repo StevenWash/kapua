@@ -35,6 +35,7 @@ export class MainViewComponent{
   private delUserId:string;
   private cliUser:UserInfo;//点击的用户信息
   private inputUsername:string;
+  private cliUserCredentials:Credential[];
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
@@ -43,6 +44,7 @@ export class MainViewComponent{
   private aRole:RoleInfo=new RoleInfo();
   private delRoleId:string;
   private cliRole:RoleInfo;
+  private inputRolename:string;
 
   private rolePermission:RolePermissionInfo[];
 
@@ -52,7 +54,7 @@ export class MainViewComponent{
   private group:GroupInfo;
   private delGroupId:string;
   private cliGroup:GroupInfo;
-
+  private inputGroupname:string;
 
   //--------device相关的变量信息--------//
   private deviceInfos:DeviceInfo[];
@@ -218,11 +220,25 @@ export class MainViewComponent{
   clickUser(userInfo:UserInfo){
     this.cliUser=userInfo;
     console.log(this.cliUser);
+
+    //根据该点击用户的id获取点击用户的所有密码信息
+    this.userListService.getCredentialsByUserId(userInfo.id).subscribe((result) => {
+      console.log(result);
+      this.cliUserCredentials=result.items.item;
+    });
+
     this.userListService.getRolesByUserId(userInfo.id).subscribe((result) => {
       console.log(result);
     });
   }
 
+  /**
+   * 将用户界面的搜索框中的数据进行重置
+   */
+  resetUserInput(){
+    this.inputUsername=null;
+    this.getUserList();
+  }
 
 
   //-------------------Role Action ------------------//
@@ -230,7 +246,7 @@ export class MainViewComponent{
    * 得到所有的角色信息
    */
   getRoleList(){
-    this.roleService.getRoles().subscribe((result) => {
+    this.roleService.getRoles(this.inputRolename).subscribe((result) => {
       console.log(result);
       this.roleInfos=result.items.item;
     });
@@ -326,8 +342,13 @@ export class MainViewComponent{
 
   }
 
-
-
+  /**
+   * 将角色搜索界面的输入框重置
+   */
+  resetRoleInput(){
+    this.inputRolename=null;
+    this.getRoleList();
+  }
 
 
   //--------------------DeviceConnection Action---------------------------//
@@ -351,8 +372,8 @@ export class MainViewComponent{
 
   }
 
-  //--------------------Device Action---------------------------//
 
+  //--------------------Device Action---------------------------//
   /**
    * 得到所有的设备信息
    */
@@ -436,16 +457,12 @@ export class MainViewComponent{
   }
 
 
-
-
-
-
   //--------------------Group Action---------------------------//
   /**
    * 得到所有的组信息
    */
   getGroupList(){
-    this.groupService.getGroupList().subscribe((result) => {
+    this.groupService.getGroupList(this.inputGroupname).subscribe((result) => {
       console.log(result);
       this.groupInfos=result.items.item;
     });
@@ -520,7 +537,6 @@ export class MainViewComponent{
     console.log(this.devicegroup);
   }
 
-
   /**
    * 获得用户点击的小组的信息
    * @param groupInfo
@@ -528,6 +544,14 @@ export class MainViewComponent{
   clickGroup(groupInfo:GroupInfo){
     this.cliGroup=groupInfo;
     console.log(this.cliGroup);
+  }
+
+  /**
+   * 将小组的搜索框的输入信息重置
+   */
+  resetGroupInput(){
+    this.inputGroupname=null;
+    this.getGroupList();
   }
 
 
