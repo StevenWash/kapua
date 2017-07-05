@@ -190,7 +190,7 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
         return entityManagerSession.onResult(em -> RoleDAO.count(em, query));
     }
 
-	
+
 	@Override
 	public  String queryRoles(KapuaId scopeId,
 			KapuaId accessInfoUserId) throws KapuaException {					 

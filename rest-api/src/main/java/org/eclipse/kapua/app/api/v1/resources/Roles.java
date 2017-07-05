@@ -264,13 +264,12 @@ public class Roles extends AbstractKapuaResource {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public String getQueryByAccessInfoUserId(
             @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "The accessInfoUserId  to search", required = true) @PathParam("accessInfoUserId") EntityId  accessInfoUserId)
-             {
-    	String roleListResult = null;
+            @ApiParam(value = "The accessInfoUserId  to search", required = true) @PathParam("accessInfoUserId") EntityId  accessInfoUserId){
+    String roleListResult = null;
         try {
            
-        	roleListResult=roleService.queryRoles(scopeId,accessInfoUserId);
-        	
+        roleListResult=roleService.queryRoles(scopeId,accessInfoUserId);
+        
             
        } catch (Throwable t) {
             handleException(t);
