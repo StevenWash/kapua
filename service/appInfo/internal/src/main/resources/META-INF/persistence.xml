@@ -20,7 +20,7 @@
 
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-		<class>org.eclipse.kapua.service.appInfo.internal.AppInfoImpl</class>
+		<class>org.eclipse.kapua.service.appinfo.internal.AppInfoImpl</class>
 		
 
 		<!-- Base classes and External classes -->

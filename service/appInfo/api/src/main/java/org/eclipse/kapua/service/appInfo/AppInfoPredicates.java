@@ -9,7 +9,7 @@
  * Contributors:
  *     Eurotech - initial API and implementation
  *******************************************************************************/
-package org.eclipse.kapua.service.appInfo;
+package org.eclipse.kapua.service.appinfo;
 
 import org.eclipse.kapua.model.KapuaUpdatableEntityPredicates;
 

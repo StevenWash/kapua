@@ -1,5 +1,4 @@
-package org.eclipse.kapua.service.appInfo.internal;
-
+package org.eclipse.kapua.service.appinfo.internal;
 
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.service.internal.AbstractKapuaService;
@@ -7,21 +6,14 @@ import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.locator.KapuaProvider;
 import org.eclipse.kapua.model.id.KapuaId;
-import org.eclipse.kapua.service.appInfo.AppInfo;
-import org.eclipse.kapua.service.appInfo.AppInfoService;
+import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appinfo.AppInfoService;
 import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.authorization.domain.Domain;
-
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import net.sf.json.JSONObject;
-
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 
 
 

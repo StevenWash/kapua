@@ -9,16 +9,14 @@
  * Contributors:
  *     Eurotech - initial API and implementation
  *******************************************************************************/
-package org.eclipse.kapua.service.appInfo.internal;
+package org.eclipse.kapua.service.appinfo.internal;
 
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.jpa.EntityManager;
 import org.eclipse.kapua.commons.service.internal.ServiceDAO;
 import org.eclipse.kapua.model.id.KapuaId;
-import org.eclipse.kapua.model.query.KapuaQuery;
-
-import org.eclipse.kapua.service.appInfo.AppInfo;
+import org.eclipse.kapua.service.appinfo.AppInfo;
 
 /**
  * Account DAO

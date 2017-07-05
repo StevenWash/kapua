@@ -1,11 +1,7 @@
 package org.eclipse.kapua.app.common.util;
 //org.eclipse.kapua.app.api
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Hashtable;
-
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;

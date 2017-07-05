@@ -1,4 +1,4 @@
-package org.eclipse.kapua.service.appInfo.internal;
+package org.eclipse.kapua.service.appinfo.internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 
-import org.eclipse.kapua.service.appInfo.AppInfoListResult;
+
+import org.eclipse.kapua.service.appinfo.AppInfoListResult;
 
 
 public class AppInfoListResultImpl implements AppInfoListResult{

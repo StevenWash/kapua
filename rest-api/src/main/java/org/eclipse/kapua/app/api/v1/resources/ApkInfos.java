@@ -3,13 +3,9 @@ package org.eclipse.kapua.app.api.v1.resources;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,13 +15,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-
-import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.app.common.util.EncodeHelper;
 import org.eclipse.kapua.locator.KapuaLocator;
-import org.eclipse.kapua.service.apkInfo.ApkInfo;
-import org.eclipse.kapua.service.apkInfo.ApkInfoService;
+import org.eclipse.kapua.service.apkinfo.ApkInfo;
+import org.eclipse.kapua.service.apkinfo.ApkInfoService;
 
 
 @Api("ApkInfos")

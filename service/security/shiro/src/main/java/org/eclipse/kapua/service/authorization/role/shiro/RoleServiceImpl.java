@@ -12,23 +12,12 @@
 package org.eclipse.kapua.service.authorization.role.shiro;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import javax.json.JsonArray;
-import javax.persistence.TypedQuery;
-
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.KapuaIllegalArgumentException;
-import org.eclipse.kapua.KapuaIllegalNullArgumentException;
 import org.eclipse.kapua.commons.configuration.AbstractKapuaConfigurableResourceLimitedService;
-import org.eclipse.kapua.commons.model.id.KapuaEid;
 import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.locator.KapuaProvider;
@@ -48,14 +37,9 @@ import org.eclipse.kapua.service.authorization.role.RolePermissionFactory;
 import org.eclipse.kapua.service.authorization.role.RoleQuery;
 import org.eclipse.kapua.service.authorization.role.RoleService;
 import org.eclipse.kapua.service.authorization.shiro.AuthorizationEntityManagerFactory;
-
-
-import org.eclipse.persistence.internal.jpa.QueryImpl;
-
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
-import java.util.HashMap;
+
 
 /**
  * Role service implementation.

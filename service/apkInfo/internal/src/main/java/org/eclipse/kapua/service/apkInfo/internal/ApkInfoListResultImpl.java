@@ -1,11 +1,11 @@
-package org.eclipse.kapua.service.apkInfo.internal;
+package org.eclipse.kapua.service.apkinfo.internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.kapua.service.apkInfo.ApkInfoListResult;
+import org.eclipse.kapua.service.apkinfo.ApkInfoListResult;
 
 
 public class ApkInfoListResultImpl implements ApkInfoListResult{

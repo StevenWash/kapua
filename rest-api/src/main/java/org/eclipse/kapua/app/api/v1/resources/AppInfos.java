@@ -5,14 +5,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.locator.KapuaLocator;
-
-import org.eclipse.kapua.service.appInfo.AppInfo;
-import org.eclipse.kapua.service.appInfo.AppInfoService;
-
+import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appinfo.AppInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

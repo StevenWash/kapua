@@ -1,4 +1,4 @@
-package org.eclipse.kapua.service.apkInfo.internal;
+package org.eclipse.kapua.service.apkinfo.internal;
 
 
 import org.eclipse.kapua.KapuaException;
@@ -7,8 +7,8 @@ import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.locator.KapuaProvider;
 import org.eclipse.kapua.model.id.KapuaId;
-import org.eclipse.kapua.service.apkInfo.ApkInfo;
-import org.eclipse.kapua.service.apkInfo.ApkInfoService;
+import org.eclipse.kapua.service.apkinfo.ApkInfo;
+import org.eclipse.kapua.service.apkinfo.ApkInfoService;
 import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
