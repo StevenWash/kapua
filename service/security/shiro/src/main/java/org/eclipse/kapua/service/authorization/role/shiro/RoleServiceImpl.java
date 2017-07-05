@@ -199,7 +199,7 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 	
 	@Override
 	public  String queryRoles(KapuaId scopeId,
-			String accessInfoUserId) throws KapuaException {
+			KapuaId accessInfoUserId) throws KapuaException {
 		
 				
 				 
@@ -220,11 +220,12 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 						 String result=null;
 						
 						
-						BigInteger id=new BigInteger("1130679835206840295");
+						BigInteger id=new BigInteger(accessInfoUserId.toString());
+						
 						  Query query;
 						  query=em.createNativeQuery("select r.* from athz_role r where r.id in (select aRol.role_id from athz_access_role aRol where aRol.access_info_id=(select acc.id from athz_access_info acc  where acc.user_id=?1))");
 						  
-						  query.setParameter(1, new BigInteger(accessInfoUserId));
+						  query.setParameter(1,id);
 						  List roleArrayList=query.getResultList();
 						
 						

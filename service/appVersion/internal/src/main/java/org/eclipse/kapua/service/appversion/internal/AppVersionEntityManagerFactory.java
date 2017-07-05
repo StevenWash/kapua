@@ -35,7 +35,7 @@ public class AppVersionEntityManagerFactory extends AbstractEntityManagerFactory
   private static AppVersionEntityManagerFactory instance = new AppVersionEntityManagerFactory();
 
   /**
-   * Constructs a new entity manager factory and configure it to use the weather persistence unit.
+   * Constructs a new entity manager factory and configure it to use the appVersion persistence unit.
    */
   private AppVersionEntityManagerFactory() {
         super(PERSISTENCE_UNIT_NAME,

@@ -20,15 +20,12 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
 		"packagename",
 		"code",
         "version",
-        "name",
-        "comment",
         "url",
         "size",
         "md5",
         "types",
         "revision",
         "forversion"
-        
         })
 public interface AppVersion extends KapuaUpdatableEntity{
 
@@ -38,18 +35,23 @@ public interface AppVersion extends KapuaUpdatableEntity{
         return TYPE;
     }
 
-    
-    @XmlElement(name = "packagename")
+    /**
+     * Get the appVersion's packagename
+     * 
+     * @return
+     */
+   @XmlElement(name = "packagename")
     public String getPackagename();
 
     /**
-     * Set the weather's province
+     * Set the appVersion's packagename
      * 
-     * @param province
+     * @param packagename
      */
     public void setPackagename(String  packagename);
+    
     /**
-     * Get the weather's province
+     * Get the appVersion's code
      * 
      * @return
      */
@@ -58,14 +60,14 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getCode();
 
     /**
-     * Set the weather's province
+     * Set the appVersion's code
      * 
-     * @param province
+     * @param code
      */
     public void setCode(String code);
     
     /**
-     * Get the weather's city
+     * Get the appVersion's version
      * 
      * @return
      */
@@ -73,47 +75,16 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getVersion();
 
     /**
-     * Set the weather's city
+     * Set the appVersion's version
      * 
-     * @param city
+     * @param version
      */
     public void setVersion(String version);
     
     
-    /**
-     * Get the weather's area
-     * 
-     * @return
-     */
-    @XmlElement(name = "name")
-    public String getName();
 
     /**
-     * Set the weather's area
-     * 
-     * @param area
-     */
-    public void setName(String name);
-    
-    
-    /**
-     * Get the weather's city_code
-     * 
-     * @return
-     */
-    @XmlElement(name = "comment")
-    public String getComment();
-
-    /**
-     * Set the weather's city_code.
-     * 
-     * @param city_code
-     */
-    public void setComment(String comment);
-    
-    
-    /**
-     * Get the weather's city_code
+     * Get the appVersion's url
      * 
      * @return
      */
@@ -121,15 +92,15 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getUrl();
 
     /**
-     * Set the weather's city_code.
+     * Set the appVersion's url
      * 
-     * @param city_code
+     * @param url
      */
     public void setUrl(String url);
     
     
     /**
-     * Get the weather's city_code
+     * Get the appVersion's size
      * 
      * @return
      */
@@ -137,15 +108,15 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public Integer getSize();
 
     /**
-     * Set the weather's city_code.
+     * Set the appVersion's size
      * 
-     * @param city_code
+     * @param size
      */
     public void setSize(Integer size);
     
     
     /**
-     * Get the weather's city_code
+     * Get the appVersion's md5
      * 
      * @return
      */
@@ -153,15 +124,15 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getMd5();
 
     /**
-     * Set the weather's city_code.
+     * Set the appVersion's md5
      * 
-     * @param city_code
+     * @param md5
      */
     public void setMd5(String md5);
     
     
     /**
-     * Get the weather's city_code
+     * Get the appVersion's types
      * 
      * @return
      */
@@ -169,14 +140,14 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getTypes();
 
     /**
-     * Set the weather's city_code.
+     * Set the  appVersion's types
      * 
-     * @param city_code
+     * @param types
      */
     public void setTypes(String types);
     
     /**
-     * Get the weather's city_code
+     * Get the appVersion's revision
      * 
      * @return
      */
@@ -184,16 +155,16 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getRevision();
 
     /**
-     * Set the weather's city_code.
+     * Set the appVersion's revision
      * 
-     * @param city_code
+     * @param revision
      */
     public void setRevision(String revision);
     
     
     
     /**
-     * Get the weather's city_code
+     * Get the appVersion's forversion.
      * 
      * @return
      */
@@ -201,9 +172,9 @@ public interface AppVersion extends KapuaUpdatableEntity{
     public String getForversion();
 
     /**
-     * Set the weather's city_code.
+     * Set the appVersion's forversion.
      * 
-     * @param city_code
+     * @param forversion
      */
     public void setForversion(String forversion);
 }

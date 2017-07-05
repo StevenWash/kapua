@@ -11,23 +11,20 @@
  *******************************************************************************/
 package org.eclipse.kapua.service.appinfo.internal;
 
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-
-
 import org.eclipse.kapua.service.appinfo.AppInfo;
 import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
 
 
 
+
 /**
- * Weather entity implementation.
+ * AppInfo entity implementation.
  *
  * @since 1.0
  */
@@ -98,7 +95,7 @@ public class AppInfoImpl extends AbstractKapuaUpdatableEntity implements AppInfo
 	}
 
 
-
+   
 	
 
 	public String getName() {

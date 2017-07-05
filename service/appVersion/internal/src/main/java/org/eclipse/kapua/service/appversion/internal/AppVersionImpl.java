@@ -15,8 +15,6 @@ package org.eclipse.kapua.service.appversion.internal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
 import org.eclipse.kapua.service.appversion.AppVersion;
@@ -29,10 +27,6 @@ import org.eclipse.kapua.service.appversion.AppVersion;
  * @since 1.0
  */
 @Entity(name = "AppVersion")
-@NamedQueries({
-    @NamedQuery(name = "ApkInfo.queryByPackagename", query = "select ak from AppVersion ak "),
-    @NamedQuery(name = "ApkInfo.queryByDistinct", query = "select ak from AppVersion ak")
-})
 @Table(name = "app_version")
 public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppVersion {
 
@@ -53,18 +47,6 @@ public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppV
   @Basic
   @Column(name = "version", nullable = false)
     private String version;
-    
-  @Basic
-  @Column(name = "name", nullable = false)
-    private String name;
-    
-    
-    
-  @Basic
-  @Column(name = "comment", nullable = false)
-   private String comment;
-    
-    
     
   @Basic
   @Column(name = "url", nullable = false)
@@ -94,14 +76,13 @@ public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppV
   @Basic
   @Column(name = "forversion", nullable = false)
     private String forversion;
+  
 
     
   public AppVersionImpl() {
        
   }
     
- 
-
   public String getPackagename() {
     return packagename;
   }
@@ -124,22 +105,6 @@ public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppV
 
   public void setVersion(String version) {
     this.version = version;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getComment() {
-    return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
   }
 
   public String getUrl() {
@@ -189,17 +154,6 @@ public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppV
   public void setForversion(String forversion) {
     this.forversion = forversion;
   }
-
-
-
-
-
-
-
-
-
-
- 
 
 
 }

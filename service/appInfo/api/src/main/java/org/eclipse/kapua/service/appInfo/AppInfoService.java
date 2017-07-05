@@ -11,16 +11,10 @@
  *******************************************************************************/
 package org.eclipse.kapua.service.appinfo;
 
-import java.util.List;
-
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.model.id.KapuaId;
-import org.eclipse.kapua.model.query.KapuaQuery;
-import org.eclipse.kapua.service.KapuaEntityService;
-import org.eclipse.kapua.service.KapuaNamedEntityService;
 import org.eclipse.kapua.service.KapuaService;
-import org.eclipse.kapua.service.KapuaUpdatableEntityService;
-import org.eclipse.kapua.service.config.KapuaConfigurableService;
+
 
 /**
  * WeatherService exposes APIs to manage Weather objects.<br>

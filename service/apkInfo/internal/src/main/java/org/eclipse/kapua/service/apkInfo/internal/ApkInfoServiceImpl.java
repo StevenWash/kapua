@@ -13,15 +13,7 @@ import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.authorization.domain.Domain;
-
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
-import net.sf.json.JSONObject;
-
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 
 
 

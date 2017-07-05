@@ -15,8 +15,6 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,9 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
 import org.eclipse.kapua.service.weather.Weather;
-import org.eclipse.kapua.commons.model.AbstractKapuaEntity;
 import org.eclipse.kapua.model.id.KapuaId;
 
 

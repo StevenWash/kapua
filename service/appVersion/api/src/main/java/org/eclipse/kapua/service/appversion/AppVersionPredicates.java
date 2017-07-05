@@ -16,7 +16,7 @@ import org.eclipse.kapua.model.KapuaUpdatableEntityPredicates;
 public interface AppVersionPredicates extends KapuaUpdatableEntityPredicates {
 
     /**
-     * The {@link Weather} name.
+     * The {@link AppVersion} name.
      */
     public static final String NAME = "name";
 }

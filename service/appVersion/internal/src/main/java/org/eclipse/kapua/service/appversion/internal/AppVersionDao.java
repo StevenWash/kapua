@@ -16,12 +16,11 @@ import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.jpa.EntityManager;
 import org.eclipse.kapua.commons.service.internal.ServiceDAO;
 import org.eclipse.kapua.model.id.KapuaId;
-import org.eclipse.kapua.model.query.KapuaQuery;
 import org.eclipse.kapua.service.appversion.AppVersion;
 
 
 /**
- * Account DAO
+ * AppVersion DAO
  * 
  * @since 1.0
  *
@@ -69,7 +68,7 @@ public class AppVersionDao {
      
 
   /**
-     * Finds the account by name
+     * Finds the AppVersion by name
      * 
      * @param em not null
      * @param name  not null

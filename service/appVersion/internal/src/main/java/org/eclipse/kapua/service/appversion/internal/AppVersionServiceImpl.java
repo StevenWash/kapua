@@ -16,15 +16,6 @@ import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 
 
-
-
-
-
-
-
-
-
-
 /**
  * {@link weatherService} implementation.
  * 

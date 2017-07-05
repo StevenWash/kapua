@@ -23,8 +23,8 @@ import org.eclipse.kapua.service.authorization.permission.Permission;
 
 
 /**
- * Weather permission domain.<br>
- * Weather to describe the weather domain in the {@link Permission}
+ * appversion permission domain.<br>
+ * appversion to describe the appversion domain in the {@link Permission}
  * 
  * @since 1.0
  *

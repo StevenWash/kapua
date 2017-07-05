@@ -1,11 +1,7 @@
 package org.eclipse.kapua.service.weather;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
-
 import org.eclipse.kapua.model.id.KapuaId;
-
 import java.sql.Timestamp;
 import java.math.BigInteger;
 
