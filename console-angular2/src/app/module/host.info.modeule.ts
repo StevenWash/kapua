@@ -3,6 +3,6 @@
  */
 
 export class HostInfo{
- // static ip:string="https://dev.izhiju.cn";
-  static ip:string="http://localhost:80";
+  //static ip:string="https://dev.izhiju.cn";
+  static ip:string="http://localhost:8080";
 }

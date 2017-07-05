@@ -125,7 +125,7 @@ export class UserListService {
 
     console.log(credential.scopeId);
 
-    this.userListUrl=HostInfo.ip+'/api/v1/'+credential.scopeId+'/credentials';
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/credentials';
     return this.http.post(this.userListUrl,JSON.stringify(credential),{ headers: headers }).map(res => res.json());
 
   }

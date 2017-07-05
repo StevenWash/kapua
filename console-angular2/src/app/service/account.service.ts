@@ -18,7 +18,7 @@ export class AccountService{
    * 获取当前scopeId下的所有的账号信息
    * @returns {Observable<R>}
    */
-  getAccountList(){
+  getAccountList(accountName:string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -27,7 +27,10 @@ export class AccountService{
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+"/accounts?offset=0&limit=50";
+    if(accountName!=null){
+      this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accounts?name='+accountName+'&offset=0&limit=50';
+    }else
+      this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+"/accounts?offset=0&limit=50";
 
     return this.http.get(this.accountUrl,{ headers: headers }).map(res => res.json());
   }

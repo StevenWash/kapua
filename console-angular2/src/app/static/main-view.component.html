@@ -122,10 +122,11 @@
                     </div>
                     <div class="col-xs-8">
                       <label >ClientId:&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
+                      <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputDeviceClientId">&nbsp;&nbsp;
                       <label >Con-Status:&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control input-sm" placeholder="input...">
-                      <button class="btn btn-white btn-xs">Reset</button>
+                      <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputDeviceConStatus">
+                      <button class="btn btn-white btn-xs" (click)="getDevices()">Search</button>
+                      <button class="btn btn-white btn-xs" (click)="resetInputDevice()">Reset</button>
                     </div>
                     <div class="col-xs-3" style=" padding-right: 40px;text-align: right;">
                       <label for="paixu">OrderBy:&nbsp;</label>
@@ -1245,7 +1246,7 @@
                                   </div>
                                   <div role="tabpanel" class="tab-pane" id="credentials">
                                     <ul class="nav nav-pills">
-                                      <li role="presentation" class="active"><a href="#">Add</a></li>
+                                      <li role="presentation" class="active"><a href="#addUserCredential" data-toggle="modal">Add</a></li>
                                       <li role="presentation"><a href="#">Refresh</a></li>
                                     </ul>
 
@@ -1291,6 +1292,84 @@
                     </div>
                   </div>
 
+                  <!--弹出添加用户密码窗口-->
+                  <div class="modal fade" id="addUserCredential" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="gridSystemModalLabel">Add UserCredential</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            <form class="form-horizontal" #userForm="ngForm" novalidate *ngIf="userCredential&&cliUser">
+                              <div class="form-group">
+                                <label for="credentialType" class="col-xs-4 control-label">Credential Type：</label>
+                                <div class="col-xs-8">
+                                  <select  class="form-control duiqi" id="credentialType" #t name="credentialType" #credentialType="ngModel" [(ngModel)]="userCredential.credentialType"
+                                            (ngModelChange)="userCredential=$event;setUserCredentialType(t.value)">
+                                    <option value="" selected="selected">select ...</option>
+                                    <option value="PASSWORD">PASSWORD </option>
+                                    <option value="API_KEY">API_KEY </option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="subject" class="col-xs-4 control-label">Subject：</label>
+                                <div class="col-xs-8">
+                                  <input type="text" name="subject" class="form-control input-sm duiqi" id="subject" placeholder="" disabled="disabled" value="{{cliUser.name}}">
+                                </div>
+                              </div>
+
+                              <div class="form-group" *ngIf="showPassInput">
+                                <label for="userPassword" class="col-xs-4 control-label">Password：</label>
+                                <div class="col-xs-8">
+                                  <input type="password" name="password" [(ngModel)]="userCredential.password" #password="ngModel"
+                                         required  minlength="6" maxlength="16" class="form-control input-sm duiqi " id="userPassword"
+                                         placeholder="" validateEqual="repassword" reverse="true">
+                                  <span *ngIf="password.pristine" class="label label-primary">未修改</span>
+                                  <span *ngIf="password.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="password.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10 ">
+                                  <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                                    <p *ngIf="password.errors?.minlength">minlength is 6</p>
+                                    <p *ngIf="password.errors?.maxlength">maxlength is 16</p>
+                                    <p *ngIf="password.errors?.required">password required</p>
+                                    <p *ngIf="userForm.controls.mobile?.errors?.validatePassword">密码格式不对</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group" *ngIf="showPassInput">
+                                <label for="reUserPassword" class="col-xs-4 control-label">Re-Password：</label>
+                                <div class="col-xs-8 ">
+                                  <input type="password" name="repassword" [(ngModel)]="userCredential.repassword"
+                                         class="form-control input-sm duiqi " #repassword="ngModel" required
+                                         validateEqual="password" minlength="6" maxlength="16" id="reUserPassword"  placeholder="">
+                                  <span *ngIf="repassword.pristine" class="label label-primary ">未修改</span>
+                                  <span *ngIf="repassword.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="repassword.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="repassword.valid || repassword.pristine" class="alert alert-danger">
+                                    <p >两次密码不一致</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                          <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="submitUserCredential()">Submit</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
                 </div>
 
                 <!--角色管理模块-->
@@ -2385,8 +2464,8 @@
                       <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addAccount">Add Account</button>
                     </div>
                     <div class="col-xs-4">
-                      <input type="text" class="form-control input-sm" placeholder="input...">
-                      <button class="btn btn-white btn-xs ">Search </button>
+                      <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputAccountName">
+                      <button class="btn btn-white btn-xs " (click)="getAccountList()">Search </button>
                       <button class="btn btn-white btn-xs ">Reset </button>
                     </div>
                     <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">

@@ -195,7 +195,7 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
         return entityManagerSession.onResult(em -> RoleDAO.count(em, query));
     }
 
-	
+
 	public String queryRole(KapuaId scopeId)
 			throws KapuaException{
 		// TODO Auto-generated method stub

@@ -32,6 +32,7 @@ import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
+import org.eclipse.kapua.model.query.predicate.KapuaAttributePredicate.Operator;
 import org.eclipse.kapua.service.device.registry.Device;
 import org.eclipse.kapua.service.device.registry.DeviceCreator;
 import org.eclipse.kapua.service.device.registry.DeviceFactory;
@@ -39,6 +40,7 @@ import org.eclipse.kapua.service.device.registry.DeviceListResult;
 import org.eclipse.kapua.service.device.registry.DevicePredicates;
 import org.eclipse.kapua.service.device.registry.DeviceQuery;
 import org.eclipse.kapua.service.device.registry.DeviceRegistryService;
+import org.eclipse.kapua.service.device.registry.DeviceStatus;
 import org.eclipse.kapua.service.device.registry.connection.DeviceConnectionStatus;
 import org.eclipse.kapua.service.device.registry.internal.DeviceImpl;
 
@@ -77,7 +79,7 @@ public class Devices extends AbstractKapuaResource {
     public DeviceListResult simpleQuery(
             @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
             @ApiParam(value = "The client id to filter results.") @QueryParam("clientId") String clientId,
-            @ApiParam(value = "The connection status to filter results.") @QueryParam("status") DeviceConnectionStatus connectionStatus,
+            @ApiParam(value = "The connection status to filter results.") @QueryParam("status") DeviceStatus connectionStatus,
             @ApiParam(value = "Additional attributes to be returned. Allowed values: connection, lastEvent", allowableValues = "connection, lastEvent", allowMultiple = true) @QueryParam("fetchAttributes") List<String> fetchAttributes,
             @ApiParam(value = "The result set offset.", defaultValue = "0") @QueryParam("offset") @DefaultValue("0") int offset,
             @ApiParam(value = "The result set limit.", defaultValue = "50") @QueryParam("limit") @DefaultValue("50") int limit) {
@@ -87,7 +89,7 @@ public class Devices extends AbstractKapuaResource {
 
             AndPredicate andPredicate = new AndPredicate();
             if (!Strings.isNullOrEmpty(clientId)) {
-                andPredicate.and(new AttributePredicate<>(DevicePredicates.CLIENT_ID, clientId));
+                andPredicate.and(new AttributePredicate<>(DevicePredicates.CLIENT_ID, clientId,Operator.LIKE));
             }
             if (connectionStatus != null) {
                 andPredicate.and(new AttributePredicate<>(DevicePredicates.CONNECTION_STATUS, connectionStatus));

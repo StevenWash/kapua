@@ -27,6 +27,7 @@ import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
+import org.eclipse.kapua.model.query.predicate.KapuaAttributePredicate.Operator;
 import org.eclipse.kapua.service.device.registry.Device;
 import org.eclipse.kapua.service.device.registry.connection.DeviceConnection;
 import org.eclipse.kapua.service.device.registry.connection.DeviceConnectionFactory;
@@ -79,7 +80,7 @@ public class DeviceConnections extends AbstractKapuaResource {
 
             AndPredicate andPredicate = new AndPredicate();
             if (!Strings.isNullOrEmpty(clientId)) {
-                andPredicate.and(new AttributePredicate<>(DeviceConnectionPredicates.CLIENT_ID, clientId));
+                andPredicate.and(new AttributePredicate<>(DeviceConnectionPredicates.CLIENT_ID, clientId,Operator.LIKE));
             }
             if (status != null) {
                 andPredicate.and(new AttributePredicate<>(DeviceConnectionPredicates.STATUS, status));

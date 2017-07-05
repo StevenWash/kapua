@@ -30,6 +30,7 @@ import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.commons.model.query.predicate.AndPredicate;
 import org.eclipse.kapua.commons.model.query.predicate.AttributePredicate;
 import org.eclipse.kapua.locator.KapuaLocator;
+import org.eclipse.kapua.model.query.predicate.KapuaAttributePredicate.Operator;
 import org.eclipse.kapua.service.account.Account;
 import org.eclipse.kapua.service.account.AccountCreator;
 import org.eclipse.kapua.service.account.AccountFactory;
@@ -80,7 +81,7 @@ public class Accounts extends AbstractKapuaResource {
 
             AndPredicate andPredicate = new AndPredicate();
             if (!Strings.isNullOrEmpty(name)) {
-                andPredicate.and(new AttributePredicate<>(AccountPredicates.NAME, name));
+                andPredicate.and(new AttributePredicate<>(AccountPredicates.NAME, name,Operator.LIKE));
             }
             query.setPredicate(andPredicate);
 

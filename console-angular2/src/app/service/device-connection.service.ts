@@ -5,6 +5,7 @@ import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {DeviceInfo} from "../module/device.module";
 import {HostInfo} from "../module/host.info.modeule";
+import {combineAll} from "rxjs/operator/combineAll";
 
 @Injectable()
 export class DeviceConnectionService {
@@ -35,7 +36,7 @@ export class DeviceConnectionService {
    * 得到所有的设备信息
    * @returns {Observable<R>}
    */
-  getDeviceList(){
+  getDeviceList(inputDeviceClientId:string,inputDeviceConStatus:string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -44,7 +45,14 @@ export class DeviceConnectionService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices?offset=0&limit=50';
+    if(inputDeviceClientId!=null&&inputDeviceConStatus!=null){
+      this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices?clientId='+inputDeviceClientId+'&status='+inputDeviceConStatus+'&offset=0&limit=50';
+    }else if(inputDeviceClientId!=null&&inputDeviceConStatus==null){
+      this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices?clientId='+inputDeviceClientId+'&offset=0&limit=50';
+    }else if(inputDeviceClientId==null&&inputDeviceConStatus!=null){
+      this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/devices?status='+inputDeviceConStatus+'&offset=0&limit=50';
+    }
+    console.log(this.deviceConnectionUrl)
 
     return this.http.get(this.deviceConnectionUrl,{ headers: headers }).map(res => res.json());
 

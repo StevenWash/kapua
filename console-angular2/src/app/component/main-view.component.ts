@@ -36,6 +36,8 @@ export class MainViewComponent{
   private cliUser:UserInfo;//点击的用户信息
   private inputUsername:string;
   private cliUserCredentials:Credential[];
+  private userCredential=new Credential();
+  private showPassInput:boolean=false;//再添加用户密码的时候判断是否显示密码输入框
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
@@ -63,6 +65,8 @@ export class MainViewComponent{
   private delDeviceId:string;
   private device:DeviceInfo;
   private cliDevice:DeviceInfo=new DeviceInfo();
+  private inputDeviceClientId:string;
+  private inputDeviceConStatus:string;
 
 
   //--------device connection相关的变量信息--------//
@@ -76,6 +80,7 @@ export class MainViewComponent{
   private account:AccountInfo;
   private delAccountId:string;
   private cliAccount:AccountInfo=new AccountInfo();
+  private inputAccountName:string;
 
 
   /**
@@ -227,9 +232,9 @@ export class MainViewComponent{
       this.cliUserCredentials=result.items.item;
     });
 
-    this.userListService.getRolesByUserId(userInfo.id).subscribe((result) => {
+   /* this.userListService.getRolesByUserId(userInfo.id).subscribe((result) => {
       console.log(result);
-    });
+    });*/
   }
 
   /**
@@ -238,6 +243,39 @@ export class MainViewComponent{
   resetUserInput(){
     this.inputUsername=null;
     this.getUserList();
+  }
+
+  submitUserCredential(){
+    console.log(this.userCredential);
+    if(this.userCredential.password==this.userCredential.repassword){
+      console.log("提交密码")
+      console.log(this.cliUser);
+      this.userCredential.userId=this.cliUser.id;
+      this.userCredential.credentialKey=this.userCredential.password;
+
+      console.log(this.userCredential);
+      this.userListService.addCredentials(this.userCredential).subscribe((result) => {
+        console.log(result);
+      });
+    }
+  }
+
+  /**
+   * 设置密码的类型
+   * @param value
+   */
+  setUserCredentialType(value:string){
+    console.log("value:"+value);
+    if(value=="PASSWORD"){
+      console.log("设置密码");
+      this.userCredential.credentialType='PASSWORD';
+      this.showPassInput=true;
+    }else{
+      console.log("设置API_KEY");
+      this.userCredential.credentialType='API_KEY';
+      this.showPassInput=false;
+    }
+    console.log(this.userCredential.credentialType);
   }
 
 
@@ -378,7 +416,8 @@ export class MainViewComponent{
    * 得到所有的设备信息
    */
   getDevices(){
-    this.deviceConnectionService.getDeviceList().subscribe((result) => {
+    console.log(this.inputDeviceClientId+"  "+this.inputDeviceConStatus)
+    this.deviceConnectionService.getDeviceList(this.inputDeviceClientId,this.inputDeviceConStatus).subscribe((result) => {
       this.deviceInfos=result.items.item;
     });
   }
@@ -560,7 +599,7 @@ export class MainViewComponent{
    * 获取当前scopeId下的所有的账号信息
    */
   getAccountList(){
-    this.accountService.getAccountList().subscribe((result) => {
+    this.accountService.getAccountList(this.inputAccountName).subscribe((result) => {
       console.log(result);
       this.accountInfos=result.items.item;
     });
