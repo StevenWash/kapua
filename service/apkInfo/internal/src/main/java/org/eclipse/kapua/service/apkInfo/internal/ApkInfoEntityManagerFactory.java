@@ -9,14 +9,12 @@
  * Contributors:
  *     Eurotech - initial API and implementation
  *******************************************************************************/
-package org.eclipse.kapua.service.apkInfo.internal;
+package org.eclipse.kapua.service.apkinfo.internal;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.eclipse.kapua.commons.jpa.AbstractEntityManagerFactory;
 import org.eclipse.kapua.commons.jpa.EntityManager;
-import org.eclipse.kapua.commons.jpa.EntityManagerFactory;
 import org.eclipse.kapua.KapuaException;
 
 /**

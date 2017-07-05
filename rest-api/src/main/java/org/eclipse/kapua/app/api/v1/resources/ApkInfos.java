@@ -3,13 +3,9 @@ package org.eclipse.kapua.app.api.v1.resources;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,13 +15,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-
-import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.app.common.util.EncodeHelper;
 import org.eclipse.kapua.locator.KapuaLocator;
-import org.eclipse.kapua.service.apkInfo.ApkInfo;
-import org.eclipse.kapua.service.apkInfo.ApkInfoService;
+import org.eclipse.kapua.service.apkinfo.ApkInfo;
+import org.eclipse.kapua.service.apkinfo.ApkInfoService;
 
 
 @Api("ApkInfos")
@@ -38,7 +32,7 @@ public class ApkInfos extends AbstractKapuaResource {
     @Context HttpServletResponse response;
     
     
-    @ApiOperation(value = "Get an apkInfo",  //
+/*    @ApiOperation(value = "Get an apkInfo",  //
             notes = "Returns the ApiInfo specified by the \"apiInfoId\" path parameter.",  //
             response = ApkInfo.class)
     @GET
@@ -57,11 +51,11 @@ public class ApkInfos extends AbstractKapuaResource {
             handleException(t);
         }
         return returnNotNullEntity(apkInfo);
-    }
+    }*/
     
     
     
-    @ApiOperation(value = "Get an apkUrl",  //
+/*    @ApiOperation(value = "Get an apkUrl",  //
             notes = "Returns the url by the \"apiInfoId\" path parameter.",  //
             response = String.class)
     @GET
@@ -94,7 +88,7 @@ public class ApkInfos extends AbstractKapuaResource {
 	        
 	        
 	        
-    }
+    }*/
     
     
     
@@ -114,33 +108,24 @@ public class ApkInfos extends AbstractKapuaResource {
             @ApiParam(value = "The version of the requested ApiInfo")@QueryParam("version") String version
             ) {
     	
-    	System.out.println("-------------------");
     	ApkInfo apkinfo = null;
-    //	List<ApiInfo>  apkinfoList=null;
+   
 		if(version==null) version="";
         try {
         	
         	apkinfo = apiInfoService.findByPackagename(scopeId, pName);
-        	System.out.println("apkInfo:"+apkinfo);
-        	System.out.println("apkinfo.getVersion---------:"+apkinfo.getVersion());
-        	System.out.println("version------------"+version);
-        	System.out.println("compareToversion::"+apkinfo.getVersion().compareTo(version));
-        	//System.out.println("apkinfo.getVersion().compareToversion:"+apkinfo.getVersion().compareTo(version));
+        	
+        	
         	if(apkinfo==null || apkinfo.getVersion().compareTo(version)<=0){
         	   
-        		 System.out.println("--------------------------------");
-        		 
-        		 System.out.println("pName:"+pName);
-        		 System.out.println("version:"+version);
         		apkinfo=apiInfoService.findByDistinct(scopeId,pName, version);
-        		
         	}
 			
         } catch (Exception e) {
         	apkinfo=null;
         	System.out.println("apkinfo is null");
         }
-        return returnNotNullEntity(apkinfo);
+        return apkinfo;
     }
     
     
@@ -186,7 +171,7 @@ public class ApkInfos extends AbstractKapuaResource {
     
     
     
-   @ApiOperation(value = "Get an ApiInfo",  //
+/*   @ApiOperation(value = "Get an ApiInfo",  //
             notes = "Returns the ApiInfo specified by the \"packageName\" path parameter.",  //
             response = ApkInfo.class)
     @GET
@@ -203,5 +188,5 @@ public class ApkInfos extends AbstractKapuaResource {
             handleException(t);
         }
         return returnNotNullEntity(apiInfo);
-    }
+    }*/
 }

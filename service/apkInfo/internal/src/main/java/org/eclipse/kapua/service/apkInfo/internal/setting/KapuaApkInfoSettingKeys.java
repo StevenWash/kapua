@@ -9,7 +9,7 @@
  * Contributors:
  *     Eurotech - initial API and implementation
  *******************************************************************************/
-package org.eclipse.kapua.service.apkInfo.internal.setting;
+package org.eclipse.kapua.service.apkinfo.internal.setting;
 
 import org.eclipse.kapua.commons.setting.SettingKey;
 

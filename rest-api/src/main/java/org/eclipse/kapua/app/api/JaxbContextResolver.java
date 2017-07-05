@@ -143,7 +143,11 @@ import org.eclipse.kapua.service.user.UserQuery;
 import org.eclipse.kapua.service.user.UserXmlRegistry;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.kapua.service.weather.Weather;
-import org.eclipse.kapua.service.apkInfo.ApkInfo;
+import org.eclipse.kapua.service.apkinfo.ApkInfo;
+import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appversion.AppVersion;
+
+
 
 
 
@@ -344,7 +348,11 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     
                  // ApiInfo   
                     ApkInfo.class,
-
+                    
+                 // AppInfo   
+                    AppInfo.class,
+                    
+                    AppVersion.class,
             }, null);
         } catch (Exception e) {
             throw new RuntimeException(e);

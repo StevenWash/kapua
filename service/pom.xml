@@ -35,6 +35,8 @@
         <module>liquibase</module>
         <module>weather</module>
         <module>apkInfo</module>
+		<module>appInfo</module>
+		<module>appVersion</module>
     </modules>
 
 </project>

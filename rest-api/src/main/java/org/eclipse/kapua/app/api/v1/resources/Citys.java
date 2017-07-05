@@ -1,12 +1,8 @@
 package org.eclipse.kapua.app.api.v1.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -16,9 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-
-import net.sf.json.JSONArray;
-
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.app.common.util.IpHelper;
@@ -32,7 +25,6 @@ import org.eclipse.kapua.service.weather.BaseIpService;
 import org.eclipse.kapua.service.weather.Weather;
 import org.eclipse.kapua.service.weather.WeatherService;
 import org.eclipse.kapua.service.weather.internal.IpDomain;
-import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.util.ErrorMessageException;

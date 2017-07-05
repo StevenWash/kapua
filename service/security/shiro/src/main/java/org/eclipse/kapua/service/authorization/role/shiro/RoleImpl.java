@@ -30,11 +30,7 @@ import org.eclipse.kapua.service.authorization.role.Role;
  */  //select r from Role r where r.id in (select aRol.roleId from AccessRole aRol where aRol.accessInfoId=(select acc.id from AccessInfo acc  where acc.userId=1130679835206840295))
 
 @Entity(name = "Role")
-@NamedQueries({
-	@NamedQuery(name = "Role.getRole", query = "select r from Role r where r.id in (select aRol.roleId from AccessRole aRol where aRol.accessInfoId=(select acc.id from AccessInfo acc  where acc.userId=1130679835206840295))") 
-	
-		
-})
+
 @Table(name = "athz_role")
 public class RoleImpl extends AbstractKapuaUpdatableEntity implements Role {
 
