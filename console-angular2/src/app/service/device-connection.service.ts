@@ -5,7 +5,6 @@ import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {DeviceInfo} from "../module/device.module";
 import {HostInfo} from "../module/host.info.modeule";
-import {combineAll} from "rxjs/operator/combineAll";
 
 @Injectable()
 export class DeviceConnectionService {
