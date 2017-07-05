@@ -249,4 +249,30 @@ public class Roles extends AbstractKapuaResource {
         }
         return Response.ok().build();
     }
+    
+    
+
+ /*   @ApiOperation(value = "Gets the Role list by scopeId,accessInfo.userId",
+            notes = "Returns the list of all the roles associated to the current selected scope.",
+            response = String.class
+            )
+    @GET
+    @Path("query/{scopeId}/{accessInfoUserId}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public String getQuery(
+            @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId)
+        //    @ApiParam(value = "The accessInfoUserId  to search") @PathParam("accessInfoUserId") EntityId accessInfoUserId)
+             {
+    			String result = null;
+        try {
+           
+        	result=roleService.queryRole(scopeId);
+            
+       } catch (Throwable t) {
+            handleException(t);
+        }
+           return result;
+    } */
+
 }

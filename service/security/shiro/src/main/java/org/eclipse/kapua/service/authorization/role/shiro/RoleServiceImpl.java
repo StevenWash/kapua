@@ -11,9 +11,18 @@
  *******************************************************************************/
 package org.eclipse.kapua.service.authorization.role.shiro;
 
+import java.math.BigInteger;
+import java.util.List;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import javax.persistence.TypedQuery;
+
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.KapuaIllegalArgumentException;
+import org.eclipse.kapua.KapuaIllegalNullArgumentException;
 import org.eclipse.kapua.commons.configuration.AbstractKapuaConfigurableResourceLimitedService;
 import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
@@ -34,6 +43,8 @@ import org.eclipse.kapua.service.authorization.role.RolePermissionFactory;
 import org.eclipse.kapua.service.authorization.role.RoleQuery;
 import org.eclipse.kapua.service.authorization.role.RoleService;
 import org.eclipse.kapua.service.authorization.shiro.AuthorizationEntityManagerFactory;
+
+import javax.persistence.Query;
 
 /**
  * Role service implementation.
@@ -183,4 +194,63 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 
         return entityManagerSession.onResult(em -> RoleDAO.count(em, query));
     }
+
+	
+	public String queryRole(KapuaId scopeId)
+			throws KapuaException{
+		// TODO Auto-generated method stub
+
+		 
+			
+				ArgumentValidator.notNull(scopeId, "scopeId");
+			
+		
+			
+	  //   ArgumentValidator.notNull(accessInfoUserId, "accessInfoUserId");
+	       
+	     // Check Access
+	        KapuaLocator locator = KapuaLocator.getInstance();
+	        AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+	        PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+	        
+	       authorizationService.checkPermission(permissionFactory.newPermission(ROLE_DOMAIN, Actions.read, scopeId));
+			
+			
+		   return entityManagerSession.onResult(em -> {
+				 System.out.println("<<<<<<<<<<<<<<<");
+			
+					RoleListResultImpl   resultList=new RoleListResultImpl();
+					System.out.println("1111111111111111  1130679835206840295");
+					BigInteger id=new BigInteger("1130679835206840295");
+				    Query q;
+				    System.out.println("222222222222222");
+				   q = em.createNamedQuery("Role.getRole", Role.class);
+				   System.out.println("q:::"+q);
+				//   q.setParameter(1,id);
+				  
+				   System.out.println(">>>>>>>>>>>");
+				   @SuppressWarnings("unchecked")
+				List<Role> roleList=q.getResultList();
+				   System.out.println("rolelist-size:"+roleList.size());
+				  
+				  
+					String result=null;
+					System.out.println("size:"+q.getResultList().size());
+					resultList.addItems(roleList);
+				    JSONObject	jsonObject = JSONObject.fromObject(resultList);
+				    System.out.println("q.getResultList():"+jsonObject.toString());
+				   result=jsonObject.toString();
+			 	return result;
+
+				});
+		
+			
+			
+				
+		
+			
+	}
+
+  
+
 }

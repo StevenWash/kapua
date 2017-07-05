@@ -31,7 +31,13 @@ public class RestApisApplication extends ResourceConfig {
                 "org.eclipse.kapua.service.account",
                 "org.eclipse.kapua.service.account.internal",
                 "org.eclipse.kapua.service.user",
-                "org.eclipse.kapua.service.user.internal");
+                "org.eclipse.kapua.service.user.internal",
+                "org.eclipse.kapua.service.weather",
+                "org.eclipse.kapua.service.weather.internal",
+                "org.eclipse.kapua.service.apkInfo",
+                "org.eclipse.kapua.service.apkInfo.internal",
+                "net.bestidear.api"
+                );
 
         // Bind media type to resource extension
         HashMap<String, MediaType> mappedMediaTypes = new HashMap<>();

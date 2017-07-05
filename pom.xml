@@ -326,7 +326,7 @@
                         </dependency>
                     </dependencies>
                 </plugin>
-                <plugin>
+               <!-- <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${checkstyle-maven-plugin.version}</version>
@@ -349,7 +349,7 @@
                         <includeTestResources>true</includeTestResources>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     </configuration>
-                </plugin>
+                </plugin>  -->
             </plugins>
         </pluginManagement>
         <plugins>
@@ -381,7 +381,7 @@
                     <!-- no argLine here -->
                 </configuration>
             </plugin>
-            <plugin>
+         <!--   <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <executions>
@@ -393,7 +393,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>   -->
         </plugins>
     </build>
 
@@ -565,6 +565,9 @@
                 <artifactId>kapua-account-internal</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            
+            
+            
             <dependency>
                 <groupId>org.eclipse.kapua</groupId>
                 <artifactId>kapua-simulator-kura</artifactId>
@@ -909,6 +912,8 @@
                 <version>${dropwizard.version}</version>
             </dependency>
 
+			
+			
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
@@ -938,17 +943,17 @@
         <module>qa</module>
         <module>qa-openshift</module>
 
-        <module>sso</module>
+       <!--  <module>sso</module> -->
 
         <!-- Applications -->
-        <module>console</module>
+      <!--  <module>console</module>   -->
         <module>rest-api</module>
 
         <!-- Simulator framework -->
         <module>simulator-kura</module>
 
         <!-- Assembly -->
-        <module>assembly</module>
+       <!--  <module>assembly</module>-->
 
         <module>dev-tools</module>
     </modules>

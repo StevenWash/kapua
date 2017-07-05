@@ -33,6 +33,8 @@
         <module>user</module>
         <module>account</module>
         <module>liquibase</module>
+        <module>weather</module>
+        <module>apkInfo</module>
     </modules>
 
 </project>
