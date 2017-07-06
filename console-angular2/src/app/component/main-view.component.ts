@@ -38,6 +38,9 @@ export class MainViewComponent{
   private cliUserCredentials:Credential[];
   private userCredential=new Credential();
   private showPassInput:boolean=false;//再添加用户密码的时候判断是否显示密码输入框
+  private cliUserCredential:Credential;
+  private delUserCredentialId:string;
+  private userRoles:RoleInfo[];
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
@@ -48,7 +51,7 @@ export class MainViewComponent{
   private cliRole:RoleInfo;
   private inputRolename:string;
 
-  private rolePermission:RolePermissionInfo[];
+  private rolePermissions:RolePermissionInfo[];
 
   //--------group相关的变量信息--------//
   private groupInfos:GroupInfo[];
@@ -72,6 +75,8 @@ export class MainViewComponent{
   //--------device connection相关的变量信息--------//
   private cliConnection:DeviceConnection;
   private deviceConnections:DeviceConnection[];
+  private inputDeviceConnClientId:string;
+  private inputDeviceConnClientStatus:string;
 
 
   //--------account相关的变量信息--------//
@@ -81,6 +86,12 @@ export class MainViewComponent{
   private delAccountId:string;
   private cliAccount:AccountInfo=new AccountInfo();
   private inputAccountName:string;
+  private accountUsers:UserInfo[];
+  private accountUser:UserInfo;
+  private accoptlock:number;
+  private aAccountUser:UserInfo=new UserInfo();
+  private aAccountCredential:Credential=new Credential();
+  private delAccUserId:string;
 
 
   /**
@@ -187,7 +198,7 @@ export class MainViewComponent{
       this.aCredential.credentialKey=this.aCredential.password;
 
       console.log(this.aCredential);
-      this.userListService.addCredentials(this.aCredential).subscribe((result) => {
+      this.userListService.addCredential(this.aCredential).subscribe((result) => {
         console.log(result);
       });
 
@@ -219,6 +230,41 @@ export class MainViewComponent{
   }
 
   /**
+   * 根据用户id获取该用户的所有的密码信息
+   * @param userInfo
+   */
+  getUserCredentials(userId:string){
+    this.userListService.getCredentialsByUserId(userId).subscribe((result) => {
+      console.log(result);
+      this.cliUserCredentials=result.items.item;
+    });
+  }
+
+  /**
+   * 通过userId获取所有的角色信息
+   * @param userId
+   */
+  getUserRolesByUserId(userId:string){
+    this.userListService.getRolesByUserId(userId).subscribe((result) => {
+      this.userRoles=result;
+      let index=result.length;
+      for(var i=0;i<index;i++){
+
+        var date = new Date(this.userRoles[i][2].time);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+
+        this.userRoles[i][2]=Y+M+D+h+m+s;
+      }
+      console.log(this.userRoles);
+    });
+  }
+
+  /**
    * 用户信息被点击之后触发的函数
    * @param userInfo
    */
@@ -227,14 +273,13 @@ export class MainViewComponent{
     console.log(this.cliUser);
 
     //根据该点击用户的id获取点击用户的所有密码信息
-    this.userListService.getCredentialsByUserId(userInfo.id).subscribe((result) => {
-      console.log(result);
-      this.cliUserCredentials=result.items.item;
-    });
+    this.getUserCredentials(this.cliUser.id);
 
-   /* this.userListService.getRolesByUserId(userInfo.id).subscribe((result) => {
-      console.log(result);
-    });*/
+    //根据用户的userId获取当前用户的角色信息
+    this.getUserRolesByUserId(this.cliUser.id);
+
+    //根据用户的角色信息获取用户的权限信息
+
   }
 
   /**
@@ -245,17 +290,23 @@ export class MainViewComponent{
     this.getUserList();
   }
 
+  /**
+   * 添加用户的密码信息
+   */
   submitUserCredential(){
     console.log(this.userCredential);
     if(this.userCredential.password==this.userCredential.repassword){
       console.log("提交密码")
       console.log(this.cliUser);
+
       this.userCredential.userId=this.cliUser.id;
       this.userCredential.credentialKey=this.userCredential.password;
 
       console.log(this.userCredential);
-      this.userListService.addCredentials(this.userCredential).subscribe((result) => {
+      this.userListService.addCredential(this.userCredential).subscribe((result) => {
         console.log(result);
+        //根据该点击用户的id获取点击用户的所有密码信息
+        this.getUserCredentials(this.cliUser.id);
       });
     }
   }
@@ -264,18 +315,59 @@ export class MainViewComponent{
    * 设置密码的类型
    * @param value
    */
-  setUserCredentialType(value:string){
-    console.log("value:"+value);
-    if(value=="PASSWORD"){
+  setUserCredentialType(){
+    if(this.userCredential.credentialType=="PASSWORD"){
       console.log("设置密码");
-      this.userCredential.credentialType='PASSWORD';
       this.showPassInput=true;
     }else{
       console.log("设置API_KEY");
-      this.userCredential.credentialType='API_KEY';
       this.showPassInput=false;
     }
     console.log(this.userCredential.credentialType);
+  }
+
+  /**
+   * 这是点击的用户的密码信息
+   * @param userCredentialInfo
+   */
+  getUserCredentialInfo(userCredentialInfo:Credential){
+    this.cliUserCredential=userCredentialInfo;
+  }
+
+  /**
+   * 提交用户的修改密码信息
+   */
+  submitUpdateUserCredential(){
+    console.log(this.cliUserCredential);
+    if(this.cliUserCredential.password==this.cliUserCredential.repassword){
+      this.cliUserCredential.credentialKey=this.cliUserCredential.password;
+
+      console.log(this.cliUserCredential);
+      this.userListService.updateCredential(this.cliUserCredential).subscribe((result) => {
+        console.log(result);
+        //根据该点击用户的id获取点击用户的所有密码信息
+        this.getUserCredentials(this.cliUser.id);
+      });
+    }
+  }
+
+  /**
+   * 获取点击之后的用户密码的id
+   * @param userCredential
+   */
+  getUserCredentialId(userCredential:Credential){
+    this.delUserCredentialId=userCredential.id;
+  }
+
+  /**
+   * 删除该条用户的密码信息
+   */
+  deleteUserCredential(){
+    console.log(this.delUserCredentialId);
+    this.userListService.deleteUserCredential(this.delUserCredentialId).subscribe((result) => {
+      console.log(result);
+      this.getUserCredentials(this.cliUser.id);
+    });
   }
 
 
@@ -351,11 +443,16 @@ export class MainViewComponent{
     });
   }
 
-
+  /**
+   * 在用户界面点击添加角色之后的设置角色信息
+   */
   setRole(){
     this.userrole=this.role;
   }
 
+  /**
+   * 在用户界面点击添加角色信息之后提交角色信息
+   */
   submitRole(){
     console.log(this.userrole);
   }
@@ -371,8 +468,8 @@ export class MainViewComponent{
     //获取当前角色的所有权限信息
     this.roleService.getRolePermissionByRole(this.cliRole.id).subscribe((result) => {
       console.log(result);
-      this.rolePermission=result.items.item;
-      console.log(this.rolePermission);
+      this.rolePermissions=result.items.item;
+      console.log(this.rolePermissions);
     });
 
     //获取当前所有的domain信息
@@ -394,7 +491,9 @@ export class MainViewComponent{
    * 得到所有的设备连接信息
    */
   getDeviceConnection(){
-    this.deviceConnectionService.getDeviceConnection().subscribe((result) => {
+    console.log(this.inputDeviceConnClientId+"  "+this.inputDeviceConnClientStatus);
+
+    this.deviceConnectionService.getDeviceConnection(this.inputDeviceConnClientId,this.inputDeviceConnClientStatus).subscribe((result) => {
       console.log(result);
       this.deviceConnections=result.items.item;
     });
@@ -408,6 +507,15 @@ export class MainViewComponent{
     this.cliConnection=deviceConnection;
     console.log(this.cliConnection);
 
+  }
+
+  /**
+   * 点击重置按钮之后的操作事件
+   */
+  resetInputDeviceConn(){
+    this.inputDeviceConnClientId=null;
+    this.inputDeviceConnClientStatus=null;
+    this.getDeviceConnection();
   }
 
 
@@ -493,6 +601,15 @@ export class MainViewComponent{
   clickDevice(deviceInfo:DeviceInfo){
     this.cliDevice=deviceInfo;
     console.log(this.cliDevice);
+  }
+
+  /**
+   * 点击充值按钮之后的处理过程
+   */
+  resetInputDevice(){
+    this.inputDeviceConStatus=null;
+    this.inputDeviceClientId=null;
+    this.getDevices();
   }
 
 
@@ -665,10 +782,95 @@ export class MainViewComponent{
   }
 
   /**
+   * 通过accounId来获取当前账号下的所有的用户信息
+   * @param accountId
+   */
+  getAccountUsers(accountId:string){
+    this.accountService.getAccountUsers(accountId).subscribe((result) => {
+      console.log(result);
+      this.accountUsers=result.items.item;
+    });
+  }
+
+  /**
    * 获取当前用户点击的账号信息
    * @param accountInfo
    */
   clickAccount(accountInfo:AccountInfo){
     this.cliAccount=accountInfo;
+    console.log(this.cliAccount);
+
+    //获得当前点击账号的用户信息
+    this.getAccountUsers(this.cliAccount.id);
+  }
+
+  /**
+   * 获取在Account下用户点击用户信息
+   * @param accountUser
+   */
+  getAccountUserInfo(accountUser:UserInfo){
+    this.accountUser=accountUser;
+  }
+
+  /**
+   * 更新账号下的用户信息
+   */
+  updateAccountUser(){
+    console.log("optlock1:"+this.accountUser.optlock);
+    if(this.accoptlock==this.accountUser.optlock+1){
+      this.accountUser.optlock+=1;
+    }
+    this.userListService.updateUserById(this.accountUser.id,this.accountUser).subscribe((result) => {
+      this.accountUser=result;
+      this.accoptlock=this.accountUser.optlock;
+      console.log("optlock2:"+this.accountUser.optlock)
+      console.log(result);
+      this.getAccountUsers(this.cliAccount.id);
+      this.router.navigate(['/home/account']);
+    });
+  }
+
+  /**
+   * 添加用户
+   */
+  addAccountUser(){
+    console.log(this.aAccountUser);
+    console.log(this.aAccountCredential);
+
+    this.accountService.addAccountUser(this.cliAccount.id,this.aAccountUser).subscribe((result) => {
+      console.log(result);
+
+      this.aAccountCredential.userId=result.id;
+      this.aAccountCredential.credentialType="PASSWORD";
+      this.aAccountCredential.credentialKey=this.aAccountCredential.password;
+
+      console.log(this.aAccountCredential);
+      this.accountService.addAccountCredential(this.cliAccount.id,this.aAccountCredential).subscribe((result) => {
+        console.log(result);
+      });
+
+      this.getAccountUsers(this.cliAccount.id);
+      this.router.navigate(['/home/account']);
+    });
+  }
+
+  /**
+   * 获取将要删除的用户的id
+   * @param userInfo
+   */
+  getAccountUserId(userInfo:UserInfo){
+    this.delAccUserId=userInfo.id;
+  }
+
+  /**
+   * 删除账号下的用户信息
+   */
+  deleteAccountUser(){
+    console.log(this.delAccUserId);
+    this.accountService.deleteAccountUser(this.cliAccount.id,this.delAccUserId).subscribe((result) => {
+      console.log(result);
+      this.getAccountUsers(this.cliAccount.id);
+      this.router.navigate(['/home/account']);
+    });
   }
 }

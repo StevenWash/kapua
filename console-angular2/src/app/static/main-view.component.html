@@ -123,8 +123,15 @@
                     <div class="col-xs-8">
                       <label >ClientId:&nbsp;&nbsp;</label>
                       <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputDeviceClientId">&nbsp;&nbsp;
-                      <label >Con-Status:&nbsp;&nbsp;</label>
-                      <input type="text" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputDeviceConStatus">
+                      <label >DevStatus:&nbsp;&nbsp;</label>
+
+                      <select  class="form-control" [(ngModel)]="inputDeviceConStatus"
+                                id="inputDeviceConStatus">
+                        <option value="">ANY</option>
+                        <option value="ENABLED">ENABLED</option>
+                        <option value="DISENABLED">DISENABLED</option>
+                      </select>
+
                       <button class="btn btn-white btn-xs" (click)="getDevices()">Search</button>
                       <button class="btn btn-white btn-xs" (click)="resetInputDevice()">Reset</button>
                     </div>
@@ -663,10 +670,18 @@
 
                   <div class="check-div form-inline">
                     <div class="col-xs-8">
-                      <label>ClientId:&nbsp;&nbsp;</label><input type="text" id="clientId" class="form-control input-sm" placeholder="input...">&nbsp;&nbsp;
-                      <label>Connect Status:&nbsp;&nbsp;</label><input type="text" id="connectStatus" class="form-control input-sm" placeholder="input...">
-                      <button class="btn btn-white btn-xs ">&nbsp;Search </button>
-                      <button class="btn btn-white btn-xs ">Reset </button>
+                      <label>ClientId:&nbsp;&nbsp;</label><input type="text" id="devconnClientId" class="form-control input-sm" placeholder="input..." [(ngModel)]="inputDeviceConnClientId">&nbsp;&nbsp;
+                      <label>ConStatus:&nbsp;&nbsp;</label>
+                      <select  class="form-control" [(ngModel)]="inputDeviceConnClientStatus"
+                               id="devConnectStatus">
+                        <option value="">ANY</option>
+                        <option value="CONNECTED">CONNECTED</option>
+                        <option value="DISCONNECTED">DISCONNECTED</option>
+                        <option value="MISSING">MISSING</option>
+                      </select>
+
+                      <button class="btn btn-white btn-xs " (click)="getDeviceConnection()">&nbsp;Search </button>
+                      <button class="btn btn-white btn-xs " (click)="resetInputDeviceConn()">Reset </button>
                     </div>
                     <div class="col-lg-3 col-lg-offset-1 col-xs-4" style=" padding-right: 40px;text-align: right;">
                       <label for="paixu">Order By:&nbsp;</label>
@@ -1144,6 +1159,7 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
+                                  <!--user description-->
                                   <div role="tabpanel" class="tab-pane active" id="userDescription">
                                     <div class="data-div">
                                       <div class="row tableHeader">
@@ -1183,6 +1199,9 @@
 
                                     </div>
                                   </div>
+                                  <!--end/ user description-->
+
+                                  <!--user roles-->
                                   <div role="tabpanel" class="tab-pane" id="userroles">
                                     <ul class="nav nav-pills">
                                       <li role="presentation" class="active"><a href="#addUserRole" data-toggle="modal">Add</a></li>
@@ -1195,11 +1214,11 @@
                                         <div class="col-xs-4 ">CreateOn</div>
                                         <div class="col-xs-1"></div>
                                       </div>
-                                      <div class="tablebody">
+                                      <div class="tablebody" *ngFor="let userRole of userRoles">
                                         <div class="row">
-                                          <div class="col-xs-2 ">Name</div>
-                                          <div class="col-xs-4 ">CreateBy</div>
-                                          <div class="col-xs-4 ">CreateOn</div>
+                                          <div class="col-xs-2 ">{{userRole[6]}}</div>
+                                          <div class="col-xs-4 ">{{userRole[3]}}</div>
+                                          <div class="col-xs-4 ">{{userRole[2]}}</div>
                                           <div class="col-xs-1">
                                             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                                           </div>
@@ -1209,6 +1228,9 @@
 
                                     </div>
                                   </div>
+                                  <!--end/ user roles-->
+
+                                  <!--permissions-->
                                   <div role="tabpanel" class="tab-pane" id="permissions">
                                     <ul class="nav nav-pills">
                                       <li role="presentation" class="active"><a href="#">Add</a></li>
@@ -1244,6 +1266,9 @@
                                     </div>
 
                                   </div>
+                                  <!--end/ permissions-->
+
+                                  <!--credentials-->
                                   <div role="tabpanel" class="tab-pane" id="credentials">
                                     <ul class="nav nav-pills">
                                       <li role="presentation" class="active"><a href="#addUserCredential" data-toggle="modal">Add</a></li>
@@ -1254,10 +1279,10 @@
                                       <div class="row tableHeader">
                                         <div class="col-xs-1 ">Status</div>
                                         <div class="col-xs-2 ">Username</div>
-                                        <div class="col-xs-2">CredentialType</div>
+                                        <div class="col-xs-1">CredentialType</div>
                                         <div class="col-xs-2">ExpirationDate </div>
                                         <div class="col-xs-2">CreateOn</div>
-                                        <div class="col-xs-1">CreateBy</div>
+                                        <div class="col-xs-2">CreateBy</div>
                                         <div class="col-xs-1"></div>
                                         <div class="col-xs-1"></div>
                                       </div>
@@ -1266,19 +1291,20 @@
                                           <div class="col-xs-1 " *ngIf="userCredentialInfo.status" >{{userCredentialInfo.status}}</div>
                                           <div class="col-xs-1 " *ngIf="!userCredentialInfo.status" >ENABLE</div>
                                           <div class="col-xs-2 ">{{cliUser.name}}</div>
-                                          <div class="col-xs-2">{{userCredentialInfo.credentialType}}</div>
+                                          <div class="col-xs-1">{{userCredentialInfo.credentialType}}</div>
                                           <div class="col-xs-2">{{userCredentialInfo.expirationDate}}</div>
                                           <div class="col-xs-2">{{userCredentialInfo.createdOn}}</div>
-                                          <div class="col-xs-1">{{userCredentialInfo.createdBy}}</div>
+                                          <div class="col-xs-2">{{userCredentialInfo.createdBy}}</div>
                                           <div class="col-xs-2">
-                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUserCredential" (click)="getUserCredentialInfo(userCredentialInfo)">Update</button>
-                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
+                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateUserCredential" (click)="getUserCredentialInfo(userCredentialInfo)">Update</button>
+                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUserCredential" (click)="getUserCredentialId(userCredentialInfo)">Delete</button>
                                           </div>
                                         </div>
                                       </div>
 
                                     </div>
                                   </div>
+                                  <!--end/credentials-->
                                 </div>
 
                               </div>
@@ -1306,9 +1332,8 @@
                               <div class="form-group">
                                 <label for="credentialType" class="col-xs-4 control-label">Credential Type：</label>
                                 <div class="col-xs-8">
-                                  <select  class="form-control duiqi" id="credentialType" #t name="credentialType" #credentialType="ngModel" [(ngModel)]="userCredential.credentialType"
-                                            (ngModelChange)="userCredential=$event;setUserCredentialType(t.value)">
-                                    <option value="" selected="selected">select ...</option>
+                                  <select  class="form-control duiqi" id="credentialType"  name="credentialType" #credentialType="ngModel" [(ngModel)]="userCredential.credentialType"
+                                            (ngModelChange)="user=$event;setUserCredentialType()">
                                     <option value="PASSWORD">PASSWORD </option>
                                     <option value="API_KEY">API_KEY </option>
                                   </select>
@@ -1363,6 +1388,106 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
                           <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="submitUserCredential()">Submit</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                  <!--弹出修改用户密码窗口-->
+                  <div class="modal fade" id="updateUserCredential" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h5 class="modal-title" id="gridSystemModalLabel">Update UserCredential</h5>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            <form class="form-horizontal" #userForm="ngForm" novalidate *ngIf="cliUserCredential&&cliUser">
+                              <div class="form-group">
+                                <label for="updateCredentialType" class="col-xs-4 control-label">Credential Type：</label>
+                                <div class="col-xs-8">
+                                  <input type="text" name="credentialType" class="form-control input-sm duiqi" id="updateCredentialType"
+                                         placeholder="" disabled="disabled" value="{{cliUserCredential.credentialType}}">
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="updateSubject" class="col-xs-4 control-label">Subject：</label>
+                                <div class="col-xs-8">
+                                  <input type="text" name="subject" class="form-control input-sm duiqi" id="updateSubject"
+                                         placeholder="" disabled="disabled" value="{{cliUser.name}}">
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="updateUserPassword" class="col-xs-4 control-label">Password：</label>
+                                <div class="col-xs-8">
+                                  <input type="password" name="password" [(ngModel)]="cliUserCredential.password" #password="ngModel"
+                                         required  minlength="6" maxlength="16" class="form-control input-sm duiqi " id="updateUserPassword"
+                                         placeholder="" validateEqual="repassword" reverse="true">
+                                  <span *ngIf="password.pristine" class="label label-primary">未修改</span>
+                                  <span *ngIf="password.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="password.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10 ">
+                                  <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                                    <p *ngIf="password.errors?.minlength">minlength is 6</p>
+                                    <p *ngIf="password.errors?.maxlength">maxlength is 16</p>
+                                    <p *ngIf="password.errors?.required">password required</p>
+                                    <p *ngIf="userForm.controls.mobile?.errors?.validatePassword">密码格式不对</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="updateReUserPassword" class="col-xs-4 control-label">Re-Password：</label>
+                                <div class="col-xs-8 ">
+                                  <input type="password" name="repassword" [(ngModel)]="cliUserCredential.repassword"
+                                         class="form-control input-sm duiqi " #repassword="ngModel" required
+                                         validateEqual="password" minlength="6" maxlength="16" id="updateReUserPassword"  placeholder="">
+                                  <span *ngIf="repassword.pristine" class="label label-primary ">未修改</span>
+                                  <span *ngIf="repassword.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="repassword.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="repassword.valid || repassword.pristine" class="alert alert-danger">
+                                    <p >两次密码不一致</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                          <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="submitUpdateUserCredential()">Submit</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                  <!--弹出删除用户密码警告窗口-->
+                  <div class="modal fade" id="deleteUserCredential" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            确定要删除该用户的该条密码信息？删除后不可恢复！
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                          <button type="button" class="btn  btn-xs btn-danger" (click)="deleteUserCredential()" data-dismiss="modal">确 定</button>
                         </div>
                       </div>
                       <!-- /.modal-content -->
@@ -1596,7 +1721,7 @@
                                     </div>
 
                                     <div role="tabpanel" class="tab-pane" id="rolePermissions">
-                                      <ul class="nav nav-pills" *ngIf="rolePermission">
+                                      <ul class="nav nav-pills" *ngIf="rolePermissions">
                                         <li role="presentation" class="active">
                                           <a href="#addRolePermission" data-toggle="modal">Add</a>
                                         </li>
@@ -1615,7 +1740,7 @@
                                         </div>
                                         <div class="tablebody">
 
-                                          <div class="row" *ngFor="let rolepermission of rolePermission">
+                                          <div class="row" *ngFor="let rolepermission of rolePermissions">
                                             <div class="col-xs-1" *ngIf="rolepermission.permission.domain">{{rolepermission.permission}}</div>
                                             <div class="col-xs-1" *ngIf="!rolepermission.permission.domain">ALL</div>
                                             <div class="col-xs-1" *ngIf="rolepermission.permission.action">{{rolepermission.permission.action}}</div>
@@ -1696,7 +1821,7 @@
                                   <label for="domain" class="col-xs-4 control-label">Domain：</label>
                                   <div class="col-xs-8 ">
                                     <select id="domain" class="form-control duiqi" name="domain" [(ngModel)]="domain"  (ngModelChange)="domain=$event;setDomain()">
-                                      <option value="">ALL</option>
+                                      <option value="" class="active">ALL</option>
                                       <option  *ngFor="let item of domains" >{{item.name}} </option>
                                     </select>
                                   </div>
@@ -1705,7 +1830,7 @@
                                   <label for="action" class="col-xs-4 control-label">Action：</label>
                                   <div class="col-xs-8 ">
                                     <select id="action" class="form-control duiqi" name="action" [(ngModel)]="action"  (ngModelChange)="action=$event;setAction()">
-                                      <option value="">ALL</option>
+                                      <option value="" class="active">ALL</option>
                                       <option value="read">read</option>
                                       <option value="write">write</option>
                                       <option value="delete">delete</option>
@@ -1718,7 +1843,7 @@
                                   <label for="group" class="col-xs-4 control-label">Group：</label>
                                   <div class="col-xs-8 ">
                                     <select id="roleGroup" class="form-control duiqi" name="group" [(ngModel)]="group"  (ngModelChange)="group=$event;setGroup()">
-                                      <option value="">ALL</option>
+                                      <option value=""class="active">ALL</option>
                                       <option *ngFor="let item of groupInfos" >{{item.name}} </option>
                                     </select>
                                   </div>
@@ -2768,7 +2893,6 @@
                   </div>
                   <!-- /.modal -->
 
-
                   <!--在角色界面点击角色信息之后再下面显示角色的详细信-->
                   <div class="panel panel-default info">
                     <div class="panel-body">
@@ -2869,41 +2993,39 @@
                                   </div>
 
                                   <div role="tabpanel" class="tab-pane" id="accountUsers">
-                                    <ul class="nav nav-pills" *ngIf="rolePermission">
+                                    <ul class="nav nav-pills" *ngIf="cliAccount">
                                       <li role="presentation" class="active">
-                                        <a href="#addRolePermission" data-toggle="modal">Add</a>
+                                        <a href="#addAccountUser" data-toggle="modal">Add</a>
                                       </li>
-                                      <li role="presentation"><a href="">Delete</a></li>
                                       <li role="presentation"><a href="">Refresh</a></li>
                                     </ul>
                                     <div class="data-div">
                                       <div class="row tableHeader">
-                                        <div class="col-xs-1">Domain</div>
-                                        <div class="col-xs-1">Action</div>
-                                        <div class="col-xs-2">Target GroupId</div>
-                                        <div class="col-xs-2">Target ScopeId</div>
-                                        <div class="col-xs-2">Forwardable</div>
-                                        <div class="col-xs-1">AddBy</div>
-                                        <div class="col-xs-3">AddOn </div>
+                                        <div class="col-xs-1 col-lg-1">Status</div>
+                                        <div class="col-xs-1 col-lg-1">Name</div>
+                                        <div class="col-xs-1 col-lg-1">DisplayName</div>
+                                        <div class="col-xs-1 col-lg-2">Phone Number </div>
+                                        <div class="col-xs-2 col-lg-2">Email</div>
+                                        <div class="col-xs-1 col-lg-1">CreatedBy</div>
+                                        <div class="col-xs-3 col-lg-2">CreateOn </div>
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-1"></div>
                                       </div>
-                                      <div class="tablebody">
-
-                                        <div class="row" *ngFor="let rolepermission of rolePermission">
-                                          <div class="col-xs-1" *ngIf="rolepermission.permission.domain">{{rolepermission.permission}}</div>
-                                          <div class="col-xs-1" *ngIf="!rolepermission.permission.domain">ALL</div>
-                                          <div class="col-xs-1" *ngIf="rolepermission.permission.action">{{rolepermission.permission.action}}</div>
-                                          <div class="col-xs-1" *ngIf="!rolepermission.permission.action">ALL</div>
-                                          <div class="col-xs-2" *ngIf="rolepermission.permission.groupId">{{rolepermission.permission.groupId}}</div>
-                                          <div class="col-xs-2" *ngIf="!rolepermission.permission.groupId">ALL</div>
-                                          <div class="col-xs-2" *ngIf="rolepermission.permission.targetScopeId">{{rolepermission.permission.targetScopeId}}</div>
-                                          <div class="col-xs-2" *ngIf="!rolepermission.permission.targetScopeId">ALL</div>
-                                          <div class="col-xs-2" *ngIf="rolepermission.permission.forwardable">Yes</div>
-                                          <div class="col-xs-2" *ngIf="!rolepermission.permission.forwardable">No</div>
-                                          <div class="col-xs-1">{{rolepermission.createdBy}}</div>
-                                          <div class="col-xs-3">{{rolepermission.createdOn}}</div>
+                                      <div *ngFor="let userInfo of accountUsers" class="tablebody text-nowrap">
+                                        <div class="row">
+                                          <div class="col-xs-1 col-lg-1">{{userInfo.status}}</div>
+                                          <div class="col-xs-1 col-lg-1">{{userInfo.name}}</div>
+                                          <div class="col-xs-1 col-lg-1 text-nowrap">{{userInfo.displayName}}</div>
+                                          <div class="col-xs-1 col-lg-2">{{userInfo.phoneNumber}}</div>
+                                          <div class="col-xs-2 col-lg-2 text-nowrap">{{userInfo.email}}</div>
+                                          <div class="col-xs-1 col-lg-1">{{userInfo.createdBy}}</div>
+                                          <div class="col-xs-3 col-lg-2 text-nowrap">{{userInfo.createdOn}}</div>
+                                          <div class="col-xs-2">
+                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateAccountUser" (click)="getAccountUserInfo(userInfo)">Update</button>
+                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteAccountUser" (click)="getAccountUserId(userInfo)">Delete</button>
+                                          </div>
                                         </div>
                                       </div>
-
                                     </div>
 
                                   </div>
@@ -2954,6 +3076,205 @@
                     </div>
                   </div>
 
+                  <!--弹出添加某账号的用户窗口-->
+                  <div class="modal fade" id="addAccountUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="gridSystemModalLabel">Add User</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            <form class="form-horizontal" #userForm="ngForm" novalidate *ngIf="aAccountUser&&aAccountCredential">
+                              <div class="form-group ">
+                                <label for="addAccUsername" class="col-xs-4 control-label">Username：</label>
+                                <div class="col-xs-8 ">
+                                  <input type="text"  name="name" [(ngModel)]="aAccountUser.name" #name="ngModel"
+                                         required minlength="2" maxlength="15" class="form-control input-sm duiqi " id="addAccUsername" >
+                                  <span *ngIf="name.pristine" class="label label-primary ">未修改</span>
+                                  <span *ngIf="name.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="name.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                    <p *ngIf="name.errors?.minlength">姓名最小长度为3</p>
+                                    <p *ngIf="name.errors?.required">必须输入姓名</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="password" class="col-xs-4 control-label">Password：</label>
+                                <div class="col-xs-8">
+                                  <input type="accPassword" name="password" [(ngModel)]="aAccountCredential.password" #password="ngModel"
+                                         required  minlength="6" maxlength="16" class="form-control input-sm duiqi " id="accPassword"
+                                         placeholder="" validateEqual="repassword" reverse="true">
+                                  <span *ngIf="password.pristine" class="label label-primary ">未修改</span>
+                                  <span *ngIf="password.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="password.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                                    <p *ngIf="password.errors?.minlength">minlength is 6</p>
+                                    <p *ngIf="password.errors?.maxlength">maxlength is 16</p>
+                                    <p *ngIf="password.errors?.required">password required</p>
+                                    <p *ngIf="userForm.controls.mobile?.errors?.validatePassword">密码格式不对</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="accRePassword" class="col-xs-4 control-label">Re-Password：</label>
+                                <div class="col-xs-8 ">
+                                  <input type="password" name="repassword" [(ngModel)]="aAccountCredential.repassword"
+                                         class="form-control input-sm duiqi " #repassword="ngModel" required
+                                         validateEqual="password" minlength="6" maxlength="16" id="accRePassword"  placeholder="">
+                                  <span *ngIf="repassword.pristine" class="label label-primary ">未修改</span>
+                                  <span *ngIf="repassword.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="repassword.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="repassword.valid || repassword.pristine" class="alert alert-danger">
+                                    <p >两次密码不一致</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="addAccDisplayName" class="col-xs-4 control-label">Display Name：</label>
+                                <div class="col-xs-8">
+                                  <input type="text"  name="displayName" [(ngModel)]="aAccountUser.displayName" #displayName="ngModel" required
+                                         minlength="2" maxlength="15" class="form-control input-sm duiqi " id="addAccDisplayName" placeholder="">
+                                  <span *ngIf="displayName.pristine" class="label label-primary ">未修改</span>
+                                  <span *ngIf="displayName.dirty" class="label label-warning ">已修改</span>
+                                  <span *ngIf="displayName.valid" class="label label-success ">有效</span>
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="displayName.valid || displayName.pristine" class="alert alert-danger">
+                                    <p *ngIf="displayName.errors?.minlength">姓名最小长度为2</p>
+                                    <p *ngIf="displayName.errors?.required">必须输入姓名</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="addAccEmail" class="col-xs-4 control-label">Email：</label>
+                                <div class="col-xs-8">
+                                  <input type="email"  name="email" [(ngModel)]="aAccountUser.email" required
+                                         #email="ngModel"
+                                         class="form-control input-sm duiqi"  id="addAccEmail" placeholder="">
+                                </div>
+                                <div  class="col-xs-10">
+                                  <div [hidden]="email.valid || email.pristine " class="alert alert-danger">
+                                    Email is required and format should be <i>john@doe.com</i>.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="addAccPhone" class="col-xs-4 control-label">Phone：</label>
+                                <div class="col-xs-8">
+                                  <input type="text" name="mobile" [(ngModel)]="aAccountUser.phoneNumber" #mobile="ngModel"
+                                         required minlength="11" maxlength="11" validateMobile class="form-control input-sm duiqi"
+                                         id="addAccPhone" placeholder="">
+                                  <span *ngIf="userForm.controls.mobile?.pristine" class="label label-primary">未修改</span>
+                                  <span *ngIf="userForm.controls.mobile?.dirty" class="label label-warning">已修改</span>
+                                  <span *ngIf="userForm.controls.mobile?.valid" class="label label-success">有效</span>
+                                </div>
+                                <div class="col-xs-10">
+                                  <div [hidden]="userForm.controls.mobile?.valid || userForm.controls.mobile?.pristine" class="alert alert-danger">
+                                    <p *ngIf="userForm.controls.mobile?.errors?.minlength">电话长度必须为11</p>
+                                    <p *ngIf="userForm.controls.mobile?.errors?.required">必须输入电话</p>
+                                    <p *ngIf="userForm.controls.mobile?.errors?.validateMobile">电话号码格式不正确</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                          <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="addAccountUser()">Save</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                  <!--弹出修改某账号的用户窗口-->
+                  <div class="modal fade" id="updateAccountUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="gridSystemModalLabel">Update AccountUser</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            <form class="form-horizontal" *ngIf="accountUser" #userForm="ngForm" (ngSubmit)="updateUser(userForm)">
+                              <div class="form-group ">
+                                <label for="username" class="col-xs-4 control-label">* &nbsp;Username：</label>
+                                <div class="col-xs-8">
+                                  <input type="text"  [(ngModel)]="accountUser.name" name="username" class="form-control input-sm duiqi" id="accounUsername" disabled="disabled">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="displayName" class="col-xs-4 control-label">Display Name：</label>
+                                <div class="col-xs-8 ">
+                                  <input type="text" [(ngModel)]="accountUser.displayName" name="displayName" class="form-control input-sm duiqi" id="accountDisplayName" placeholder="">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="email" class="col-xs-4 control-label">Email：</label>
+                                <div class="col-xs-8">
+                                  <input  type="text" [(ngModel)]="accountUser.email" name="email" class="form-control input-sm duiqi" id="accountEmail" placeholder="">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="phone" class="col-xs-4 control-label">Phone：</label>
+                                <div class="col-xs-8">
+                                  <input type="text" [(ngModel)]="accountUser.phoneNumber" name="phoneNumber" class="form-control input-sm duiqi" id="accountPhone" placeholder="">
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
+                                <button type="submit" class="btn btn-xs btn-green" (click)="updateAccountUser()" data-dismiss="modal">Save</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                  <!--弹出删除某账号的用户警告窗口-->
+                  <div class="modal fade" id="deleteAccountUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            确定要删除该用户？删除后不可恢复！
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                          <button type="button" class="btn  btn-xs btn-danger" (click)="deleteAccountUser()" data-dismiss="modal">确 定</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
                 </div>
 
                 <!--座位管理模块-->

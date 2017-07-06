@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {Http,Headers} from "@angular/http";
 import {AccountInfo} from "../module/account-info.module";
 import {HostInfo} from "../module/host.info.modeule";
+import {UserInfo} from "../module/user-info.module";
+import {Credential} from "../module/creditial.module";
 /**
  * Created by StevenWash on 2017/6/28.
  */
@@ -95,6 +97,85 @@ export class AccountService{
     let scopeId = localStorage.getItem('scopeId');
 
     this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accounts/'+accountId;
+    return this.http.delete(this.accountUrl,{ headers: headers });
+  }
+
+  /**
+   * 获得在某个accounId下的所有的用户信息
+   * @param accountId
+   * @returns {Observable<R>}
+   */
+  getAccountUsers(accountId:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = accountId;
+
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users';
+
+    return this.http.get(this.accountUrl,{ headers: headers }).map(res => res.json());
+  }
+
+  /**
+   * 在accountId账号下添加用户信息
+   * @param accountId
+   * @param accUser
+   * @returns {Observable<R>}
+   */
+  addAccountUser(accountId:string,accUser:UserInfo){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = accountId;
+    accUser.scopeId=scopeId;
+    console.log(accUser);
+
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users';
+
+    return this.http.post(this.accountUrl,JSON.stringify(accUser),{ headers: headers }).map(res => res.json());
+  }
+
+  /**
+   * 在accountId账号添加密码信息
+   * @param accountId
+   * @param accCredential
+   * @returns {Observable<R>}
+   */
+  addAccountCredential(accountId:string,accCredential:Credential){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId =accountId;
+    accCredential.scopeId=scopeId;
+
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/credentials';
+    return this.http.post(this.accountUrl,JSON.stringify(accCredential),{ headers: headers }).map(res => res.json());
+  }
+
+  /**
+   * 删除用户信息
+   * @param userId
+   * @returns {Observable<R>}
+   */
+  deleteAccountUser(accountId:string,userId:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId =accountId;
+
+    this.accountUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users/'+userId;
     return this.http.delete(this.accountUrl,{ headers: headers });
   }
 }

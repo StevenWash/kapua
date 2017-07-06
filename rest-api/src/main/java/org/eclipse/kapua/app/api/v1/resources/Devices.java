@@ -92,7 +92,7 @@ public class Devices extends AbstractKapuaResource {
                 andPredicate.and(new AttributePredicate<>(DevicePredicates.CLIENT_ID, clientId,Operator.LIKE));
             }
             if (connectionStatus != null) {
-                andPredicate.and(new AttributePredicate<>(DevicePredicates.CONNECTION_STATUS, connectionStatus));
+                andPredicate.and(new AttributePredicate<>("status", connectionStatus));
             }
             query.setPredicate(andPredicate);
             query.setFetchAttributes(fetchAttributes);

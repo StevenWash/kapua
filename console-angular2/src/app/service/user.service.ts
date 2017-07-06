@@ -79,7 +79,7 @@ export class UserListService {
     let authToken = localStorage.getItem('tokenId');
     headers.append('Authorization', `Bearer ${authToken}`);
 
-    let scopeId = localStorage.getItem('scopeId');
+    let scopeId =user.scopeId;
 
     this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/users/'+userId;
 
@@ -113,7 +113,7 @@ export class UserListService {
    * 添加密码信息
    * @param credential
    */
-  addCredentials(credential:Credential){
+  addCredential(credential:Credential){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -164,8 +164,8 @@ export class UserListService {
 
     let scopeId = localStorage.getItem('scopeId');
 
-    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/'+userId;
-    return this.http.get(this.userListUrl,{ headers: headers });
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/query/'+scopeId+'/'+userId;
+    return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
 
   }
 
@@ -185,6 +185,49 @@ export class UserListService {
 
     this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/credentials?userId='+userId+'&offset=0&limit=50';
     return this.http.get(this.userListUrl,{ headers: headers }).map(res => res.json());
+
+  }
+
+  /**
+   * 更新用户的密码信息
+   * @param userCredential
+   * @returns {Observable<R>}
+   */
+  updateCredential(userCredential:Credential){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = localStorage.getItem('scopeId');
+
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/credentials/'+userCredential.id;
+    return this.http.put(this.userListUrl,JSON.stringify(userCredential),{ headers: headers }).map(res => res.json());
+
+  }
+
+  /**
+   * 根据用户的密码的id来删除该条密码信息
+   * @param userCredentialId
+   * @returns {Observable<Response>}
+   */
+  deleteUserCredential(userCredentialId:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = localStorage.getItem('scopeId');
+    console.log(headers);
+    console.log(userCredentialId);
+
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/credentials/'+userCredentialId;
+    return this.http.delete(this.userListUrl,{ headers: headers });
+  }
+
+  getUserPermissionByRoles(){
 
   }
 }

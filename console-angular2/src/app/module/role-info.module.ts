@@ -14,6 +14,8 @@ export class RoleInfo{
    optlock:number;
    name:string;
    permissions:Permission=new Permission();
+   attributes:string;
+   properties:string;
 }
 
 export class RolePermissionInfo{
