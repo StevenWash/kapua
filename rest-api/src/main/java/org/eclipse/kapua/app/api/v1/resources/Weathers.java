@@ -43,7 +43,7 @@ public class Weathers extends AbstractKapuaResource {
     
     //**Sina
     @GET
-    @Path("sina/getWeather/{city}/{day}")    
+    @Path("sina/{city}/{day}")    
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an Weather by area and day", //
             notes = "Gets the Weather specified by the area,day path parameter", //
@@ -133,7 +133,7 @@ public class Weathers extends AbstractKapuaResource {
   
     
     @GET
-    @Path("YaHooApi/{city}")
+    @Path("yahooapi/{city}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and area", //
@@ -173,7 +173,7 @@ public class Weathers extends AbstractKapuaResource {
     
     
     @GET
-    @Path("YaHooApi/ip/weather")
+    @Path("yahooapi/ip")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and ipAddress,scopeId", //
@@ -251,7 +251,7 @@ public class Weathers extends AbstractKapuaResource {
     
     
     @GET
-    @Path("ipAddress/{weatherApiName}/{day}")
+    @Path("ipaddress/{weatherapiname}/{day}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @ApiOperation(value = "Gets an Weather by day, ipAddress,weatherApiName", //
@@ -259,7 +259,7 @@ public class Weathers extends AbstractKapuaResource {
             response = String.class)
     public String getWeatherByApi(
            
-            @ApiParam(value = "The weatherApiName(sina or yahoo) of the requested Weather", required = true) @PathParam("weatherApiName") String  weatherApiName,
+            @ApiParam(value = "The weatherApiName(sina or yahoo) of the requested Weather", required = true) @PathParam("weatherapiname") String  weatherApiName,
             @ApiParam(value = "The ipAddress of the requested Weather") @QueryParam("ipAddress") String ipAddress,
             @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0") @DefaultValue("0") @PathParam("day") Integer day)throws Exception{
         String weatherInfo=null;

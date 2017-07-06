@@ -66,12 +66,13 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
 
     return entityManagerSession.onResult(em -> {
       TypedQuery<AppVersion>  q;
-      q = em.createNamedQuery("ApkInfo.queryByPackagename",AppVersion.class);
+      System.out.println("packagename:--" + packagename);
+      q = em.createNamedQuery("AppVersion.queryByPackagename",AppVersion.class);
       q.setParameter(1,packagename);
-      AppVersion  apkInfo = (AppVersion) q.getResultList().get(0);
+      AppVersion  appVersion = (AppVersion) q.getResultList().get(0);
  
      
-      return apkInfo;
+      return appVersion;
     });
   }
 
@@ -95,8 +96,8 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
         Actions.read, scopeId));
     return entityManagerSession.onResult(em -> {
       TypedQuery<AppVersion>  q;
-      q = em.createNamedQuery("ApkInfo.queryByDistinct",AppVersion.class);
-      q.setParameter(1,packagename + ".patch");
+      q = em.createNamedQuery("AppInfo.queryByDistinct",AppVersion.class);
+      q.setParameter(1,packagename);
       q.setParameter(2,forversion);
       AppVersion apkInfo = (AppVersion) q.getResultList().get(0);
       return apkInfo;

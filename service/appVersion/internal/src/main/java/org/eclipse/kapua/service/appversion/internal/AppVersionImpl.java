@@ -15,7 +15,10 @@ package org.eclipse.kapua.service.appversion.internal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
 import org.eclipse.kapua.service.appversion.AppVersion;
 
@@ -27,6 +30,13 @@ import org.eclipse.kapua.service.appversion.AppVersion;
  * @since 1.0
  */
 @Entity(name = "AppVersion")
+@NamedQueries({
+    @NamedQuery(name = "AppVersion.queryByPackagename", query = "select ap from AppVersion"
+        + " ap where ap.packagename=?1 and ap.types='all' "),
+        
+    @NamedQuery(name = "AppVersion.queryByDistinct", query = "select ap from AppVersion " 
+        + " ap where ap.packagename=?1 and ap.forversion=?2 and  ap.types='.patch' ")
+})
 @Table(name = "app_version")
 public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppVersion {
 

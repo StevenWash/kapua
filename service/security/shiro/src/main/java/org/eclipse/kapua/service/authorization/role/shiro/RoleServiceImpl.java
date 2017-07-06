@@ -219,6 +219,23 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 						  query.setParameter(1,id);
 						  List roleArrayList=query.getResultList();
 						
+						  System.out.println(" roleArrayList.get(0)::::::"+roleArrayList.get(0));
+						  
+						  int size=roleArrayList.size();
+						  for(int i=0;i<size;i++){
+							  Object[] objs=(Object[])roleArrayList.get(0);
+							  /*roleArrayList.set(0,((KapuaId) objs[0]).toCompactId());
+							  roleArrayList.set(1,((KapuaId)objs[1]).toCompactId());
+							  roleArrayList.set(3,((KapuaId)objs[3]).toCompactId());
+							  roleArrayList.set(5,((KapuaId)objs[5]).toCompactId());*/
+							 
+							  objs[0]=((KapuaId) objs[0]).toCompactId();
+							  objs[1]=((KapuaId) objs[1]).toCompactId();
+							  objs[3]=((KapuaId) objs[3]).toCompactId();
+							  objs[5]=((KapuaId) objs[5]).toCompactId();
+							  
+						  }
+						  
 						
 						JSONArray jarray=JSONArray.fromObject(roleArrayList);
 						
@@ -234,12 +251,12 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
 							
 							map=new HashMap<String,Object>();
 							
-							map.put("scopeId", obj[0]);
-							map.put("id", obj[1]);
+							map.put("scopeId", obj[0]);///
+							map.put("id", obj[1]);///
 							map.put("created_on", obj[2].toString());
-							map.put("created_by", obj[3]);
+							map.put("created_by", obj[3]);///
 							map.put("modified_on", obj[4].toString());
-							map.put("modified_by", obj[5]);
+							map.put("modified_by", obj[5]);//
 							map.put("name", obj[6]);
 							map.put("optlock", obj[7]);
 							map.put("attributes", obj[8]);
