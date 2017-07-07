@@ -301,6 +301,7 @@ public class Roles extends AbstractKapuaResource {
         RoleListResult roleListResult = roleFactory.newListResult();
         try {
             RoleQuery query = roleFactory.newQuery(scopeId);
+            
 
             AndPredicate andPredicate = new AndPredicate();
             if (!Strings.isNullOrEmpty(name)) {

@@ -16,6 +16,8 @@ import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
 import {AccountService} from "../service/account.service";
 import {AccountInfo} from "../module/account-info.module";
+import {AccessInfo, AccessRole} from "../module/access-role.module";
+import {Permission} from "../module/permissions.module";
 
 
 @Component({
@@ -41,6 +43,7 @@ export class MainViewComponent{
   private cliUserCredential:Credential;
   private delUserCredentialId:string;
   private userRoles:RoleInfo[];
+  private userPermissions:RolePermissionInfo[];
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
@@ -50,8 +53,11 @@ export class MainViewComponent{
   private delRoleId:string;
   private cliRole:RoleInfo;
   private inputRolename:string;
+  private accessInfos:AccessInfo[];
+  private accessRoles:AccessRole[];
 
   private rolePermissions:RolePermissionInfo[];
+  private subUsersInfo:UserInfo[];
 
   //--------group相关的变量信息--------//
   private groupInfos:GroupInfo[];
@@ -245,27 +251,60 @@ export class MainViewComponent{
    * @param userId
    */
   getUserRolesByUserId(userId:string){
-   /* this.userListService.getRolesByUserId(userId).subscribe((result) => {
-      this.userRoles=result;
-      let index=result.length;
-      for(var i=0;i<index;i++){
+   var list: Array<RoleInfo> = [];
+   let len=0;
+   this.roleService.getAccessInfosByUserId(userId).subscribe((result) => {
+     console.log(result);
+     this.accessInfos=result.items.item;
+     if(this.accessInfos.length>0){
+       this.roleService.getAccessRolesByAccessInfoId(this.accessInfos[0].id).subscribe((result) => {
+         console.log(result);
+         this.accessRoles=result.items.item;
 
-        var date = new Date(this.userRoles[i][2].time);
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        var D = date.getDate() + ' ';
-        var h = date.getHours() + ':';
-        var m = date.getMinutes() + ':';
-        var s = date.getSeconds();
+         len=this.accessRoles.length;
+         console.log("len:"+len);
 
-        this.userRoles[i][2]=Y+M+D+h+m+s;
-      }
-      console.log(this.userRoles);
-    });*/
+         for(var i=0;i<this.accessRoles.length;i++){
+           this.roleService.getRoleByRoleId(this.accessRoles[i].roleId).subscribe((result) => {
+             console.log(result);
+             list.push(result);
+             console.log(list.length);
 
+             while (list.length>=len){
+               this.userRoles=list;
+               console.log(this.userRoles);
+               break;
+             }
+           });
+         }
+       });
+     }
 
-    this.userRoles=JSON.parse(this.roleService.getRolesByUserId(userId));
-    console.log(this.userRoles);
+   });
+
+  }
+
+  /**
+   * 通过角色的id来获取该角色的权限信息
+   * @param roles
+   */
+  getUserPermissionByRoleId(roles:RoleInfo[]){
+    var list: Array<RolePermissionInfo> = [];
+    let len=0;
+    len=roles.length;
+
+    for(var i=0;i<len;i++){
+      this.roleService.getPermissionByRoleId(roles[i].id).subscribe((result) => {
+        console.log(result);
+        list.push(result.items.item);
+
+        while (list.length>=len){
+          this.userPermissions=list;
+          console.log(this.userPermissions);
+          break;
+        }
+      });
+    }
 
   }
 
@@ -274,6 +313,9 @@ export class MainViewComponent{
    * @param userInfo
    */
   clickUser(userInfo:UserInfo){
+    this.userRoles=null;
+    this.userPermissions=null;
+
     this.cliUser=userInfo;
     console.log(this.cliUser);
 
@@ -284,6 +326,8 @@ export class MainViewComponent{
     this.getUserRolesByUserId(this.cliUser.id);
 
     //根据用户的角色信息获取用户的权限信息
+    // this.getUserPermissionByRoleId(this.userRoles);
+
 
   }
 
@@ -476,6 +520,12 @@ export class MainViewComponent{
       this.rolePermissions=result.items.item;
       console.log(this.rolePermissions);
     });
+
+    //获取当前角色的子用户
+    /*let len=this.userInfos.length;
+    for(var i=0;i<len;i++){
+      this.userInfos[i]
+    }*/
 
     //获取当前所有的domain信息
 

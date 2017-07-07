@@ -287,6 +287,7 @@ public abstract class AbstractKapuaConfigurableService extends AbstractKapuaServ
         Properties properties = null;
         if (result != null && !result.isEmpty()) {
             properties = result.getFirstItem().getConfigurations();
+            System.out.println(">>>>>>>>>"+properties.toString());
         }
 
         KapuaTocd ocd = getConfigMetadata();

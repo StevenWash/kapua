@@ -11,3 +11,14 @@ export class AccessRole{
   roleId:string;
 
 }
+
+export class AccessInfo{
+  id:string;
+  scopeId:string;
+  createdOn:string;
+  createdBy:string;
+  modifiedOn:string;
+  modifiedBy:string;
+  optlock:number;
+  userId:string;
+}

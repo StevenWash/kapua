@@ -171,7 +171,7 @@ public class RoleServiceImpl extends AbstractKapuaConfigurableResourceLimitedSer
         PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
         authorizationService.checkPermission(permissionFactory.newPermission(ROLE_DOMAIN, Actions.read, query.getScopeId()));
 
-        return entityManagerSession.onResult(em -> RoleDAO. (em, query));
+        return entityManagerSession.onResult(em -> RoleDAO.query (em, query));
     }
 
     @Override
