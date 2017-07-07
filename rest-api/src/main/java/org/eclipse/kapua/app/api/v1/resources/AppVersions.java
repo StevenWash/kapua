@@ -60,7 +60,7 @@ public class AppVersions extends AbstractKapuaResource {
     @Path("update")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public AppVersion getPackageInfo(
+    public AppVersion getAppVersion(
             @ApiParam(value = "The ScopeId of the requested ApiInfo.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId, //
             @ApiParam(value = "The pName of the requested ApiInfo")@QueryParam("package") String pName,
             @ApiParam(value = "The version of the requested ApiInfo")@QueryParam("version") String version
@@ -75,7 +75,6 @@ public class AppVersions extends AbstractKapuaResource {
         try {
         	
         	appVersion = appVersionService.findByPackagename(scopeId, pName);
-        	
         	
         	if(appVersion==null || appVersion.getVersion().compareTo(version)<=0){
         	   
