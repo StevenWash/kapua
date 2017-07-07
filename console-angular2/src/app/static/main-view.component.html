@@ -1216,9 +1216,9 @@
                                       </div>
                                       <div class="tablebody" *ngFor="let userRole of userRoles">
                                         <div class="row">
-                                          <div class="col-xs-2 ">{{userRole[6]}}</div>
-                                          <div class="col-xs-4 ">{{userRole[3]}}</div>
-                                          <div class="col-xs-4 ">{{userRole[2]}}</div>
+                                          <div class="col-xs-2 ">{{userRole.name}}</div>
+                                          <div class="col-xs-4 ">{{userRole.createdBy}}</div>
+                                          <div class="col-xs-4 ">{{userRole.createdOn}}</div>
                                           <div class="col-xs-1">
                                             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>
                                           </div>

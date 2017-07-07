@@ -245,7 +245,7 @@ export class MainViewComponent{
    * @param userId
    */
   getUserRolesByUserId(userId:string){
-    this.userListService.getRolesByUserId(userId).subscribe((result) => {
+   /* this.userListService.getRolesByUserId(userId).subscribe((result) => {
       this.userRoles=result;
       let index=result.length;
       for(var i=0;i<index;i++){
@@ -261,7 +261,12 @@ export class MainViewComponent{
         this.userRoles[i][2]=Y+M+D+h+m+s;
       }
       console.log(this.userRoles);
-    });
+    });*/
+
+
+    this.userRoles=JSON.parse(this.roleService.getRolesByUserId(userId));
+    console.log(this.userRoles);
+
   }
 
   /**
@@ -484,6 +489,8 @@ export class MainViewComponent{
     this.inputRolename=null;
     this.getRoleList();
   }
+
+
 
 
   //--------------------DeviceConnection Action---------------------------//
