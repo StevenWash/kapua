@@ -110,11 +110,12 @@ public class ApkInfos extends AbstractKapuaResource {
     	
     	ApkInfo apkinfo = null;
    
-		if(version==null) version="";
+		if(version==null){
+			version="";
+		}
         try {
         	
         	apkinfo = apiInfoService.findByPackagename(scopeId, pName);
-        	
         	
         	if(apkinfo==null || apkinfo.getVersion().compareTo(version)<=0){
         	   
