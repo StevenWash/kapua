@@ -17,7 +17,6 @@ import {LoginService} from "../service/login.service";
 import {AccountService} from "../service/account.service";
 import {AccountInfo} from "../module/account-info.module";
 import {AccessInfo, AccessRole} from "../module/access-role.module";
-import {Permission} from "../module/permissions.module";
 
 
 @Component({
@@ -47,7 +46,7 @@ export class MainViewComponent{
 
   //--------role相关的变量信息--------//
   private roleInfos:RoleInfo[];
-  private userrole:RoleInfo;//用户进行为当前用户添加角色时选择的角色
+  private userRoleId:string;//用户进行为当前用户添加角色时选择的角色
   private role:RoleInfo;
   private aRole:RoleInfo=new RoleInfo();
   private delRoleId:string;
@@ -76,6 +75,7 @@ export class MainViewComponent{
   private cliDevice:DeviceInfo=new DeviceInfo();
   private inputDeviceClientId:string;
   private inputDeviceConStatus:string;
+  private deviceOptlock:number;
 
 
   //--------device connection相关的变量信息--------//
@@ -116,8 +116,6 @@ export class MainViewComponent{
     private accountService:AccountService
   ){
     console.log("home..");
-   // console.log(localStorage.getItem('userId').length);
-   // console.log(localStorage.getItem('userId'))
     if(localStorage.getItem('userId')==null||localStorage.getItem('userId').length==0){
       console.log("home2..");
       this.router.navigate(['/login']);
@@ -250,63 +248,46 @@ export class MainViewComponent{
    * 通过userId获取所有的角色信息
    * @param userId
    */
-  getUserRolesByUserId(userId:string){
-   var list: Array<RoleInfo> = [];
-   let len=0;
-   this.roleService.getAccessInfosByUserId(userId).subscribe((result) => {
-     console.log(result);
-     this.accessInfos=result.items.item;
-     if(this.accessInfos.length>0){
-       this.roleService.getAccessRolesByAccessInfoId(this.accessInfos[0].id).subscribe((result) => {
-         console.log(result);
-         this.accessRoles=result.items.item;
+   getUserRolesAndPermissionByUserId(userId:string){
+     var roleList: Array<RoleInfo> = [];
+     var permissionList: Array<RolePermissionInfo> = [];
 
-         len=this.accessRoles.length;
+     this.roleService.getAccessInfosByUserId(userId).then(accessInfos=> {
+       this.accessInfos=accessInfos;
+       console.log(this.accessInfos);
+
+       this.roleService.getAccessRolesByAccessInfoId(this.accessInfos[0].id).then(accessRoles=> {
+         this.accessRoles=accessRoles;
+         console.log(this.accessRoles);
+
+         let len=this.accessRoles.length;
          console.log("len:"+len);
 
-         for(var i=0;i<this.accessRoles.length;i++){
-           this.roleService.getRoleByRoleId(this.accessRoles[i].roleId).subscribe((result) => {
+         for(var i=0;i<len;i++){
+           this.roleService.getRoleByRoleId(this.accessRoles[i].roleId).then(result=> {
              console.log(result);
-             list.push(result);
-             console.log(list.length);
-
-             while (list.length>=len){
-               this.userRoles=list;
+             roleList.push(result);
+             while (roleList.length>=len){
+               this.userRoles=roleList;
                console.log(this.userRoles);
                break;
              }
            });
+
+           this.roleService.getPermissionByRoleId(this.accessRoles[i].roleId).then((result) => {
+             console.log(result);
+             for(var j=0;j<result.length;j++){
+               permissionList.push(result[j]);
+               console.log(permissionList);
+
+               this.userPermissions=permissionList;
+               console.log(this.userPermissions);
+             }
+           });
          }
        });
-     }
-
-   });
-
-  }
-
-  /**
-   * 通过角色的id来获取该角色的权限信息
-   * @param roles
-   */
-  getUserPermissionByRoleId(roles:RoleInfo[]){
-    var list: Array<RolePermissionInfo> = [];
-    let len=0;
-    len=roles.length;
-
-    for(var i=0;i<len;i++){
-      this.roleService.getPermissionByRoleId(roles[i].id).subscribe((result) => {
-        console.log(result);
-        list.push(result.items.item);
-
-        while (list.length>=len){
-          this.userPermissions=list;
-          console.log(this.userPermissions);
-          break;
-        }
-      });
-    }
-
-  }
+     });
+   }
 
   /**
    * 用户信息被点击之后触发的函数
@@ -323,12 +304,7 @@ export class MainViewComponent{
     this.getUserCredentials(this.cliUser.id);
 
     //根据用户的userId获取当前用户的角色信息
-    this.getUserRolesByUserId(this.cliUser.id);
-
-    //根据用户的角色信息获取用户的权限信息
-    // this.getUserPermissionByRoleId(this.userRoles);
-
-
+    this.getUserRolesAndPermissionByUserId(this.cliUser.id);
   }
 
   /**
@@ -420,6 +396,30 @@ export class MainViewComponent{
   }
 
 
+  /**
+   * 在用户界面点击添加角色信息之后提交角色信息
+   */
+  submitUserRole(){
+    console.log(this.userRoleId);
+    let accessInfo:AccessInfo=new AccessInfo();
+    accessInfo.userId=this.cliUser.id;
+    this.userListService.addAccessInfo(accessInfo).subscribe((result) => {
+      console.log(result);
+      accessInfo=result;
+
+      let accessRole:AccessRole=new AccessRole();
+      accessRole.accessInfoId=accessInfo.id;
+      accessRole.roleId=this.userRoleId;
+      console.log(accessRole);
+      this.roleService.addAccessRole(accessRole).subscribe((result) => {
+        console.log(result);
+      });
+    });
+
+  }
+
+
+
   //-------------------Role Action ------------------//
   /**
    * 得到所有的角色信息
@@ -493,20 +493,6 @@ export class MainViewComponent{
   }
 
   /**
-   * 在用户界面点击添加角色之后的设置角色信息
-   */
-  setRole(){
-    this.userrole=this.role;
-  }
-
-  /**
-   * 在用户界面点击添加角色信息之后提交角色信息
-   */
-  submitRole(){
-    console.log(this.userrole);
-  }
-
-  /**
    * 获取用户点击的角色的信息
    * @param roleInfo
    */
@@ -575,8 +561,7 @@ export class MainViewComponent{
     this.getDeviceConnection();
   }
 
-
-  //--------------------Device Action---------------------------//
+//--------------------Device Action---------------------------//
   /**
    * 得到所有的设备信息
    */
@@ -632,18 +617,19 @@ export class MainViewComponent{
     this.device=deviceInfo;
   }
 
+
   /**
    * 根据的设备的id来更新设备的相关信息
    */
   updateDevice(){
     console.log("optlock1:"+this.device.optlock);
-    if(this.optlock==this.device.optlock+1){
+    if(this.deviceOptlock==this.device.optlock+1){
       this.device.optlock+=1;
     }
     console.log(this.device);
     this.deviceConnectionService.updateDeviceById(this.device.id,this.device).subscribe((result) => {
       this.device=result;
-      this.optlock=this.device.optlock;
+      this.deviceOptlock=this.device.optlock;
       console.log("optlock2:"+this.device.optlock);
       console.log(result);
       this.getDevices();
@@ -668,6 +654,7 @@ export class MainViewComponent{
     this.inputDeviceClientId=null;
     this.getDevices();
   }
+
 
 
   //--------------------Group Action---------------------------//

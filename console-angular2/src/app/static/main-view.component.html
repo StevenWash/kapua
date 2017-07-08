@@ -126,7 +126,7 @@
                       <label >DevStatus:&nbsp;&nbsp;</label>
 
                       <select  class="form-control" [(ngModel)]="inputDeviceConStatus"
-                                id="inputDeviceConStatus">
+                               id="inputDeviceConStatus">
                         <option value="">ANY</option>
                         <option value="ENABLED">ENABLED</option>
                         <option value="DISABLED">DISABLED</option>
@@ -227,7 +227,7 @@
                                 <label for="password" class="col-xs-4 control-label">Display Name：</label>
                                 <div class="col-xs-8">
                                   <input type="text" name="displayName" [(ngModel)]="aDevice.displayName" #displayName="ngModel"
-                                        class="form-control input-sm duiqi " id="displayName" placeholder="" >
+                                         class="form-control input-sm duiqi " id="displayName" placeholder="" >
                                 </div>
 
                               </div>
@@ -321,7 +321,7 @@
                                 <label for="password" class="col-xs-4 control-label">Status：</label>
                                 <div class="col-xs-8">
                                   <select  class="form-control duiqi" name="devicestatus" #devicestatus="ngModel" [(ngModel)]="device.status"
-                                            id="devicegroup">
+                                           id="devicegroup">
                                     <option value="ENABLE">ENABLE</option>
                                     <option value="DISABLE">DISABLE</option>
                                   </select>
@@ -438,10 +438,10 @@
                                       </div>
                                       <div class="tablebody" *ngIf="cliDevice">
                                         <label class="row" *ngIf="cliDevice.customAttribute1||
-                                                                  cliDevice.customAttribute2||
-                                                                  cliDevice.customAttribute3||
-                                                                  cliDevice.customAttribute4||
-                                                                  cliDevice.customAttribute5">
+                                                                    cliDevice.customAttribute2||
+                                                                    cliDevice.customAttribute3||
+                                                                    cliDevice.customAttribute4||
+                                                                    cliDevice.customAttribute5">
                                           <h5>Attributes Informations</h5>
                                         </label>
                                         <div class="row" *ngIf="cliDevice.customAttribute1">
@@ -919,19 +919,19 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title" id="gridSystemModalLabel">Add User</h4>
+                          <h4 class="modal-title" id="gridSystemModalLabel">Add UserRole</h4>
                         </div>
                         <div class="modal-body">
                           <div class="container-fluid">
-                            <select  class="form-control" [(ngModel)]="role"  (ngModelChange)="role=$event;setRole()">
-                              <option value="">请选择...</option>
-                              <option  *ngFor="let item of roleInfos" >{{item.name}} </option>
+                            <select  class="form-control" [(ngModel)]="userRoleId">
+                              <option  *ngFor="let item of roleInfos" value="{{item.id}}">{{item.name}}</option>
                             </select>
+
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">Cancle</button>
-                          <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="submitRole()">Submit</button>
+                          <button type="button" class="btn btn-xs btn-green"  data-dismiss="modal" (click)="submitUserRole()">Submit</button>
                         </div>
                       </div>
                       <!-- /.modal-content -->
@@ -1233,7 +1233,6 @@
                                   <!--permissions-->
                                   <div role="tabpanel" class="tab-pane" id="permissions">
                                     <ul class="nav nav-pills">
-                                      <li role="presentation" class="active"><a href="#">Add</a></li>
                                       <li role="presentation"><a href="#">Refresh</a></li>
                                     </ul>
                                     <div class="data-div">
@@ -1248,27 +1247,27 @@
                                         <div class="col-xs-1"></div>
                                       </div>
                                       <div class="tablebody" *ngFor="let userPermission of userPermissions">
-                                        <div class="row" *ngIf="userPermission[0].createdBy">
-                                          <div class="col-xs-2 " *ngIf="userPermission[0].permission.domain!=null">{{userPermission[0].permission.domain}}</div>
-                                          <div class="col-xs-2 " *ngIf="userPermission[0].permission.domain==null">ALL</div>
+                                        <div class="row" *ngIf="userPermission">
+                                          <div class="col-xs-2 " *ngIf="userPermission.permission.domain!=null">{{userPermission.permission.domain}}</div>
+                                          <div class="col-xs-2 " *ngIf="userPermission.permission.domain==null">ALL</div>
 
-                                          <div class="col-xs-1 " *ngIf="userPermission[0].permission.action">{{userPermission[0].permission.domain}}</div>
-                                          <div class="col-xs-1 " *ngIf="!userPermission[0].permission.action">ALL</div>
+                                          <div class="col-xs-1 " *ngIf="userPermission.permission.action">{{userPermission.permission.domain}}</div>
+                                          <div class="col-xs-1 " *ngIf="!userPermission.permission.action">ALL</div>
 
-                                          <div class="col-xs-1 " *ngIf="userPermission[0].permission.targetScopeId">{{userPermission[0].permission.targetScopeId}}</div>
-                                          <div class="col-xs-1 " *ngIf="!userPermission[0].permission.targetScopeId">ALL</div>
+                                          <div class="col-xs-1 " *ngIf="userPermission.permission.targetScopeId">{{userPermission.permission.targetScopeId}}</div>
+                                          <div class="col-xs-1 " *ngIf="!userPermission.permission.targetScopeId">ALL</div>
 
-                                          <div class="col-xs-2 " *ngIf="userPermission[0].permission.groupId">{{userPermission[0].permission.groupId}}</div>
-                                          <div class="col-xs-2 " *ngIf="!userPermission[0].permission.groupId">ALL</div>
+                                          <div class="col-xs-2 " *ngIf="userPermission.permission.groupId">{{userPermission.permission.groupId}}</div>
+                                          <div class="col-xs-2 " *ngIf="!userPermission.permission.groupId">ALL</div>
 
-                                          <div class="col-xs-2 " *ngIf="userPermission[0].permission.forwaradable">{{userPermission[0].permission.forwaradable}}</div>
-                                          <div class="col-xs-2 " *ngIf="!userPermission[0].permission.forwaradable">ALL</div>
+                                          <div class="col-xs-2 " *ngIf="userPermission.permission.forwaradable">{{userPermission.permission.forwaradable}}</div>
+                                          <div class="col-xs-2 " *ngIf="!userPermission.permission.forwaradable">ALL</div>
 
-                                          <div class="col-xs-1 " *ngIf="userPermission[0].createdBy">{{userPermission[0].createdBy}}</div>
-                                          <div class="col-xs-1 " *ngIf="!userPermission[0].createdBy">ALL</div>
+                                          <div class="col-xs-1 " *ngIf="userPermission.createdBy">{{userPermission.createdBy}}</div>
+                                          <div class="col-xs-1 " *ngIf="!userPermission.createdBy">ALL</div>
 
-                                          <div class="col-xs-2 " *ngIf="userPermission[0].createdOn">{{userPermission[0].createdOn}}</div>
-                                          <div class="col-xs-2 " *ngIf="!userPermission[0].createdOn">ALL</div>
+                                          <div class="col-xs-2 " *ngIf="userPermission.createdOn">{{userPermission.createdOn}}</div>
+                                          <div class="col-xs-2 " *ngIf="!userPermission.createdOn">ALL</div>
 
                                           <div class="col-xs-1 ">
                                             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">Delete</button>

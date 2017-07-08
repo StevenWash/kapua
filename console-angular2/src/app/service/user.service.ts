@@ -6,6 +6,7 @@ import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Credential} from "../module/creditial.module";
 import {HostInfo} from "../module/host.info.modeule";
+import {AccessInfo} from "../module/access-role.module";
 
 @Injectable()
 export class UserListService {
@@ -227,7 +228,24 @@ export class UserListService {
     return this.http.delete(this.userListUrl,{ headers: headers });
   }
 
-  getUserPermissionByRoles(){
+  /**
+   * 根据userId添加一条accessInfo信息
+   * @returns {Observable<R>}
+   */
+  addAccessInfo(accessInfo:AccessInfo){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = localStorage.getItem('scopeId');
+    let userId = localStorage.getItem('userId');
+
+    accessInfo.scopeId=scopeId;
+
+    this.userListUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accessinfos';
+
+    return this.http.post(this.userListUrl,JSON.stringify(accessInfo),{ headers: headers }).map(res => res.json());
   }
 }

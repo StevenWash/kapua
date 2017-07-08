@@ -34,6 +34,8 @@ export class DeviceConnectionService {
     }else
       this.deviceConnectionUrl=HostInfo.ip+'/api/v1/'+scopeId+'/deviceconnections?offset=0&limit=50';
 
+    console.log(this.deviceConnectionUrl);
+
     return this.http.get(this.deviceConnectionUrl,{ headers: headers }).map(res => res.json());
 
   }

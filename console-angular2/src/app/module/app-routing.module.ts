@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../component/login.component';
 import { MainViewComponent } from '../component/main-view.component'
+import {DeviceViewComponent} from "../component/device-view.component";
 
 const routes: Routes = [
   {path: '', redirectTo : '/login', pathMatch : 'full'},

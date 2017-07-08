@@ -3,9 +3,11 @@
  */
 import {Http,Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {RoleInfo} from "../module/role-info.module";
+import {RoleInfo, RolePermissionInfo} from "../module/role-info.module";
 import {HostInfo} from "../module/host.info.modeule";
 import {AccessInfo, AccessRole} from "../module/access-role.module";
+import 'rxjs/add/operator/toPromise';
+import {Permission} from "../module/permissions.module";
 
 @Injectable()
 export class RoleService{
@@ -128,9 +130,9 @@ export class RoleService{
   /**
    * 通过userId查询AccessInfo的信息
    * @param userId
-   * @returns {Observable<R>}
+   * @returns
    */
-  getAccessInfosByUserId(userId:string){
+  getAccessInfosByUserId(userId:string):Promise<AccessInfo[]>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -140,7 +142,11 @@ export class RoleService{
     let scopeId = localStorage.getItem('scopeId');
 
     this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accessinfos?userId='+userId+'&offset=0&limit=50';
-    return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
+    //return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
+
+    return this.http.get(this.roleUrl,{ headers: headers }).toPromise()
+      .then(response => response.json().items.item as AccessInfo[])
+      .catch(this.handleError);
   }
 
   /**
@@ -148,7 +154,7 @@ export class RoleService{
    * @param accessInfoId
    * @returns {Observable<R>}
    */
-  getAccessRolesByAccessInfoId(accessInfoId:string){
+  getAccessRolesByAccessInfoId(accessInfoId:string):Promise<AccessRole[]>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -158,7 +164,9 @@ export class RoleService{
     let scopeId = localStorage.getItem('scopeId');
 
     this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accessinfos/'+accessInfoId+'/roles?offset=0&limit=50';
-    return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
+    return this.http.get(this.roleUrl,{ headers: headers }).toPromise()
+      .then(response => response.json().items.item as AccessRole[])
+      .catch(this.handleError);
   }
 
   /**
@@ -166,7 +174,7 @@ export class RoleService{
    * @param roleId
    * @returns {Observable<R>}
    */
-  getRoleByRoleId(roleId:string){
+  getRoleByRoleId(roleId:string):Promise<RoleInfo>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -176,7 +184,9 @@ export class RoleService{
     let scopeId = localStorage.getItem('scopeId');
 
     this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/'+roleId;
-    return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json());
+    return this.http.get(this.roleUrl,{ headers: headers }).toPromise()
+      .then(response => response.json()as RoleInfo)
+      .catch(this.handleError);
   }
 
   /**
@@ -184,7 +194,7 @@ export class RoleService{
    * @param roleId
    * @returns {Observable<R>}
    */
-  getPermissionByRoleId(roleId:string){
+  getPermissionByRoleId(roleId:string):Promise<RolePermissionInfo[]>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -194,7 +204,42 @@ export class RoleService{
     let scopeId = localStorage.getItem('scopeId');
 
     this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/roles/'+roleId+'/permissions?offset=0&limit=50';
-    return this.http.get(this.roleUrl,{ headers: headers }).map(res => res.json())
+    return this.http.get(this.roleUrl,{ headers: headers }).toPromise()
+      .then(response => response.json().items.item as RolePermissionInfo[])
+      .catch(this.handleError);
   }
+
+  /**
+   * 添加accessRole
+   * @param accessRole
+   * @returns {Observable<R>}
+   */
+  addAccessRole(accessRole:AccessRole){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let authToken = localStorage.getItem('tokenId');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    let scopeId = localStorage.getItem('scopeId');
+    accessRole.scopeId=scopeId;
+
+    this.roleUrl=HostInfo.ip+'/api/v1/'+scopeId+'/accessinfos/'+accessRole.accessInfoId+'/roles';
+
+    return this.http.post(this.roleUrl,JSON.stringify(accessRole),{ headers: headers }).map(res => res.json());
+  }
+
+
+  /**
+   * 异常处理函数
+   * @param error
+   * @returns {Promise<never>}
+   */
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+
+
 
 }

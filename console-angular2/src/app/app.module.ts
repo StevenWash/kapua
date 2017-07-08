@@ -17,6 +17,7 @@ import {GroupService} from "./service/group.service";
 import {MobileValidator} from "./validators/adduser.validator";
 import {EqualValidator} from "./validators/equal-validator.directive";
 import {AccountService} from "./service/account.service";
+import {DeviceViewComponent} from "./component/device-view.component";
 
 
 
