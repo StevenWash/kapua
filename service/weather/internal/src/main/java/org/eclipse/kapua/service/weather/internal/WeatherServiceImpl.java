@@ -48,7 +48,7 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
 
   
  
-     public String getProvince()throws KapuaException{
+     public WeatherListResult getProvince()throws KapuaException{
     	 
          
     	   
@@ -61,25 +61,25 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
          
     	   return entityManagerSession.onResult(em -> {
     		   String result=null;
-    		   WeatherListResultImpl   listResult=new WeatherListResultImpl();
+    		   WeatherListResult   listResult=new WeatherListResultImpl();
     		 //  List<String> provinceLists=new ArrayList<String>();
         	Query  q;
             try {
 				q = em.createNamedQuery("Weather.queryProvince",Weather.class);
 				listResult.addItems(q.getResultList());
-			    JSONObject	jsonObject = JSONObject.fromObject(listResult);
-				result=jsonObject.toString();
+			    /*JSONObject	jsonObject = JSONObject.fromObject(listResult);
+				result=jsonObject.toString();*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
            
-             return result;
+             return listResult;
         });
     }
      
      
-     public String getCityByProvince(String province)throws KapuaException{
+     public WeatherListResult getCityByProvince(String province)throws KapuaException{
   	 
   	   ArgumentValidator.notNull(province, "province");
        
@@ -92,23 +92,23 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
   	
   	   return entityManagerSession.onResult(em -> {
   		  String result=null;
-		  WeatherListResultImpl   listResult=new WeatherListResultImpl();
+  		WeatherListResult   listResult=new WeatherListResultImpl();
   		 
       	  Query  q;
           q = em.createNamedQuery("Weather.queryCityByProvince",Weather.class);
           q.setParameter(1,province);
           listResult.addItems(q.getResultList());
-          JSONObject jsonObject = JSONObject.fromObject(listResult);
-		  result=jsonObject.toString();
+          /*JSONObject jsonObject = JSONObject.fromObject(listResult);
+		  result=jsonObject.toString();*/
          
-          return result;
+          return listResult;
       });
   }
      
      
      
      
-     public String getAreaByCity(String city)throws KapuaException{
+     public WeatherListResult getAreaByCity(String city)throws KapuaException{
     	   
     	   ArgumentValidator.notNull(city, "city");
          
@@ -121,16 +121,16 @@ public class WeatherServiceImpl extends AbstractKapuaService implements WeatherS
     	
     	   return entityManagerSession.onResult(em -> {
     		String result=null;
-    	    WeatherListResultImpl   listResult=new WeatherListResultImpl();
+    		WeatherListResult   listResult=new WeatherListResultImpl();
         
         	Query  q;
             q = em.createNamedQuery("Weather.queryAreaByCity",Weather.class);
             q.setParameter(1,city);
             listResult.addItems(q.getResultList());
-            JSONObject jsonObject = JSONObject.fromObject(listResult);
-  		    result=jsonObject.toString();
+            /*JSONObject jsonObject = JSONObject.fromObject(listResult);
+  		    result=jsonObject.toString();*/
             
-            return result;
+            return listResult;
         });
     }
      

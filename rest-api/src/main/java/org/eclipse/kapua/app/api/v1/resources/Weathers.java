@@ -10,21 +10,27 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+
 import net.sf.json.JSONObject;
+
 import org.eclipse.kapua.app.common.util.IpHelper;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.service.weather.WeatherService;
+import org.eclipse.kapua.service.weather.YahooWeather;
 import org.eclipse.kapua.service.weather.internal.GeoIPv4;
 import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.BaseIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 import org.eclipse.kapua.service.weather.internal.WeatherPresentation;
+import org.eclipse.kapua.service.weather.internal.YahooWeatherImpl;
 import org.eclipse.kapua.service.weather.internal.YahooWeatherService;
 import org.eclipse.kapua.service.weather.internal.Channel;
 import org.eclipse.kapua.service.weather.util.ErrorMessageException;
 import org.json.JSONException;
+
 import java.net.InetAddress;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -137,15 +143,16 @@ public class Weathers extends AbstractKapuaResource {
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and area", //
-            notes = "Gets the Weather specified by the area path parameter", //
-            response = String.class)
-    public String getWeathersByArea(
+            notes = "Gets the Weather specified by the area city parameter", //
+            response = YahooWeather.class)
+    public YahooWeather getWeathersByArea(
           
             @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("city") String city)
             {
     	StringBuffer buffer =new StringBuffer();
     	YahooWeatherService service = null;
         String  weathers = null;
+        YahooWeather yhWeather=null;
         try {
         	service=new YahooWeatherService();
         	Channel channel = service.getForecastForLocation(city).first(3).get(0);
@@ -160,13 +167,32 @@ public class Weathers extends AbstractKapuaResource {
         	JSONObject jsonThree = new JSONObject(); 
         	jsonThree.putAll(channelJson);
         	jsonThree.putAll(forecastJson);
-        	weathers=jsonThree.toString();
+        	JSONObject jsonObject = JSONObject.fromObject(jsonThree);
+        	yhWeather=new YahooWeatherImpl();
+            yhWeather.setCity(jsonObject.getString("city"));
+        	System.out.println("city:::"+jsonObject.getString("city"));
+        	yhWeather.setCountry(jsonObject.getString("country"));
+        	System.out.println("country:::"+jsonObject.getString("country"));
+        	yhWeather.setRegion(jsonObject.getString("region"));
+        	System.out.println("region:::"+jsonObject.getString("region"));
+        	yhWeather.setDay(jsonObject.getString("day"));
+        	System.out.println("day:::"+jsonObject.getString("day"));
+        	yhWeather.setDate(jsonObject.getString("date"));
+        	System.out.println("date:::"+jsonObject.getString("date"));
+        	yhWeather.setHigh(jsonObject.getString("high"));
+        	System.out.println("high:::"+jsonObject.getString("high"));
+        	yhWeather.setLow(jsonObject.getString("low"));
+        	System.out.println("low:::"+jsonObject.getString("low"));
+        	yhWeather.setText(jsonObject.getString("text"));
+        	System.out.println("text:::"+jsonObject.getString("text"));
+        	//weathers=jsonThree.toString();
+        	System.out.println(yhWeather.getRegion()+"    "+yhWeather.getCity()+"        "+yhWeather.getDate());
         	
           
         } catch (Exception e) {
            e.printStackTrace();
         }
-        return weathers;
+        return yhWeather;
 
 
      }

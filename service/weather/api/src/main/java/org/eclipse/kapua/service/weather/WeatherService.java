@@ -57,7 +57,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-    public String getProvince()
+    public WeatherListResult getProvince()
     		throws KapuaException;
     
     
@@ -73,7 +73,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-    public String getCityByProvince(String province)
+    public WeatherListResult getCityByProvince(String province)
     		throws KapuaException;
     
     
@@ -90,7 +90,7 @@ public interface WeatherService extends KapuaService{
      * @throws KapuaException
      * @since 1.0.0
      */
-    public String getAreaByCity(String city)
+    public WeatherListResult getAreaByCity(String city)
     		throws KapuaException;
     
     

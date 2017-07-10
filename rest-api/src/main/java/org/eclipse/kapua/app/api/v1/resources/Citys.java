@@ -3,6 +3,7 @@ package org.eclipse.kapua.app.api.v1.resources;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.app.common.util.IpHelper;
@@ -23,6 +25,7 @@ import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.weather.BaseIpService;
 import org.eclipse.kapua.service.weather.Weather;
+import org.eclipse.kapua.service.weather.WeatherListResult;
 import org.eclipse.kapua.service.weather.WeatherService;
 import org.eclipse.kapua.service.weather.internal.IpDomain;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
@@ -44,12 +47,12 @@ public class Citys   extends AbstractKapuaResource  {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets province", //
             notes = "get all  province",
-            response=String.class
+            response=WeatherListResult.class
            )
-    public String findProvince() {
+    public WeatherListResult findProvince() {
            
          
-    	  String provinceLists=null;
+    	WeatherListResult provinceLists=null;
     	
         try {
         	
@@ -76,12 +79,12 @@ public class Citys   extends AbstractKapuaResource  {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets the city by province", //
             notes = "Gets the city specified by the province path parameter", //
-            response = String.class)
-    public String findCityByProvince(
+            response = WeatherListResult.class)
+    public WeatherListResult findCityByProvince(
           
             @ApiParam(value = "The province of the requested weather.", required = true) @PathParam("province") String province)//
             {
-    	     String  cityLists=null;
+    	WeatherListResult  cityLists=null;
     	
         try {
         	
@@ -108,13 +111,13 @@ public class Citys   extends AbstractKapuaResource  {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an area by city", //
             notes = "Gets the Weather.area specified by the city path parameter", //
-            response = String.class)
-    public String findAreaByCity(
+            response = WeatherListResult.class)
+    public WeatherListResult findAreaByCity(
             
             @ApiParam(value = "The city of the requested weather.", required = true) @QueryParam("city") String city)//
             {
     	
-    	    String areaLists=null;
+    	WeatherListResult areaLists=null;
         try {
         	
         	areaLists=weatherService.getAreaByCity(city);
