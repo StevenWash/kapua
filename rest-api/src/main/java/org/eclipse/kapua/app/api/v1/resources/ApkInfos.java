@@ -23,7 +23,7 @@ import org.eclipse.kapua.service.apkinfo.ApkInfoService;
 
 
 @Api("ApkInfos")
-@Path("{scopeId}/apkInfos") 
+@Path("{scopeId}/apkinfos") 
 public class ApkInfos extends AbstractKapuaResource {
 	
 	private final KapuaLocator locator = KapuaLocator.getInstance();
@@ -137,7 +137,7 @@ public class ApkInfos extends AbstractKapuaResource {
             notes = "Returns the qrcode by the \"apiInfoId\" path parameter.",  //
             response = InputStream.class)
     @GET
-    @Path("packageName/qrcode")
+    @Path("packagename/qrcode")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces("image/png")
     public InputStream getQrcode(

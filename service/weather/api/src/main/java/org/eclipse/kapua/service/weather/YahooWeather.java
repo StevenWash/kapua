@@ -1,9 +1,12 @@
 package org.eclipse.kapua.service.weather;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "yahooWeather")
@@ -18,13 +21,17 @@ import javax.xml.bind.annotation.XmlType;
         "high",
         "text"
         })
-public interface YahooWeather {
+public interface YahooWeather extends Serializable{
 	 
 	 public static final String TYPE = "yahooWeather";
-
+	 
+	    @XmlTransient
 	    public default String getType() {
 	        return TYPE;
 	    }
+	    
+	   
+	    
 	    
 	    @XmlElement(name = "city")
 	    public String getCity();

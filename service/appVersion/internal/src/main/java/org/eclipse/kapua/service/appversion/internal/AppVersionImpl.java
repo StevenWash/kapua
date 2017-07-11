@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
+import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.appversion.AppVersion;
 
 
@@ -89,9 +90,25 @@ public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppV
   
 
     
-  public AppVersionImpl() {
-       
+  /**
+   * Constructor.
+   */
+  protected AppVersionImpl() {
+      super();
   }
+  
+  /**
+   * Constructor
+   *
+   * @param scopeId.
+   */
+  public AppVersionImpl(KapuaId scopeId) {
+      super(scopeId);
+    
+  }
+  
+ 
+  
     
   public String getPackagename() {
     return packagename;

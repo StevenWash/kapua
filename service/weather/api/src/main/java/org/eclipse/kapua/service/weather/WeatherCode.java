@@ -19,7 +19,7 @@ import org.eclipse.kapua.model.id.KapuaIdAdapter;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = {"id","code",
         "explain","cname","ename","dayImage","nightImage" })
-public interface WeatherCode{
+public interface WeatherCode extends WeatherEntity{
 
     public static final String TYPE = "weatherCode";
 

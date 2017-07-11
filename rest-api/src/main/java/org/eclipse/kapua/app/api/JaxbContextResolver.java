@@ -350,7 +350,7 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     Weather.class,
                     WeatherListResult.class,
                     
-                 // ApiInfo   
+                 // ApkInfo   
                     ApkInfo.class,
                     
                  // AppInfo   

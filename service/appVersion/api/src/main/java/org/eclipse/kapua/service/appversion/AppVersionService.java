@@ -49,5 +49,7 @@ public interface AppVersionService extends KapuaService{
 	public AppVersion findByDistinct(KapuaId scopeId,String packagename,String forversion)
             throws KapuaException;
 	
-  
+    public AppVersion create(AppVersionCreator appVersionCreator) throws KapuaException ;
+    
+    public void delete(KapuaId scopeId, KapuaId entityId)throws KapuaException;
 }

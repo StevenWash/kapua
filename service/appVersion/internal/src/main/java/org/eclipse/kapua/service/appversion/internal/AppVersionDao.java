@@ -12,11 +12,13 @@
 
 package org.eclipse.kapua.service.appversion.internal;
 
+import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.jpa.EntityManager;
 import org.eclipse.kapua.commons.service.internal.ServiceDAO;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.appversion.AppVersion;
+import org.eclipse.kapua.service.appversion.AppVersionCreator;
 
 
 /**
@@ -25,9 +27,9 @@ import org.eclipse.kapua.service.appversion.AppVersion;
  * @since 1.0
  *
  */
-public class AppVersionDao {
+public class AppVersionDAO {
 
-  private AppVersionDao() {
+  private AppVersionDAO() {
   }
 
 
@@ -78,6 +80,34 @@ public class AppVersionDao {
     return ServiceDAO.findByField(em, AppVersionImpl.class, "name", name);
   }
 
+  public static void delete(EntityManager em, KapuaId accountId) 
+      throws KapuaEntityNotFoundException {
+    ServiceDAO.delete(em, AppVersionImpl.class, accountId);
+  }
+  
+  
+  /**
+   * Creates and return new AppVersion.
+   * 
+   */
+  public static AppVersion create(EntityManager em, AppVersionCreator accountCreator)
+          throws KapuaException {
+     
+    // Create AppVersion
+    System.out.println("appversionDao -----create");
+    AppVersionImpl appVersionImpl = new AppVersionImpl();
+    appVersionImpl.setPackagename(accountCreator.getPackagename());
+    appVersionImpl.setUrl(accountCreator.getUrl());
+    appVersionImpl.setSize(accountCreator.getSize());
+    appVersionImpl.setVersion(accountCreator.getVersion());
+    appVersionImpl.setRevision(accountCreator.getRevision());
+    appVersionImpl.setForversion(accountCreator.getForversion());
+    appVersionImpl.setMd5(accountCreator.getMd5());
+    appVersionImpl.setTypes(accountCreator.getTypes());
+    appVersionImpl.setCode(accountCreator.getCode());
+    System.out.println("appversionDao -----create2");
+    return ServiceDAO.create(em, appVersionImpl);
+  }
 
 
 }

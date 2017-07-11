@@ -16,7 +16,7 @@ import org.eclipse.kapua.service.weather.WeatherCodeService;
 
 
 @Api("WeatherCodes")
-@Path("/weatherCodes")
+@Path("/weathercodes")
 public class WeatherCodes  extends AbstractKapuaResource {
 	
 	private final KapuaLocator locator = KapuaLocator.getInstance();

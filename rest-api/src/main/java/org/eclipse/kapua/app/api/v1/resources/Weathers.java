@@ -141,7 +141,7 @@ public class Weathers extends AbstractKapuaResource {
     @GET
     @Path("yahooapi/{city}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and area", //
             notes = "Gets the Weather specified by the area city parameter", //
             response = YahooWeather.class)
@@ -185,6 +185,7 @@ public class Weathers extends AbstractKapuaResource {
         	System.out.println("low:::"+jsonObject.getString("low"));
         	yhWeather.setText(jsonObject.getString("text"));
         	System.out.println("text:::"+jsonObject.getString("text"));
+        	System.out.println("<<<<<<<<<"+yhWeather.getType());
         	//weathers=jsonThree.toString();
         	System.out.println(yhWeather.getRegion()+"    "+yhWeather.getCity()+"        "+yhWeather.getDate());
         	

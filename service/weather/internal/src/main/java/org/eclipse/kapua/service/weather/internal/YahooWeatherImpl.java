@@ -5,6 +5,12 @@ import org.eclipse.kapua.service.weather.YahooWeather;
 public class YahooWeatherImpl implements YahooWeather {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8621374996417182137L;
+
+
 	private String city;
 	
 	

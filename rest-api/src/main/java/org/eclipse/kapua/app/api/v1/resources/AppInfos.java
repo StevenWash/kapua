@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiParam;
 
 
 @Api("AppInfos")
-@Path("{scopeId}/appInfos") 
+@Path("{scopeId}/appinfos") 
 public class AppInfos extends AbstractKapuaResource{
 	
 	private final KapuaLocator locator = KapuaLocator.getInstance();
@@ -58,7 +58,7 @@ public class AppInfos extends AbstractKapuaResource{
             @ApiParam(value = "The packageName of the requested AppInfo", required = true) @PathParam("packageName") String packageName) {
     	AppInfo appInfo = null;
         try {
-        	System.out.println("scopeId:"+scopeId);
+        	
         	appInfo = appInfoService.findByPackagename(scopeId, packageName);
         } catch (Throwable t) {
             handleException(t);

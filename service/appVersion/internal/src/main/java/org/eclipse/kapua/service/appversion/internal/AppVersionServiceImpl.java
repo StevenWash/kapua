@@ -1,7 +1,7 @@
 package org.eclipse.kapua.service.appversion.internal;
 
 import javax.persistence.TypedQuery;
-
+import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.service.internal.AbstractKapuaService;
 import org.eclipse.kapua.commons.util.ArgumentValidator;
@@ -9,11 +9,13 @@ import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.locator.KapuaProvider;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.appversion.AppVersion;
+import org.eclipse.kapua.service.appversion.AppVersionCreator;
 import org.eclipse.kapua.service.appversion.AppVersionService;
 import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
+
 
 
 /**
@@ -42,7 +44,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
     authorizationService.checkPermission(permissionFactory.newPermission(APPVERSION_DOMAIN, 
         Actions.read, scopeId));
-    return entityManagerSession.onResult(em -> (AppVersion)AppVersionDao.find(em,appVersionId));
+    return entityManagerSession.onResult(em -> (AppVersion)AppVersionDAO.find(em,appVersionId));
   }
 
 
@@ -103,9 +105,53 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
       return appVersion;
     });
   }
+
+
+  @Override
+  public AppVersion create(AppVersionCreator appVersionCreator)throws KapuaException {
+    // TODO Auto-generated method stub
+    ArgumentValidator.notNull(appVersionCreator, "appVersionCreator");
+    
+    KapuaLocator locator = KapuaLocator.getInstance();
+    AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+    PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+    authorizationService.checkPermission(permissionFactory.newPermission(APPVERSION_DOMAIN,
+        Actions.read, appVersionCreator.getScopeId()));
+    System.out.println("appversionServiceImpl --- create");
+    return entityManagerSession.onTransactedInsert(em -> {
+      AppVersion appVersion = null;
+      appVersion = AppVersionDAO.create(em, appVersionCreator);
+      em.persist(appVersion);
+      return appVersion;
+      
+    });
+    
+    
+  }
      
-     
-  
+  @Override  
+  public void delete(KapuaId scopeId, KapuaId appVersionId)throws KapuaException {
+    
+    ArgumentValidator.notNull(scopeId, "scopeId");
+    ArgumentValidator.notNull(appVersionId, "appVersionId");
+    KapuaLocator locator = KapuaLocator.getInstance();
+    AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+    PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+    authorizationService.checkPermission(permissionFactory.newPermission(APPVERSION_DOMAIN,
+        Actions.read, scopeId));
+    
+    entityManagerSession.onTransactedAction(em -> {
+      
+      AppVersion appVersionx = AppVersionDAO.find(em, appVersionId);
+      if (appVersionx == null) {
+        throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersionId);
+      }
+
+      AppVersionDAO.delete(em, appVersionId);
+      
+    });
+    
+  }
 
 
 
