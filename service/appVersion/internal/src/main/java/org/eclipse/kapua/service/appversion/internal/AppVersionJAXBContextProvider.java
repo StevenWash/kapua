@@ -14,6 +14,7 @@ package org.eclipse.kapua.service.appversion.internal;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.configuration.metatype.TscalarImpl;
 import org.eclipse.kapua.commons.util.xml.JAXBContextProvider;
@@ -26,6 +27,9 @@ import org.eclipse.kapua.model.config.metatype.KapuaTocd;
 import org.eclipse.kapua.model.config.metatype.KapuaToption;
 import org.eclipse.kapua.model.config.metatype.MetatypeXmlRegistry;
 import org.eclipse.kapua.service.appversion.AppVersion;
+import org.eclipse.kapua.service.appversion.AppVersionCreator;
+import org.eclipse.kapua.service.appversion.AppVersionListResult;
+import org.eclipse.kapua.service.appversion.AppVersionXmlRegistry;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +42,12 @@ public class AppVersionJAXBContextProvider implements JAXBContextProvider {
 
   private JAXBContext context;
 
-  @Override
-    public JAXBContext getJAXBContext() throws KapuaException {
+  public JAXBContext getJAXBContext() throws KapuaException {
     if (context == null) {
       Class<?>[] classes = new Class<?>[] {
           AppVersion.class,
+          AppVersionListResult.class,
+          AppVersionXmlRegistry.class,
           KapuaTmetadata.class,
           KapuaTocd.class,
           KapuaTad.class,

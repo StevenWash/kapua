@@ -1,5 +1,8 @@
 package org.eclipse.kapua.service.weather.util;
 
+import org.eclipse.kapua.service.weather.YahooWeather;
+import org.eclipse.kapua.service.weather.internal.YahooWeatherImpl;
+
 import net.sf.json.JSONObject;
 
 public class ErrorMessageException extends Exception {
@@ -12,14 +15,19 @@ public class ErrorMessageException extends Exception {
 	String errorMessage;
 	
 	public ErrorMessageException(){
-		ErrorResultList res=new ErrorResultList();
-		res.setErrorMessage("city is null");
+		
+		ErrorResultList  res=new ErrorResultList();
+		
+		
+	   res.setErrorMessage("city is null");
+		
 		JSONObject jsonRes =JSONObject.fromObject(res);
 		
-		errorMessage=jsonRes.toString();;
+		errorMessage=jsonRes.toString();
 	}
 	
 	public String warnMess(){
+		
 	        return errorMessage;
 	}
 

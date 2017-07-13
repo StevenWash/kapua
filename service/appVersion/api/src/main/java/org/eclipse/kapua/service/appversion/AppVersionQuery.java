@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import org.eclipse.kapua.model.query.KapuaQuery;
 
 /**
- * Account query definition.
+ * AppVersion query definition.
  * 
  * @since 1.0
  * 

@@ -1,4 +1,4 @@
-package org.eclipse.kapua.service.weather.internal;
+package org.eclipse.kapua.service.weather;
 
 import java.util.Date;
 

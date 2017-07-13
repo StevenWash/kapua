@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.eclipse.kapua.service.weather.Constants;
+import org.eclipse.kapua.service.weather.Forecast;
 
 
 

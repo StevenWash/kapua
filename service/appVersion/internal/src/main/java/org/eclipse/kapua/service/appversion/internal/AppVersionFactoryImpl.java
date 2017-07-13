@@ -25,13 +25,13 @@ public class AppVersionFactoryImpl implements AppVersionFactory {
   @Override
   public AppVersionQuery newQuery(KapuaId scopeId) {
     // TODO Auto-generated method stub
-    return null;
+    return new AppVersionQueryImpl(scopeId);
   }
 
   @Override
   public AppVersionListResult newListResult() {
     // TODO Auto-generated method stub
-    return null;
+    return new AppVersionListResultImpl() ;
   }
 
  

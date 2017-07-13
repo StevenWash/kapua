@@ -1,13 +1,12 @@
 package org.eclipse.kapua.service.appversion;
 
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlAccessType;
-
 import org.eclipse.kapua.model.KapuaEntityCreator;
-import org.eclipse.kapua.model.KapuaNamedEntityCreator;
+
 
 @XmlRootElement(name = "appVersionCreator")
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -25,7 +24,7 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
 	
 	
 	/**
-     * Get the organization name
+     * Get the packagename
      * 
      * @return
      */
@@ -33,16 +32,16 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getPackagename();
 
     /**
-     * Set the organization name
+     * Set the packagename
      * 
-     * @param organizationName
+     * @param packagename
      */
     public void setPackagename(String packagename);
     
     
     
     /**
-     * Get the organization name
+     * Get the code
      * 
      * @return
      */
@@ -50,9 +49,9 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getCode();
 
     /**
-     * Set the organization name
+     * Set the code
      * 
-     * @param organizationName
+     * @param code
      */
     public void setCode(String code);
     
@@ -60,7 +59,7 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     
     
     /**
-     * Get the organization name
+     * Get the version
      * 
      * @return
      */
@@ -68,16 +67,16 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getVersion();
 
     /**
-     * Set the organization name
+     * Set the version
      * 
-     * @param organizationName
+     * @param version
      */
     public void setVersion(String version);
     
     
     
     /**
-     * Get the organization name
+     * Get the url
      * 
      * @return
      */
@@ -85,15 +84,15 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getUrl();
 
     /**
-     * Set the organization name
+     * Set the url
      * 
-     * @param organizationName
+     * @param url
      */
     public void setUrl(String url);
     
     
     /**
-     * Get the organization name
+     * Get the size
      * 
      * @return
      */
@@ -101,15 +100,15 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public Integer getSize();
 
     /**
-     * Set the organization name
+     * Set the size
      * 
-     * @param organizationName
+     * @param size
      */
     public void setSize(Integer size);
     
     
     /**
-     * Get the organization name
+     * Get the md5
      * 
      * @return
      */
@@ -117,15 +116,15 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getMd5();
 
     /**
-     * Set the organization name
+     * Set the md5
      * 
-     * @param organizationName
+     * @param md5
      */
     public void setMd5(String md5);
     
     
     /**
-     * Get the organization name
+     * Get the types
      * 
      * @return
      */
@@ -133,15 +132,15 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getTypes();
 
     /**
-     * Set the organization name
+     * Set the types
      * 
-     * @param organizationName
+     * @param types
      */
     public void setTypes(String types);
     
     
     /**
-     * Get the organization name
+     * Get the revision
      * 
      * @return
      */
@@ -149,15 +148,15 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getRevision();
 
     /**
-     * Set the organization name
+     * Set the revision
      * 
-     * @param organizationName
+     * @param revision
      */
     public void setRevision(String revision);
     
     
     /**
-     * Get the organization name
+     * Get the forversion
      * 
      * @return
      */
@@ -165,9 +164,9 @@ public interface  AppVersionCreator  extends KapuaEntityCreator<AppVersion>{
     public String getForversion();
 
     /**
-     * Set the organization name
+     * Set the forversion
      * 
-     * @param organizationName
+     * @param forversion
      */
     public void setForversion(String forversion);
     

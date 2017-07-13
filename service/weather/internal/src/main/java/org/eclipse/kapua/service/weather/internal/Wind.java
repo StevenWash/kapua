@@ -48,6 +48,11 @@ public class Wind {
 		this.direction = direction;
 		this.speed = speed;
 	}
+	
+	public Wind(Integer direction,Float speed) {
+		this.direction = direction;
+		this.speed = speed;
+	}
 
 	/**
 	 * Returns the wind chill in degrees.

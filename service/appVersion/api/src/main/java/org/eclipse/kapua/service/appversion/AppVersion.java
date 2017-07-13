@@ -9,7 +9,7 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
 
 
 /**
- * User account entity.
+ * User appVersion entity.
  * 
  * @since 1.0
  *

@@ -154,5 +154,29 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
   }
 
 
+  @Override
+  public AppVersion update(AppVersion appVersion) throws KapuaException {
+    // TODO Auto-generated method stub
+    ArgumentValidator.notNull(appVersion.getId(), "appVersion.id");
+    
+    KapuaLocator locator = KapuaLocator.getInstance();
+    AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+    PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+    authorizationService.checkPermission(permissionFactory.newPermission(APPVERSION_DOMAIN,
+        Actions.read, appVersion.getScopeId()));
+    
+    
+    return entityManagerSession.onTransactedResult(em -> {
+      AppVersion oldAppVersion = AppVersionDAO.find(em, appVersion.getId());
+      if (oldAppVersion == null) {
+        throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersion.getId());
+      }
+
+      // Update
+      return AppVersionDAO.update(em, appVersion);
+    });
+  }
+
+
 
 }

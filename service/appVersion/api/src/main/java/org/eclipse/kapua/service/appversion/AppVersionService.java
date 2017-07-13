@@ -52,4 +52,6 @@ public interface AppVersionService extends KapuaService{
     public AppVersion create(AppVersionCreator appVersionCreator) throws KapuaException ;
     
     public void delete(KapuaId scopeId, KapuaId entityId)throws KapuaException;
+    
+    public AppVersion update(AppVersion appVersion) throws KapuaException ;
 }

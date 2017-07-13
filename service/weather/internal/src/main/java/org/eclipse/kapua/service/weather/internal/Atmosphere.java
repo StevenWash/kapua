@@ -60,6 +60,12 @@ public class Atmosphere {
 		this.pressure = pressure;
 		this.rising = rising;
 	}
+	
+	public Atmosphere(Integer humidity) {
+			
+		this.humidity = humidity;
+		
+	}
 
 	/**
 	 * Returns the humidity, in percent.
@@ -103,12 +109,12 @@ public class Atmosphere {
 		StringBuilder builder = new StringBuilder();
 		builder.append("humidity=");
 		builder.append(humidity);
-		builder.append(", visibility=");
+		/*builder.append(", visibility=");
 		builder.append(visibility);
 		builder.append(", pressure=");
 		builder.append(pressure);
 		builder.append(", rising=");
-		builder.append(rising);
+		builder.append(rising);*/
 		
 		return builder.toString();
 	}

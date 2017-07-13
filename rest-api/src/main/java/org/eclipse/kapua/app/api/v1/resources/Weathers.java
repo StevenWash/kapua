@@ -20,16 +20,28 @@ import org.eclipse.kapua.service.weather.YahooWeather;
 import org.eclipse.kapua.service.weather.internal.GeoIPv4;
 import org.eclipse.kapua.service.weather.internal.NormalResult;
 import org.eclipse.kapua.service.weather.BaseIpService;
+import org.eclipse.kapua.service.weather.internal.Atmosphere;
+import org.eclipse.kapua.service.weather.Forecast;
 import org.eclipse.kapua.service.weather.internal.SinaIpService;
 import org.eclipse.kapua.service.weather.internal.SinaIpInfo;
 import org.eclipse.kapua.service.weather.internal.WeatherPresentation;
+import org.eclipse.kapua.service.weather.internal.Wind;
+import org.eclipse.kapua.service.weather.internal.Location;
 import org.eclipse.kapua.service.weather.internal.YahooWeatherImpl;
 import org.eclipse.kapua.service.weather.internal.YahooWeatherService;
 import org.eclipse.kapua.service.weather.internal.Channel;
 import org.eclipse.kapua.service.weather.util.ErrorMessageException;
 import org.json.JSONException;
 
+
+
+
+
+
+
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -118,7 +130,7 @@ public class Weathers extends AbstractKapuaResource {
 							result.setResult(content);
 				
 					strResult=result.BuildResult();
-        	    }
+        	          }
         	
         	}
         	
@@ -149,45 +161,79 @@ public class Weathers extends AbstractKapuaResource {
           
             @ApiParam(value = "The area of the requested Weather", required = true) @PathParam("city") String city)
             {
-    	StringBuffer buffer =new StringBuffer();
+    	
     	YahooWeatherService service = null;
-        String  weathers = null;
+       
         YahooWeather yhWeather=null;
         try {
         	service=new YahooWeatherService();
         	Channel channel = service.getForecastForLocation(city).first(3).get(0);
-        	//buffer.append(channel);
-        /*	List<Forecast> list=channel.getItem().getForecasts();
-    		for(Forecast fo:list){
-    			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
-    		}*/
-        //	buffer.append(channel.getItem().getForecasts().get(0));
-        	JSONObject  channelJson = JSONObject.fromObject(channel.toString());
+        
+        	
+        	//空气湿度
+        	Integer humidity=channel.getAtmosphere().getHumidity();
+        	Atmosphere atmosphere =new Atmosphere(humidity);
+        	JSONObject  atmo = JSONObject.fromObject(atmosphere);
+        		
+        	
+        	//风速 风向
+        	Float speed=channel.getWind().getSpeed();
+        	Integer direction=channel.getWind().getDirection();
+        	Wind wind=new Wind(direction,speed);
+        	JSONObject  wind_speed = JSONObject.fromObject(wind);
+        	
+        	//地理位置
+        	Location location=channel.getLocation();
+        	JSONObject  jsonLocation = JSONObject.fromObject(location);
+        	
+        	//发布时间
+        	JSONObject  chanelJson = JSONObject.fromObject(channel);
+        	
+        	List<Forecast> forecastList=new ArrayList<Forecast>();
+        	List<Forecast> forecasts=channel.getItem().getForecasts();
+        	
+            for(int i=0;i<=2;i++){
+            	forecastList.add(forecasts.get(i));
+            }
+        
         	JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
-        	JSONObject jsonThree = new JSONObject(); 
-        	jsonThree.putAll(channelJson);
+        	JSONObject jsonThree = new JSONObject();
+        	
+        	jsonThree.putAll(wind_speed);
+        	jsonThree.putAll(atmo);//湿度
+        	jsonThree.putAll(jsonLocation);
         	jsonThree.putAll(forecastJson);
+            jsonThree.putAll(chanelJson);
+        	
         	JSONObject jsonObject = JSONObject.fromObject(jsonThree);
         	yhWeather=new YahooWeatherImpl();
             yhWeather.setCity(jsonObject.getString("city"));
-        	System.out.println("city:::"+jsonObject.getString("city"));
+        	
         	yhWeather.setCountry(jsonObject.getString("country"));
-        	System.out.println("country:::"+jsonObject.getString("country"));
+        	
         	yhWeather.setRegion(jsonObject.getString("region"));
-        	System.out.println("region:::"+jsonObject.getString("region"));
-        	yhWeather.setDay(jsonObject.getString("day"));
-        	System.out.println("day:::"+jsonObject.getString("day"));
+        	
+        	/*yhWeather.setDay(jsonObject.getString("day"));
+        	
         	yhWeather.setDate(jsonObject.getString("date"));
-        	System.out.println("date:::"+jsonObject.getString("date"));
-        	yhWeather.setHigh(jsonObject.getString("high"));
-        	System.out.println("high:::"+jsonObject.getString("high"));
-        	yhWeather.setLow(jsonObject.getString("low"));
-        	System.out.println("low:::"+jsonObject.getString("low"));
-        	yhWeather.setText(jsonObject.getString("text"));
-        	System.out.println("text:::"+jsonObject.getString("text"));
-        	System.out.println("<<<<<<<<<"+yhWeather.getType());
-        	//weathers=jsonThree.toString();
-        	System.out.println(yhWeather.getRegion()+"    "+yhWeather.getCity()+"        "+yhWeather.getDate());
+        
+        	yhWeather.setHigh_temp(jsonObject.getString("high"));
+        	
+        	yhWeather.setLow_temp(jsonObject.getString("low"));
+        	
+        	yhWeather.setText(jsonObject.getString("text"));*/
+        	
+        	yhWeather.setHumidity(jsonObject.getString("humidity"));
+        	  
+        	yhWeather.setWind_speed(jsonObject.getString("speed"));
+        	
+        	yhWeather.setDirection(jsonObject.getString("direction"));
+        	
+        	//yhWeather.setPubdate(jsonObject.getString("lastBuildDate"));
+        	
+        	
+        	yhWeather.addItems(forecastList);
+        	
         	
           
         } catch (Exception e) {
@@ -202,39 +248,42 @@ public class Weathers extends AbstractKapuaResource {
     @GET
     @Path("yahooapi/ip")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets an Weather by YaHooWeatherApi and ipAddress,scopeId", //
             notes = "Gets the Weather specified by the ipAddress path parameter", //
-            response = String.class)
-    public String getWeathersByIpAddress(
+            response = YahooWeather.class)
+    public YahooWeather getWeathersByIpAddress(
            
             @ApiParam(value = "The ipAddress of the requested Weather") @QueryParam("ipAddress") String ip){
             
     	StringBuffer buffer =new StringBuffer(); 
     	YahooWeatherService service = null;
         String weather=null;
+        YahooWeather yhWeather=null;
         try {
         	//boolean flag=IpHelper.isIpv4(ip);
         	if(ip==null||ip.equals("")||IpHelper.isIpv4(ip)==false){
         		ip=request.getRemoteHost();//自动获取Ip地址
         		System.out.println("ip::"+ip);
         		String city=GeoIPv4.getLocation(InetAddress.getByName(ip)).getCity();
-        		
-            	service=new YahooWeatherService();
+        		yhWeather =	this.getWeathersByArea(city);
+        		    
+            	/*service=new YahooWeatherService();
             	Channel channel = service.getForecastForLocation(city).first(3).get(0);
-            	/*buffer.append(channel);
-            	buffer.append(channel.getItem().getForecasts().get(0));*/
+            	
             	JSONObject  channelJson = JSONObject.fromObject(channel.toString());
 	        	JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
 	        	JSONObject jsonThree = new JSONObject(); 
 	        	jsonThree.putAll(channelJson);
 	        	jsonThree.putAll(forecastJson);
             	
-            	weather=jsonThree.toString();
+            	weather=jsonThree.toString();*/
+        		
         	}else{
         	
 	        	String city=GeoIPv4.getLocation(InetAddress.getByName(ip)).getCity();
-	        	service=new YahooWeatherService();
+	        	yhWeather = this.getWeathersByArea(city);
+	        	/*service=new YahooWeatherService();
 	        	Channel channel = service.getForecastForLocation(city).first(3).get(0);
 	        	
 	        	JSONObject  channelJson = JSONObject.fromObject(channel.toString());
@@ -242,36 +291,22 @@ public class Weathers extends AbstractKapuaResource {
 	        	JSONObject jsonThree = new JSONObject(); 
 	        	jsonThree.putAll(channelJson);
 	        	jsonThree.putAll(forecastJson);
-	        //	buffer.append(channel.getItem().getForecasts().get(0));
-	        //	System.out.println("buffer.toString:"+buffer.toString());
-	        	
-	        	/*net.sf.json.JSONObject  myJson = net.sf.json.JSONObject.fromObject(buffer.toString());
-	        	System.out.println("myJson:"+myJson.toString());*/
-	        	/*System.out.println("buffer::"+buffer.toString());
-	        	org.json.JSONArray jsonArray = new org.json.JSONArray(buffer.toString());
-	        	System.out.println("jsonArray::"+jsonArray.toString());
-	        	System.out.println();*/
-	        //	buffer.append(channel.getItem().getForecasts().get(0));
-	        	/*List<Forecast> list=channel.getItem().getForecasts();
-	    		for(Forecast fo:list){
-	    			builder.append("day: "+fo.getDay()+"  date:"+fo.getDate()+"  high:"+fo.getHigh()+" low:"+fo.getLow()+"  code:"+fo.getCode()+"     text:"+fo.getText()+"\n");
-	    		}*/
-	        	/*Forecast forecase=channel.getItem().getForecasts().get(0);
-	        	net.sf.json.JSONObject jsonForecase = net.sf.json.JSONObject.fromObject(forecase);
-	        	buffer.append(jsonForecase.toString());*/
+	    
 	        	
 	        	
-	        	weather=jsonThree.toString();
+	        	weather=jsonThree.toString();*/
         	}
         }catch(ErrorMessageException em){
         	System.out.println("city is null");
-        	weather=em.warnMess();
+        	
+        	yhWeather=null;
+        	
         	
        } catch (Exception e) {
         
           e.printStackTrace();
         }
-        return weather;
+        return yhWeather;
 
 
      }
@@ -290,6 +325,7 @@ public class Weathers extends AbstractKapuaResource {
             @ApiParam(value = "The ipAddress of the requested Weather") @QueryParam("ipAddress") String ipAddress,
             @ApiParam(value = "The day of the requested Weather", required = true, defaultValue ="0") @DefaultValue("0") @PathParam("day") Integer day)throws Exception{
         String weatherInfo=null;
+        YahooWeatherService service = null;
         
         try {
         	 if(weatherApiName.equals("sina")){
@@ -312,7 +348,45 @@ public class Weathers extends AbstractKapuaResource {
         	     weatherInfo=jsonRes.toString();
         		 }
         	 }else if(weatherApiName.equals("yahoo")){
-        		 weatherInfo=this.getWeathersByIpAddress(ipAddress);
+        		// weatherInfo=this.getWeathersByIpAddress(ipAddress);
+        		 try {
+					if(ipAddress==null||ipAddress.equals("")||IpHelper.isIpv4(ipAddress)==false){
+						 ipAddress=request.getRemoteHost();//自动获取Ip地址
+						System.out.println("ip::"+ipAddress);
+						String city=GeoIPv4.getLocation(InetAddress.getByName(ipAddress)).getCity();
+						service=new YahooWeatherService();
+						Channel channel = service.getForecastForLocation(city).first(3).get(0);
+						
+						JSONObject  channelJson = JSONObject.fromObject(channel.toString());
+						JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
+						JSONObject jsonThree = new JSONObject(); 
+						jsonThree.putAll(channelJson);
+						jsonThree.putAll(forecastJson);
+						
+						weatherInfo=jsonThree.toString();
+					 
+					 }else{
+					    	
+						String city=GeoIPv4.getLocation(InetAddress.getByName(ipAddress)).getCity();
+						
+						service=new YahooWeatherService();
+						Channel channel = service.getForecastForLocation(city).first(3).get(0);
+						
+						JSONObject  channelJson = JSONObject.fromObject(channel.toString());
+						JSONObject  forecastJson = JSONObject.fromObject(channel.getItem().getForecasts().get(0).toString());
+						JSONObject jsonThree = new JSONObject(); 
+						jsonThree.putAll(channelJson);
+						jsonThree.putAll(forecastJson);
+  	    
+						
+						
+						weatherInfo=jsonThree.toString();
+					 }
+				} catch (ErrorMessageException em) {
+					// TODO Auto-generated catch block
+					System.out.println("city is null");
+					weatherInfo=em.warnMess();
+				}
         	 }else{
         		 weatherInfo=null;
         	 }

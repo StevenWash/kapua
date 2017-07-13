@@ -149,6 +149,10 @@ import org.eclipse.kapua.service.weather.YahooWeather;
 import org.eclipse.kapua.service.apkinfo.ApkInfo;
 import org.eclipse.kapua.service.appinfo.AppInfo;
 import org.eclipse.kapua.service.appversion.AppVersion;
+import org.eclipse.kapua.service.appversion.AppVersionCreator;
+import org.eclipse.kapua.service.appversion.AppVersionListResult;
+import org.eclipse.kapua.service.appversion.AppVersionQuery;
+import org.eclipse.kapua.service.appversion.AppVersionXmlRegistry;
 
 
 
@@ -356,7 +360,12 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                  // AppInfo   
                     AppInfo.class,
                     
+                    //AppVersion
                     AppVersion.class,
+                  //  AppVersionCreator.class,
+                  //  AppVersionListResult.class,
+                   // AppVersionQuery.class,
+                   // AppVersionXmlRegistry.class,
                     
                     WeatherCode.class,
                     
