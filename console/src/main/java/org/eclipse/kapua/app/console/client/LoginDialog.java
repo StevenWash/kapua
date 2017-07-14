@@ -76,7 +76,7 @@ public class LoginDialog extends Dialog {
 
     public LoginDialog() {
         FormLayout layout = new FormLayout();
-
+        System.out.println("LoginDialog...");
         layout.setLabelWidth(90);
         layout.setDefaultWidth(160);
         setLayout(layout);
@@ -129,16 +129,20 @@ public class LoginDialog extends Dialog {
         add(password);
 
         setFocusWidget(username);
-        
+        System.out.println("获取SSOEnable...");
         gwtSettingService.getSsoEnabled(new AsyncCallback<Boolean>() {
 
             @Override
             public void onFailure(Throwable caught) {
+                
                 ConsoleInfo.display(MSGS.loginSsoEnabledError(), caught.getLocalizedMessage());
+                System.out.println("获取sso设置信息失败");
+                ssoLogin.setVisible(true);
             }
 
             @Override
             public void onSuccess(Boolean result) {
+                System.out.println("获取sso设置信息成功：result:"+result);
                 ssoLogin.setVisible(result);
             }
         });
@@ -201,11 +205,13 @@ public class LoginDialog extends Dialog {
 
             @Override
             public void onFailure(Throwable caught) {
+                System.out.println("caught:"+caught.getMessage());
                 ConsoleInfo.display(MSGS.loginSsoLogin(), caught.getLocalizedMessage());
             }
 
             @Override
             public void onSuccess(String result) {
+                System.out.println("result:"+result);
                 Window.Location.assign(result);
             }
             

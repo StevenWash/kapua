@@ -943,22 +943,32 @@
         <module>qa</module>
         <module>qa-openshift</module>
 
-       <!--  <module>sso</module> -->
+       <module>sso</module> 
 
         <!-- Applications -->
-      <!--  <module>console</module>   -->
+        <module>console</module>  
         <module>rest-api</module>
 
         <!-- Simulator framework -->
         <module>simulator-kura</module>
 
         <!-- Assembly -->
-       <!--  <module>assembly</module>-->
+       <module>assembly</module>
 
         <module>dev-tools</module>
     </modules>
 
     <profiles>
+		<!-- Profile used to exclude console module on release process -->
+        <profile>
+            <id>console</id>
+             <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>console</module>
+            </modules>
+        </profile>
         <!-- Profile used only during release process. -->
         <profile>
             <id>release</id>

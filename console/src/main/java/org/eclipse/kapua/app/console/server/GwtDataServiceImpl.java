@@ -90,6 +90,8 @@ public class GwtDataServiceImpl extends KapuaConfigurableRemoteServiceServlet<Me
 
     @Override
     public List<GwtTopic> findTopicsTree(String scopeId) throws GwtKapuaException {
+        
+        System.out.println("TopicsTable----inittopicInfoGrid-----findTopicsTree");
         List<GwtTopic> channelInfoList = new ArrayList<GwtTopic>();
         HashMap<String, GwtTopic> topicMap = new HashMap<String, GwtTopic>();
         ChannelInfoRegistryService channelInfoService = LOCATOR.getService(ChannelInfoRegistryService.class);
@@ -100,6 +102,7 @@ public class GwtDataServiceImpl extends KapuaConfigurableRemoteServiceServlet<Me
             query.setOffset(offset);
             query.setLimit(limit);
             ChannelInfoListResult result = channelInfoService.query(query);
+            System.out.println(">>>>>"+result.getFirstItem());
             while (result != null && !result.isEmpty()) {
                 for (ChannelInfo channel : result.getItems()) {
                     addToMap(topicMap, channel);

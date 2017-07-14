@@ -42,18 +42,27 @@ public class SsoCallbackServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
         final String authCode = req.getParameter("code");
+        
+        System.out.println("authCode:"+authCode);
 
         final URI redirectUri = SsoHelper.getRedirectUri();
+        
+        System.out.println("redirectUri:"+redirectUri);
 
         final JsonObject jsonObject = locator.getService().getAccessToken(authCode, redirectUri);
+        System.out.println("jsonObject:"+jsonObject);
 
         // Get and clean jwks_uri property
         final String accessToken = jsonObject.getString("access_token");
+        System.out.println("accessToken:"+accessToken);
         final String homeUri = SsoHelper.getHomeUri();
+        System.out.println("homeUri:"+homeUri);
 
         try {
             final URIBuilder redirect = new URIBuilder(homeUri);
+            System.out.println("redirect:"+redirect);
             redirect.addParameter("access_token", accessToken);
             resp.sendRedirect(redirect.toString());
         } catch (final URISyntaxException e) {

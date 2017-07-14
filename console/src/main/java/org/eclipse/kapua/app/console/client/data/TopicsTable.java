@@ -68,7 +68,7 @@ public class TopicsTable extends LayoutContainer {
     @Override
     protected void onRender(Element parent, int index) {
         super.onRender(parent, index);
-
+        System.out.println("TopicsTable--------------------");
         setLayout(new FitLayout());
         setBorders(true);
 
@@ -92,7 +92,7 @@ public class TopicsTable extends LayoutContainer {
 
     private void inittopicInfoGrid() {
         List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
-
+        System.out.println("TopicsTable------------inittopicInfoGrid");
         ColumnConfig column = new ColumnConfig("topicName", MSGS.topicInfoTableTopicHeader(), 150);
         column.setRenderer(new TreeGridCellRenderer<GwtTopic>());
         configs.add(column);
@@ -105,6 +105,7 @@ public class TopicsTable extends LayoutContainer {
 
             @Override
             public void onSuccess(List<GwtTopic> topics) {
+                System.out.println("TopicsTable------------inittopicInfoGrid----topic:"+topics.size());
                 store.add(topics, true);
                 topicInfoGrid.unmask();
             }

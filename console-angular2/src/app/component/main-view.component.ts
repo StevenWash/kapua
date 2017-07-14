@@ -21,13 +21,13 @@ import {AccessInfo, AccessRole} from "../module/access-role.module";
 
 @Component({
   selector: 'main-view',
-  templateUrl: 'app/static/main-view.component.html',
-  styleUrls:['app/css/static/main.view.css']
+  templateUrl: '../static/main-view.component.html',
+  styleUrls: ['../css/static/main.view.css']
 })
-export class MainViewComponent{
-  //--------user相关的变量信息--------//
-  private userInfos:UserInfo[];
-  private user:UserInfo;
+export class MainViewComponent {
+  // --------user相关的变量信息--------//
+  private userInfos: UserInfo [];
+  private user: UserInfo;
   private aUser:UserInfo=new UserInfo();
   private aCredential=new Credential();
   private displayName:string;

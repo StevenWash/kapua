@@ -31,6 +31,7 @@ public class GenericSingleSignOnService extends AbstractSingleSignOnService {
 
     @Override
     protected String getAuthUri() {
+        System.out.println("通用。。。。。。");
         return genericSettings.getString(GenericSsoSettingKeys.SSO_OPENID_SERVER_ENDPOINT_AUTH);
     }
 

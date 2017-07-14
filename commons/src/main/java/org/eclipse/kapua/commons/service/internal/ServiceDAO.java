@@ -351,7 +351,6 @@ public class ServiceDAO {
         //
         // WHERE
         KapuaPredicate kapuaPredicates = kapuaQuery.getPredicate();
-        System.out.println("scopeId>>>>>>>>>>>:"+kapuaQuery.getScopeId());
         if (kapuaQuery.getScopeId() != null) {
 
             AttributePredicate<KapuaId> scopeId = new AttributePredicate<>(KapuaEntityPredicates.SCOPE_ID, kapuaQuery.getScopeId());
@@ -367,7 +366,6 @@ public class ServiceDAO {
             kapuaPredicates = scopedAndPredicate;
         }
         
-        System.out.println("ServiceDAO>>>>>>>>>:kapuaPredicates:"+kapuaPredicates);
 
         // Manage kapua query predicates to build the where clause.
         Map<ParameterExpression, Object> binds = new HashMap<>();
@@ -377,7 +375,6 @@ public class ServiceDAO {
                 entityRoot,
                 entityRoot.getModel());
 
-        System.out.println("expr>>>>>>>>>>:"+expr);
         if (expr != null) {
             criteriaSelectQuery.where(expr);
         }

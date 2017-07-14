@@ -292,18 +292,29 @@ public class TransportDatastoreClient implements org.eclipse.kapua.service.datas
         ObjectNode fetchSourceFields = (ObjectNode) queryMap.path(KEY_SOURCE);
         String[] includesFields = toIncludedExcludedFields(fetchSourceFields.path(KEY_INCLUDES));
         String[] excludesFields = toIncludedExcludedFields(fetchSourceFields.path(KEY_EXCLUDES));
-        SearchRequestBuilder searchReqBuilder = esClientProvider.getClient().prepareSearch(typeDescriptor.getIndex());
+        System.out.println(">>>>index:"+typeDescriptor.getIndex());
+        System.out.println(">>>>getType:"+typeDescriptor.getType());
+       /* SearchRequestBuilder searchReqBuilder = esClientProvider.getClient().prepareSearch(typeDescriptor.getIndex());
         searchReqBuilder.setTypes(typeDescriptor.getType())
                 .setSource(toSearchSourceBuilder(queryMap))
+                .setFetchSource(includesFields, excludesFields);*/
+        
+        SearchRequestBuilder searchReqBuilder = esClientProvider.getClient().prepareSearch("1");
+        searchReqBuilder.setTypes("client")
+                .setSource(toSearchSourceBuilder(queryMap))
                 .setFetchSource(includesFields, excludesFields);
+        
         // unused since sort fields are already included in the search query mapping
         // ArrayNode sortFields = (ArrayNode) queryMap.path(QueryConverter.SORT_KEY);
         SearchHit[] searchHits = null;
         long totalCount = 0;
         try {
+            System.out.println("search:"+searchReqBuilder.toString());
             response = searchReqBuilder
                     .execute()
-                    .actionGet(getQueryTimeout());
+                    .actionGet();
+            System.out.println("--------------");
+            System.out.println("response:"+response.getHits());
             searchHits = response.getHits().getHits();
             totalCount = response.getHits().getTotalHits();
             if (totalCount > Integer.MAX_VALUE) {
@@ -314,11 +325,12 @@ public class TransportDatastoreClient implements org.eclipse.kapua.service.datas
         } catch (SearchPhaseExecutionException spee) {
             logger.warn("Generic search error {}", spee.getMessage(), spee);
         }
-
+        
         ResultList<T> result = new ResultList<T>(totalCount);
         if (searchHits != null) {
             for (SearchHit searchHit : searchHits) {
                 Map<String, Object> object = searchHit.getSource();
+                System.out.println("hit:"+object);
                 object.put(ModelContext.TYPE_DESCRIPTOR_KEY, new TypeDescriptor(searchHit.getIndex(), searchHit.getType()));
                 object.put(ModelContext.DATASTORE_ID_KEY, searchHit.getId());
                 object.put(QueryConverter.QUERY_FETCH_STYLE_KEY, queryFetchStyle);

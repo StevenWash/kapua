@@ -39,6 +39,8 @@ public class DataView extends LayoutContainer{
         tabsPanel.setBorders(false); 
         tabsPanel.setBodyBorder(true);
         
+        System.out.println("TopicsTabItem----DeviceTabItem----AssetTabItem");
+        
         TopicsTabItem channelTabItem = new TopicsTabItem(currentSession);
         tabsPanel.add(channelTabItem);
         DeviceTabItem deviceTabItem = new DeviceTabItem(currentSession);

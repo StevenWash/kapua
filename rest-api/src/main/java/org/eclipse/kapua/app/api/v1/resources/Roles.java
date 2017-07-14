@@ -276,47 +276,5 @@ public class Roles extends AbstractKapuaResource {
            return roleListResult;
     } 
     
-    
-    /**
-     * Gets the {@link Role} list in the scope.
-     *
-     * @param scopeId The {@link ScopeId} in which to search results.
-     * @param name    The {@link Role} name in which to search results.
-     * @param offset  The result set offset.
-     * @param limit   The result set limit.
-     * @return The {@link RoleListResult} of all the roles associated to the current selected scope.
-     * @since 1.0.0
-     */
-    @ApiOperation(value = "Gets the Role list in the scope",
-            notes = "Returns the list of all the roles associated to the current selected scope.",
-            response = Role.class,
-            responseContainer = "RoleListResult")
-    @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RoleListResult getRolesByUserId(
-            @ApiParam(value = "The ScopeId in which to search results.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId,
-            @ApiParam(value = "The userId to filter results.")  @PathParam("userId") EntityId  userId,
-            @ApiParam(value = "The result set offset.", defaultValue = "0") @QueryParam("offset") @DefaultValue("0") int offset,
-            @ApiParam(value = "The result set limit.", defaultValue = "50") @QueryParam("limit") @DefaultValue("50") int limit) {
-        RoleListResult roleListResult = roleFactory.newListResult();
-        try {
-            RoleQuery query = roleFactory.newQuery(scopeId);
-            
-
-            AndPredicate andPredicate = new AndPredicate();
-            if (!Strings.isNullOrEmpty(name)) {
-                andPredicate.and(new AttributePredicate<>(RolePredicates.NAME, name,Operator.LIKE));
-            }
-            query.setPredicate(andPredicate);
-
-            query.setOffset(offset);
-            query.setLimit(limit);
-
-            roleListResult = query(scopeId, query);
-        } catch (Throwable t) {
-            handleException(t);
-        }
-        return roleListResult;
-    }
 
 }

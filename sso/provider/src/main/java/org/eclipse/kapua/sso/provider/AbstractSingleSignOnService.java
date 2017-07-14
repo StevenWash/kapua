@@ -64,8 +64,12 @@ public abstract class AbstractSingleSignOnService implements SingleSignOnService
 
     @Override
     public String getLoginUri(final String state, final URI redirectUri) {
+        System.out.println("state:"+state+"  redirectUri:"+redirectUri);
+        
         try {
             final URIBuilder uri = new URIBuilder(getAuthUri());
+            
+            System.out.println("uri:"+uri);
 
             uri.addParameter("scope", "openid");
             uri.addParameter("response_type", "code");

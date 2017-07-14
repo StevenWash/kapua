@@ -10,14 +10,14 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'my-app',
-  templateUrl:'app/static/login.html',
-  styleUrls: ['app/css/static/login.css']
+  templateUrl: '../static/login.html',
+  styleUrls: ['../css/static/login.css']
 })
-export class LoginComponent{
+export class LoginComponent {
   private creditial=new Credential();
 
   constructor(
-    private loginService:LoginService,
+    private loginService: LoginService,
     private router: Router
   ){
     this.creditial.setUsername('huaxin');
@@ -28,11 +28,11 @@ export class LoginComponent{
    * 实现登录操作（进行授权验证）
    */
   login() {
-    console.log(this.creditial.getUsername() + "  " + this.creditial.getPassword());
+    console.log(this.creditial.getUsername() + '  ' + this.creditial.getPassword());
     this.loginService.login(this.creditial.getUsername(), this.creditial.getPassword()).subscribe((result) => {
       if (result) {
         // console.log('来自app.component:'+localStorage.getItem('tokenId'));
-        console.log("login success");
+        console.log('login success');
         this.router.navigate(['/home']);
       }
     });

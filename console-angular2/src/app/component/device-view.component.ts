@@ -9,10 +9,10 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'device',
-  templateUrl: 'app/static/device-view.html',
-  styleUrls:['app/css/static/main.view.css']
+  templateUrl: '../static/device-view.html',
+  styleUrls:['../css/static/main.view.css']
 })
-export class DeviceViewComponent{
+export class DeviceViewComponent {
 
 //--------device相关的变量信息--------//
   private deviceInfos:DeviceInfo[];

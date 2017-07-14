@@ -78,6 +78,7 @@ public abstract class AbstractKapuaConverter {
     protected CamelKapuaMessage<?> convertTo(Exchange exchange, Object value, MessageType messageType) throws KapuaException {
         // assume that the message is a Camel Jms message
         JmsMessage message = exchange.getIn(JmsMessage.class);
+        logger.info("message:"+message.toString());
         if (message.getJmsMessage() instanceof BytesMessage) {
             try {
                 // FIX #164
@@ -86,6 +87,12 @@ public abstract class AbstractKapuaConverter {
                 String clientId = message.getHeader(MessageConstants.HEADER_KAPUA_CLIENT_ID, String.class);
                 ConnectorDescriptor connectorDescriptor = (ConnectorDescriptor) SerializationUtils
                         .deserialize(message.getHeader(MessageConstants.HEADER_KAPUA_CONNECTOR_DEVICE_PROTOCOL, byte[].class));
+               
+                logger.info("jmsTopic:"+CamelUtil.getTopic(message));
+                logger.info("connectionId:"+connectionId);
+                logger.info("clientId:"+clientId);
+                logger.info("messageType:"+messageType);
+                
                 return JmsUtil.convertToCamelKapuaMessage(connectorDescriptor, messageType, (byte[]) value, CamelUtil.getTopic(message), queuedOn, connectionId, clientId);
             } catch (JMSException e) {
                 metricConverterErrorMessage.inc();

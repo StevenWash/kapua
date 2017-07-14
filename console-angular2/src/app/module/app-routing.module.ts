@@ -6,6 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../component/login.component';
 import { MainViewComponent } from '../component/main-view.component'
 import {DeviceViewComponent} from "../component/device-view.component";
+import {SSOLoginComponent} from "../component/sso.login.Component";
+import {CanActivateViaOAuthGuard} from "../service/oAuth.canActivateGuard";
 
 const routes: Routes = [
   {path: '', redirectTo : '/login', pathMatch : 'full'},
@@ -15,7 +17,9 @@ const routes: Routes = [
   {path: 'home/role',component: MainViewComponent},
   {path: 'home/user',component: MainViewComponent},
   {path: 'home/group',component: MainViewComponent},
-  {path: 'home/account',component: MainViewComponent}
+  {path: 'home/account',component: MainViewComponent},
+  {path: 'ssologin',component: SSOLoginComponent,canActivate:[CanActivateViaOAuthGuard]},
+  {path: 'sso/callback',component: SSOLoginComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

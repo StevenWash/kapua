@@ -62,6 +62,8 @@ public class TopicsTabItem extends TabItem {
     @Override
     protected void onRender(Element parent, int index) {
         super.onRender(parent, index);
+        
+        System.out.println("TopicsTabItem--------------------");
 
         setWidth("100%");
 

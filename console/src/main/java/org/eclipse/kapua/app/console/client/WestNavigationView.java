@@ -220,6 +220,7 @@ public class WestNavigationView extends LayoutContainer {
                     centerPanel.layout();
                     dashboardSelected = false;
                 } else if ("data".equals(selectedId)) {
+                    System.out.println("data  selected--------");
                     DataView dataView = new DataView(currentSession);
                     panel.setHeaderVisible(false);
                     panel.add(dataView);

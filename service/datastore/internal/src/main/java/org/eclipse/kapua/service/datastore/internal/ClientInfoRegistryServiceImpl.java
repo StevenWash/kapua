@@ -124,6 +124,11 @@ public class ClientInfoRegistryServiceImpl extends AbstractKapuaConfigurableServ
 
         checkAccess(query.getScopeId(), Actions.read);
         try {
+            System.out.println(">>>>>scopeId:"+query.getScopeId());
+            System.out.println(">>>>>sortFields:"+query.getSortFields());
+            System.out.println(">>>>>predicate:"+query.getPredicate());
+            System.out.println(">>>>>fetchStyle:"+query.getFetchStyle());
+            
             ClientInfoListResult result = clientInfoRegistryFacade.query(query);
             if (result != null) {
                 // populate the lastMessageTimestamp

@@ -8,17 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" href="http://www.izhiju.cn/image/logo/zhiju_32x32.ico" type="image/x-icon">
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/mqttclient.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/static/mqttclient.css">
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/slide.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/flat-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.nouislider.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css"/>
 </head>
 
 <body>
@@ -26,7 +15,7 @@
         <!-- 左侧菜单栏目块 -->
         <div class="leftMeun" id="leftMeun">
             <div id="logoDiv">
-                <p id="logoP"><img id="logo" alt="智居科技" src="app/images/logo.png"><span>智居科技</span></p>
+                <p id="logoP"><img id="logo" alt="智居科技" src="/src/app/images/logo.png"><span>智居科技</span></p>
             </div>
             <div id="personInfor">
                 <p id="userName">{{displayName}}</p>
@@ -103,7 +92,7 @@
                     </div>
                     <div class="logoInfo">
                         <div class="logoImg">
-                          <img src="app/images/logoinfo.png">
+                          <img ng-src="/src/app/images/logoinfo.png">
                         </div>
                         <div class="logoIntroduce">
                           <p>IZhiJu is a tech-company providing the services required to manage IoT gateways and smart edge devices.</p>

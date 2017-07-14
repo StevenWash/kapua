@@ -381,6 +381,8 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
                 // 4) find device
                 Context loginFindClientIdTimeContext = metricLoginFindClientIdTime.time();
                 deviceConnection = KapuaSecurityUtils.doPrivileged(() -> deviceConnectionService.findByClientId(scopeId, clientId));
+                
+                System.out.println("get deviceConnection>>>>>>clientId:"+deviceConnection.getClientId()+"   userId:"+deviceConnection.getUserId());
                 loginFindClientIdTimeContext.stop();
 
                 Context loginFindDevTimeContext = metricLoginFindDevTime.time();

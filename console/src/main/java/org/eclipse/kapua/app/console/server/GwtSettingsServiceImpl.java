@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.kapua.app.console.server;
 
+import java.net.URI;
 import java.util.UUID;
 
 import org.eclipse.kapua.app.console.server.util.SsoHelper;
@@ -20,6 +21,8 @@ import org.eclipse.kapua.app.console.setting.ConsoleSetting;
 import org.eclipse.kapua.app.console.setting.ConsoleSettingKeys;
 import org.eclipse.kapua.app.console.shared.model.GwtLoginInformation;
 import org.eclipse.kapua.app.console.shared.service.GwtSettingsService;
+import org.eclipse.kapua.sso.SingleSignOnLocator;
+import org.eclipse.kapua.sso.SingleSignOnService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -41,7 +44,15 @@ public class GwtSettingsServiceImpl extends RemoteServiceServlet implements GwtS
 
     @Override
     public String getSsoLoginUri() {
-        return SsoLocator.getLocator(this).getService().getLoginUri(UUID.randomUUID().toString(), SsoHelper.getRedirectUri());
+        URI uri= SsoHelper.getRedirectUri();
+        System.out.println("uri:"+uri);
+        SingleSignOnLocator lo=SsoLocator.getLocator(this);
+        System.out.println("lo:"+lo);
+        SingleSignOnService  ss=lo.getService();
+        System.out.println("ss:"+ss.toString());
+        String loginUri=ss.getLoginUri(UUID.randomUUID().toString(), uri);
+        System.out.println("loginUri:"+loginUri);
+        return loginUri;
     }
 
     @Override
