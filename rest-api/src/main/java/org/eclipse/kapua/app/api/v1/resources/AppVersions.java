@@ -46,7 +46,8 @@ public class AppVersions extends AbstractKapuaResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public AppVersion find(
 	    @ApiParam(value = "The ScopeId of the requested AppInfo.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId, //
-	    @ApiParam(value = "The id of the requested AppInfo", required = true) @PathParam("appVersionId") EntityId appVersionId) {
+	    @ApiParam(value = "The id of the requested AppInfo", required = true) @PathParam("appVersionId") EntityId appVersionId)
+        {
 	
     AppVersion appVersion = null;
 	try {

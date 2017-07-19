@@ -27,9 +27,9 @@ import org.eclipse.kapua.service.appversion.AppVersionCreator;
  * @since 1.0
  *
  */
-public class AppVersionDAO {
+public class AppVersionDao {
 
-  private AppVersionDAO() {
+  private AppVersionDao() {
   }
 
 

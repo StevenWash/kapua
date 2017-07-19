@@ -28,7 +28,7 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
         "types",
         "revision",
         "forversion"
-        })
+        }, factoryClass = AppVersionXmlRegistry.class, factoryMethod = "newAppVersion")
 public interface AppVersion extends KapuaUpdatableEntity{
 
     public static final String TYPE = "appVersion";

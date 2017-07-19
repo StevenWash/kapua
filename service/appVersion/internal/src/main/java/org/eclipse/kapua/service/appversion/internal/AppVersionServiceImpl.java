@@ -47,7 +47,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
     authorizationService.checkPermission(permissionFactory.newPermission(APPVERSION_DOMAIN, 
         Actions.read, scopeId));
-    return entityManagerSession.onResult(em -> (AppVersion)AppVersionDAO.find(em,appVersionId));
+    return entityManagerSession.onResult(em -> (AppVersion)AppVersionDao.find(em,appVersionId));
   }
 
 
@@ -123,7 +123,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     System.out.println("appversionServiceImpl --- create");
     return entityManagerSession.onTransactedInsert(em -> {
       AppVersion appVersion = null;
-      appVersion = AppVersionDAO.create(em, appVersionCreator);
+      appVersion = AppVersionDao.create(em, appVersionCreator);
       em.persist(appVersion);
       return appVersion;
       
@@ -145,12 +145,12 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     
     entityManagerSession.onTransactedAction(em -> {
       
-      AppVersion appVersionx = AppVersionDAO.find(em, appVersionId);
+      AppVersion appVersionx = AppVersionDao.find(em, appVersionId);
       if (appVersionx == null) {
         throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersionId);
       }
 
-      AppVersionDAO.delete(em, appVersionId);
+      AppVersionDao.delete(em, appVersionId);
       
     });
     
@@ -172,7 +172,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     
     return entityManagerSession.onTransactedResult(em -> {
       System.out.println("______________)))))))))");
-      AppVersion currentVersion = AppVersionDAO.find(em, appVersion.getId());
+      AppVersion currentVersion = AppVersionDao.find(em, appVersion.getId());
       System.out.println("*************");
       if (currentVersion == null) {
         throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersion.getId());
@@ -194,7 +194,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
       currentVersion.setRevision(appVersion.getRevision());
       
       // Update
-      return AppVersionDAO.update(em, currentVersion);
+      return AppVersionDao.update(em, currentVersion);
     });
   }
 
