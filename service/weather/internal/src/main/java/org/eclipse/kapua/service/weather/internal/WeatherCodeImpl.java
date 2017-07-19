@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.kapua.service.weather.internal;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
@@ -22,15 +24,17 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 import org.eclipse.kapua.service.weather.WeatherCode;
 import org.eclipse.kapua.model.id.KapuaId;
 
 
 /**
- * Weather entity implementation.
+ * WeatherCode entity implementation.
  *
  * @since 1.0
  */
+
 @Entity(name = "WeatherCode")
 @NamedQueries({
 	@NamedQuery(name = "WeatherCode.queryByCname", query = "select  w from WeatherCode w  where w.cname=?1")
@@ -38,11 +42,14 @@ import org.eclipse.kapua.model.id.KapuaId;
 @Table(name = "weather_code")
 public class WeatherCodeImpl  implements WeatherCode {
 
-    private static final long serialVersionUID = 8530992430658117928L;
-    
 
-    
-    @Id
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2917638209954645471L;
+
+
+	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     @AttributeOverrides({
             @AttributeOverride(name = "id", column = @Column(name = "id", nullable = false, updatable = false))
@@ -73,6 +80,9 @@ public class WeatherCodeImpl  implements WeatherCode {
     @Basic
     @Column(name = "nightImage", nullable = false)
     private String nightImage;
+    
+    
+    
 
     /**
      * Constructor
@@ -81,16 +91,40 @@ public class WeatherCodeImpl  implements WeatherCode {
        
     }
     
+    
+    
+    
     /**
      * Constructor
      *
      * @param id,province,city,,area,city_code
+     * 
+     * 
      */
+	public WeatherCodeImpl(KapuaId id, String code, String cname, String ename,
+			String explain, String dayImage, String nightImage) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.cname = cname;
+		this.ename = ename;
+		this.explain = explain;
+		this.dayImage = dayImage;
+		this.nightImage = nightImage;
+	}
+
+    
+    
+    
+    
     public KapuaId getId() {
 		return id;
 	}
     
-    @Override
+   
+
+
+	@Override
 	public void setId(KapuaId id) {
 		this.id=id;
 	}
@@ -142,6 +176,8 @@ public class WeatherCodeImpl  implements WeatherCode {
 	public void setNightImage(String nightImage) {
 		this.nightImage = nightImage;
 	}
+	
+
 
 	
 }

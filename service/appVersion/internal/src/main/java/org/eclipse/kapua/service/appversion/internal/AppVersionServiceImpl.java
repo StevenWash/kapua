@@ -1,6 +1,9 @@
 package org.eclipse.kapua.service.appversion.internal;
 
+import java.util.Objects;
+
 import javax.persistence.TypedQuery;
+
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.service.internal.AbstractKapuaService;
@@ -157,6 +160,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
   @Override
   public AppVersion update(AppVersion appVersion) throws KapuaException {
     // TODO Auto-generated method stub
+    System.out.println("appVersionServiceImpl-----update");
     ArgumentValidator.notNull(appVersion.getId(), "appVersion.id");
     
     KapuaLocator locator = KapuaLocator.getInstance();
@@ -167,13 +171,30 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     
     
     return entityManagerSession.onTransactedResult(em -> {
-      AppVersion oldAppVersion = AppVersionDAO.find(em, appVersion.getId());
-      if (oldAppVersion == null) {
+      System.out.println("______________)))))))))");
+      AppVersion currentVersion = AppVersionDAO.find(em, appVersion.getId());
+      System.out.println("*************");
+      if (currentVersion == null) {
         throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersion.getId());
       }
-
+      /* if (!Objects.equals(currentVersion.getScopeId(), appVersion.getScopeId())) {
+        throw new KapuaAppVersionException(KapuaAppVersionErrorCodes.ILLEGAL_ARGUMENT, 
+            null, "appVersion.scopeId");
+      }*/
+      System.out.println("---------------------");
+      
+      currentVersion.setPackagename(appVersion.getPackagename());
+      currentVersion.setCode(appVersion.getCode());
+      currentVersion.setVersion(appVersion.getVersion());
+      currentVersion.setMd5(appVersion.getMd5());
+      currentVersion.setForversion(appVersion.getForversion());
+      currentVersion.setSize(appVersion.getSize());
+      currentVersion.setTypes(appVersion.getTypes());
+      currentVersion.setUrl(appVersion.getUrl());
+      currentVersion.setRevision(appVersion.getRevision());
+      
       // Update
-      return AppVersionDAO.update(em, appVersion);
+      return AppVersionDAO.update(em, currentVersion);
     });
   }
 

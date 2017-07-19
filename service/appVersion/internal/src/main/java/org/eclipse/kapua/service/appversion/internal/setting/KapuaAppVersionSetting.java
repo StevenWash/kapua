@@ -26,7 +26,7 @@ public class KapuaAppVersionSetting extends AbstractKapuaSetting<KapuaAppVersion
    * Resource file from which source properties.
    * 
    */
-  private static final String ACCOUNT_CONFIG_RESOURCE = "kapua-account-setting.properties";
+  private static final String ACCOUNT_CONFIG_RESOURCE = "kapua-appversion-setting.properties";
 
   private static final KapuaAppVersionSetting INSTANCE = new KapuaAppVersionSetting();
 

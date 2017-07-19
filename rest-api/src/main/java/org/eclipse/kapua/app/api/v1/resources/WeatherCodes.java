@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -25,6 +26,7 @@ public class WeatherCodes  extends AbstractKapuaResource {
     
     @GET
     @Path("{cname}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @ApiOperation(value = "Gets the WeatherCode by cname", //
             notes = "Gets WeatherCode  specified by the cname path parameter", //

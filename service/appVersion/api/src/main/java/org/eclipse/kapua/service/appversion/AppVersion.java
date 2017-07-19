@@ -5,7 +5,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import org.eclipse.kapua.model.KapuaUpdatableEntity;
+
 
 
 /**
@@ -26,7 +28,7 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
         "types",
         "revision",
         "forversion"
-        })
+        }, factoryClass = AppVersionXmlRegistry.class, factoryMethod = "newAppVersion")
 public interface AppVersion extends KapuaUpdatableEntity{
 
     public static final String TYPE = "appVersion";

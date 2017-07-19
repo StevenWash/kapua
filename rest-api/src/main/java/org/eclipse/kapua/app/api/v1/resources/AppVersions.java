@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,6 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+
+
 
 import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
@@ -188,13 +192,16 @@ public class AppVersions extends AbstractKapuaResource {
     public AppVersion update(
             @ApiParam(value = "The ScopeId of the requested AppVersion.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId, //
             @ApiParam(value = "The id of the requested AppVersion", required = true) @PathParam("appVersionId") EntityId appVersionId, //
-            @ApiParam(value = "The modified AppVersion whose attributes needs to be updated", required = true) AppVersion appVersion) {
+            @ApiParam(value = "The modified AppVersion whose attributes needs to be updated", required = true) JsonObject  json) {
+    	System.out.println("appversions--update");
+    	System.out.println("str::"+json);
     	AppVersion appVersionUpdated = null;
         try {
-            ((AppVersionImpl) appVersion).setScopeId(scopeId);
+        	
+           /* ((AppVersionImpl) appVersion).setScopeId(scopeId);
             appVersion.setId(appVersionId);
-
-            appVersionUpdated = appVersionService.update(appVersion);
+            System.out.println("appversions--");
+            appVersionUpdated = appVersionService.update(appVersion);*/
         } catch (Throwable t) {
             handleException(t);
         }

@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.kapua.service.weather.internal;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
@@ -22,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 import org.eclipse.kapua.service.weather.Weather;
 import org.eclipse.kapua.model.id.KapuaId;
 
@@ -40,9 +43,15 @@ import org.eclipse.kapua.model.id.KapuaId;
 @Table(name = "city_weather")
 public class WeatherImpl  implements Weather {
 
-    private static final long serialVersionUID = 8530992430658117928L;
+   
     
-   /* @Basic
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6373123852831232686L;
+
+
+/* @Basic
     @EmbeddedId
     @Column(name = "id", nullable = false)*/
     

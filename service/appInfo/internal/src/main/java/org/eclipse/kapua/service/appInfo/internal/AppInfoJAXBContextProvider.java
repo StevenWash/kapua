@@ -38,7 +38,6 @@ public class AppInfoJAXBContextProvider implements JAXBContextProvider {
 
     private JAXBContext context;
 
-    @Override
     public JAXBContext getJAXBContext() throws KapuaException {
         if (context == null) {
             Class<?>[] classes = new Class<?>[] {

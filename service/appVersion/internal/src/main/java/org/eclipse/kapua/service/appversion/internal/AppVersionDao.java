@@ -44,7 +44,8 @@ public class AppVersionDAO {
   public static AppVersion update(EntityManager em, AppVersion appVersion)
             throws KapuaException {
     //
-    // Update account
+    System.out.println("~~~~~~~~~~~~~~~~");
+    // Update appVersion
     AppVersionImpl appVersionImpl = (AppVersionImpl) appVersion;
 
     return ServiceDAO.update(em, AppVersionImpl.class, appVersionImpl);

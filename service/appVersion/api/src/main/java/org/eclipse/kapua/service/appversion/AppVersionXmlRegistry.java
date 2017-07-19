@@ -22,6 +22,7 @@ public class AppVersionXmlRegistry {
      * @return
      */
 	 public AppVersion newAppVersion() {
+		    
 	        return factory.newEntity(null);
 	    }
 	 

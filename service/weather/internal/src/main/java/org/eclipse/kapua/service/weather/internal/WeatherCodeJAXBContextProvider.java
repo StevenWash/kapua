@@ -27,6 +27,7 @@ import org.eclipse.kapua.model.config.metatype.KapuaToption;
 import org.eclipse.kapua.model.config.metatype.MetatypeXmlRegistry;
 import org.eclipse.kapua.service.weather.Weather;
 import org.eclipse.kapua.service.weather.WeatherCode;
+import org.eclipse.kapua.service.weather.WeatherCodeListResult;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 public class WeatherCodeJAXBContextProvider implements JAXBContextProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeathersJAXBContextProvider.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherCodeJAXBContextProvider.class);
 
     private JAXBContext context;
 

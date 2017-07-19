@@ -1,11 +1,17 @@
 package org.eclipse.kapua.service.weather;
 
+import java.util.Properties;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import org.eclipse.kapua.KapuaException;
+import org.eclipse.kapua.model.KapuaUpdatableEntity;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.model.id.KapuaIdAdapter;
 
@@ -19,8 +25,8 @@ import org.eclipse.kapua.model.id.KapuaIdAdapter;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = {"id","code",
         "explain","cname","ename","dayImage","nightImage" })
-public interface WeatherCode extends WeatherEntity{
-
+public interface WeatherCode  extends WeatherEntity {
+	//extends WeatherEntity
     public static final String TYPE = "weatherCode";
 
     default public String getType() {
@@ -122,7 +128,7 @@ public interface WeatherCode extends WeatherEntity{
     
     
     /**
-     * Get the weather's city_code
+     * Get the weatherCode's nightImage
      * 
      * @return
      */
@@ -130,9 +136,12 @@ public interface WeatherCode extends WeatherEntity{
     public String getNightImage();
 
     /**
-     * Set the weather's city_code.
+     * Set the weatherCode's nightImage.
      * 
-     * @param city_code
+     * @param nightImage
      */
     public void setNightImage(String nightImage);
+    
+    
+
 }

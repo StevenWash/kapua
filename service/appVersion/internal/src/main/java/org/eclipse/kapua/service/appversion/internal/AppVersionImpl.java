@@ -30,6 +30,7 @@ import org.eclipse.kapua.service.appversion.AppVersion;
  *
  * @since 1.0
  */
+
 @Entity(name = "AppVersion")
 @NamedQueries({
     @NamedQuery(name = "AppVersion.queryByPackagename", query = "select ap from AppVersion"

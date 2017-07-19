@@ -25,8 +25,9 @@ version="2.0">
 
 <!-- Base classes and External classes -->
 <class>org.eclipse.kapua.commons.model.id.KapuaEid</class>
-
-
+<class>org.eclipse.kapua.commons.model.AbstractKapuaEntity</class>
+<class>org.eclipse.kapua.commons.model.AbstractKapuaNamedEntity</class>
+<class>org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity</class>
 
 <properties>
 <!-- <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" /> -->

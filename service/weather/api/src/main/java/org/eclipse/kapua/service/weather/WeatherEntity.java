@@ -1,10 +1,10 @@
 package org.eclipse.kapua.service.weather;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlTransient;
 
-public interface WeatherEntity extends Serializable{
+import org.eclipse.kapua.KapuaSerializable;
+
+public interface WeatherEntity extends KapuaSerializable{
 	
 	@XmlTransient
     public String getType();

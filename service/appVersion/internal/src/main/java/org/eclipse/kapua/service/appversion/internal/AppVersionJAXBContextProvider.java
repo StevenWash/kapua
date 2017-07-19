@@ -60,6 +60,7 @@ public class AppVersionJAXBContextProvider implements JAXBContextProvider {
           };
       try {
         context = JAXBContextFactory.createContext(classes, null);
+        
       } catch (JAXBException jaxbException) {
         logger.warn("Error creating JAXBContext, tests will fail!");
       }
