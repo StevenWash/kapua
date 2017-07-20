@@ -142,9 +142,11 @@ public class AppVersions extends AbstractKapuaResource {
     	AppVersion appVersion = null;
         try {
         	System.out.println("<<<<<<<<<<<<");
+        	System.out.println("ScopeId<<::"+scopeId);
         	appVersionCreator.setScopeId(scopeId);
         	System.out.println("appversions-create");
         	appVersion = appVersionService.create(appVersionCreator);
+        	System.out.println("%%%%%%%%%%%%%%%%%%%%%%%");
         } catch (Throwable t) {
             handleException(t);
         }
@@ -193,16 +195,16 @@ public class AppVersions extends AbstractKapuaResource {
     public AppVersion update(
             @ApiParam(value = "The ScopeId of the requested AppVersion.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId, //
             @ApiParam(value = "The id of the requested AppVersion", required = true) @PathParam("appVersionId") EntityId appVersionId, //
-            @ApiParam(value = "The modified AppVersion whose attributes needs to be updated", required = true) JsonObject  json) {
+            @ApiParam(value = "The modified AppVersion whose attributes needs to be updated", required = true) AppVersion  appVersion) {
     	System.out.println("appversions--update");
-    	System.out.println("str::"+json);
+    	
     	AppVersion appVersionUpdated = null;
         try {
         	
-           /* ((AppVersionImpl) appVersion).setScopeId(scopeId);
+            ((AppVersionImpl) appVersion).setScopeId(scopeId);
             appVersion.setId(appVersionId);
-            System.out.println("appversions--");
-            appVersionUpdated = appVersionService.update(appVersion);*/
+          
+            appVersionUpdated = appVersionService.update(appVersion);
         } catch (Throwable t) {
             handleException(t);
         }

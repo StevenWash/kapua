@@ -156,10 +156,13 @@ public class ServiceDAO {
     public static <E extends KapuaEntity> E create(EntityManager em, E entity) {
         //
         // Creating entity
+    	
         try {
+        	
             em.persist(entity);
             em.flush();
             em.refresh(entity);
+           
         } catch (EntityExistsException e) {
             throw new KapuaEntityExistsException(e, entity.getId());
         } catch (PersistenceException e) {
@@ -351,7 +354,6 @@ public class ServiceDAO {
         //
         // WHERE
         KapuaPredicate kapuaPredicates = kapuaQuery.getPredicate();
-        System.out.println("scopeId>>>>>>>>>>>:"+kapuaQuery.getScopeId());
         if (kapuaQuery.getScopeId() != null) {
 
             AttributePredicate<KapuaId> scopeId = new AttributePredicate<>(KapuaEntityPredicates.SCOPE_ID, kapuaQuery.getScopeId());
@@ -367,7 +369,6 @@ public class ServiceDAO {
             kapuaPredicates = scopedAndPredicate;
         }
         
-        System.out.println("ServiceDAO>>>>>>>>>:kapuaPredicates:"+kapuaPredicates);
 
         // Manage kapua query predicates to build the where clause.
         Map<ParameterExpression, Object> binds = new HashMap<>();
@@ -377,7 +378,6 @@ public class ServiceDAO {
                 entityRoot,
                 entityRoot.getModel());
 
-        System.out.println("expr>>>>>>>>>>:"+expr);
         if (expr != null) {
             criteriaSelectQuery.where(expr);
         }

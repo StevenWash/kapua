@@ -13,7 +13,11 @@ package org.eclipse.kapua.service.appversion;
 
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.model.id.KapuaId;
+import org.eclipse.kapua.service.KapuaEntityService;
 import org.eclipse.kapua.service.KapuaService;
+import org.eclipse.kapua.service.KapuaUpdatableEntityService;
+import org.eclipse.kapua.service.config.KapuaConfigurableService;
+
 
 
 
@@ -25,7 +29,9 @@ import org.eclipse.kapua.service.KapuaService;
  * @since 1.0
  * 
  */
-public interface AppVersionService extends KapuaService{
+public interface AppVersionService extends KapuaEntityService<AppVersion, AppVersionCreator>,
+  KapuaUpdatableEntityService<AppVersion>,
+   KapuaConfigurableService{
         
 
 

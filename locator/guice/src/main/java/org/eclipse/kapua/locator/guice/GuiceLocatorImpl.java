@@ -55,7 +55,7 @@ public class GuiceLocatorImpl extends KapuaLocator {
     @Override
     public <F extends KapuaObjectFactory> F getFactory(Class<F> factoryClass) {
         try {
-        	System.out.println("factoryClass:::::::::"+factoryClass);
+        	
             return injector.getInstance(factoryClass);
         } catch (ConfigurationException e) {
             throw new KapuaRuntimeException(KapuaLocatorErrorCodes.FACTORY_UNAVAILABLE, factoryClass);

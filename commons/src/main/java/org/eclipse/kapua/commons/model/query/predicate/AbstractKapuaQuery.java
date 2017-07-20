@@ -80,7 +80,6 @@ public abstract class AbstractKapuaQuery<E extends KapuaEntity> implements Kapua
 
     @Override
     public void setFetchAttributes(List<String> fetchAttributes) {
-        System.out.println(">>>>>>>>fetchAttributes(size):"+fetchAttributes.size());
         this.fetchAttributes = fetchAttributes;
     }
 
@@ -91,7 +90,6 @@ public abstract class AbstractKapuaQuery<E extends KapuaEntity> implements Kapua
 
     @Override
     public void setScopeId(KapuaId scopeId) {
-        System.out.println(">>>>>>>>scopeId:"+scopeId);
         this.scopeId = scopeId != null ? (scopeId instanceof KapuaEid ? (KapuaEid) scopeId : new KapuaEid(scopeId)) : null;
     }
 
@@ -102,7 +100,6 @@ public abstract class AbstractKapuaQuery<E extends KapuaEntity> implements Kapua
 
     @Override
     public void setPredicate(KapuaPredicate queryPredicate) {
-        System.out.println(">>>>>>>>queryPredicate:"+queryPredicate);
         this.predicate = queryPredicate;
     }
 
@@ -113,7 +110,6 @@ public abstract class AbstractKapuaQuery<E extends KapuaEntity> implements Kapua
 
     @Override
     public void setSortCriteria(KapuaSortCriteria sortCriteria) {
-        System.out.println(">>>>>>>>sortCriteria:"+sortCriteria);
         this.sortCriteria = sortCriteria;
     }
 
@@ -134,13 +130,11 @@ public abstract class AbstractKapuaQuery<E extends KapuaEntity> implements Kapua
 
     @Override
     public void setOffset(Integer offset) {
-        System.out.println(">>>>>>>>offset:"+offset);
         this.offset = offset;
     }
 
     @Override
     public void setLimit(Integer limit) {
-        System.out.println(">>>>>>>>limit:"+limit);
         this.limit = limit;
     }
 }

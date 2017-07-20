@@ -39,7 +39,7 @@ public class AppVersionCreatorImpl extends AbstractKapuaEntityCreator<AppVersion
    * 
    * @param appVersionCreator.
    */
-  @SuppressWarnings({ "rawtypes", "unchecked" })
+  /*  @SuppressWarnings({ "rawtypes", "unchecked" })
   public AppVersionCreatorImpl(AppVersionCreator appVersionCreator) {
       super((AbstractKapuaEntityCreator) appVersionCreator);
 
@@ -53,7 +53,7 @@ public class AppVersionCreatorImpl extends AbstractKapuaEntityCreator<AppVersion
     setForversion(appVersionCreator.getForversion());
     setTypes(appVersionCreator.getTypes());
       
-  }
+  }*/
 
   /**
    * Constructor

@@ -25,6 +25,9 @@
 
 		<!-- Base classes and External classes -->
 		<class>org.eclipse.kapua.commons.model.id.KapuaEid</class>
+		<class>org.eclipse.kapua.commons.model.AbstractKapuaEntity</class>
+		<class>org.eclipse.kapua.commons.model.AbstractKapuaNamedEntity</class>
+		<class>org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity</class>
 		
 
 

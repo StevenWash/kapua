@@ -1,5 +1,6 @@
 package org.eclipse.kapua.service.appversion.internal;
 
+import org.eclipse.kapua.locator.KapuaProvider;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.appversion.AppVersion;
 import org.eclipse.kapua.service.appversion.AppVersionCreator;
@@ -7,6 +8,7 @@ import org.eclipse.kapua.service.appversion.AppVersionFactory;
 import org.eclipse.kapua.service.appversion.AppVersionListResult;
 import org.eclipse.kapua.service.appversion.AppVersionQuery;
 
+@KapuaProvider
 public class AppVersionFactoryImpl implements AppVersionFactory {
 
   @Override

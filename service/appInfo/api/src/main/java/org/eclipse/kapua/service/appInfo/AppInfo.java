@@ -22,8 +22,7 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
         "image",
         "types",
         "name"
-        
-        })
+         })
 public interface AppInfo extends KapuaUpdatableEntity{
 
     public static final String TYPE = "appInfo";

@@ -17,8 +17,10 @@ import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.commons.jpa.EntityManager;
 import org.eclipse.kapua.commons.service.internal.ServiceDAO;
 import org.eclipse.kapua.model.id.KapuaId;
+import org.eclipse.kapua.model.query.KapuaQuery;
 import org.eclipse.kapua.service.appversion.AppVersion;
 import org.eclipse.kapua.service.appversion.AppVersionCreator;
+import org.eclipse.kapua.service.appversion.AppVersionListResult;
 
 
 /**
@@ -95,8 +97,8 @@ public class AppVersionDao {
           throws KapuaException {
      
     // Create AppVersion
-    System.out.println("appversionDao -----create");
-    AppVersionImpl appVersionImpl = new AppVersionImpl();
+   
+    AppVersion appVersionImpl = new AppVersionImpl(accountCreator.getScopeId());
     appVersionImpl.setPackagename(accountCreator.getPackagename());
     appVersionImpl.setUrl(accountCreator.getUrl());
     appVersionImpl.setSize(accountCreator.getSize());
@@ -106,12 +108,21 @@ public class AppVersionDao {
     appVersionImpl.setMd5(accountCreator.getMd5());
     appVersionImpl.setTypes(accountCreator.getTypes());
     appVersionImpl.setCode(accountCreator.getCode());
-    System.out.println("appversionDao -----create2");
+    
     return ServiceDAO.create(em, appVersionImpl);
   }
   
   
-
+  public static long count(EntityManager em, KapuaQuery<AppVersion> appVersionQuery)
+      throws KapuaException {
+    return ServiceDAO.count(em, AppVersion.class,AppVersionImpl.class, appVersionQuery);
+  }
+  
+  
+  public static AppVersionListResult query(EntityManager em, KapuaQuery<AppVersion> appVersionQuery)
+      throws KapuaException {
+    return (AppVersionListResult) ServiceDAO.query(em, AppVersion.class, AppVersionImpl.class, new AppVersionListResultImpl(), appVersionQuery);
+  }
 
 
 }

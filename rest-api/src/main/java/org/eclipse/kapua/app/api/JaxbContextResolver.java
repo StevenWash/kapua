@@ -364,7 +364,6 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     AppVersion.class,
                     AppVersionListResult.class,
                     AppVersionCreator.class,
-                   
                     AppVersionQuery.class,
                     AppVersionXmlRegistry.class,
                     

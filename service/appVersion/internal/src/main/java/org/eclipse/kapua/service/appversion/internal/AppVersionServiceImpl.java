@@ -1,23 +1,28 @@
 package org.eclipse.kapua.service.appversion.internal;
 
-import java.util.Objects;
-
 import javax.persistence.TypedQuery;
 
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
-import org.eclipse.kapua.commons.service.internal.AbstractKapuaService;
+import org.eclipse.kapua.KapuaIllegalArgumentException;
+import org.eclipse.kapua.commons.configuration.AbstractKapuaConfigurableResourceLimitedService;
 import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
 import org.eclipse.kapua.locator.KapuaProvider;
 import org.eclipse.kapua.model.id.KapuaId;
+import org.eclipse.kapua.model.query.KapuaListResult;
+import org.eclipse.kapua.model.query.KapuaQuery;
 import org.eclipse.kapua.service.appversion.AppVersion;
 import org.eclipse.kapua.service.appversion.AppVersionCreator;
+import org.eclipse.kapua.service.appversion.AppVersionFactory;
+import org.eclipse.kapua.service.appversion.AppVersionListResult;
+import org.eclipse.kapua.service.appversion.AppVersionQuery;
 import org.eclipse.kapua.service.appversion.AppVersionService;
 import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
+
 
 
 
@@ -28,12 +33,15 @@ import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
  *
  */
 @KapuaProvider
-public class AppVersionServiceImpl extends AbstractKapuaService implements AppVersionService {
+public class AppVersionServiceImpl extends AbstractKapuaConfigurableResourceLimitedService<
+         AppVersion, AppVersionCreator, AppVersionService, AppVersionListResult, AppVersionQuery,
+            AppVersionFactory> implements AppVersionService {
 
   private static final Domain APPVERSION_DOMAIN = new AppVersionDomain();
 
   public AppVersionServiceImpl() {
-        super(AppVersionEntityManagerFactory.getInstance());
+    super(AppVersionService.class.getName(), APPVERSION_DOMAIN, AppVersionEntityManagerFactory
+          .getInstance(), AppVersionService.class, AppVersionFactory.class);
   }
 
   
@@ -113,21 +121,25 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
   @Override
   public AppVersion create(AppVersionCreator appVersionCreator)throws KapuaException {
     // TODO Auto-generated method stub
+   
     ArgumentValidator.notNull(appVersionCreator, "appVersionCreator");
     
     KapuaLocator locator = KapuaLocator.getInstance();
+  
     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
+  
     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
+   
     authorizationService.checkPermission(permissionFactory.newPermission(APPVERSION_DOMAIN,
         Actions.read, appVersionCreator.getScopeId()));
-    System.out.println("appversionServiceImpl --- create");
-    return entityManagerSession.onTransactedInsert(em -> {
-      AppVersion appVersion = null;
-      appVersion = AppVersionDao.create(em, appVersionCreator);
-      em.persist(appVersion);
-      return appVersion;
-      
-    });
+   
+   
+    
+    return entityManagerSession.onTransactedInsert(em -> 
+     
+      AppVersionDao.create(em, appVersionCreator)
+     
+    );
     
     
   }
@@ -171,9 +183,7 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
     
     
     return entityManagerSession.onTransactedResult(em -> {
-      System.out.println("______________)))))))))");
       AppVersion currentVersion = AppVersionDao.find(em, appVersion.getId());
-      System.out.println("*************");
       if (currentVersion == null) {
         throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersion.getId());
       }
@@ -196,6 +206,32 @@ public class AppVersionServiceImpl extends AbstractKapuaService implements AppVe
       // Update
       return AppVersionDao.update(em, currentVersion);
     });
+  }
+
+
+  @Override
+  public AppVersion find(KapuaId scopeId, KapuaId entityId) throws KapuaException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+
+  @Override
+  public KapuaListResult<AppVersion> query(KapuaQuery<AppVersion> query) throws KapuaException {
+    // TODO Auto-generated method stub
+    //
+    // Check Access
+   
+
+    return entityManagerSession.onResult(em -> AppVersionDao.query(em, query));
+  }
+
+
+  @Override
+  public long count(KapuaQuery<AppVersion> query) throws KapuaException {
+    // TODO Auto-generated method stub
+    return (long) entityManagerSession.onResult(entityManager -> 
+      AppVersionDao.count(entityManager, query));
   }
 
 
