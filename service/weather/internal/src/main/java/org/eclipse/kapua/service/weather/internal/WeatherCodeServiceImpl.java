@@ -13,7 +13,7 @@ import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 import javax.persistence.Query;
-import java.math.BigInteger;;
+import java.math.BigInteger;
 import java.util.List;
 
 
