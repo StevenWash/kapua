@@ -136,6 +136,11 @@ import org.eclipse.kapua.service.device.registry.event.DeviceEvent;
 import org.eclipse.kapua.service.device.registry.event.DeviceEventListResult;
 import org.eclipse.kapua.service.device.registry.event.DeviceEventQuery;
 import org.eclipse.kapua.service.device.registry.event.DeviceEventXmlRegistry;
+import org.eclipse.kapua.service.replymessage.ReplyMessage;
+import org.eclipse.kapua.service.replymessage.ReplyMessageCreator;
+import org.eclipse.kapua.service.replymessage.ReplyMessageListResult;
+import org.eclipse.kapua.service.replymessage.ReplyMessageQuery;
+import org.eclipse.kapua.service.replymessage.ReplyMessageXmlRegistry;
 import org.eclipse.kapua.service.user.User;
 import org.eclipse.kapua.service.user.UserCreator;
 import org.eclipse.kapua.service.user.UserListResult;
@@ -366,6 +371,13 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     AppVersionCreator.class,
                     AppVersionQuery.class,
                     AppVersionXmlRegistry.class,
+                    
+                    //ReplyMessage
+                    ReplyMessage.class,
+                    ReplyMessageListResult.class,
+                    ReplyMessageCreator.class,
+                    ReplyMessageQuery.class,
+                    ReplyMessageXmlRegistry.class,
                     
                     WeatherCode.class,
                     

@@ -141,12 +141,12 @@ public class AppVersions extends AbstractKapuaResource {
     	System.out.println("]]]]]]]]]]]]");
     	AppVersion appVersion = null;
         try {
-        	System.out.println("<<<<<<<<<<<<");
+        	
         	System.out.println("ScopeId<<::"+scopeId);
         	appVersionCreator.setScopeId(scopeId);
         	System.out.println("appversions-create");
         	appVersion = appVersionService.create(appVersionCreator);
-        	System.out.println("%%%%%%%%%%%%%%%%%%%%%%%");
+        	
         } catch (Throwable t) {
             handleException(t);
         }

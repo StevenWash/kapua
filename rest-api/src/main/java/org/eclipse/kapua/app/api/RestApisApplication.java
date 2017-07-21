@@ -40,6 +40,8 @@ public class RestApisApplication extends ResourceConfig {
                 "org.eclipse.kapua.service.appinfo.internal",
                 "org.eclipse.kapua.service.appversion",
                 "org.eclipse.kapua.service.appversion.internal",
+                "org.eclipse.kapua.service.replymessage",
+                "org.eclipse.kapua.service.replymessage.internal",
                 "net.bestidear.api"
                 );
 

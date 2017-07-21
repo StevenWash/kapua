@@ -24,6 +24,9 @@
         
         <api>org.eclipse.kapua.service.appversion.AppVersionService</api>
         <api>org.eclipse.kapua.service.appversion.AppVersionFactory</api>
+        
+         <api>org.eclipse.kapua.service.replymessage.ReplyMessageService</api>
+         <api>org.eclipse.kapua.service.replymessage.ReplyMessageFactory</api>
 
         <api>org.eclipse.kapua.service.authentication.AuthenticationService</api>
         <api>org.eclipse.kapua.service.authentication.CertificateService</api>
