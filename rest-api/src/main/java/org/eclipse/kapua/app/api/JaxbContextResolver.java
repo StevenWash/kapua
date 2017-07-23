@@ -33,6 +33,13 @@ import org.eclipse.kapua.service.account.AccountCreator;
 import org.eclipse.kapua.service.account.AccountListResult;
 import org.eclipse.kapua.service.account.AccountQuery;
 import org.eclipse.kapua.service.account.AccountXmlRegistry;
+import org.eclipse.kapua.service.apkinfo.ApkInfo;
+import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appversion.AppVersion;
+import org.eclipse.kapua.service.appversion.AppVersionCreator;
+import org.eclipse.kapua.service.appversion.AppVersionListResult;
+import org.eclipse.kapua.service.appversion.AppVersionQuery;
+import org.eclipse.kapua.service.appversion.AppVersionXmlRegistry;
 import org.eclipse.kapua.service.authentication.ApiKeyCredentials;
 import org.eclipse.kapua.service.authentication.AuthenticationCredentials;
 import org.eclipse.kapua.service.authentication.AuthenticationXmlRegistry;
@@ -136,28 +143,31 @@ import org.eclipse.kapua.service.device.registry.event.DeviceEvent;
 import org.eclipse.kapua.service.device.registry.event.DeviceEventListResult;
 import org.eclipse.kapua.service.device.registry.event.DeviceEventQuery;
 import org.eclipse.kapua.service.device.registry.event.DeviceEventXmlRegistry;
-import org.eclipse.kapua.service.replymessage.ReplyMessage;
+import org.eclipse.kapua.service.processrecovery.ProcessRecovery;
+import org.eclipse.kapua.service.processrecovery.ProcessRecoveryCreator;
+import org.eclipse.kapua.service.processrecovery.ProcessRecoveryListResult;
+import org.eclipse.kapua.service.processrecovery.ProcessRecoveryQuery;
+import org.eclipse.kapua.service.processrecovery.ProcessRecoveryXmlRegistry;
 import org.eclipse.kapua.service.replymessage.ReplyMessageCreator;
 import org.eclipse.kapua.service.replymessage.ReplyMessageListResult;
 import org.eclipse.kapua.service.replymessage.ReplyMessageQuery;
 import org.eclipse.kapua.service.replymessage.ReplyMessageXmlRegistry;
+import org.eclipse.kapua.service.replymessage.ReplyMessage;
 import org.eclipse.kapua.service.user.User;
 import org.eclipse.kapua.service.user.UserCreator;
 import org.eclipse.kapua.service.user.UserListResult;
 import org.eclipse.kapua.service.user.UserQuery;
 import org.eclipse.kapua.service.user.UserXmlRegistry;
-import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.kapua.service.weather.Weather;
 import org.eclipse.kapua.service.weather.WeatherCode;
 import org.eclipse.kapua.service.weather.WeatherListResult;
 import org.eclipse.kapua.service.weather.YahooWeather;
-import org.eclipse.kapua.service.apkinfo.ApkInfo;
-import org.eclipse.kapua.service.appinfo.AppInfo;
-import org.eclipse.kapua.service.appversion.AppVersion;
-import org.eclipse.kapua.service.appversion.AppVersionCreator;
-import org.eclipse.kapua.service.appversion.AppVersionListResult;
-import org.eclipse.kapua.service.appversion.AppVersionQuery;
-import org.eclipse.kapua.service.appversion.AppVersionXmlRegistry;
+import org.eclipse.kapua.service.wxaccount.WxAccount;
+import org.eclipse.kapua.service.wxaccount.WxAccountCreator;
+import org.eclipse.kapua.service.wxaccount.WxAccountListResult;
+import org.eclipse.kapua.service.wxaccount.WxAccountQuery;
+import org.eclipse.kapua.service.wxaccount.WxAccountXmlRegistry;
+import org.eclipse.persistence.jaxb.JAXBContextFactory;
 
 
 
@@ -378,6 +388,20 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     ReplyMessageCreator.class,
                     ReplyMessageQuery.class,
                     ReplyMessageXmlRegistry.class,
+                    
+                  //WxAccount
+                    WxAccount.class,
+                    WxAccountListResult.class,
+                    WxAccountCreator.class,
+                    WxAccountQuery.class,
+                    WxAccountXmlRegistry.class,
+                    
+                    //WxAccount
+                    ProcessRecovery.class,
+                    ProcessRecoveryListResult.class,
+                    ProcessRecoveryCreator.class,
+                    ProcessRecoveryQuery.class,
+                    ProcessRecoveryXmlRegistry.class,
                     
                     WeatherCode.class,
                     

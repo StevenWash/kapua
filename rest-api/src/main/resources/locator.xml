@@ -27,6 +27,12 @@
         
          <api>org.eclipse.kapua.service.replymessage.ReplyMessageService</api>
          <api>org.eclipse.kapua.service.replymessage.ReplyMessageFactory</api>
+         
+         <api>org.eclipse.kapua.service.processrecovery.ProcessRecoveryService</api>
+         <api>org.eclipse.kapua.service.processrecovery.ProcessRecoveryFactory</api>
+         
+         <api>org.eclipse.kapua.service.wxaccount.WxAccountService</api>
+         <api>org.eclipse.kapua.service.wxaccount.WxAccountFactory</api>
 
         <api>org.eclipse.kapua.service.authentication.AuthenticationService</api>
         <api>org.eclipse.kapua.service.authentication.CertificateService</api>

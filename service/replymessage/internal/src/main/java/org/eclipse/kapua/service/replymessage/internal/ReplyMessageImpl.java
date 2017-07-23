@@ -37,11 +37,11 @@ import org.eclipse.kapua.service.replymessage.ReplyMessage;
 @Table(name = "reply_message")
 public class ReplyMessageImpl extends AbstractKapuaUpdatableEntity implements ReplyMessage {
     
- 
+
   /**
    * .
    */
-  private static final long serialVersionUID = 3580907090431701286L;
+  private static final long serialVersionUID = -5826200641506486043L;
 
 
 
@@ -52,10 +52,6 @@ public class ReplyMessageImpl extends AbstractKapuaUpdatableEntity implements Re
     
 
   @Basic
-  @Column(name = "keywords", nullable = false)
-    private String keywords;
-    
-  @Basic
   @Column(name = "content", nullable = false)
     private String content;
     
@@ -63,33 +59,32 @@ public class ReplyMessageImpl extends AbstractKapuaUpdatableEntity implements Re
   @Column(name = "title", nullable = false)
     private String title;
     
-    
+  @Basic
+  @Column(name = "keywords", nullable = false)
+    private String keywords;
+  
   @Basic
   @Column(name = "description", nullable = false)
     private String description;
-    
-    
-  @Basic
-  @Column(name = "picurl", nullable = false)
-    private String picurl;
-    
-    
+  
+  
   @Embedded
   @AttributeOverrides({
           @AttributeOverride(name = "eid", column = @Column(name = "processrecovery_id"))
   })
-  private KapuaEid processrecoveryId;
-    
-    
+  protected KapuaEid processrecoveryId;
+  
+  
+  @Basic
+  @Column(name = "picurl", nullable = false)
+    private String picurl;
+  
+  
   @Basic
   @Column(name = "url", nullable = false)
     private String url;
     
-    
-
   
-
-    
   /**
    * Constructor.
    */
@@ -107,83 +102,117 @@ public class ReplyMessageImpl extends AbstractKapuaUpdatableEntity implements Re
     
   }
 
+  /**.
+   * @return the types.
+   */
   public String getTypes() {
     return types;
   }
 
+  /**.
+   * @param types the types to set.
+   */
   public void setTypes(String types) {
     this.types = types;
   }
 
-
-
+  /**.
+   * @return the content.
+   */
   public String getContent() {
     return content;
   }
 
+  /**.
+   * @param content the content to set.
+   */
   public void setContent(String content) {
     this.content = content;
   }
 
+  /**.
+   * @return the title.
+   */
   public String getTitle() {
     return title;
   }
 
+  /**.
+   * @param title the title to set.
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public String getPicurl() {
-    return picurl;
-  }
-
-  public void setPicurl(String picurl) {
-    this.picurl = picurl;
-  }
-
-  public KapuaId getProcessrecoveryId() {
-    return processrecoveryId;
-  }
-
-  public void setProcessrecoveryId(KapuaId processrecoveryId) {
-    this.processrecoveryId = processrecoveryId != null ? (processrecoveryId instanceof KapuaEid
-           ? (KapuaEid) processrecoveryId : new KapuaEid(processrecoveryId)) : null;
-  }
-  
-  
-
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-
-
-
-  
+  /**.
+   * @return the keywords.
+   */
   public String getKeywords() {
     return keywords;
   }
 
+  /**.
+   * @param keywords the keywords to set.
+   */
   public void setKeywords(String keywords) {
     this.keywords = keywords;
   }
 
+  /**.
+   * @return the description.
+   */
+  public String getDescription() {
+    return description;
+  }
 
+  /**.
+   * @param description the description to set.
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
- 
-    
+  /**.
+   * @return the processrecoveryId.
+   */
+  public KapuaEid getProcessrecoveryId() {
+    return processrecoveryId;
+  }
+
+  /**.
+   * @param processrecoveryId the processrecoveryId to set.
+   */
+  public void setProcessrecoveryId(KapuaId processrecoveryId) {
+    this.processrecoveryId = processrecoveryId != null ? (processrecoveryId instanceof KapuaEid ? (KapuaEid) processrecoveryId : new KapuaEid(processrecoveryId)) : null;
+  }
+
+  /**.
+   * @return the picurl.
+   */
+  public String getPicurl() {
+    return picurl;
+  }
+
+  /**.
+   * @param picurl the picurl to set.
+   */
+  public void setPicurl(String picurl) {
+    this.picurl = picurl;
+  }
+
+  /**.
+   * @return the url.
+   */
+  public String getUrl() {
+    return url;
+  }
+
+  /**.
+   * @param url the url to set.
+   */
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
 
 

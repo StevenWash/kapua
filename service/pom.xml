@@ -38,6 +38,8 @@
 		<module>appInfo</module>
 		<module>appVersion</module>
 		<module>replymessage</module>
+		<module>wxaccount</module>
+		<module>processrecovery</module>
     </modules>
 
 </project>

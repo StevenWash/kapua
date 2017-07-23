@@ -23,8 +23,9 @@ import org.eclipse.kapua.service.replymessage.ReplyMessageCreator;
 import org.eclipse.kapua.service.replymessage.ReplyMessageListResult;
 
 
+
 /**
- * AppVersion DAO
+ * ReplyMessage DAO
  * 
  * @since 1.0
  *
@@ -37,16 +38,16 @@ public class ReplyMessageDao {
 
 
   /**
-   * update the ReplyMessage by replyMessage
+   * update the ProcessRecovery by processRecovery
    * 
    * @param em not null
-   * @param replyMessage  not null
+   * @param replyMessage  not null.
    * @return  not null.
    */
   public static ReplyMessage update(EntityManager em, ReplyMessage replyMessage)
             throws KapuaException {
     //
-    // Update appVersion
+    // Update ReplyMessage
     ReplyMessageImpl replyMessageImpl = (ReplyMessageImpl) replyMessage;
 
     return ServiceDAO.update(em, ReplyMessageImpl.class, replyMessageImpl);
@@ -72,31 +73,34 @@ public class ReplyMessageDao {
      
 
 
-  public static void delete(EntityManager em, KapuaId accountId) 
+  public static void delete(EntityManager em, KapuaId replyMessageId) 
       throws KapuaEntityNotFoundException {
-    ServiceDAO.delete(em, ReplyMessageImpl.class, accountId);
+    ServiceDAO.delete(em, ReplyMessageImpl.class, replyMessageId);
   }
   
   
   /**
-   * Creates and return new AppVersion.
+   * Creates and return new ReplyMessage.
    * 
    */
-  public static ReplyMessage create(EntityManager em, ReplyMessageCreator replyMessageCreator)
-          throws KapuaException {
+  public static ReplyMessage create(EntityManager em, ReplyMessageCreator
+      replyMessageCreator)  throws KapuaException {
+         
      
     // Create AppVersion
    
-    ReplyMessage replyMessageImpl = new ReplyMessageImpl(replyMessageCreator.getScopeId());
+    ReplyMessage replyMessageImpl = new ReplyMessageImpl(
+        replyMessageCreator.getScopeId());
     
-    replyMessageImpl.setTypes(replyMessageCreator.getTypes());
-    replyMessageImpl.setTitle(replyMessageCreator.getTitle());
-    replyMessageImpl.setPicurl(replyMessageCreator.getPicurl());
-    replyMessageImpl.setProcessrecoveryId(replyMessageCreator.getProcessrecoveryId());
-    replyMessageImpl.setKeywords(replyMessageCreator.getKeywords());
-    replyMessageImpl.setDescription(replyMessageCreator.getDescription());
-    replyMessageImpl.setUrl(replyMessageCreator.getUrl());
     replyMessageImpl.setContent(replyMessageCreator.getContent());
+    replyMessageImpl.setTitle(replyMessageCreator.getTitle());
+    replyMessageImpl.setTypes(replyMessageCreator.getTypes());
+    replyMessageImpl.setKeywords(replyMessageCreator.getKeywords());
+    replyMessageImpl.setUrl(replyMessageCreator.getUrl());
+    replyMessageImpl.setPicurl(replyMessageCreator.getPicurl());
+    replyMessageImpl.setDescription(replyMessageCreator.getDescription());
+    replyMessageImpl.setProcessrecoveryId(replyMessageCreator.getProcessrecoveryId());
+    
     
     return ServiceDAO.create(em, replyMessageImpl);
   }
@@ -104,10 +108,17 @@ public class ReplyMessageDao {
   
   public static long count(EntityManager em, KapuaQuery<ReplyMessage> replyMessageQuery)
       throws KapuaException {
-    return ServiceDAO.count(em, ReplyMessage.class,ReplyMessageImpl.class, replyMessageQuery);
+    return ServiceDAO.count(em, ReplyMessage.class,ReplyMessageImpl.class,
+        replyMessageQuery);
   }
   
-  
+  /**
+   * 
+   * @param em not null
+   * @param replyMessageQuery not null
+   * @return  not null
+   * @throws KapuaException not null.
+   */
   public static ReplyMessageListResult query(EntityManager em, 
         KapuaQuery<ReplyMessage>   replyMessageQuery) throws KapuaException {
     

@@ -18,13 +18,12 @@ import java.util.Set;
 import org.eclipse.kapua.commons.model.AbstractKapuaEntity;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 import org.eclipse.kapua.service.authorization.permission.Actions;
-import org.eclipse.kapua.service.authorization.permission.Permission;
 
 
 
 /**
- * appversion permission domain.<br>
- * appversion to describe the appversion domain in the {@link Permission}
+ * ReplyMessage permission domain.<br>
+ * ReplyMessage to describe the ReplyMessage domain in the {@link ReplyMessage}
  * 
  * @since 1.0
  *
@@ -33,10 +32,11 @@ public class ReplyMessageDomain extends AbstractKapuaEntity implements Domain {
 
  
 
+  
   /**
    * .
    */
-  private static final long serialVersionUID = 3426550233193255856L;
+  private static final long serialVersionUID = -7160243232086924871L;
   
   private String name = "replyMessage";
   private String serviceName = "replyMessageService";

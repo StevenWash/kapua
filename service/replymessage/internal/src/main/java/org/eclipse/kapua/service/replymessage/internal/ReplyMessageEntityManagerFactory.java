@@ -32,7 +32,8 @@ public class ReplyMessageEntityManagerFactory extends AbstractEntityManagerFacto
   private static final String DATASOURCE_NAME = "kapua-dbpool";
   private static final Map<String, String> UNIQUE_CONTRAINTS = new HashMap<>();
 
-  private static ReplyMessageEntityManagerFactory instance = new ReplyMessageEntityManagerFactory();
+  private static ReplyMessageEntityManagerFactory instance = new 
+        ReplyMessageEntityManagerFactory();
 
   /**
    * Constructs a new entity manager factory and configure it to use the  persistence unit.

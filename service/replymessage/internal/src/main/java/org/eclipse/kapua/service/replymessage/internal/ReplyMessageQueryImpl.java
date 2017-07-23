@@ -5,6 +5,7 @@ import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.replymessage.ReplyMessage;
 import org.eclipse.kapua.service.replymessage.ReplyMessageQuery;
 
+
 public class ReplyMessageQueryImpl extends AbstractKapuaQuery<ReplyMessage> 
     implements ReplyMessageQuery {
   

@@ -18,9 +18,9 @@ import javax.ws.rs.core.Response;
 import org.eclipse.kapua.app.api.v1.resources.model.EntityId;
 import org.eclipse.kapua.app.api.v1.resources.model.ScopeId;
 import org.eclipse.kapua.locator.KapuaLocator;
-import org.eclipse.kapua.service.replymessage.ReplyMessage;
 import org.eclipse.kapua.service.replymessage.ReplyMessageCreator;
 import org.eclipse.kapua.service.replymessage.ReplyMessageService;
+import org.eclipse.kapua.service.replymessage.ReplyMessage;
 import org.eclipse.kapua.service.replymessage.internal.ReplyMessageImpl;
 
 @Api("ReplyMessages")

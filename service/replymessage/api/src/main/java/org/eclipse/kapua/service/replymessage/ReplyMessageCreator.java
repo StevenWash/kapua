@@ -12,90 +12,58 @@ import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.model.id.KapuaIdAdapter;
 
 
-@XmlRootElement(name = "appVersionCreator")
+@XmlRootElement(name = "replyMessageCreator")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(propOrder = { "types",
-        "keywords",
+@XmlType(propOrder = { 
+		"types",
+		"keywords",
         "content",
-        "url",
         "title",
         "description",
         "picurl",
-        "processrecoveryId"
+        "processrecoveryId",
+        "url"
          }, factoryClass = ReplyMessageXmlRegistry.class, factoryMethod = "newReplyMessageCreator")
 public interface  ReplyMessageCreator  extends KapuaEntityCreator<ReplyMessage>{
 	
 	
-	/**
-     * Get the types
+	 /**
+     * Get the ReplyMessage's types
      * 
      * @return
      */
-    @XmlElement(name = "types")
+   @XmlElement(name = "types")
     public String getTypes();
 
     /**
-     * Set the types
+     * Set the ReplyMessage's types
      * 
      * @param types
      */
-    public void setTypes(String types);
-    
-    
+    public void setTypes(String  types);
     
     /**
-     * Get the keywords
+     * Get the ReplyMessage's keywords
      * 
      * @return
      */
-    @XmlElement(name = "keywords")
-    public String getKeywords();
-
-    /**
-     * Set the keywords
-     * 
-     * @param keywords
-     */
-    public void setKeywords(String keywords);
-    
-    
-    
-    
-    /**
-     * Get the content
-     * 
-     * @return
-     */
+  
     @XmlElement(name = "content")
     public String getContent();
 
     /**
-     * Set the content
+     * Set the ReplyMessage's keywords
      * 
-     * @param content
+     * @param keywords
      */
     public void setContent(String content);
     
+
     
     
-    /**
-     * Get the url
-     * 
-     * @return
-     */
-    @XmlElement(name = "url")
-    public String getUrl();
 
     /**
-     * Set the url
-     * 
-     * @param url
-     */
-    public void setUrl(String url);
-    
-    
-    /**
-     * Get the title
+     * Get the ReplyMessage's title
      * 
      * @return
      */
@@ -103,7 +71,7 @@ public interface  ReplyMessageCreator  extends KapuaEntityCreator<ReplyMessage>{
     public String getTitle();
 
     /**
-     * Set the title
+     * Set the ReplyMessage's title
      * 
      * @param title
      */
@@ -111,7 +79,23 @@ public interface  ReplyMessageCreator  extends KapuaEntityCreator<ReplyMessage>{
     
     
     /**
-     * Get the description
+     * Get the ReplyMessage's description
+     * 
+     * @return
+     */
+    @XmlElement(name = "keywords")
+    public String getKeywords();
+
+    /**
+     * Set the ReplyMessage's description
+     * 
+     * @param description
+     */
+    public void setKeywords(String keywords);
+    
+    
+    /**
+     * Get the ReplyMessage's description
      * 
      * @return
      */
@@ -119,15 +103,17 @@ public interface  ReplyMessageCreator  extends KapuaEntityCreator<ReplyMessage>{
     public String getDescription();
 
     /**
-     * Set the description
+     * Set the ReplyMessage's description
      * 
      * @param description
      */
     public void setDescription(String description);
     
     
+    
+    
     /**
-     * Get the picurl
+     * Get the ReplyMessage's description
      * 
      * @return
      */
@@ -135,24 +121,50 @@ public interface  ReplyMessageCreator  extends KapuaEntityCreator<ReplyMessage>{
     public String getPicurl();
 
     /**
-     * Set the picurl
+     * Set the ReplyMessage's description
      * 
-     * @param picurl
+     * @param description
      */
     public void setPicurl(String picurl);
     
     
     
+    
+    /**
+     * Get the ReplyMessage's description
+     * 
+     * @return
+     */
+    @XmlElement(name = "url")
+    public String getUrl();
+
+    /**
+     * Set the ReplyMessage's description
+     * 
+     * @param description
+     */
+    public void setUrl(String url);
+    
+    
+    
+    /**
+     * Get the ReplyMessage's description
+     * 
+     * @return
+     */
     @XmlElement(name = "processrecoveryId")
     @XmlJavaTypeAdapter(KapuaIdAdapter.class)
     public KapuaId getProcessrecoveryId();
+
+    /**
+     * Set the ReplyMessage's description
+     * 
+     * @param description
+     */
+    public void setProcessrecoveryId(KapuaId processrecoveryId);
+    
+
     
     
     
-    
-    public void setProcessrecoveryId(KapuaId getProcessrecoveryId);
-    
-    
-  
-	      
 }

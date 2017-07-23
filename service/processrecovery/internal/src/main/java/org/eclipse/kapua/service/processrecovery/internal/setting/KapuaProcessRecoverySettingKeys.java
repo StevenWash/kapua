@@ -10,7 +10,7 @@
  *     Eurotech - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.kapua.service.replymessage.internal.setting;
+package org.eclipse.kapua.service.processrecovery.internal.setting;
 
 import org.eclipse.kapua.commons.setting.SettingKey;
 
@@ -20,7 +20,7 @@ import org.eclipse.kapua.commons.setting.SettingKey;
  * @since 1.0
  *
  */
-public enum KapuaReplyMessageSettingKeys implements SettingKey {
+public enum KapuaProcessRecoverySettingKeys implements SettingKey {
     /**
      * The key value in the configuration resources.
      */
@@ -34,7 +34,7 @@ public enum KapuaReplyMessageSettingKeys implements SettingKey {
    * @param key
    *            The value mapped by this {@link Enum} value.
    */
-  private KapuaReplyMessageSettingKeys(String key) {
+  private KapuaProcessRecoverySettingKeys(String key) {
     this.key = key;
   }
 

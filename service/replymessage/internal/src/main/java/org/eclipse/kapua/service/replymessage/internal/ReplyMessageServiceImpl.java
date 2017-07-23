@@ -1,10 +1,7 @@
 package org.eclipse.kapua.service.replymessage.internal;
 
-import javax.persistence.TypedQuery;
-
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
-import org.eclipse.kapua.KapuaIllegalArgumentException;
 import org.eclipse.kapua.commons.configuration.AbstractKapuaConfigurableResourceLimitedService;
 import org.eclipse.kapua.commons.util.ArgumentValidator;
 import org.eclipse.kapua.locator.KapuaLocator;
@@ -16,31 +13,36 @@ import org.eclipse.kapua.service.authorization.AuthorizationService;
 import org.eclipse.kapua.service.authorization.domain.Domain;
 import org.eclipse.kapua.service.authorization.permission.Actions;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
-import org.eclipse.kapua.service.replymessage.ReplyMessage;
 import org.eclipse.kapua.service.replymessage.ReplyMessageCreator;
 import org.eclipse.kapua.service.replymessage.ReplyMessageFactory;
 import org.eclipse.kapua.service.replymessage.ReplyMessageListResult;
 import org.eclipse.kapua.service.replymessage.ReplyMessageQuery;
 import org.eclipse.kapua.service.replymessage.ReplyMessageService;
+import org.eclipse.kapua.service.replymessage.ReplyMessage;
 
 
 
 
 /**
- * {@link replyMessageService} implementation.
+ * {@link ReplyMessageService} implementation.
  * 
  * @since 1.0
  *
  */
 @KapuaProvider
 public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLimitedService<
-      ReplyMessage, ReplyMessageCreator, ReplyMessageService, ReplyMessageListResult, ReplyMessageQuery,
+     ReplyMessage, ReplyMessageCreator, ReplyMessageService, ReplyMessageListResult, 
+       ReplyMessageQuery,
       ReplyMessageFactory> implements ReplyMessageService {
 
   private static final Domain REPLYMESSAGE_DOMAIN = new ReplyMessageDomain();
-
+  
+  /**
+   * .
+   */
   public ReplyMessageServiceImpl() {
-    super(ReplyMessageService.class.getName(), REPLYMESSAGE_DOMAIN, ReplyMessageEntityManagerFactory
+    super(ReplyMessageService.class.getName(), REPLYMESSAGE_DOMAIN, 
+          ReplyMessageEntityManagerFactory
           .getInstance(), ReplyMessageService.class, ReplyMessageFactory.class);
   }
 
@@ -65,7 +67,8 @@ public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLi
 
 
   @Override
-  public ReplyMessage create(ReplyMessageCreator replyMessageCreator)throws KapuaException {
+  public ReplyMessage create(ReplyMessageCreator replyMessageCreator)
+        throws KapuaException {
     // TODO Auto-generated method stub
    
     ArgumentValidator.notNull(replyMessageCreator, "replyMessageCreator");
@@ -79,7 +82,7 @@ public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLi
     authorizationService.checkPermission(permissionFactory.newPermission(REPLYMESSAGE_DOMAIN,
         Actions.write, replyMessageCreator.getScopeId()));
    
-    System.out.println("---------------replyMessageServiceImpl-------------");
+    System.out.println("---------------ProcessRecoveryServiceImpl-------------");
     
     return entityManagerSession.onTransactedInsert(em -> 
      
@@ -103,8 +106,8 @@ public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLi
     
     entityManagerSession.onTransactedAction(em -> {
       
-      ReplyMessage replyMessagex = ReplyMessageDao.find(em, replyMessageId);
-      if (replyMessagex == null) {
+      ReplyMessage processRecoveryx = ReplyMessageDao.find(em, replyMessageId);
+      if (processRecoveryx == null) {
         throw new KapuaEntityNotFoundException(ReplyMessage.TYPE, replyMessageId);
       }
 
@@ -132,18 +135,16 @@ public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLi
       if (currentReplyMessage == null) {
         throw new KapuaEntityNotFoundException(ReplyMessage.TYPE, replyMessage.getId());
       }
-     
       
+      currentReplyMessage.setContent(replyMessage.getContent());
       currentReplyMessage.setTitle(replyMessage.getTitle());
       currentReplyMessage.setTypes(replyMessage.getTypes());
+      currentReplyMessage.setProcessrecoveryId(replyMessage.getProcessrecoveryId());
+      currentReplyMessage.setDescription(replyMessage.getDescription());
+      currentReplyMessage.setKeywords(replyMessage.getKeywords());
       currentReplyMessage.setPicurl(replyMessage.getPicurl());
       currentReplyMessage.setUrl(replyMessage.getUrl());
-      currentReplyMessage.setDescription(replyMessage.getDescription());
-      currentReplyMessage.setProcessrecoveryId(replyMessage.getProcessrecoveryId());
-      currentReplyMessage.setPicurl(replyMessage.getPicurl());
-      currentReplyMessage.setKeywords(replyMessage.getKeywords());
-      currentReplyMessage.setContent(replyMessage.getContent());
-      
+
       // Update
       return ReplyMessageDao.update(em, currentReplyMessage);
     });
@@ -158,7 +159,8 @@ public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLi
 
 
   @Override
-  public KapuaListResult<ReplyMessage> query(KapuaQuery<ReplyMessage> query) throws KapuaException {
+  public KapuaListResult<ReplyMessage> query(KapuaQuery<ReplyMessage> query)
+        throws KapuaException {
     // TODO Auto-generated method stub
     //
     // Check Access

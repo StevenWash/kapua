@@ -8,6 +8,7 @@ import org.eclipse.kapua.service.replymessage.ReplyMessageFactory;
 import org.eclipse.kapua.service.replymessage.ReplyMessageListResult;
 import org.eclipse.kapua.service.replymessage.ReplyMessageQuery;
 
+
 @KapuaProvider
 public class ReplyMessageFactoryImpl implements ReplyMessageFactory {
 

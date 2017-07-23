@@ -21,9 +21,9 @@ import org.eclipse.kapua.service.config.KapuaConfigurableService;
 
 
 /**
- * ReplyMessageService exposes APIs to manage ReplyMessage objects.<br>
- * It includes APIs to create, update, find, list and delete ReplyMessage.<br>
- * Instances of the ReplyMessageService can be acquired through the ServiceLocator object.
+ * ProcessRecoveryService exposes APIs to manage ProcessRecovery objects.<br>
+ * It includes APIs to create, update, find, list and delete ProcessRecovery.<br>
+ * Instances of the ProcessRecoveryService can be acquired through the ServiceLocator object.
  * 
  * @since 1.0
  * 
@@ -44,7 +44,7 @@ public interface ReplyMessageService extends KapuaEntityService<ReplyMessage, Re
      * @throws KapuaException
      * @since 1.0.0
      */
-	public ReplyMessage findById(KapuaId replyMessageId,KapuaId scopeId)
+	public ReplyMessage findById(KapuaId processRecoveryId,KapuaId scopeId)
             throws KapuaException;
 	
 	
@@ -54,5 +54,5 @@ public interface ReplyMessageService extends KapuaEntityService<ReplyMessage, Re
     
     public void delete(KapuaId scopeId, KapuaId entityId)throws KapuaException;
     
-    public ReplyMessage update(ReplyMessage appVersion) throws KapuaException ;
+    public ReplyMessage update(ReplyMessage replyMessage) throws KapuaException ;
 }

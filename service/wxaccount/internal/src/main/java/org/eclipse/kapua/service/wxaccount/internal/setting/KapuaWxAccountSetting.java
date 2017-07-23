@@ -9,8 +9,7 @@
  * Contributors:
  *     Eurotech - initial API and implementation
  *******************************************************************************/
-
-package org.eclipse.kapua.service.replymessage.internal.setting;
+package org.eclipse.kapua.service.wxaccount.internal.setting;
 
 import org.eclipse.kapua.commons.setting.AbstractKapuaSetting;
 
@@ -20,31 +19,30 @@ import org.eclipse.kapua.commons.setting.AbstractKapuaSetting;
  * @since 1.0
  *
  */
-public class KapuaReplyMessageSetting extends AbstractKapuaSetting<KapuaReplyMessageSettingKeys> {
+public class KapuaWxAccountSetting extends AbstractKapuaSetting<KapuaWxAccountSettingKeys> {
 
-  /**
-   * Resource file from which source properties.
-   * 
-   */
-  private static final String ACCOUNT_CONFIG_RESOURCE = "kapua-replymessage-setting.properties";
+    /**
+     * Resource file from which source properties.
+     * 
+     */
+    private static final String ACCOUNT_CONFIG_RESOURCE = "kapua-wxaccount-setting.properties";
 
-  private static final KapuaReplyMessageSetting INSTANCE = new KapuaReplyMessageSetting();
+    private static final KapuaWxAccountSetting INSTANCE = new KapuaWxAccountSetting();
 
-  /**
-   * Initialize the {@link AbstractKapuaSetting} with the {@link 
-   * KapuaAccountSettingKeys#ACCOUNT_KEY} value.
-   * 
-   */
-  private KapuaReplyMessageSetting() {
+    /**
+     * Initialize the {@link AbstractKapuaSetting} with the {@link KapuaAccountSettingKeys#ACCOUNT_KEY} value.
+     * 
+     */
+    private KapuaWxAccountSetting() {
         super(ACCOUNT_CONFIG_RESOURCE);
-  }
+    }
 
-  /**
+    /**
      * Gets a singleton instance of {@link KapuaAccountSetting}.
      * 
      * @return A singleton instance of KapuaAccountSetting.
      */
-  public static KapuaReplyMessageSetting getInstance() {
-    return INSTANCE;
-  }
+    public static KapuaWxAccountSetting getInstance() {
+        return INSTANCE;
+    }
 }

@@ -28,8 +28,8 @@ import org.eclipse.kapua.model.id.KapuaIdAdapter;
         "title",
         "description",
         "picurl",
-        "url",
-        "processrecoveryId"
+        "processrecoveryId",
+        "url"
         }, factoryClass = ReplyMessageXmlRegistry.class, factoryMethod = "newReplyMessage")
 public interface ReplyMessage extends KapuaUpdatableEntity{
 
@@ -60,30 +60,17 @@ public interface ReplyMessage extends KapuaUpdatableEntity{
      * @return
      */
   
-    @XmlElement(name = "keywords")
-    public String getKeywords();
+    @XmlElement(name = "content")
+    public String getContent();
 
     /**
      * Set the ReplyMessage's keywords
      * 
      * @param keywords
      */
-    public void setKeywords(String keywords);
-    
-    /**
-     * Get the ReplyMessage's content
-     * 
-     * @return
-     */
-    @XmlElement(name = "content")
-    public String getContent();
-
-    /**
-     * Set the ReplyMessage's content
-     * 
-     * @param content
-     */
     public void setContent(String content);
+    
+
     
     
 
@@ -108,6 +95,22 @@ public interface ReplyMessage extends KapuaUpdatableEntity{
      * 
      * @return
      */
+    @XmlElement(name = "keywords")
+    public String getKeywords();
+
+    /**
+     * Set the ReplyMessage's description
+     * 
+     * @param description
+     */
+    public void setKeywords(String keywords);
+    
+    
+    /**
+     * Get the ReplyMessage's description
+     * 
+     * @return
+     */
     @XmlElement(name = "description")
     public String getDescription();
 
@@ -119,8 +122,10 @@ public interface ReplyMessage extends KapuaUpdatableEntity{
     public void setDescription(String description);
     
     
+    
+    
     /**
-     * Get the ReplyMessage's picurl
+     * Get the ReplyMessage's description
      * 
      * @return
      */
@@ -128,40 +133,47 @@ public interface ReplyMessage extends KapuaUpdatableEntity{
     public String getPicurl();
 
     /**
-     * Set the ReplyMessage's picurl
+     * Set the ReplyMessage's description
      * 
-     * @param picurl
+     * @param description
      */
     public void setPicurl(String picurl);
     
     
+    
+    
     /**
-     * Get the ReplyMessage's processrecoveryId
+     * Get the ReplyMessage's description
      * 
      * @return
      */
-
-    @XmlElement(name = "processrecoveryId")
-    @XmlJavaTypeAdapter(KapuaIdAdapter.class)
-    public KapuaId getProcessrecoveryId();
-    
-    
-    
-    
-    public void setProcessrecoveryId(KapuaId getProcessrecoveryId);
-    
-    
-    
     @XmlElement(name = "url")
     public String getUrl();
 
     /**
-     * Set the ReplyMessage's url
+     * Set the ReplyMessage's description
      * 
-     * @param url
+     * @param description
      */
     public void setUrl(String url);
+    
+    
+    
+    /**
+     * Get the ReplyMessage's description
+     * 
+     * @return
+     */
+    @XmlElement(name = "processrecoveryId")
+    @XmlJavaTypeAdapter(KapuaIdAdapter.class)
+    public KapuaId getProcessrecoveryId();
 
+    /**
+     * Set the ReplyMessage's description
+     * 
+     * @param description
+     */
+    public void setProcessrecoveryId(KapuaId processrecoveryId);
     
 
 }
