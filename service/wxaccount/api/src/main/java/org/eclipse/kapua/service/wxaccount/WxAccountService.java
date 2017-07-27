@@ -56,4 +56,6 @@ public interface WxAccountService extends KapuaEntityService<WxAccount, WxAccoun
     public void delete(KapuaId scopeId, KapuaId entityId)throws KapuaException;
     
     public WxAccount update(WxAccount appVersion) throws KapuaException ;
+    
+    public String getTokenByName(String name) throws KapuaException ;
 }

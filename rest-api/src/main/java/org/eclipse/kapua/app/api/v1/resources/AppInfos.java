@@ -33,7 +33,7 @@ public class AppInfos extends AbstractKapuaResource{
     private final AppInfoService appInfoService = locator.getService(AppInfoService.class);
     
     
-    @ApiOperation(value = "Get an apkInfo",  //
+    @ApiOperation(value = "Get an appInfo",  //
     notes = "Returns the AppInfo specified by the \"appInfoId\" path parameter.",  //
     response = AppInfo.class)
 	@GET

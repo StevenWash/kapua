@@ -36,6 +36,13 @@ public class WxAccountFactoryImpl implements WxAccountFactory {
     return new WxAccountListResultImpl() ;
   }
 
+@Override
+public WxAccountCreator newCreator(KapuaId scopeId, String name) {
+	WxAccountCreator creator = newCreator(scopeId);
+      creator.setName(name);
+      return creator;
+}
+
  
   
 

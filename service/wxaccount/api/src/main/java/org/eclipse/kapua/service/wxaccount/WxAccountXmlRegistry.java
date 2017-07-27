@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 import org.eclipse.kapua.locator.KapuaLocator;
 
 /**
- * AppVersion xml factory class
+ * Wxaccount xml factory class
  * 
  * @since 1.0
  *
@@ -17,7 +17,7 @@ public class WxAccountXmlRegistry {
 	private final WxAccountFactory factory = locator.getFactory(WxAccountFactory.class);
 	
 	 /**
-     * Creates a new appversion instance
+     * Creates a new Wxaccount instance
      * 
      * @return
      */

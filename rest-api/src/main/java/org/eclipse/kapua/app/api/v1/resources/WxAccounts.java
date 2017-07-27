@@ -145,4 +145,28 @@ public class WxAccounts extends AbstractKapuaResource {
         }
         return returnNotNullEntity(wxAccountUpdated);
     }
+    
+    
+    @ApiOperation(value = "Get the token",  //
+    notes = "Returns the token specified by the \"name\" path parameter.",  //
+    response = String.class)
+	@GET
+	@Path("{name}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.TEXT_HTML, MediaType.TEXT_PLAIN })
+	public String getTokenByName(
+	    @ApiParam(value = "The ScopeId of the requested WxAccount.", required = true, defaultValue = DEFAULT_SCOPE_ID) @PathParam("scopeId") ScopeId scopeId, //
+	    @ApiParam(value = "The id of the requested WxAccount", required = true) @PathParam("name") String name)
+        {
+    	String token = null;
+	try {
+		
+	  System.out.println("name:" + name);
+	  token = wxAccountService.getTokenByName(name);
+		
+	} catch (Throwable t) {
+	    handleException(t);
+	}
+	return returnNotNullEntity(token);
+	}
 }

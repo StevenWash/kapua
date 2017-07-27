@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.eclipse.kapua.model.KapuaEntityCreator;
+import org.eclipse.kapua.model.KapuaNamedEntityCreator;
 
 
 @XmlRootElement(name = "wxAccountCreator")
@@ -18,7 +18,7 @@ import org.eclipse.kapua.model.KapuaEntityCreator;
         "urlName",
         "wxAppsecret"
          }, factoryClass = WxAccountXmlRegistry.class, factoryMethod = "newWxAccountCreator")
-public interface  WxAccountCreator  extends KapuaEntityCreator<WxAccount>{
+public interface  WxAccountCreator  extends KapuaNamedEntityCreator<WxAccount>{
 	
 	
 	/**

@@ -21,6 +21,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		
 		<class>org.eclipse.kapua.service.wxaccount.internal.WxAccountImpl</class>
+		<class>org.eclipse.kapua.commons.configuration.ServiceConfigImpl</class>
 
 		<!-- Base classes and External classes -->
 		<class>org.eclipse.kapua.commons.model.id.KapuaEid</class>

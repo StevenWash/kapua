@@ -1,6 +1,10 @@
 package org.eclipse.kapua.service.wxaccount.internal;
 
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.eclipse.kapua.KapuaEntityNotFoundException;
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.KapuaIllegalArgumentException;
@@ -139,6 +143,7 @@ public class WxAccountServiceImpl extends AbstractKapuaConfigurableResourceLimit
       currentwxAccount.setWxToken(wxAccount.getWxToken());
       currentwxAccount.setWxAppsecret(wxAccount.getWxAppsecret());
       currentwxAccount.setWxAppid(wxAccount.getWxAppid());
+      currentwxAccount.setName(wxAccount.getName());
       
       // Update
       return WxAccountDao.update(em, currentwxAccount);
@@ -170,6 +175,19 @@ public class WxAccountServiceImpl extends AbstractKapuaConfigurableResourceLimit
     return (long) entityManagerSession.onResult(entityManager -> 
       WxAccountDao.count(entityManager, query));
   }
+
+
+@Override
+public String getTokenByName(String name) throws KapuaException {
+	
+	 return entityManagerSession.onTransactedResult(em -> {
+		 
+	    WxAccount wxAccount = WxAccountDao.findByName(em, name);
+	    String token = wxAccount.getWxToken();
+	      
+	      return token;
+	    });
+}
 
 
 

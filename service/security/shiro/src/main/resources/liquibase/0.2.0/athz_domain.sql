@@ -45,4 +45,7 @@ INSERT INTO athz_domain
 		(NULL, 12, NOW(), 1, 'access_info',			'accessInfoService'),
 		(NULL, 13, NOW(), 1, 'access_token',		'accessTokenService'),
 		(NULL, 14, NOW(), 1, 'role',				'roleService'),
-		(NULL, 15, NOW(), 1, 'user',				'userService');
+		(NULL, 15, NOW(), 1, 'user',				'userService'),
+		(NULL, 16, NOW(), 1, 'appVersion',			'appVersionService'),
+		(NULL, 17, NOW(), 1, 'weather',			    'weatherService'),
+		(NULL, 18, NOW(), 1, 'appInfo',			    'appInfoService');

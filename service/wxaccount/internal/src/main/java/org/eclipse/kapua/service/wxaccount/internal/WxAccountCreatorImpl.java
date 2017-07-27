@@ -1,11 +1,11 @@
 package org.eclipse.kapua.service.wxaccount.internal;
 
-import org.eclipse.kapua.commons.model.AbstractKapuaEntityCreator;
+import org.eclipse.kapua.commons.model.AbstractKapuaNamedEntityCreator;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.wxaccount.WxAccount;
 import org.eclipse.kapua.service.wxaccount.WxAccountCreator;
 
-public class WxAccountCreatorImpl extends AbstractKapuaEntityCreator<WxAccount> 
+public class WxAccountCreatorImpl extends AbstractKapuaNamedEntityCreator<WxAccount> 
              implements WxAccountCreator {
   
 

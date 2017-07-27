@@ -6,12 +6,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.eclipse.kapua.model.KapuaUpdatableEntity;
+import org.eclipse.kapua.model.KapuaNamedEntity;
 
 
 
 /**
- * User appVersion entity.
+ * User WxAccount entity.
  * 
  * @since 1.0
  *
@@ -25,7 +25,7 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
         "urlName",
         "wxAppsecret"
         }, factoryClass = WxAccountXmlRegistry.class, factoryMethod = "newWxAccount")
-public interface WxAccount extends KapuaUpdatableEntity{
+public interface WxAccount extends KapuaNamedEntity{
 
     public static final String TYPE = "wxAccount";
 

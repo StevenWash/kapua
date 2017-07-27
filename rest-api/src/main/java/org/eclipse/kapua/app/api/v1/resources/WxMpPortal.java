@@ -18,6 +18,10 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.kapua.KapuaException;
+import org.eclipse.kapua.locator.KapuaLocator;
+import org.eclipse.kapua.service.wxaccount.WxAccount;
+import org.eclipse.kapua.service.wxaccount.WxAccountService;
 import org.eclipse.kapua.service.wxaccount.internal.WeiXinServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +35,8 @@ import io.swagger.annotations.ApiParam;
 public class WxMpPortal {
 	
 	  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	  private final KapuaLocator locator = KapuaLocator.getInstance();
+	  private final WxAccountService wxAccountService = locator.getService(WxAccountService.class);
 	  
 	  @Context HttpServletRequest request;
 	  
@@ -50,15 +56,23 @@ public class WxMpPortal {
 	    @ApiParam(value = "The nonce of the requested ", required = true) @QueryParam("nonce") String nonce,
 	    @ApiParam(value = "The echostr of the requested ", required = true) @QueryParam("echostr") String echostr
         ){
+    	String token=null;
+    	try {
+			 token= wxAccountService.getTokenByName(name);
+			 System.out.println("token:::"+token);
+		} catch (KapuaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	System.out.println("__________________________________-");
     	 this.logger.info("\n接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature, timestamp, nonce, echostr);
     	 System.out.println( signature+" "+timestamp+" "+nonce+" "+echostr);
-    	 
+    
     	  if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {
     	      throw new IllegalArgumentException("请求参数非法，请核实!");
     	    }
 
-    	    if (this.getWxService().checkSignature(timestamp, nonce, signature)) {
+    	    if (this.getWxService().checkSignature(timestamp, nonce, signature,token)) {
     	      return echostr;
     	    }
 
@@ -74,6 +88,7 @@ public class WxMpPortal {
     	    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     		@Produces({ MediaType.TEXT_HTML, MediaType.TEXT_PLAIN })
     		public String post(
+    			@ApiParam(value = "The name of the requested .", required = true) @PathParam("name") String name,
     			@ApiParam(value = "The name of the requested .", required = true) @QueryParam("signature") String signature,
     			@ApiParam(value = "The signature of the requested .", required = true) @QueryParam("encrypt_type") String encType,	
     		    @ApiParam(value = "The timestamp of the requested .", required = true) @QueryParam("msg_signature") String msgSignature, //
@@ -82,12 +97,13 @@ public class WxMpPortal {
     	        ) {
     	    	System.out.println("__________________________________-");
     	    	
+    	    	String token=null;
     	    	String requestBody=null;
 				try {
 					/*InputStream  body=request.getInputStream();
 					DataInputStream input = new DataInputStream(body); 
 					requestBody = input.readUTF();*/
-					
+					 token= wxAccountService.getTokenByName(name);
 					
 					byte[] bytes = new byte[1024 * 1024];  
 		            InputStream is = request.getInputStream();  
@@ -101,7 +117,7 @@ public class WxMpPortal {
 		            }  
 		            requestBody = new String(bytes, 0, nTotalRead, "utf-8");  
 		            System.out.println("requestBody:" + requestBody);
-				} catch (IOException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
@@ -111,7 +127,7 @@ public class WxMpPortal {
     	    		            + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
     	    		        signature, encType, msgSignature, timestamp, nonce, requestBody);
 
-    	    		    if (!this.wxService.checkSignature(timestamp, nonce, signature)) {
+    	    		    if (!this.wxService.checkSignature(timestamp, nonce, signature,token)) {
     	    		      throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
     	    		    }
 

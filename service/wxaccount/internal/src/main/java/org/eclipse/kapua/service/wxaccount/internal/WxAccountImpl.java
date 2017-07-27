@@ -17,7 +17,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
+import org.eclipse.kapua.commons.model.AbstractKapuaNamedEntity;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.wxaccount.WxAccount;
 
@@ -31,7 +31,7 @@ import org.eclipse.kapua.service.wxaccount.WxAccount;
 
 @Entity(name = "WxAccount")
 @Table(name = "wx_account")
-public class WxAccountImpl extends AbstractKapuaUpdatableEntity implements WxAccount {
+public class WxAccountImpl extends AbstractKapuaNamedEntity implements WxAccount {
     
 
   /**

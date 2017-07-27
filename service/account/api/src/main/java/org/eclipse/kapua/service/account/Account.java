@@ -33,7 +33,7 @@ public interface Account extends KapuaNamedEntity {
 
     public static final String TYPE = "acct";
 
-    default public String getType() {
+    public default String getType() {
         return TYPE;
     }
 

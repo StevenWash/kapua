@@ -95,6 +95,7 @@ public class WxAccountDao {
 	  wxAccountImpl.setWxAppsecret(wxAccountCreator.getWxAppsecret());
 	  wxAccountImpl.setWxAeskey(wxAccountCreator.getWxAeskey());
 	  wxAccountImpl.setWxToken(wxAccountCreator.getWxToken());
+	  wxAccountImpl.setName(wxAccountCreator.getName());
     
     return ServiceDAO.create(em, wxAccountImpl);
   }
@@ -109,6 +110,18 @@ public class WxAccountDao {
   public static WxAccountListResult query(EntityManager em, KapuaQuery<WxAccount> appVersionQuery)
       throws KapuaException {
     return (WxAccountListResult) ServiceDAO.query(em, WxAccount.class, WxAccountImpl.class, new WxAccountListResultImpl(), appVersionQuery);
+  }
+  
+  
+  /**
+   * Finds the WxAccount by name
+   * 
+   * @param em
+   * @param name
+   * @return
+   */
+  public static WxAccount findByName(EntityManager em, String name) {
+      return ServiceDAO.findByField(em, WxAccountImpl.class, "name", name);
   }
 
 
