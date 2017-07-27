@@ -48,9 +48,10 @@ public class ReplyMessageServiceImpl extends AbstractKapuaConfigurableResourceLi
 
   
   @Override
-  public ReplyMessage findById(KapuaId replyMessageId,KapuaId scopeId) throws KapuaException {
-    ArgumentValidator.notNull(replyMessageId, "replyMessageId");
+  public ReplyMessage findById(KapuaId scopeId,KapuaId replyMessageId) throws KapuaException {
+   
     ArgumentValidator.notNull(scopeId, "scopeId");
+    ArgumentValidator.notNull(replyMessageId, "replyMessageId");
     //checkAccess
     KapuaLocator locator = KapuaLocator.getInstance();
     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);

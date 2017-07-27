@@ -17,9 +17,10 @@ import org.eclipse.kapua.commons.jpa.EntityManager;
 import org.eclipse.kapua.commons.service.internal.ServiceDAO;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appinfo.AppInfoCreator;
 
 /**
- * Account DAO
+ * AppInfo DAO
  * 
  * @since 1.0
  *
@@ -32,36 +33,35 @@ public class AppInfoDAO {
 
 
     /**
-     * Updates the provided account
+     * Updates the provided AppInfo
      * 
      * @param em
-     * @param account
+     * @param appInfo
      * @return
      * @throws KapuaException
      */
     public static AppInfo update(EntityManager em, AppInfo appInfo)
             throws KapuaException {
         //
-        // Update account
+        // Update appInfo
     	AppInfoImpl appInfoImpl = (AppInfoImpl) appInfo;
 
         return ServiceDAO.update(em, AppInfoImpl.class, appInfoImpl);
     }
 
     /**
-     * Deletes the account by account identifier
+     * Deletes the appInfo by account identifier
      * 
      * @param em
-     * @param accountId
+     * @param appInfoId
      * @throws KapuaEntityNotFoundException
-     *             If the {@link Account} is not found
+     *             If the {@link AppInfo} is not found
  
     /**
-     * Finds the account by account identifier
+     * Finds the appInfo by account identifier
      */
     public static AppInfo find(EntityManager em, KapuaId appInfoId) {
     	AppInfo appInfo=null;
-    	System.out.println("appInfoId:::"+appInfoId);
       try {
     	  appInfo=em.find(AppInfoImpl.class, appInfoId);
 	} catch (Exception e) {
@@ -73,7 +73,7 @@ public class AppInfoDAO {
      
 
     /**
-     * Finds the account by name
+     * Finds the appInfo by name
      * 
      * @param em
      * @param name
@@ -84,5 +84,29 @@ public class AppInfoDAO {
     }
 
 
+    /**
+     * Creates and return new AppInfo.
+     * 
+     */
+    public static AppInfo create(EntityManager em, AppInfoCreator appInfoCreator)
+            throws KapuaException {
+       
+      // Create AppVersion
+     
+    	AppInfo appInfoImpl = new AppInfoImpl(appInfoCreator.getScopeId());
+    	
+    	appInfoImpl.setComment(appInfoCreator.getComment());
+    	appInfoImpl.setImage(appInfoCreator.getImage());
+    	appInfoImpl.setPackagename(appInfoCreator.getPackagename());
+    	appInfoImpl.setName(appInfoCreator.getName());
+    	appInfoImpl.setTypes(appInfoCreator.getTypes());
+    	
+      return ServiceDAO.create(em, appInfoImpl);
+    }
+    
+    public static void delete(EntityManager em, KapuaId appInfoId) 
+    	      throws KapuaEntityNotFoundException {
+    	    ServiceDAO.delete(em, AppInfoImpl.class, appInfoId);
+    	  }
 
 }

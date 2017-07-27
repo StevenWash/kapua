@@ -45,15 +45,17 @@ public class WxAccountServiceImpl extends AbstractKapuaConfigurableResourceLimit
 
   
   @Override
-  public WxAccount findById(KapuaId wxAccountId,KapuaId scopeId) throws KapuaException {
-    ArgumentValidator.notNull(wxAccountId, "wxAccountId");
+  public WxAccount findById(KapuaId scopeId,KapuaId wxAccountId) throws KapuaException {
+   
     ArgumentValidator.notNull(scopeId, "scopeId");
+    ArgumentValidator.notNull(wxAccountId, "wxAccountId");
     //checkAccess
     KapuaLocator locator = KapuaLocator.getInstance();
     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
     PermissionFactory permissionFactory = locator.getFactory(PermissionFactory.class);
     authorizationService.checkPermission(permissionFactory.newPermission(WXACCOUNT_DOMAIN, 
         Actions.read, scopeId));
+    
     return entityManagerSession.onResult(em -> (WxAccount)WxAccountDao.find(em,wxAccountId));
   }
 

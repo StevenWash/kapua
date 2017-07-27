@@ -13,18 +13,22 @@ package org.eclipse.kapua.service.appinfo;
 
 import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.model.id.KapuaId;
-import org.eclipse.kapua.service.KapuaService;
+import org.eclipse.kapua.service.KapuaEntityService;
+import org.eclipse.kapua.service.KapuaUpdatableEntityService;
+import org.eclipse.kapua.service.config.KapuaConfigurableService;
 
 
 /**
- * WeatherService exposes APIs to manage Weather objects.<br>
+ * AppInfoService exposes APIs to manage AppInfo objects.<br>
  * It includes APIs to create, update, find, list and delete Weathers.<br>
- * Instances of the WeatherService can be acquired through the ServiceLocator object.
+ * Instances of the AppInfoService can be acquired through the ServiceLocator object.
  * 
  * @since 1.0
  * 
  */
-public interface AppInfoService extends KapuaService{
+public interface AppInfoService extends KapuaEntityService<AppInfo, AppInfoCreator>,
+   KapuaUpdatableEntityService<AppInfo>,  KapuaConfigurableService{
+  
         
 
 
@@ -47,6 +51,14 @@ public interface AppInfoService extends KapuaService{
 	
 	public AppInfo findByDistinct(KapuaId scopeId,String packagename,String forversion)
             throws KapuaException;
+	
+	
+
+    public AppInfo create(AppInfoCreator appInfoCreator) throws KapuaException ;
+    
+    public void delete(KapuaId scopeId, KapuaId entityId)throws KapuaException;
+    
+    public AppInfo update(AppInfo appInfo) throws KapuaException ;
 	
   
 }

@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.eclipse.kapua.model.KapuaNamedEntityCreator;
 
 /**
- * AccountCreator encapsulates all the information needed to create a new Account in the system.<br>
- * The data provided will be used to seed the new Account and its related information such as the associated organization and users.
+ * appInfoCreator encapsulates all the information needed to create a new Account in the system.<br>
+ * The data provided will be used to seed the new appInfo and its related information such as the associated organization and users.
  * 
  * @since 1.0
  *
@@ -29,7 +29,6 @@ import org.eclipse.kapua.model.KapuaNamedEntityCreator;
 @XmlRootElement(name = "appInfoCreator")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = { "packagename",
-        "name",
         "comment",
         "types",
         "image"

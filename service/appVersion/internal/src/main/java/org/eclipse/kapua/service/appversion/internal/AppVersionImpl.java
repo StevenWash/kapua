@@ -42,16 +42,15 @@ import org.eclipse.kapua.service.appversion.AppVersion;
 @Table(name = "app_version")
 public class AppVersionImpl extends AbstractKapuaUpdatableEntity implements AppVersion {
     
- 
- 
+
   /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7158610082689278520L;
+   * .
+   */
+  private static final long serialVersionUID = 7158610082689278520L;
 
 
 
-@Basic
+  @Basic
   @Column(name = "packagename", nullable = false)
     private String packagename;
     

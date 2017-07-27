@@ -5,11 +5,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.eclipse.kapua.model.KapuaUpdatableEntity;
+
+import org.eclipse.kapua.model.KapuaNamedEntity;
 
 
 /**
- * User account entity.
+ * User AppInfo entity.
  * 
  * @since 1.0
  *
@@ -20,32 +21,32 @@ import org.eclipse.kapua.model.KapuaUpdatableEntity;
 		"packagename",
 		"comment",
         "image",
-        "types",
-        "name"
-         })
-public interface AppInfo extends KapuaUpdatableEntity{
+        "types"
+         }, factoryClass = AppInfoXmlRegistry.class, factoryMethod = "newAppInfo")
+public interface AppInfo extends KapuaNamedEntity{
 
     public static final String TYPE = "appInfo";
 
     public default String getType() {
         return TYPE;
     }
-
+  
+    /**
+     * Get the AppInfo's  packagename
+     * 
+     * @return
+     */
     
     @XmlElement(name = "packagename")
     public String getPackagename();
 
     /**
-     * Set the weather's province
+     * Set the AppInfo's  packagename
      * 
-     * @param province
+     * @param packagename
      */
     public void setPackagename(String  packagename);
-    /**
-     * Get the weather's province
-     * 
-     * @return
-     */
+   
     
     /**
      * Get the weather's city_code
@@ -63,20 +64,7 @@ public interface AppInfo extends KapuaUpdatableEntity{
     public void setComment(String comment);
     
     
-    /**
-     * Get the weather's area
-     * 
-     * @return
-     */
-    @XmlElement(name = "name")
-    public String getName();
-
-    /**
-     * Set the weather's area
-     * 
-     * @param area
-     */
-    public void setName(String name);
+    
     
     
     

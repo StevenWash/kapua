@@ -9,28 +9,28 @@
  * Contributors:
  *     Eurotech - initial API and implementation
  *******************************************************************************/
-package org.eclipse.kapua.service.appinfo;
 
-import org.eclipse.kapua.model.KapuaEntityFactory;
-import org.eclipse.kapua.model.id.KapuaId;
+package org.eclipse.kapua.service.appinfo.internal;
+
+import org.eclipse.kapua.KapuaErrorCode;
 
 /**
- * Account factory service definition.
+ * AppInfo error codes
+ * since 1.0
  * 
- * @since 1.0
  * 
  */
-public interface AppInfoFactory extends KapuaEntityFactory<AppInfo, AppInfoCreator, AppInfoQuery, AppInfoListResult> {
-
-    
-	 /**
-     * Creates a new {@link AppInfoCreator} for the specified name
-     * 
-     * @param scopeId
-     * @param name
-     * @return
+public enum KapuaAppInfoErrorCodes implements KapuaErrorCode {
+    /**
+     * Internal error.
      */
-    public AppInfoCreator newCreator(KapuaId scopeId, String name);
-    
-
+    INTERNAL_ERROR,
+    /**
+     * Illegal argument.
+     */
+    ILLEGAL_ARGUMENT,
+    /**
+     * Operation not allowed.
+     */
+    OPERATION_NOT_ALLOWED;
 }

@@ -25,7 +25,7 @@ public class KapuaAppIfnoSetting extends AbstractKapuaSetting<KapuaAppInfoSettin
      * Resource file from which source properties.
      * 
      */
-    private static final String ACCOUNT_CONFIG_RESOURCE = "kapua-account-setting.properties";
+    private static final String ACCOUNT_CONFIG_RESOURCE = "kapua-appInfo-setting.properties";
 
     private static final KapuaAppIfnoSetting INSTANCE = new KapuaAppIfnoSetting();
 

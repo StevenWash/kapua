@@ -6,13 +6,17 @@ import org.eclipse.kapua.service.appinfo.AppInfoListResult;
 
 
 public class AppInfoListResultImpl extends KapuaListResultImpl<AppInfo>  implements AppInfoListResult{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8417939272694101767L;
+
+	
+
 	
 	
    
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 5607964544036693639L;
 
 
   

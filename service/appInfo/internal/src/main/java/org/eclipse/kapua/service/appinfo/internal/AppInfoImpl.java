@@ -17,11 +17,10 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.appinfo.AppInfo;
-import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
-
-
-
+import org.eclipse.kapua.commons.model.AbstractKapuaNamedEntity;
 
 /**
  * AppInfo entity implementation.
@@ -34,34 +33,17 @@ import org.eclipse.kapua.commons.model.AbstractKapuaUpdatableEntity;
 //	@NamedQuery(name = "ApkInfo.queryByDistinct", query = "select ak from AppInfo ak where ak.packagename=?1 and ak.name=?2")
 })
 @Table(name = "app_info")
-public class AppInfoImpl extends AbstractKapuaUpdatableEntity implements AppInfo {
+public class AppInfoImpl extends AbstractKapuaNamedEntity implements AppInfo {
 
     private static final long serialVersionUID = 8530992430658117928L;
     
- 
- 
     @Basic
     @Column(name = "packagename", nullable = false)
     private String packagename;
     
-    
-
-   
-    
- 
-    @Basic
-    @Column(name = "name", nullable = false)
-    private String name;
-    
-    
-    
     @Basic
     @Column(name = "comment", nullable = false)
     private String comment;
-    
-    
-    
-  
     
     
     @Basic
@@ -80,8 +62,28 @@ public class AppInfoImpl extends AbstractKapuaUpdatableEntity implements AppInfo
     /**
      * Constructor
      */
-    public AppInfoImpl() {
-       
+    protected AppInfoImpl() {
+        super();
+    }
+    
+    /**
+     * Constructor
+     *
+     * @param scopeId
+     */
+    public AppInfoImpl(KapuaId scopeId) {
+        super(scopeId);
+    }
+    
+    
+    /**
+     * Constructor
+     *
+     * @param scopeId
+     * @param name
+     */
+    public AppInfoImpl(KapuaId scopeId, String name) {
+        super(scopeId,name);
     }
     
 
@@ -94,17 +96,6 @@ public class AppInfoImpl extends AbstractKapuaUpdatableEntity implements AppInfo
 		this.packagename = packagename;
 	}
 
-
-   
-	
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getComment() {
 		return comment;

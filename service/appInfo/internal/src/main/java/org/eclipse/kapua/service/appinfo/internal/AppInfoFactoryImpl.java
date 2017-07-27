@@ -20,7 +20,7 @@ import org.eclipse.kapua.service.appinfo.AppInfoListResult;
 import org.eclipse.kapua.service.appinfo.AppInfoQuery;
 
 /**
- * Account service factory implementation.
+ * AppInfo service factory implementation.
  *
  * @since 1.0
  */
@@ -32,12 +32,7 @@ public class AppInfoFactoryImpl implements AppInfoFactory {
         return new AppInfoCreatorImpl(scopeId);
     }
 
- /*   @Override
-    public AccountCreator newCreator(KapuaId scopeId, String name) {
-        AccountCreator creator = newCreator(scopeId);
-        creator.setName(name);
-        return creator;
-    }*/
+
 
     @Override
     public AppInfo newEntity(KapuaId scopeId) {
@@ -56,9 +51,16 @@ public class AppInfoFactoryImpl implements AppInfoFactory {
         return new AppInfoListResultImpl();
     }
 
+
+
 	@Override
 	public AppInfoCreator newCreator(KapuaId scopeId, String name) {
 		// TODO Auto-generated method stub
-		return null;
+		AppInfoCreator creator = newCreator(scopeId);
+	    creator.setName(name);
+	        
+	        return creator;
 	}
+
+
 }

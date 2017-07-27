@@ -35,6 +35,10 @@ import org.eclipse.kapua.service.account.AccountQuery;
 import org.eclipse.kapua.service.account.AccountXmlRegistry;
 import org.eclipse.kapua.service.apkinfo.ApkInfo;
 import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appinfo.AppInfoCreator;
+import org.eclipse.kapua.service.appinfo.AppInfoListResult;
+import org.eclipse.kapua.service.appinfo.AppInfoQuery;
+import org.eclipse.kapua.service.appinfo.AppInfoXmlRegistry;
 import org.eclipse.kapua.service.appversion.AppVersion;
 import org.eclipse.kapua.service.appversion.AppVersionCreator;
 import org.eclipse.kapua.service.appversion.AppVersionListResult;
@@ -374,6 +378,10 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
                     
                  // AppInfo   
                     AppInfo.class,
+                    AppInfoListResult.class,
+                    AppInfoCreator.class,
+                    AppInfoQuery.class,
+                    AppInfoXmlRegistry.class,
                     
                     //AppVersion
                     AppVersion.class,

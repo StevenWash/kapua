@@ -49,7 +49,7 @@ public class ProcessRecoveryServiceImpl extends AbstractKapuaConfigurableResourc
 
   
   @Override
-  public ProcessRecovery findById(KapuaId processRecoveryId,KapuaId scopeId) throws KapuaException {
+  public ProcessRecovery findById(KapuaId scopeId,KapuaId processRecoveryId) throws KapuaException {
     ArgumentValidator.notNull(processRecoveryId, "processRecoveryId");
     ArgumentValidator.notNull(scopeId, "scopeId");
     //checkAccess

@@ -31,8 +31,12 @@ import org.eclipse.kapua.service.authorization.permission.Permission;
  */
 public class AppVersionDomain extends AbstractKapuaEntity implements Domain {
 
-  private static final long serialVersionUID = 3782336558657796495L;
 
+  /**
+   * .
+   */
+  private static final long serialVersionUID = 4566182955379423764L;
+  
   private String name = "appVersion";
   private String serviceName = "appVersionService";
   private Set<Actions> actions = new HashSet<>(Lists.newArrayList(Actions.read,

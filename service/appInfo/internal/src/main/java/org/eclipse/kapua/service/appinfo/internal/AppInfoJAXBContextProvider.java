@@ -26,6 +26,8 @@ import org.eclipse.kapua.model.config.metatype.KapuaTocd;
 import org.eclipse.kapua.model.config.metatype.KapuaToption;
 import org.eclipse.kapua.model.config.metatype.MetatypeXmlRegistry;
 import org.eclipse.kapua.service.appinfo.AppInfo;
+import org.eclipse.kapua.service.appinfo.AppInfoListResult;
+import org.eclipse.kapua.service.appinfo.AppInfoXmlRegistry;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,8 @@ public class AppInfoJAXBContextProvider implements JAXBContextProvider {
         if (context == null) {
             Class<?>[] classes = new Class<?>[] {
             		AppInfo.class,
+            		AppInfoListResult.class,
+            		AppInfoXmlRegistry.class,
             		KapuaTmetadata.class,
                     KapuaTocd.class,
                     KapuaTad.class,

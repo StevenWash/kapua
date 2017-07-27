@@ -4,7 +4,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -85,7 +84,8 @@ public class AppVersions extends AbstractKapuaResource {
         try {
         	
         	appVersion = appVersionService.findByPackagename(scopeId, pName);
-        	
+        	System.out.println("---------------************");
+        	System.out.println("compareTo:"+appVersion.getVersion().compareTo(version));
         	if(appVersion==null || appVersion.getVersion().compareTo(version)<=0){
         	   
         		appVersion=appVersionService.findByDistinct(scopeId,pName, version);

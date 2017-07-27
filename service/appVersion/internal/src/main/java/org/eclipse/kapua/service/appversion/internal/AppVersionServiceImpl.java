@@ -1,5 +1,7 @@
 package org.eclipse.kapua.service.appversion.internal;
 
+import java.util.Objects;
+
 import javax.persistence.TypedQuery;
 
 import org.eclipse.kapua.KapuaEntityNotFoundException;
@@ -27,7 +29,7 @@ import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 
 
 /**
- * {@link weatherService} implementation.
+ * {@link AppVersionService} implementation.
  * 
  * @since 1.0
  *
@@ -46,9 +48,10 @@ public class AppVersionServiceImpl extends AbstractKapuaConfigurableResourceLimi
 
   
   @Override
-  public AppVersion findById(KapuaId appVersionId,KapuaId scopeId) throws KapuaException {
-    ArgumentValidator.notNull(appVersionId, "appVersionId");
+  public AppVersion findById(KapuaId scopeId,KapuaId appVersionId) throws KapuaException {
+   
     ArgumentValidator.notNull(scopeId, "scopeId");
+    ArgumentValidator.notNull(appVersionId, "appVersionId");
     //checkAccess
     KapuaLocator locator = KapuaLocator.getInstance();
     AuthorizationService authorizationService = locator.getService(AuthorizationService.class);
@@ -79,7 +82,6 @@ public class AppVersionServiceImpl extends AbstractKapuaConfigurableResourceLimi
 
     return entityManagerSession.onResult(em -> {
       TypedQuery<AppVersion>  q;
-      System.out.println("packagename:--" + packagename);
       q = em.createNamedQuery("AppVersion.queryByPackagename",AppVersion.class);
       q.setParameter(1,packagename);
       AppVersion  appVersion = (AppVersion) q.getResultList().get(0);
@@ -183,28 +185,28 @@ public class AppVersionServiceImpl extends AbstractKapuaConfigurableResourceLimi
     
     
     return entityManagerSession.onTransactedResult(em -> {
-      AppVersion currentVersion = AppVersionDao.find(em, appVersion.getId());
-      if (currentVersion == null) {
+      AppVersion currentAppVersion = AppVersionDao.find(em, appVersion.getId());
+      if (currentAppVersion == null) {
         throw new KapuaEntityNotFoundException(AppVersion.TYPE, appVersion.getId());
       }
-      /* if (!Objects.equals(currentVersion.getScopeId(), appVersion.getScopeId())) {
+      if (!Objects.equals(currentAppVersion.getScopeId(), appVersion.getScopeId())) {
         throw new KapuaAppVersionException(KapuaAppVersionErrorCodes.ILLEGAL_ARGUMENT, 
             null, "appVersion.scopeId");
-      }*/
+      }
       System.out.println("---------------------");
       
-      currentVersion.setPackagename(appVersion.getPackagename());
-      currentVersion.setCode(appVersion.getCode());
-      currentVersion.setVersion(appVersion.getVersion());
-      currentVersion.setMd5(appVersion.getMd5());
-      currentVersion.setForversion(appVersion.getForversion());
-      currentVersion.setSize(appVersion.getSize());
-      currentVersion.setTypes(appVersion.getTypes());
-      currentVersion.setUrl(appVersion.getUrl());
-      currentVersion.setRevision(appVersion.getRevision());
+      currentAppVersion.setPackagename(appVersion.getPackagename());
+      currentAppVersion.setCode(appVersion.getCode());
+      currentAppVersion.setVersion(appVersion.getVersion());
+      currentAppVersion.setMd5(appVersion.getMd5());
+      currentAppVersion.setForversion(appVersion.getForversion());
+      currentAppVersion.setSize(appVersion.getSize());
+      currentAppVersion.setTypes(appVersion.getTypes());
+      currentAppVersion.setUrl(appVersion.getUrl());
+      currentAppVersion.setRevision(appVersion.getRevision());
       
       // Update
-      return AppVersionDao.update(em, currentVersion);
+      return AppVersionDao.update(em, currentAppVersion);
     });
   }
 

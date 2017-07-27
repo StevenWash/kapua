@@ -36,8 +36,6 @@ public class AppInfoCreatorImpl extends AbstractKapuaNamedEntityCreator<AppInfo>
 	
 	 private String packagename;
 	 
-	
-	 
 	 private String comment;
 	 
 	 private String types;
@@ -45,13 +43,25 @@ public class AppInfoCreatorImpl extends AbstractKapuaNamedEntityCreator<AppInfo>
 	 private String url;
 	 
 	 private String image;
+	 
+	 
+	   /**
+	     * Constructor
+	     * 
+	     * @param scopeId
+	     * @param name
+	     *            appInfo name
+	     */
+	    public AppInfoCreatorImpl(KapuaId scopeId, String name) {
+	        super(scopeId, name);
+	    }
 
 	/**
      * Constructor
      * 
      * @param scopeId
-     * @param name
-     *            account name
+     * 
+     *           
      */
     public AppInfoCreatorImpl(KapuaId scopeId) {
         super(scopeId);

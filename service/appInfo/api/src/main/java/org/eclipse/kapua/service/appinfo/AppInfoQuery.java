@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.eclipse.kapua.model.query.KapuaQuery;
 
 /**
- * Account query definition.
+ * AppInfo query definition.
  * 
  * @since 1.0
  * 

@@ -33,7 +33,6 @@ public class AccountXmlRegistry {
      * @return
      */
     public Account newAccount() {
-    	System.out.println("factory::>>>>>>>>>>>"+factory);
         return factory.newEntity(null);
     }
 

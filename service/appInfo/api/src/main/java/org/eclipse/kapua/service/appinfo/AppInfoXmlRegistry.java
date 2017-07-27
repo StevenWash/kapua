@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 import org.eclipse.kapua.locator.KapuaLocator;
 
 /**
- * Account xml factory class
+ * AppInfo xml factory class
  * 
  * @since 1.0
  *
@@ -33,7 +33,6 @@ public class AppInfoXmlRegistry {
      * @return
      */
     public AppInfo newAppInfo() {
-    	System.out.println("factory::>>>>>>>>>>>"+factory);
         return factory.newEntity(null);
     }
 

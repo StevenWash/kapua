@@ -83,9 +83,9 @@ public class AppVersionDao {
     return ServiceDAO.findByField(em, AppVersionImpl.class, "name", name);
   }
 
-  public static void delete(EntityManager em, KapuaId accountId) 
+  public static void delete(EntityManager em, KapuaId appVersionId) 
       throws KapuaEntityNotFoundException {
-    ServiceDAO.delete(em, AppVersionImpl.class, accountId);
+    ServiceDAO.delete(em, AppVersionImpl.class, appVersionId);
   }
   
   
@@ -121,7 +121,8 @@ public class AppVersionDao {
   
   public static AppVersionListResult query(EntityManager em, KapuaQuery<AppVersion> appVersionQuery)
       throws KapuaException {
-    return (AppVersionListResult) ServiceDAO.query(em, AppVersion.class, AppVersionImpl.class, new AppVersionListResultImpl(), appVersionQuery);
+    return (AppVersionListResult) ServiceDAO.query(em, AppVersion.class, 
+            AppVersionImpl.class, new AppVersionListResultImpl(), appVersionQuery);
   }
 
 
