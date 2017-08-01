@@ -38,7 +38,7 @@ public class MariaDBJdbcConnectionUrlResolver implements JdbcConnectionUrlResolv
                 .append(dbConnectionPort)
                 .append("/")
                 .append(dbName)
-                .append("?");
+                .append("?useSSL=false&");
 
         // Optional connection parameters
         String useTimezone = config.getString(SystemSettingKey.DB_USE_TIMEZONE);
@@ -72,6 +72,7 @@ public class MariaDBJdbcConnectionUrlResolver implements JdbcConnectionUrlResolv
         // This deletes the trailing '?' or '&'
         dbConnectionString.deleteCharAt(dbConnectionString.length() - 1);
 
+        System.out.println("mar:"+dbConnectionString.toString());
         return dbConnectionString.toString();
     }
 

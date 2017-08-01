@@ -41,7 +41,7 @@ public class DefaultConfigurableJdbcConnectionUrlResolver implements JdbcConnect
                 .append(":")
                 .append(dbConnectionPort)
                 .append("/")
-                .append(dbName)
+                .append(dbName+"?useSSL=false")
                 .append(";");
 
         // Optional connection parameters
@@ -55,6 +55,7 @@ public class DefaultConfigurableJdbcConnectionUrlResolver implements JdbcConnect
             dbConnectionString.deleteCharAt(dbConnectionString.length() - 1);
 
         }
+        System.out.println("dbConnectionString:"+ dbConnectionString.toString());
         return dbConnectionString.toString();
     }
 

@@ -578,6 +578,17 @@
                 <artifactId>kapua-security-authentication-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            
+             <dependency>
+                <groupId>org.eclipse.kapua</groupId>
+                <artifactId>kapua-security-registration-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.kapua</groupId>
+                <artifactId>kapua-security-registration-simple</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.eclipse.kapua</groupId>
                 <artifactId>kapua-security-shiro</artifactId>
