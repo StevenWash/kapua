@@ -83,12 +83,13 @@ public class ChannelInfoRegistryFacade {
     public StorableId upstore(ChannelInfo channelInfo)
             throws KapuaIllegalArgumentException,
             ConfigurationException, ClientException {
+        System.out.println("enter upstore");
         ArgumentValidator.notNull(channelInfo, "channelInfo");
         ArgumentValidator.notNull(channelInfo.getScopeId(), "channelInfo.scopeId");
         ArgumentValidator.notNull(channelInfo.getName(), "channelInfo.name");
         ArgumentValidator.notNull(channelInfo.getFirstMessageId(), "channelInfo.messageId");
         ArgumentValidator.notNull(channelInfo.getFirstMessageOn(), "channelInfo.messageTimestamp");
-
+        System.out.println("after upstore params check");
         String channelInfoId = ChannelInfoField.getOrDeriveId(channelInfo.getId(), channelInfo);
         StorableId storableId = new StorableIdImpl(channelInfoId);
 
@@ -123,6 +124,7 @@ public class ChannelInfoRegistryFacade {
                 }
             }
         }
+        System.out.println("out upstore");
         return storableId;
     }
 

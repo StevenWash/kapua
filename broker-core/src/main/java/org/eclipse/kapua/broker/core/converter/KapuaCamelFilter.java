@@ -38,6 +38,7 @@ public class KapuaCamelFilter extends AbstractListener {
      * @throws KapuaException
      */
     public void bindSession(Exchange exchange, Object value) throws KapuaException {
+        System.out.println("KapuaCamelFilter----bindSession:exchange:"+exchange+"  value:"+value);
         ThreadContext.unbindSubject();
         // FIX #164
         byte[] kapuaSession = exchange.getIn().getHeader(MessageConstants.HEADER_KAPUA_SESSION, byte[].class);
@@ -52,6 +53,7 @@ public class KapuaCamelFilter extends AbstractListener {
      * @throws KapuaException
      */
     public void unbindSession(Exchange exchange, Object value) throws KapuaException {
+        System.out.println("KapuaCamelFilter----unbindSession:exchange:"+exchange+"  value:"+value);
         KapuaSecurityUtils.clearSession();
     }
 

@@ -49,7 +49,17 @@ public class KapuaDataConverter extends AbstractKapuaConverter {
     @Converter
     public CamelKapuaMessage<?> convertToData(Exchange exchange, Object value) throws KapuaException {
         metricConverterDataMessage.inc();
-        return convertTo(exchange, value, MessageType.DATA);
+        System.out.println("KapuaDataConverter--------exchange:"+exchange+ "  value:"+value);
+        CamelKapuaMessage<?> msg= convertTo(exchange, value, MessageType.DATA);
+        System.out.println("out KapuaDataConverter------msg:"+msg.getMessage().toString()+"  getConnectionId:"+msg.getConnectionId()+" getConnectorDescriptor:"+msg.getConnectorDescriptor());
+        
+        logger.info("convertToData-----getClientId:"+msg.getMessage().getClientId()+" getCapturedOn:"+msg.getMessage().getCapturedOn()+" getMessage:"+msg.getMessage().getChannel()+
+                " getDeviceId:"+msg.getMessage().getDeviceId()+ " getId:"+msg.getMessage().getId()+" getSentOn:"+msg.getMessage().getSentOn()+
+                " getScopeId:"+msg.getMessage().getScopeId()+" getReceivedOn:"+msg.getMessage().getReceivedOn()+" getPosition:"+msg.getMessage().getPosition()+
+                " getPayload"+msg.getMessage().getPayload().toDisplayString());
+        
+        
+        return msg;
     }
 
 }

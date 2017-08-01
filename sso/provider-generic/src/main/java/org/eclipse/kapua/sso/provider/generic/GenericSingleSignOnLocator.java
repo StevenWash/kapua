@@ -18,6 +18,7 @@ public class GenericSingleSignOnLocator implements ProviderLocator {
 
     @Override
     public SingleSignOnService getService() {
+        System.out.println("service in generic");
         return new GenericSingleSignOnService();
     }
 

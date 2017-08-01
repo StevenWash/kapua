@@ -347,4 +347,24 @@ public class GwtUserServiceImpl extends KapuaConfigurableRemoteServiceServlet<Us
 
         return new BaseListLoadResult<GwtGroupedNVPair>(gwtUserDescription);
     }
+
+    
+    @Override
+    public GwtUser findByName(String name) throws GwtKapuaException {
+        GwtUser gwtUser = null;
+        try {
+            KapuaLocator locator = KapuaLocator.getInstance();
+            UserService userService = locator.getService(UserService.class);
+            User user = userService.findByName(name);
+            if (user != null) {
+                gwtUser = KapuaGwtModelConverter.convert(user);
+            }
+        } catch (Throwable t) {
+            KapuaExceptionHandler.handle(t);
+        }
+
+        return gwtUser;
+    }
+
+    
 }

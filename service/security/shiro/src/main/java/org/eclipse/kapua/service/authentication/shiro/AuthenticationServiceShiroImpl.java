@@ -120,7 +120,6 @@ public class AuthenticationServiceShiroImpl implements AuthenticationService {
     @Override
     public AccessToken login(LoginCredentials loginCredentials)
             throws KapuaException {
-
         checkCurrentSubjectNotAuthenticated();
 
         //

@@ -45,7 +45,7 @@ public class DataStorageMessageProcessor extends AbstractProcessor<CamelKapuaMes
 
     public DataStorageMessageProcessor() {
         super("DataStorage");
-
+        logger.info("enter DataStorageMessageProcessor.....");
         // data message
         metricStorageMessage = registerCounter("listener", "storage", "messages", "count");
         metricStorageDataErrorMessage = registerCounter("listener", "storage", "messages", "data", "error", "count");
@@ -61,16 +61,26 @@ public class DataStorageMessageProcessor extends AbstractProcessor<CamelKapuaMes
 
         // TODO filter alert topic???
         //
+       logger.info("processMessage--getConnectionId:"+message.getConnectionId()+" getConnectorDescriptor:"+message.getConnectorDescriptor());
 
         // data messages
         try {
             Context metricStorageDataSaveTimeContext = metricStorageDataSaveTime.time();
+            logger.info("Received data message from device channel: client id '{}' - {}", message.getMessage().getClientId(), message.getMessage().getChannel());
+            logger.info("getClientId:"+message.getMessage().getClientId()+" getCapturedOn:"+message.getMessage().getCapturedOn()+" getMessage:"+message.getMessage().getChannel()+
+                    " getDeviceId:"+message.getMessage().getDeviceId()+ " getId:"+message.getMessage().getId()+" getSentOn:"+message.getMessage().getSentOn()+
+                    " getScopeId:"+message.getMessage().getScopeId()+" getReceivedOn:"+message.getMessage().getReceivedOn()+" getPosition:"+message.getMessage().getPosition()+
+                    " getPayload"+message.getMessage().getPayload().toDisplayString());
+            
             logger.debug("Received data message from device channel: client id '{}' - {}", message.getMessage().getClientId(), message.getMessage().getChannel());
+            logger.info(">>>before store");
             messageStoreService.store(message.getMessage());
+            logger.info(">>>after store");
             metricStorageMessage.inc();
             metricStorageDataSaveTimeContext.stop();
         } catch (KapuaException e) {
             metricStorageDataErrorMessage.inc();
+            logger.info("e:"+e.getMessage()+" "+e.getCause());
             logger.error("An error occurred while storing message", e);
         }
     }

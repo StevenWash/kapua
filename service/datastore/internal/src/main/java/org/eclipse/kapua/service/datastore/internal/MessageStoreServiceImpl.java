@@ -72,10 +72,12 @@ public class MessageStoreServiceImpl extends AbstractKapuaConfigurableService im
     @Override
     public InsertResponse store(KapuaMessage<?, ?> message)
             throws KapuaException {
+        System.out.println("enter MessageStoreServiceImpl----store ");
         ArgumentValidator.notNull(message.getScopeId(), "message.scopeId");
-
+        System.out.println("MessageStoreServiceImpl----store ");
         checkDataAccess(message.getScopeId(), Actions.write);
         try {
+            System.out.println("MessageStoreServiceImpl----store----try: "+message.getClientId());
             return messageStoreFacade.store(message);
         } catch (Exception e) {
             throw KapuaException.internalError(e);

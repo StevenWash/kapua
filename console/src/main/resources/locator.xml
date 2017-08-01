@@ -71,6 +71,10 @@
         <api>org.eclipse.kapua.service.device.management.packages.DevicePackageFactory</api>
         <api>org.eclipse.kapua.service.device.management.snapshot.DeviceSnapshotManagementService</api>
         <api>org.eclipse.kapua.service.device.management.snapshot.DeviceSnapshotFactory</api>
+        
+        <api>org.eclipse.kapua.sso.SingleSignOnService</api>
+        
+        
 
         <api>org.eclipse.kapua.service.user.UserFactory</api>
         <api>org.eclipse.kapua.service.user.UserService</api>
@@ -84,5 +88,6 @@
         <package>org.eclipse.kapua.commons</package>
         <package>org.eclipse.kapua.service</package>
         <package>org.eclipse.kapua.transport</package>
+        <package>org.eclipse.kapua.sso.provider.keycloak</package>
     </packages>
 </locator-config>

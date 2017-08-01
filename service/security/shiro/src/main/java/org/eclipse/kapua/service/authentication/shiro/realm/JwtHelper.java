@@ -48,6 +48,7 @@ public final class JwtHelper {
 
     public static JwtContext processJwt(String jwt) throws InvalidJwtException {
         URI jwksUri = resolveJwksUri(jwt);
+        
         HttpsJwks httpsJkws = new HttpsJwks(jwksUri.toString());
         HttpsJwksVerificationKeyResolver httpsJwksKeyResolver = new HttpsJwksVerificationKeyResolver(httpsJkws);
 
@@ -56,7 +57,7 @@ public final class JwtHelper {
         KapuaAuthenticationSetting setting = KapuaAuthenticationSetting.getInstance();
         List<String> audiences = setting.getList(String.class, KapuaAuthenticationSettingKeys.AUTHENTICATION_CREDENTIAL_AUDIENCE_ALLOWED);
         List<String> expectedIssuers = setting.getList(String.class, KapuaAuthenticationSettingKeys.AUTHENTICATION_CREDENTIAL_ISSUER_ALLOWED);
-
+        
         JwtConsumer jwtConsumer = new JwtConsumerBuilder()
                 .setVerificationKeyResolver(httpsJwksKeyResolver) // Set resolver key
                 .setRequireIssuedAt() // Set require reserved claim: iat
@@ -65,12 +66,10 @@ public final class JwtHelper {
                 .setExpectedIssuers(true, expectedIssuers.toArray(new String[expectedIssuers.size()]))
                 .setExpectedAudience(audiences.toArray(new String[audiences.size()]))
                 .build();
-
         return jwtConsumer.process(jwt);
     }
 
     private static URI resolveJwksUri(final String jwt) {
-
         try {
             //
             // Parse JWT without validation
@@ -79,9 +78,9 @@ public final class JwtHelper {
                     .setDisableRequireSignature()
                     .setSkipSignatureVerification()
                     .build();
-
+            
             final JwtContext jwtContext = jwtConsumer.process(jwt);
-
+            
             //
             // Resolve Json Web Key Set URI by the issuer
             String issuer = jwtContext.getJwtClaims().getIssuer();
@@ -105,7 +104,7 @@ public final class JwtHelper {
 
             // Get and clean jwks_uri property
             final JsonValue jwksUriJsonValue = jsonObject.get(JWKS_URI_WELL_KNOWN_KEY);
-
+            
             if (jwksUriJsonValue instanceof JsonString) {
                 final String jwksUriString = ((JsonString) jwksUriJsonValue).getString();
                 final URI uri = new URI(jwksUriString);

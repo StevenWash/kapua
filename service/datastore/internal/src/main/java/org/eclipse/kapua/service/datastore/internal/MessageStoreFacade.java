@@ -109,6 +109,7 @@ public final class MessageStoreFacade {
             throws KapuaIllegalArgumentException,
             ConfigurationException,
             ClientException {
+        logger.info("enter MessageStoreFacade----store");
         ArgumentValidator.notNull(message, "message");
         ArgumentValidator.notNull(message.getScopeId(), "scopeId");
         ArgumentValidator.notNull(message.getReceivedOn(), "receivedOn");
@@ -127,7 +128,7 @@ public final class MessageStoreFacade {
 
         Date capturedOn = message.getCapturedOn();
         long currentDate = KapuaDateUtils.getKapuaSysDate().toEpochMilli();
-
+        
         // Overwrite timestamp if necessary
         // Use the account service plan to determine whether we will give
         // precede to the device time
@@ -150,6 +151,7 @@ public final class MessageStoreFacade {
         InsertRequest insertRequest = new InsertRequest(typeDescriptor, messageToStore);
         // Possibly update the schema with new metric mappings
         Map<String, Metric> metrics = new HashMap<>();
+        
         if (message.getPayload()!=null && message.getPayload().getProperties()!=null && message.getPayload().getProperties().size()>0) {
             Map<String, Object> messageMetrics = message.getPayload().getProperties();
             Iterator<String> metricsIterator = messageMetrics.keySet().iterator();
@@ -164,11 +166,10 @@ public final class MessageStoreFacade {
                 metrics.put(mappedName, metric);
             }
         }
+        
         mediator.onUpdatedMappings(message.getScopeId(), indexedOn, metrics);
-
         InsertResponse insertResponse = client.insert(insertRequest);
         messageToStore.setDatastoreId(new StorableIdImpl(insertResponse.getId()));
-
         mediator.onAfterMessageStore(messageInfo, messageToStore);
         return insertResponse;
     }

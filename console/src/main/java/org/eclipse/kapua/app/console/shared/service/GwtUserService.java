@@ -92,4 +92,16 @@ public interface GwtUserService extends KapuaConfigurableRemoteService {
             throws GwtKapuaException;
 
     public ListLoadResult<GwtGroupedNVPair> getUserDescription(String shortScopeId, String shortUserId) throws GwtKapuaException;
+    
+    /**
+     * 通过name来查找用户信息
+     * 
+     * @param name
+     * @return
+     * @throws GwtKapuaException
+     * @author StevenWash
+     */
+    public GwtUser findByName(String name)
+            throws GwtKapuaException;
+
 }

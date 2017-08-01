@@ -45,13 +45,9 @@ public class GwtSettingsServiceImpl extends RemoteServiceServlet implements GwtS
     @Override
     public String getSsoLoginUri() {
         URI uri= SsoHelper.getRedirectUri();
-        System.out.println("uri:"+uri);
         SingleSignOnLocator lo=SsoLocator.getLocator(this);
-        System.out.println("lo:"+lo);
         SingleSignOnService  ss=lo.getService();
-        System.out.println("ss:"+ss.toString());
         String loginUri=ss.getLoginUri(UUID.randomUUID().toString(), uri);
-        System.out.println("loginUri:"+loginUri);
         return loginUri;
     }
 

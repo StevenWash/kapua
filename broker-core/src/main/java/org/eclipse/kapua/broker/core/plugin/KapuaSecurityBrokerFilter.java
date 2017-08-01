@@ -353,11 +353,13 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
             // 3) check authorization
             DefaultAuthorizationMap authMap = null;
             if (isAdminUser(username)) {
+                System.out.println("username is admin:"+username);
                 metricLoginKapuasysTokenAttempt.inc();
                 // 3-1) admin authMap
                 authMap = buildAdminAuthMap(authDestinations, principal, fullClientId);
                 metricClientConnectedKapuasys.inc();
             } else {
+                System.out.println("username is not admin:"+username);
                 Context loginNormalUserTimeContext = metricLoginNormalUserTime.time();
                 metricLoginNormalUserAttempt.inc();
                 // 3-3) check permissions
@@ -373,6 +375,11 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
                 if (!hasPermissions[AclConstants.BROKER_CONNECT_IDX]) {
                     throw new KapuaIllegalAccessException(permissionFactory.newPermission(BROKER_DOMAIN, Actions.connect, scopeId).toString());
                 }
+                
+                for(int i=0;i<4;i++){
+                    System.out.println(i+":"+hasPermissions[i]);
+                }
+                
                 loginCheckAccessTimeContext.stop();
 
                 // 3-4) build authMap
@@ -382,7 +389,7 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
                 Context loginFindClientIdTimeContext = metricLoginFindClientIdTime.time();
                 deviceConnection = KapuaSecurityUtils.doPrivileged(() -> deviceConnectionService.findByClientId(scopeId, clientId));
                 
-                System.out.println("get deviceConnection>>>>>>clientId:"+deviceConnection.getClientId()+"   userId:"+deviceConnection.getUserId());
+               // System.out.println("get deviceConnection>>>>>>clientId:"+deviceConnection.getClientId()+"   userId:"+deviceConnection.getUserId());
                 loginFindClientIdTimeContext.stop();
 
                 Context loginFindDevTimeContext = metricLoginFindDevTime.time();
@@ -404,6 +411,8 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
                     deviceConnection.setServerIp(null);// TODO to be filled with the proper value
                     deviceConnection.setUserId(userId);
                     deviceConnection.setStatus(DeviceConnectionStatus.CONNECTED);
+                    logger.info("deviceConnection:"+deviceConnection);
+                    
                     final DeviceConnection deviceConnectionToUpdate = deviceConnection;
                     KapuaSecurityUtils.doPrivileged(() -> deviceConnectionService.update(deviceConnectionToUpdate));
                     // TODO implement the banned status
@@ -444,6 +453,8 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
             // multiple account stealing link fix
             info.setClientId(fullClientId);
             context.setClientId(fullClientId);
+            
+            System.out.println("info:"+info.toString()+ "  context-username:"+context.getUserName());
         } catch (Exception e) {
             metricLoginFailure.inc();
 
@@ -590,7 +601,7 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
     @Override
     public void send(ProducerBrokerExchange producerExchange, Message messageSend)
             throws Exception {
-        Context sendTimeContext = metricPublishTime.time();
+        Context sendTimeContext = metricPublishTime.time(); 
         try {
             internalSend(producerExchange, messageSend);
         } finally {
@@ -600,6 +611,7 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
 
     private void internalSend(ProducerBrokerExchange producerExchange, Message messageSend)
             throws Exception {
+        logger.info("enter internalSend...:"+messageSend.toString());
         if (!StringUtils.containsNone(messageSend.getDestination().getPhysicalName(), new char[] { '+', '#' })) {
             String message = MessageFormat.format("The caracters '+' and '#' cannot be included in a topic! Destination: {}",
                     messageSend.getDestination());
@@ -608,7 +620,14 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
         if (!isBrokerContext(producerExchange.getConnectionContext())) {
             KapuaSecurityContext kapuaSecurityContext = getKapuaSecurityContext(producerExchange.getConnectionContext());
             if (!messageSend.getDestination().isTemporary()) {
+                
+                logger.info("internalSend---getDestination:"+messageSend.getDestination());
+                logger.info("internalSend---getAuthorizationMap:"+kapuaSecurityContext.getAuthorizationMap().toString());
+                
                 Set<?> allowedACLs = kapuaSecurityContext.getAuthorizationMap().getWriteACLs(messageSend.getDestination());
+                logger.info("internalSend---getWriteACLs:"+allowedACLs.toString());
+                logger.info("internalSend---isInOneOf:"+kapuaSecurityContext.isInOneOf(allowedACLs));
+                
                 if (allowedACLs != null && !kapuaSecurityContext.isInOneOf(allowedACLs)) {
                     String message = MessageFormat.format("User {0} ({1} - {2} - conn id {3}) is not authorized to write to: {4}",
                             kapuaSecurityContext.getUserName(),
@@ -636,11 +655,13 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
             logger.warn("Cannot update message size metric. Incoming message for topic {} has null content!", messageSend.getDestination());
         }
         ActiveMQDestination destination = messageSend.getDestination();
+        logger.info("destination:"+destination);
         if (destination instanceof ActiveMQTopic) {
             ActiveMQTopic destinationTopic = (ActiveMQTopic) destination;
             messageSend.setProperty(MessageConstants.PROPERTY_ORIGINAL_TOPIC, destinationTopic.getTopicName().substring(AclConstants.VT_TOPIC_PREFIX.length()));
         }
         metricPublishAllowedMessages.inc();
+        logger.info("end of the send..:message:"+messageSend.getMessage());
         super.send(producerExchange, messageSend);
     }
 
@@ -663,10 +684,14 @@ public class KapuaSecurityBrokerFilter extends BrokerFilter {
 
     private Subscription internalAddConsumer(ConnectionContext context, ConsumerInfo info)
             throws Exception {
+        logger.info("enter internalAddConsumer...:"+info.getClientId());
         info.setClientId(context.getClientId());
         if (!isBrokerContext(context)) {
+            logger.info("is not a brokerContext...");
             String[] destinationsPath = info.getDestination().getDestinationPaths();
             String destination = info.getDestination().getPhysicalName();
+            logger.info("destinationsPath:"+destinationsPath+"  destination:"+destination);
+            
             KapuaSecurityContext kapuaSecurityContext = getKapuaSecurityContext(context);
             if (destinationsPath != null && destinationsPath.length >= 2 && destinationsPath[0].equals(AclConstants.VT_CONSUMER_PREFIX)) {
                 StringBuilder sb = new StringBuilder();

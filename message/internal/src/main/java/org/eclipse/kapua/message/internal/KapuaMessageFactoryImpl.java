@@ -38,7 +38,6 @@ public class KapuaMessageFactoryImpl implements KapuaMessageFactory {
     }
 
     @Override
-
     public KapuaPosition newPosition() {
         return new KapuaPositionImpl();
     }

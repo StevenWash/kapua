@@ -53,6 +53,7 @@ public class DeviceMessageListener extends AbstractListener {
 
     public DeviceMessageListener() {
         super("deviceLifeCycle");
+        logger.info("enter DeviceMessageListener.....");
         metricDeviceBirthMessage = registerCounter("messages", "birth", "count");
         metricDeviceDisconnectMessage = registerCounter("messages", "dc", "count");
         metricDeviceMissingMessage = registerCounter("messages", "missing", "count");
@@ -68,6 +69,7 @@ public class DeviceMessageListener extends AbstractListener {
      * @param birthMessage
      */
     public void processBirthMessage(CamelKapuaMessage<KapuaBirthMessage> birthMessage) {
+        logger.info("enter DeviceMessageListener.....processBirthMessage.....");
         try {
             deviceLifeCycleService.birth(birthMessage.getConnectionId(), birthMessage.getMessage());
             metricDeviceBirthMessage.inc();
@@ -110,6 +112,7 @@ public class DeviceMessageListener extends AbstractListener {
      * @param disconnectMessage
      */
     public void processDisconnectMessage(CamelKapuaMessage<KapuaDisconnectMessage> disconnectMessage) {
+        logger.info("enter DeviceMessageListener.....processDisconnectMessage.....");
         try {
             deviceLifeCycleService.death(disconnectMessage.getConnectionId(), disconnectMessage.getMessage());
             metricDeviceDisconnectMessage.inc();
@@ -126,6 +129,7 @@ public class DeviceMessageListener extends AbstractListener {
      * @param appsMessage
      */
     public void processAppsMessage(CamelKapuaMessage<KapuaAppsMessage> appsMessage) {
+        logger.info("enter DeviceMessageListener.....processAppsMessage.....");
         try {
             deviceLifeCycleService.applications(appsMessage.getConnectionId(), appsMessage.getMessage());
             metricDeviceAppsMessage.inc();
@@ -142,6 +146,7 @@ public class DeviceMessageListener extends AbstractListener {
      * @param missingMessage
      */
     public void processMissingMessage(CamelKapuaMessage<KapuaMissingMessage> missingMessage) {
+        logger.info("enter DeviceMessageListener.....processMissingMessage.....");
         try {
             deviceLifeCycleService.missing(missingMessage.getConnectionId(), missingMessage.getMessage());
             metricDeviceMissingMessage.inc();

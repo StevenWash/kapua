@@ -166,8 +166,11 @@ public class KuraDataPayload implements DevicePayload {
 
         KuraPayloadProto.KuraPayload protoMsg = null;
         try {
+            System.out.println("bytes:"+new String(bytes));
+            
             protoMsg = KuraPayloadProto.KuraPayload.parseFrom(bytes);
         } catch (InvalidProtocolBufferException | ExceptionInInitializerError ipbe) {
+            System.out.println("ipbe:class:"+ipbe.getClass()+" getStackTrace:"+ipbe.getStackTrace()+" getSuppressed:"+ipbe.getSuppressed()+" getMessage:"+ipbe.getMessage());
             throw new MessageException(MessageErrorCodes.INVALID_MESSAGE, ipbe, new Object[] { ipbe.getMessage() });
         }
 

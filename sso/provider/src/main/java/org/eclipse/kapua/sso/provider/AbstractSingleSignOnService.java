@@ -89,6 +89,8 @@ public abstract class AbstractSingleSignOnService implements SingleSignOnService
         // FIXME: switch to HttpClient implementation: better performance and connection caching
 
         final URL url = new URL(getTokenUri());
+        System.out.println("url:"+url);
+        
         final HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
         urlConnection.setRequestMethod("POST");
@@ -103,25 +105,25 @@ public abstract class AbstractSingleSignOnService implements SingleSignOnService
         if (clientSecret != null && !clientSecret.isEmpty()) {
             parameters.add(new BasicNameValuePair("client_secret", clientSecret));
         }
-
         parameters.add(new BasicNameValuePair("redirect_uri", redirectUri.toString()));
-
+        System.out.println("parameters:"+parameters);
+        
         final UrlEncodedFormEntity entity = new UrlEncodedFormEntity(parameters);
 
         // Send post request
 
         urlConnection.setDoOutput(true);
-
         try (final OutputStream outputStream = urlConnection.getOutputStream()) {
             entity.writeTo(outputStream);
         }
-
+        System.out.println("urlConnection response code:"+urlConnection.getResponseCode());
         // parse result
 
         final JsonObject jsonObject;
         try (final InputStream stream = urlConnection.getInputStream()) {
             jsonObject = Json.createReader(stream).readObject();
         }
+        System.out.println("jsonObject:"+jsonObject);
         return jsonObject;
     }
 

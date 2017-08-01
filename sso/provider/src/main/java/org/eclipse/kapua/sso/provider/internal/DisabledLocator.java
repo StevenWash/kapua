@@ -36,6 +36,7 @@ public class DisabledLocator implements ProviderLocator {
 
         @Override
         public JsonObject getAccessToken(final String authCode, final URI redirectUri) {
+            System.out.println("DisabledLocator..."+" authCode:"+authCode+"  redirectUri:"+redirectUri);
             return null;
         }
     };

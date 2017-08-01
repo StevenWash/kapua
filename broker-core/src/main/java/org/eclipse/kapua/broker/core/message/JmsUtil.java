@@ -27,6 +27,8 @@ import org.eclipse.kapua.broker.core.plugin.ConnectorDescriptor.MessageType;
 import org.eclipse.kapua.message.KapuaMessage;
 import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.service.device.call.message.DeviceMessage;
+import org.eclipse.kapua.service.device.call.message.kura.KuraPosition;
+import org.eclipse.kapua.service.device.call.message.kura.data.KuraDataPayload;
 import org.eclipse.kapua.translator.Translator;
 import org.eclipse.kapua.transport.message.jms.JmsMessage;
 import org.eclipse.kapua.transport.message.jms.JmsPayload;
@@ -137,8 +139,24 @@ public class JmsUtil {
     public static CamelKapuaMessage<?> convertToCamelKapuaMessage(ConnectorDescriptor connectorDescriptor, MessageType messageType, byte[] messageBody, String jmsTopic, Date queuedOn,
             KapuaId connectionId, String clientId)
             throws KapuaException {
+        logger.info("JmsUtil-----convertToCamelKapuaMessage:connectionId"+connectionId+"  clientId:"+clientId);
+        logger.info("JmsUtil-----getKapuaClass"+connectorDescriptor.getKapuaClass(messageType));
+        logger.info("JmsUtil-----messageBody"+messageBody.toString());
+        
+        KuraDataPayload kuraDataPayload = new KuraDataPayload();
+        kuraDataPayload.setBody(messageBody);
+        kuraDataPayload.setTimestamp(new Date());
+        KuraPosition position = new KuraPosition();
+        position.setLatitude(46.369079);
+        position.setLongitude(13.076729);
+        kuraDataPayload.setPosition(position);
+        messageBody = kuraDataPayload.toByteArray();
+        
+        logger.info("messageBody:"+new String(messageBody));
+        
         KapuaMessage<?, ?> kapuaMessage = convertToKapuaMessage(connectorDescriptor.getDeviceClass(messageType), connectorDescriptor.getKapuaClass(messageType), messageBody, jmsTopic, queuedOn,
                 connectionId, clientId);
+        logger.info("JmsUtil-----convertToCamelKapuaMessage:kapuaMessage"+kapuaMessage);
         return new CamelKapuaMessage<KapuaMessage<?, ?>>(kapuaMessage, connectionId, connectorDescriptor);
     }
 
@@ -159,7 +177,12 @@ public class JmsUtil {
             throws KapuaException {
         // first step... from jms to device dependent protocol level (unknown)
         Translator<JmsMessage, DeviceMessage<?, ?>> translatorFromJms = Translator.getTranslatorFor(JmsMessage.class, deviceMessageType);// birth ...
-        DeviceMessage<?, ?> deviceMessage = translatorFromJms.translate(new JmsMessage(new JmsTopic(jmsTopic), queuedOn, new JmsPayload(messageBody)));
+        
+        JmsMessage jms = new JmsMessage(new JmsTopic(jmsTopic), queuedOn, new JmsPayload(messageBody));
+        
+        logger.info("JmsUtil----convertToKapuaMessage:jms:"+jms);
+        
+        DeviceMessage<?, ?> deviceMessage = translatorFromJms.translate(jms);
 
         // second step.... from device dependent protocol (unknown) to Kapua
         Translator<DeviceMessage<?, ?>, KapuaMessage<?, ?>> translatorToKapua = Translator.getTranslatorFor(deviceMessageType, kapuaMessageType);

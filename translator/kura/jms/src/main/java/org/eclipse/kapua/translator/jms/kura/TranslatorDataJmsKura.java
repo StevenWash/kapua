@@ -32,8 +32,16 @@ public class TranslatorDataJmsKura extends Translator<JmsMessage, KuraDataMessag
     @Override
     public KuraDataMessage translate(JmsMessage jmsMessage)
             throws KapuaException {
+        System.out.println("getTopic:"+jmsMessage.getTopic());
+        System.out.println("getPayload:"+jmsMessage.getPayload());
+        
         KuraDataChannel kuraChannel = translate(jmsMessage.getTopic());
+        System.out.println("kuraChannel:"+kuraChannel);
+        
+        System.out.println("getPayload----getBody:"+new String(jmsMessage.getPayload().getBody()));
         KuraDataPayload kuraPayload = translate(jmsMessage.getPayload());
+        System.out.println("kuraPayload:"+kuraPayload);
+        
         return new KuraDataMessage(kuraChannel,
                 jmsMessage.getReceivedOn(),
                 kuraPayload);
@@ -53,6 +61,7 @@ public class TranslatorDataJmsKura extends Translator<JmsMessage, KuraDataMessag
             throws KapuaException {
         KuraDataPayload kuraPayload = null;
         if (jmsPayload.getBody() != null) {
+            System.out.println("getPayload----getBody:"+new String(jmsPayload.getBody()));
             kuraPayload = new KuraDataPayload();
             kuraPayload.readFromByteArray(jmsPayload.getBody());
         }

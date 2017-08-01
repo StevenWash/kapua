@@ -141,15 +141,17 @@ public class DatastoreMediator implements MessageStoreMediator,
             throws KapuaIllegalArgumentException,
             ConfigurationException,
             ClientException {
+        System.out.println("enter onAfterMessageStore...");
         // convert semantic channel to String
         String semanticChannel = message.getChannel() != null ? message.getChannel().toString() : "";
-
         ClientInfoImpl clientInfo = new ClientInfoImpl(message.getScopeId());
         clientInfo.setClientId(message.getClientId());
         clientInfo.setId(new StorableIdImpl(ClientInfoField.getOrDeriveId(null, message.getScopeId(), message.getClientId())));
         clientInfo.setFirstMessageId(message.getDatastoreId());
         clientInfo.setFirstMessageOn(message.getTimestamp());
         clientInfoStoreFacade.upstore(clientInfo);
+        
+        System.out.println("upstore clientInfo in onAfterMessageStore...");
 
         ChannelInfoImpl channelInfo = new ChannelInfoImpl(message.getScopeId());
         channelInfo.setClientId(message.getClientId());
@@ -160,6 +162,8 @@ public class DatastoreMediator implements MessageStoreMediator,
         clientInfo.setFirstMessageId(message.getDatastoreId());
         clientInfo.setFirstMessageOn(message.getTimestamp());
         channelInfoStoreFacade.upstore(channelInfo);
+        
+        System.out.println("upstore channelInfo in onAfterMessageStore...");
 
         KapuaPayload payload = message.getPayload();
         if (payload == null) {
@@ -186,6 +190,7 @@ public class DatastoreMediator implements MessageStoreMediator,
         }
 
         metricInfoStoreFacade.upstore(messageMetrics);
+        System.out.println("out onAfterMessageStore...");
     }
 
     /*

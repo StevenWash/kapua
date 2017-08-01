@@ -86,7 +86,6 @@ public class JwtAuthenticatingRealm extends AuthenticatingRealm {
         } catch (KapuaRuntimeException kre) {
             throw new ShiroException("Error while getting services!", kre);
         }
-
         final String name;
         try {
             JwtContext ctx = JwtHelper.processJwt(jwt);
